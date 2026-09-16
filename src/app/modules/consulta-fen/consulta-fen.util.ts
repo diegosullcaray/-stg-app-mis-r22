@@ -16,6 +16,7 @@ export interface FenRiskRow {
 /** Extiende el contrato backend con `obs`, campo derivado de KPIs en frontend. */
 export interface FenDisplayRow extends FenRiskRow {
   obs: string;
+  obs_mobile: string;
 }
 
 export const FEN_REPORT_CODE = 'CON_AGRO_FEN';
@@ -46,6 +47,15 @@ const riskFormat = {
   params: { format: 'text', contStyleFn: riskChipStyle, textStyleFn: riskChipTextStyle }
 };
 
+const mobileRiskFormat = {
+  type: 'chip',
+  params: {
+    format: 'text',
+    contStyleFn: (value: RiskLevel) => `display:inline-block;width:12px;height:12px;border-radius:50%;background:${riskColors[value] || '#94a3b8'};margin:auto;`,
+    textStyleFn: () => 'font-size:0;color:transparent;'
+  }
+};
+
 const obsFormat = {
   type: 'chip',
   params: {
@@ -57,6 +67,21 @@ const obsFormat = {
     textStyleFn: (value: string) =>
       value !== '-'
         ? 'color:#dc2626;font-size:11.5px;font-weight:600;white-space:normal;line-height:1.4;'
+        : 'color:#94a3b8;font-size:12px;'
+  }
+};
+
+const mobileObsFormat = {
+  type: 'chip',
+  params: {
+    format: 'text',
+    contStyleFn: (value: string) =>
+      value !== '-'
+        ? 'display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#fef2f2;margin:auto;'
+        : 'display:inline;',
+    textStyleFn: (value: string) =>
+      value !== '-'
+        ? 'color:#dc2626;font-size:14px;'
         : 'color:#94a3b8;font-size:12px;'
   }
 };
@@ -84,16 +109,37 @@ export const fenTableOptions = createStgLightTable2Config({
   }
 });
 
+const styR = { 'text-align': 'right' };
+const styC = { 'text-align': 'center' };
+
 export const fenTableHeaders = [
-  { label: 'UBIGEO',       key: 'cod_ubi', style: { 'min-width': '105px' }, cellStyle: { 'min-width': '105px', 'font-weight': '700', 'color': '#0f172a' } },
-  { label: 'Distrito',     key: 'des_dist', style: { 'min-width': '150px' }, cellStyle: { 'min-width': '150px', 'color': '#2b6cb0' } },
-  { label: 'Provincia',    key: 'des_prov', style: { 'min-width': '150px' }, cellStyle: { 'min-width': '150px' } },
-  { label: 'Departamento', key: 'des_dep',  style: { 'min-width': '170px' }, cellStyle: { 'min-width': '170px' } },
-  { label: 'Mov. en masa', key: 'exp_mas', format: riskFormat, cellStyle: { 'text-align': 'center' } },
-  { label: 'Inundación',   key: 'exp_inu', format: riskFormat, cellStyle: { 'text-align': 'center' } },
-  { label: 'Sequía',       key: 'exp_seq', format: riskFormat, cellStyle: { 'text-align': 'center' } },
-  { label: 'Predominante', key: 'exp_pre', format: riskFormat, cellStyle: { 'text-align': 'center' } },
-  { label: 'Observación',  key: 'obs',     format: obsFormat,  style: { 'min-width': '220px' }, cellStyle: { 'min-width': '220px', 'white-space': 'normal', 'line-height': '1.35' } }
+  { label: 'UBIGEO', key: 'cod_ubi', style: { 'min-width': '105px', ...styR }, cellStyle: { 'min-width': '105px', 'font-weight': '700', 'color': '#0f172a', ...styR } },
+  { label: 'Distrito', key: 'des_dist', style: { 'min-width': '150px', ...styR }, cellStyle: { 'min-width': '150px', 'color': '#2b6cb0', ...styR } },
+  { label: 'Provincia', key: 'des_prov', style: { 'min-width': '150px', ...styR }, cellStyle: { 'min-width': '150px', ...styR } },
+  { label: 'Departamento', key: 'des_dep', style: { 'min-width': '170px', ...styR }, cellStyle: { 'min-width': '170px', ...styR } },
+  { label: 'Mov. en masa', key: 'exp_mas', format: riskFormat, cellStyle: styC },
+  { label: 'Inundación', key: 'exp_inu', format: riskFormat, cellStyle: styC },
+  { label: 'Sequía', key: 'exp_seq', format: riskFormat, cellStyle: styC },
+  { label: 'Predominante', key: 'exp_pre', format: riskFormat, cellStyle: styC },
+  { label: 'Observación', key: 'obs', format: obsFormat, style: { 'min-width': '220px', ...styR }, cellStyle: { 'min-width': '220px', 'white-space': 'normal', 'line-height': '1.35', ...styR } }
+];
+
+const styRisk = { 'min-width': '28px', 'width': '30px', 'max-width': '30px', 'text-align': 'center' };
+const styAlert = { 'min-width': '36px', 'width': '36px', 'max-width': '36px', 'text-align': 'center' };
+const styDist = { 'min-width': '50px', 'width': '65px', 'max-width': '65px', 'text-align': 'right' };
+const styUbi = { 'min-width': '50px', 'width': '50px', 'max-width': '50px', 'text-align': 'right' };
+const styProv = { 'min-width': '65px', 'width': '65px', 'max-width': '65px', 'text-align': 'right' };
+
+export const fenTableHeadersMobile = [
+  { label: 'Distrito', key: 'des_dist', style: styDist, cellStyle: { ...styDist, 'color': '#2b6cb0' } },
+  { label: 'Movi.', key: 'exp_mas', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
+  { label: 'Inun.', key: 'exp_inu', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
+  { label: 'Sequ.', key: 'exp_seq', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
+  { label: 'Pred.', key: 'exp_pre', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
+  { label: 'Alerta', key: 'obs_mobile', format: mobileObsFormat, style: styAlert, cellStyle: styAlert },
+  { label: 'UBIGEO', key: 'cod_ubi', style: styUbi, cellStyle: { ...styUbi, 'font-weight': '700', 'color': '#0f172a' } },
+  { label: 'Provincia', key: 'des_prov', style: styProv, cellStyle: styProv },
+  { label: 'Dpto.', key: 'des_dep', style: styProv, cellStyle: styProv }
 ];
 
 export function isFenRiskRow(value: any): value is FenRiskRow {
@@ -114,5 +160,10 @@ export function isHighRisk(value: RiskLevel): boolean {
 
 /** Observación comercial derivada del KPI predominante. Lógica frontend. */
 export function fenBuildDisplayRow(row: FenRiskRow): FenDisplayRow {
-  return { ...row, obs: isHighRisk(row.exp_pre) ? FEN_HIGH_RISK_MESSAGE : '-' };
+  const isHigh = isHighRisk(row.exp_pre);
+  return {
+    ...row,
+    obs: isHigh ? FEN_HIGH_RISK_MESSAGE : '-',
+    obs_mobile: isHigh ? '⚠️' : '-'
+  };
 }

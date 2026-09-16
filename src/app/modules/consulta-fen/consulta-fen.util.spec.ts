@@ -15,6 +15,10 @@ describe('Consulta FEN – util', () => {
       'cod_ubi', 'des_dist', 'des_prov', 'des_dep',
       'exp_mas', 'exp_inu', 'exp_seq', 'exp_pre', 'obs'
     ]);
+    expect(fenTableHeadersMobile.map(h => h.key)).toEqual([
+      'des_dist', 'exp_mas', 'exp_inu', 'exp_seq', 'exp_pre',
+      'obs_mobile', 'cod_ubi', 'des_prov', 'des_dep'
+    ]);
     expect(fenTableOptions.body.selection).toEqual(jasmine.objectContaining({
       enabled: true,
       allowDeselect: false,
@@ -44,9 +48,10 @@ describe('Consulta FEN – util', () => {
         .toBe(FEN_HIGH_RISK_MESSAGE);
     });
 
-    it('sets obs to "-" when exp_pre is not high risk', () => {
-      expect(fenBuildDisplayRow({ ...base, exp_mas: 'Alto', exp_inu: 'Alto', exp_seq: 'Bajo', exp_pre: 'Medio' }).obs).toBe('-');
-      expect(fenBuildDisplayRow({ ...base, exp_mas: 'Bajo', exp_inu: 'Muy Bajo', exp_seq: 'Bajo', exp_pre: 'Bajo' }).obs).toBe('-');
+    it('sets obs and obs_mobile to "-" when exp_pre is not high risk', () => {
+      const display = fenBuildDisplayRow({ ...base, exp_mas: 'Alto', exp_inu: 'Alto', exp_seq: 'Bajo', exp_pre: 'Medio' });
+      expect(display.obs).toBe('-');
+      expect(display.obs_mobile).toBe('-');
     });
 
     it('preserves all backend fields', () => {
@@ -54,6 +59,7 @@ describe('Consulta FEN – util', () => {
       expect(display.cod_ubi).toBe('040101');
       expect(display.des_dep).toBe('DEP');
       expect(typeof display.obs).toBe('string');
+      expect(typeof display.obs_mobile).toBe('string');
     });
   });
 });
