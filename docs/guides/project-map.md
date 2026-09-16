@@ -8,6 +8,8 @@
 
 R22 (`stg` significa Strategos, no staging) es una SPA Angular 14 conectada al backend existente. El navegador contiene la aplicación; los servicios remotos no están implementados en este repositorio. El inventario ampliado está en [`../reference/domain-inventory.md`](../reference/domain-inventory.md).
 
+Para preparar el entorno y revisar configuración, integraciones y alcance de IA, leer [Incorporación](onboarding.md).
+
 ## Cómo orientarse
 
 1. Empieza por la URL y busca su entrada en `src/app/app-routing.module.ts`.
@@ -100,7 +102,7 @@ componente
 - Mantener la separación de capas y el patrón Angular 14/TypeScript 4.6/RxJS 6.
 - Si se cambia una URL, revisar router, menú backend, guard y destino de `state`.
 - Si se cambia una llamada remota, revisar el `Strand` y el consumidor de `response.body`.
-- Verificar build y pruebas aplicables; para el procedimiento operativo, consultar [../runbooks/validate-change.md](../runbooks/validate-change.md).
+- Aplicar controles livianos y pruebas proporcionales al alcance; para el procedimiento operativo, consultar [../runbooks/validate-change.md](../runbooks/validate-change.md).
 - Para conectividad local y backend real, consultar [../guides/remote-access.md](../guides/remote-access.md).
 
 ## Decisiones generales de mantenimiento

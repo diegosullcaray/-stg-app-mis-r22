@@ -6,30 +6,33 @@ Canónico para: Comandos de typecheck/build/test/lint, revisión de diff, smoke 
 
 # Validar un cambio
 
-Ejecutar desde `/home/ubuntu/mis-frontend/stg-app-mis-r22`. No modificar configuración, budgets o tipos para hacer pasar un control.
+Ejecutar desde la raíz del repositorio que contiene `package.json`. No modificar configuración, budgets o tipos para hacer pasar un control. Las reglas de [AGENTS.md](../../AGENTS.md) prevalecen.
 
 ## Controles aplicables
 
+Por defecto, para cambios funcionales:
+
 ```bash
 npx tsc -p tsconfig.app.json --noEmit
-npm run build
-npm run build -- --configuration production
+git diff --check
 ```
 
-El primer comando comprueba TypeScript de la aplicación. Los dos builds comprueban compilación normal y producción. Para una modificación funcional, `npm run build` es el mínimo obligatorio.
+Completar con comprobaciones focalizadas del contrato y smoke según el alcance. Para cambios exclusivamente documentales, revisar enlaces y diff; no es necesario instalar dependencias o compilar.
 
-## Controles conocidos bloqueados
-
-El script `npm run lint` existe, pero apunta al builder TSLint de Angular CLI; en el estado auditado ese builder ya no está incluido por Angular 14. No declararlo verde ni reemplazarlo con flags.
-
-El target de pruebas de `angular.json` usa `tsconfig.spec.json` y el estado auditado solicita el tipo antiguo `googlemaps`, mientras el proyecto instala `@types/google.maps`. Ejecutar igualmente si el entorno lo permite y registrar el fallo exacto:
+No ejecutar Karma, lint ni build salvo solicitud explícita del responsable o necesidad concreta que no pueda cubrirse con un control liviano. No ejecutar compilaciones Angular en paralelo. Cuando corresponda un control pesado, ejecutar uno y esperar su finalización:
 
 ```bash
+npm run build
+npm run build -- --configuration production
 npm test -- --watch=false --browsers=ChromeHeadless
 npm run lint
 ```
 
-Un control bloqueado es una deuda de configuración, no una razón para desactivar validaciones. Si cambia esa configuración en una tarea aprobada, repetir los comandos y conservar el resultado.
+## Controles conocidos bloqueados
+
+El script lint apunta al builder histórico TSLint de Angular CLI, no incluido por Angular 14. El target de pruebas usa `tsconfig.spec.json`, que solicita `googlemaps`, mientras el proyecto declara `@types/google.maps`. Son riesgos de configuración conocidos, no resultados de una ejecución nueva.
+
+Si se autoriza ejecutar esos controles, registrar el comando y su resultado exacto. No declarar éxito de un control omitido ni desactivar validaciones para ocultar errores. Si faltan dependencias o herramientas, indicar esa limitación.
 
 ## Revisión del diff
 

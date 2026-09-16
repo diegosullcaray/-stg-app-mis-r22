@@ -6,6 +6,7 @@ Esta carpeta usa lectura progresiva. `stg` significa **Strategos**; no identific
 
 | Documento | Propósito | Leer cuando |
 |---|---|---|
+| [Onboarding](./guides/onboarding.md) | Primer arranque, configuración, dependencias y límites de la revisión. | Incorporación de desarrolladores. |
 | [Mapa del proyecto](./guides/project-map.md) | Bootstrap, capas, dominios y orientación. | Primera lectura sobre R22. |
 | [Navegación y sesión](./guides/navigation-and-session.md) | Routing, menú, OIDC, guards y usuario alternativo. | Cambios de login, permisos o rutas. |
 | [Acceso remoto](./guides/remote-access.md) | Selección de helper, creación de Ant y consumo seguro. | Cambios de acciones o servicios remotos. |
@@ -32,7 +33,7 @@ Esta carpeta usa lectura progresiva. `stg` significa **Strategos**; no identific
 
 ### Incorporación al proyecto
 
-1. [Mapa del proyecto](./guides/project-map.md).
+1. [Onboarding](./guides/onboarding.md) y [mapa del proyecto](./guides/project-map.md).
 2. [Navegación y sesión](./guides/navigation-and-session.md) si aplica.
 3. La guía del dominio que se vaya a modificar.
 

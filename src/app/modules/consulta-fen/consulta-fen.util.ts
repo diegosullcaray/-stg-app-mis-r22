@@ -13,6 +13,11 @@ export interface FenRiskRow {
   exp_pre: RiskLevel;
 }
 
+/** Extiende el contrato backend con `obs`, campo derivado de KPIs en frontend. */
+export interface FenDisplayRow extends FenRiskRow {
+  obs: string;
+}
+
 export const FEN_REPORT_CODE = 'CON_AGRO_FEN';
 export const FEN_MATRIX_DATE = '12 set. 2026';
 export const FEN_HIGH_RISK_MESSAGE = 'Zona de Alto Riesgo CENEPRED: Ofrecer Seguro Agrícola / Multirriesgo.';
@@ -24,13 +29,6 @@ const riskColors: { [level in RiskLevel]: string } = {
   'Medio': '#eab308',
   'Bajo': '#5fc97f',
   'Muy Bajo': '#0d9e6e'
-};
-const riskClasses: { [level in RiskLevel]: string } = {
-  'Muy Alto': 'risk--very-high',
-  'Alto': 'risk--high',
-  'Medio': 'risk--medium',
-  'Bajo': 'risk--low',
-  'Muy Bajo': 'risk--very-low'
 };
 
 function riskChipStyle(value: RiskLevel): string {
@@ -45,22 +43,27 @@ function riskChipTextStyle(value: RiskLevel): string {
 
 const riskFormat = {
   type: 'chip',
+  params: { format: 'text', contStyleFn: riskChipStyle, textStyleFn: riskChipTextStyle }
+};
+
+const obsFormat = {
+  type: 'chip',
   params: {
     format: 'text',
-    contStyleFn: riskChipStyle,
-    textStyleFn: riskChipTextStyle
+    contStyleFn: (value: string) =>
+      value !== '-'
+        ? 'display:inline-block;padding:3px 8px;border-radius:4px;background:#fef2f2;'
+        : 'display:inline;',
+    textStyleFn: (value: string) =>
+      value !== '-'
+        ? 'color:#dc2626;font-size:11.5px;font-weight:600;white-space:normal;line-height:1.4;'
+        : 'color:#94a3b8;font-size:12px;'
   }
 };
 
 export const fenTableOptions = createStgLightTable2Config({
-  style: {
-    'font-size': '13.5px',
-    'min-width': '980px'
-  },
-  grid: {
-    mode: 'bottom',
-    border: '1px solid #eef1f5'
-  },
+  style: { 'font-size': '13.5px', 'min-width': '1200px' },
+  grid: { mode: 'bottom', border: '1px solid #eef1f5' },
   header: {
     style: {
       'background': '#fcfcfd',
@@ -71,52 +74,26 @@ export const fenTableOptions = createStgLightTable2Config({
       'text-align': 'left',
       'text-transform': 'uppercase'
     },
-    cellStyle: {
-      'height': '40px',
-      'min-width': '120px',
-      'padding': '12px 16px'
-    }
+    cellStyle: { 'height': '40px', 'min-width': '120px', 'padding': '12px 16px' }
   },
   body: {
     loading: { enabled: false },
-    hover: {
-      enabled: true,
-      style: { 'background': '#fafbfc' }
-    },
-    selection: {
-      enabled: true,
-      allowDeselect: false,
-      style: {
-        'background': '#eef4ff',
-        'color': '#334155'
-      }
-    },
-    cellStyle: {
-      'height': '48px',
-      'padding': '15px 16px'
-    }
+    hover: { enabled: true, style: { 'background': '#fafbfc' } },
+    selection: { enabled: true, allowDeselect: false, style: { 'background': '#eef4ff', 'color': '#334155' } },
+    cellStyle: { 'height': '48px', 'padding': '15px 16px' }
   }
 });
 
 export const fenTableHeaders = [
-  {
-    label: 'UBIGEO',
-    key: 'cod_ubi',
-    style: { 'min-width': '105px' },
-    cellStyle: { 'min-width': '105px', 'font-weight': '700', 'color': '#0f172a' }
-  },
-  {
-    label: 'Distrito',
-    key: 'des_dist',
-    style: { 'min-width': '150px' },
-    cellStyle: { 'min-width': '150px', 'color': '#2b6cb0' }
-  },
-  { label: 'Provincia', key: 'des_prov', style: { 'min-width': '150px' }, cellStyle: { 'min-width': '150px' } },
-  { label: 'Departamento', key: 'des_dep', style: { 'min-width': '170px' }, cellStyle: { 'min-width': '170px' } },
+  { label: 'UBIGEO',       key: 'cod_ubi', style: { 'min-width': '105px' }, cellStyle: { 'min-width': '105px', 'font-weight': '700', 'color': '#0f172a' } },
+  { label: 'Distrito',     key: 'des_dist', style: { 'min-width': '150px' }, cellStyle: { 'min-width': '150px', 'color': '#2b6cb0' } },
+  { label: 'Provincia',    key: 'des_prov', style: { 'min-width': '150px' }, cellStyle: { 'min-width': '150px' } },
+  { label: 'Departamento', key: 'des_dep',  style: { 'min-width': '170px' }, cellStyle: { 'min-width': '170px' } },
   { label: 'Mov. en masa', key: 'exp_mas', format: riskFormat, cellStyle: { 'text-align': 'center' } },
-  { label: 'Inundación', key: 'exp_inu', format: riskFormat, cellStyle: { 'text-align': 'center' } },
-  { label: 'Sequía', key: 'exp_seq', format: riskFormat, cellStyle: { 'text-align': 'center' } },
-  { label: 'Predominante', key: 'exp_pre', format: riskFormat, cellStyle: { 'text-align': 'center' } }
+  { label: 'Inundación',   key: 'exp_inu', format: riskFormat, cellStyle: { 'text-align': 'center' } },
+  { label: 'Sequía',       key: 'exp_seq', format: riskFormat, cellStyle: { 'text-align': 'center' } },
+  { label: 'Predominante', key: 'exp_pre', format: riskFormat, cellStyle: { 'text-align': 'center' } },
+  { label: 'Observación',  key: 'obs',     format: obsFormat,  style: { 'min-width': '220px' }, cellStyle: { 'min-width': '220px', 'white-space': 'normal', 'line-height': '1.35' } }
 ];
 
 export function isFenRiskRow(value: any): value is FenRiskRow {
@@ -135,6 +112,7 @@ export function isHighRisk(value: RiskLevel): boolean {
   return value === 'Alto' || value === 'Muy Alto';
 }
 
-export function riskClass(value?: RiskLevel): string {
-  return value ? riskClasses[value] : 'risk--empty';
+/** Observación comercial derivada del KPI predominante. Lógica frontend. */
+export function fenBuildDisplayRow(row: FenRiskRow): FenDisplayRow {
+  return { ...row, obs: isHighRisk(row.exp_pre) ? FEN_HIGH_RISK_MESSAGE : '-' };
 }

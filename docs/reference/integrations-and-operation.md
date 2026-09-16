@@ -12,6 +12,8 @@ R22 tiene configuración de desarrollo y producción separada por reemplazo de A
 
 `stg` es la nomenclatura histórica de Strategos, no una garantía de ambiente staging. El desarrollo habitual usa el backend real configurado y requiere conectividad, CORS, callback Google válido y login alternativo autorizado.
 
+El inventario de nombres y propósitos, sin valores, está en [Incorporación](../guides/onboarding.md#configuración-nombres-y-propósito).
+
 ## Build y pruebas
 
 ```bash
@@ -19,6 +21,8 @@ npx tsc -p tsconfig.app.json --noEmit
 npm run build
 npm run build -- --configuration production
 ```
+
+Build, Karma y lint solo se ejecutan por solicitud explícita o necesidad concreta no cubierta por controles livianos; nunca en paralelo. Para cambios documentales basta comprobar enlaces y diff, conforme a AGENTS.md.
 
 El build copia `src/assets`, genera `dist/stg-app-mis-r22` y usa `src/assets/styles/app.scss` más Leaflet. `npm test` y `npm run lint` son controles históricos con problemas de configuración conocidos; consultar el runbook de validación antes de interpretarlos como controles verdes (`angular.json:44-142`, `package.json:4-10`).
 
@@ -59,7 +63,32 @@ El tracking no debe bloquear la funcionalidad principal por una dependencia exte
 
 - [ ] El callback y el origen servido coinciden con la configuración OAuth aprobada.
 - [ ] El backend real, CORS y recursos externos son accesibles desde el entorno de prueba.
-- [ ] Se ejecutaron typecheck y build; los controles bloqueados tienen error registrado.
+- [ ] Se ejecutaron los controles proporcionales al alcance; los omitidos o bloqueados se declaran y los fallos tienen error registrado.
 - [ ] El build usa la cadena de estilos correcta.
 - [ ] Se probaron mapas, BI, fuentes y tracking solo si el alcance los usa.
 - [ ] No se conservaron secretos, tokens, claims, IPs ni payloads en documentación o logs.
+
+## Configuración por nombre
+
+La configuración se compila desde `src/environments/environment.ts`; el target `production` de `angular.json` lo reemplaza por `environment.prod.ts`. No se encontraron `.env`, `.env.example`, uso de `dotenv`, `process.env` o `import.meta.env` en la aplicación inspeccionada. Estos campos son propiedades TypeScript, no variables de entorno del sistema operativo.
+
+| Nombre | Propósito y consumidor observado |
+|---|---|
+| `production` | Modo Angular, almacenamiento/depuración y condiciones de sesión, anuncios y tracking |
+| `requestConfigRootURL` | Raíz del gateway utilizada por `RESTPacket` |
+| `redirectUri` | Callback OAuth utilizado por `gmail.config.ts` |
+| `rootPage` | Destino de retorno de autenticación y guards |
+| `rootDomain` | Destino utilizado por el diálogo de fin de sesión |
+| `homePage` | Navegación al inicio desde login, header, guards y consumidores históricos |
+| `ipProvider` | Proveedor externo consultado por `ClientService` para obtener IP |
+| `devTracing` | Habilita tracking de rutas durante desarrollo |
+| `devAd` | Habilita la lógica de anuncios del layout durante desarrollo |
+| `devUser` | Usuario alternativo de desarrollo en `UserService`; dato personal, no reproducir su valor |
+| `structure` | Declarado solo en desarrollo; no se encontró consumidor `environment.structure`; propósito operativo sin verificar |
+| `cypherSecret` | Declarado solo en desarrollo; no se encontró consumidor fuera de su declaración; no asumir que configura el cifrado de Winder |
+
+Los campos comunes están declarados en ambos entornos; la tabla no publica sus valores. Los valores del bundle cliente son accesibles desde el navegador, incluso cuando su nombre sugiere un secreto.
+
+`src/app/system/session/authentication/gmail.config.ts` declara además `issuer` (proveedor OIDC), `redirectUri` (desde environment), `clientId` (identificador del cliente), `scope` (permisos solicitados) y `strictDiscoveryDocumentValidation` (validación del discovery). Su modificación exige respetar el contrato de autenticación aprobado.
+
+Los servicios Ant configuran conexiones con `port`, `appId` y `secret`, separadas de la URL raíz. No centralizar ni sustituir estos valores por analogía: consultar [acceso remoto](../guides/remote-access.md). La revisión documenta nombres y consumidores, no certifica accesibilidad ni validez de credenciales.

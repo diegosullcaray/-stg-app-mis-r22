@@ -1,121 +1,166 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { StgPaginatorComponent } from 'app/core/screen/components/stg-paginator/stg-paginator.component';
 import { StgAppLoaderService } from 'app/core/screen/components/stg-app-loader/stg-app-loader.service';
 import { ModRepService } from 'app/modules/reportes/compartido/servicios/mod-rep.service';
-import { Subscription } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, filter, finalize, switchMap } from 'rxjs/operators';
 import {
-  FEN_HIGH_RISK_MESSAGE,
   FEN_MATRIX_DATE,
   FEN_REPORT_CODE,
-  FenRiskRow,
+  FenDisplayRow,
+  fenBuildDisplayRow,
   fenTableHeaders,
   fenTableOptions,
-  isFenRiskRow,
-  isHighRisk,
-  riskClass
+  isFenRiskRow
 } from './consulta-fen.util';
 
 type ViewState = 'idle' | 'loading' | 'empty' | 'data' | 'error';
+type FilterCol = 0 | 1 | 2 | 3;
 
 @Component({
   selector: 'app-consulta-fen',
   templateUrl: './consulta-fen.component.html',
   styleUrls: ['./consulta-fen.component.scss']
 })
-export class ConsultaFenComponent implements OnDestroy {
+export class ConsultaFenComponent implements OnInit, OnDestroy {
   readonly title = 'Consulta FEN - CENEPRED';
   readonly tableOptions = fenTableOptions;
   readonly tableHeaders = fenTableHeaders;
   readonly matrixUpdatedAt = FEN_MATRIX_DATE;
-  readonly highRiskMessage = FEN_HIGH_RISK_MESSAGE;
 
-  districtQuery = '';
-  ubigeoQuery = '';
-  result: FenRiskRow | null = null;
-  rows: FenRiskRow[] = [];
+  readonly filterOptions = [
+    { value: 0, label: 'Ubigeo' },
+    { value: 1, label: 'Departamento' },
+    { value: 2, label: 'Provincia' },
+    { value: 3, label: 'Distrito' }
+  ];
+  filterType: FilterCol = 3;
+  query = '';
+  suggestions: string[] = [];
+  rows: FenDisplayRow[] = [];
+  pageRows: FenDisplayRow[] = [];
+  readonly pageLength = 10;
+  currentPage = 1;
   state: ViewState = 'idle';
   errorMessage = '';
 
   private reportSubscription: Subscription;
+  private suggestSubscription: Subscription;
+  private readonly queryInput$ = new Subject<string>();
   private loaderOpen = false;
+  @ViewChild('matrixPaginator') private paginator: StgPaginatorComponent;
 
-  constructor(
-    private antRep: ModRepService,
-    private loader: StgAppLoaderService
-  ) { }
+  constructor(private antRep: ModRepService, private loader: StgAppLoaderService) { }
+
+  ngOnInit(): void {
+    // Autocomplete de nombres: activo para Distrito, Departamento y Provincia
+    this.suggestSubscription = this.queryInput$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      filter(v => this.filterType !== 0 && v.trim().length >= 2),
+      switchMap(v =>
+        this.antRep.getRegularTableResult(FEN_REPORT_CODE, { col: this.filterType, val: v.trim() }).pipe(
+          catchError(() => [])
+        )
+      )
+    ).subscribe(response => {
+      const data = response && response.body && response.body.resultado && response.body.resultado.data;
+      const labelKey = this.filterType === 1 ? 'des_dep' : this.filterType === 2 ? 'des_prov' : 'des_dist';
+      this.suggestions = Array.isArray(data)
+        ? [...new Set<string>(data.filter(isFenRiskRow).map((r: any) => r[labelKey]))].slice(0, 8)
+        : [];
+    });
+  }
 
   ngOnDestroy(): void {
     this.reportSubscription && this.reportSubscription.unsubscribe();
+    this.suggestSubscription && this.suggestSubscription.unsubscribe();
     this.closeLoader();
   }
 
-  searchByDistrict(): void {
-    const value = (this.districtQuery || '').trim();
-    if (value.length < 2) {
-      this.setValidationError('Ingresa al menos 2 caracteres para buscar un distrito.');
-      return;
-    }
-    this.loadRisks(3, value);
+  get filterLabel(): string {
+    const opt = this.filterOptions.find(o => o.value === this.filterType);
+    return opt ? opt.label : 'Ubicación';
   }
 
-  searchByUbigeo(): void {
-    const value = (this.ubigeoQuery || '').trim();
-    if (!/^\d{6}$/.test(value)) {
+  changeFilterType(): void {
+    this.reportSubscription && this.reportSubscription.unsubscribe();
+    this.query = '';
+    this.suggestions = [];
+    this.resetResult();
+    this.state = 'idle';
+  }
+
+  onQueryInput(): void {
+    if (this.filterType === 0) { this.suggestions = []; return; }
+    this.queryInput$.next(this.query);
+  }
+
+  applySuggestion(value: string): void {
+    this.query = value;
+    this.suggestions = [];
+    this.search();
+  }
+
+  search(): void {
+    const value = (this.query || '').trim();
+    if (this.filterType === 0 && !/^\d{6}$/.test(value)) {
       this.setValidationError('Ingresa un código ubigeo válido de 6 dígitos.');
       return;
     }
-    this.loadRisks(0, value);
+    if (this.filterType !== 0 && value.length < 2) {
+      this.setValidationError(`Ingresa al menos 2 caracteres para buscar por ${this.filterLabel.toLowerCase()}.`);
+      return;
+    }
+    this.loadRisks(this.filterType, value);
   }
 
-  selectRisk(row: FenRiskRow): void {
-    if (isFenRiskRow(row)) {
-      this.result = row;
+  changePage(event: { page: number }): void {
+    if (this.state !== 'data' || !Number.isInteger(event.page)) { return; }
+    const lastPage = Math.max(1, Math.ceil(this.rows.length / this.pageLength));
+    this.currentPage = Math.max(1, Math.min(event.page, lastPage));
+    const start = (this.currentPage - 1) * this.pageLength;
+    this.pageRows = this.rows.slice(start, start + this.pageLength);
+  }
+
+  private resetPaginator(): void {
+    if (this.paginator) {
+      this.paginator.toFirstPage();
+      this.paginator.disableNext = this.rows.length <= this.pageLength;
+      this.paginator.disableLast = this.rows.length <= this.pageLength;
     }
   }
 
-  showHighRiskAlert(): boolean {
-    return !!this.result && isHighRisk(this.result.exp_pre);
-  }
-
-  riskClass = riskClass;
-
-  private loadRisks(column: 0 | 3, value: string): void {
+  private loadRisks(column: FilterCol, value: string): void {
     this.reportSubscription && this.reportSubscription.unsubscribe();
     this.resetResult();
     this.state = 'loading';
     this.openLoader();
 
-    this.reportSubscription = this.antRep.getRegularTableResult(FEN_REPORT_CODE, {
-      col: column,
-      val: value
-    }).pipe(
-      finalize(() => this.closeLoader())
-    ).subscribe(
-      response => {
-        const result = response && response.body && response.body.resultado;
-        const data = result && result.data;
-        const hasErrors = !!(response && response.errors)
-          && (!Array.isArray(response.errors) || response.errors.length > 0);
-        if (hasErrors || (response && response.code && response.code !== 'SUCCESS') || !Array.isArray(data)) {
-          this.setError('No se pudo interpretar la respuesta de Consulta FEN.');
-          return;
-        }
-        if (!data.every(isFenRiskRow)) {
-          this.setError('La respuesta de Consulta FEN tiene un formato inválido.');
-          return;
-        }
-
-        this.rows = data;
-        if (!this.rows.length) {
-          this.state = 'empty';
-          return;
-        }
-
-        this.result = this.rows.length === 1 ? this.rows[0] : null;
-        this.state = 'data';
-      },
-      () => this.setError('No se pudo realizar la consulta. Intenta nuevamente.')
-    );
+    this.reportSubscription = this.antRep.getRegularTableResult(FEN_REPORT_CODE, { col: column, val: value })
+      .pipe(finalize(() => this.closeLoader()))
+      .subscribe(
+        response => {
+          const result = response && response.body && response.body.resultado;
+          const data = result && result.data;
+          const hasErrors = !!(response && response.errors)
+            && (!Array.isArray(response.errors) || response.errors.length > 0);
+          if (hasErrors || (response && response.code && response.code !== 'SUCCESS') || !Array.isArray(data)) {
+            this.setError('No se pudo interpretar la respuesta de Consulta FEN.');
+            return;
+          }
+          if (!data.every(isFenRiskRow)) {
+            this.setError('La respuesta de Consulta FEN tiene un formato inválido.');
+            return;
+          }
+          this.rows = data.map(fenBuildDisplayRow);
+          if (!this.rows.length) { this.state = 'empty'; return; }
+          this.state = 'data';
+          this.changePage({ page: 1 });
+          this.resetPaginator();
+        },
+        () => this.setError('No se pudo realizar la consulta. Intenta nuevamente.')
+      );
   }
 
   private setValidationError(message: string): void {
@@ -126,29 +171,23 @@ export class ConsultaFenComponent implements OnDestroy {
   }
 
   private setError(message: string): void {
-    this.rows = [];
-    this.result = null;
+    this.resetResult();
     this.errorMessage = message;
     this.state = 'error';
   }
 
   private resetResult(): void {
     this.rows = [];
-    this.result = null;
+    this.pageRows = [];
+    this.currentPage = 1;
     this.errorMessage = '';
   }
 
   private openLoader(): void {
-    if (!this.loaderOpen) {
-      this.loaderOpen = true;
-      this.loader.open('Consultando riesgos...');
-    }
+    if (!this.loaderOpen) { this.loaderOpen = true; this.loader.open('Consultando riesgos...'); }
   }
 
   private closeLoader(): void {
-    if (this.loaderOpen) {
-      this.loaderOpen = false;
-      this.loader.close();
-    }
+    if (this.loaderOpen) { this.loaderOpen = false; this.loader.close(); }
   }
 }

@@ -1,27 +1,11 @@
-# StgAppMisR22
+# Strategos R22 · MIS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.6.
+SPA de mantenimiento activo con Angular 14, TypeScript 4.6 y RxJS 6. `stg` significa **Strategos**. Este repositorio contiene el frontend y consume un backend existente.
 
-## Development server
+- [Guía de incorporación](docs/guides/onboarding.md): estructura, ejecución, configuración, integraciones y alcance de IA.
+- [Índice documental](docs/README.md): rutas de lectura por tarea.
+- [Reglas del repositorio](AGENTS.md): contratos, alcance y validación.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Sigue la guía antes de instalar dependencias. `npm start` inicia Angular en `http://localhost:4200/`; login y datos requieren configuración y conectividad autorizadas al backend real.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+La validación habitual usa TypeScript, controles focalizados y `git diff --check`. Build, Karma y lint se ejecutan solo bajo las condiciones de AGENTS.md, nunca como compilaciones concurrentes. No hacer commit, push ni despliegue sin solicitud explícita.

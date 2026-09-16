@@ -1,12 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { StgPaginatorComponent } from 'app/core/screen/components/stg-paginator/stg-paginator.component';
 import { StgAppLoaderService } from 'app/core/screen/components/stg-app-loader/stg-app-loader.service';
 import { ModRepService } from 'app/modules/reportes/compartido/servicios/mod-rep.service';
-import { of, throwError } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import { ConsultaFenComponent } from './consulta-fen.component';
 import { ConsultaFenModule } from './consulta-fen.module';
-import { FenRiskRow } from './consulta-fen.util';
+import { FEN_HIGH_RISK_MESSAGE, FenRiskRow } from './consulta-fen.util';
 
 describe('ConsultaFenComponent', () => {
   const row: FenRiskRow = {
@@ -52,78 +54,113 @@ describe('ConsultaFenComponent', () => {
     fixture.detectChanges();
   });
 
-  it('renders the initial query with district first', () => {
-    const content = fixture.nativeElement.textContent;
-    const tabs = fixture.nativeElement.querySelectorAll('.mat-tab-label-content');
-
-    expect(content).toContain('Consulta FEN - CENEPRED');
-    expect(tabs[0].textContent.trim()).toBe('Por distrito');
-    expect(tabs[1].textContent.trim()).toBe('Por ubigeo');
+  it('renders the single selector and empty matrix without the old cards or tabs', () => {
+    const component = fixture.componentInstance;
+    expect(component.filterOptions).toEqual([
+      { value: 0, label: 'Ubigeo' }, { value: 1, label: 'Departamento' },
+      { value: 2, label: 'Provincia' }, { value: 3, label: 'Distrito' }
+    ]);
+    expect(component.filterType).toBe(3);
+    expect(fixture.nativeElement.querySelector('mat-select')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('mat-tab-group')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.metrics')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.selection-summary')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.matrix-placeholder')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('stg-paginator')).toBeNull();
   });
 
-  it('keeps result cards neutral and hides the matrix initially', () => {
-    const cards = fixture.nativeElement.querySelectorAll('.metric');
-
-    expect(cards.length).toBe(4);
-    expect(Array.from(cards).every((card: HTMLElement) => card.classList.contains('risk--empty'))).toBeTrue();
-    expect(fixture.nativeElement.querySelector('.result-head')).toBeNull();
-    expect(fixture.nativeElement.querySelector('.matrix')).toBeNull();
+  it('all four filter types are enabled and functional', () => {
+    const component = fixture.componentInstance;
+    for (const type of [0, 1, 2, 3]) {
+      component.filterType = type as any;
+      expect(fixture.nativeElement.querySelector('button[type="submit"]').disabled).toBeFalse();
+    }
   });
 
-  it('queries district results and selects its only row', () => {
-    fixture.componentInstance.districtQuery = '  distrito  ';
+  it('filterLabel returns the label matching the current filterType', () => {
+    const component = fixture.componentInstance;
+    const cases: Array<[0 | 1 | 2 | 3, string]> = [
+      [0, 'Ubigeo'], [1, 'Departamento'], [2, 'Provincia'], [3, 'Distrito']
+    ];
+    for (const [type, expected] of cases) {
+      component.filterType = type;
+      expect(component.filterLabel).toBe(expected);
+    }
+  });
 
-    fixture.componentInstance.searchByDistrict();
+  it('clears stale results and pagination when changing the filter type', () => {
+    const component = fixture.componentInstance;
+    component.query = 'distrito';
+    component.search();
+    component.filterType = 0;
+    component.changeFilterType();
+    fixture.detectChanges();
+    expect(component.query).toBe('');
+    expect(component.rows).toEqual([]);
+    expect(component.pageRows).toEqual([]);
+    expect(component.currentPage).toBe(1);
+    expect(component.state).toBe('idle');
+    expect(fixture.nativeElement.querySelector('#risk-query').getAttribute('inputmode')).toBe('numeric');
+  });
+
+  it('queries district results and shows the obs column in the table', () => {
+    fixture.componentInstance.query = '  distrito  ';
+
+    fixture.componentInstance.search();
     fixture.detectChanges();
 
     expect(reportService.getRegularTableResult).toHaveBeenCalledWith('CON_AGRO_FEN', {
       col: 3,
       val: 'distrito'
     });
-    expect(fixture.componentInstance.rows).toEqual([row]);
-    expect(fixture.componentInstance.result).toBe(row);
-    expect(fixture.nativeElement.querySelector('.result-head')).not.toBeNull();
-    expect(Array.from(fixture.nativeElement.querySelectorAll('.metric strong'))
-      .map((element: HTMLElement) => element.textContent.trim()))
-      .toEqual(['Muy Bajo', 'Medio', 'Medio', 'Medio']);
+    // rows contiene FenDisplayRow con el campo obs derivado de los KPIs
+    expect(fixture.componentInstance.rows.length).toBe(1);
+    expect(fixture.componentInstance.rows[0].obs).toBe('-'); // exp_pre: 'Medio' → sin alerta
     expect(fixture.nativeElement.querySelector('stg-table2')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.selection-summary')).toBeNull();
     expect(loader.open).toHaveBeenCalledWith('Consultando riesgos...');
     expect(loader.close).toHaveBeenCalled();
   });
 
-  it('waits for an explicit selection when the query returns multiple rows', () => {
-    const secondRow: FenRiskRow = { ...row, cod_ubi: '040102', des_dist: 'OTRO DISTRITO' };
-    reportService.getRegularTableResult.and.returnValue(of(response([row, secondRow])));
-    fixture.componentInstance.districtQuery = 'distrito';
-
-    fixture.componentInstance.searchByDistrict();
+  it('shows the CENEPRED alert in the obs column when exp_pre is high risk', () => {
+    const highRiskRow: FenRiskRow = { ...row, exp_pre: 'Alto' };
+    reportService.getRegularTableResult.and.returnValue(of(response([highRiskRow])));
+    fixture.componentInstance.query = 'distrito';
+    fixture.componentInstance.search();
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.result).toBeNull();
-    expect(fixture.nativeElement.querySelectorAll('.metric strong').length).toBe(0);
-    expect(fixture.nativeElement.querySelector('.matrix-count').textContent.trim()).toBe('2 registros');
-
-    fixture.componentInstance.selectRisk(secondRow);
-
-    expect(fixture.componentInstance.result).toBe(secondRow);
+    expect(fixture.componentInstance.rows[0].obs).toBe(FEN_HIGH_RISK_MESSAGE);
   });
 
-  it('queries UBIGEO as a string and selects its first result', () => {
-    fixture.componentInstance.ubigeoQuery = '040101';
+  it('shows count label for multiple results without a selection panel', () => {
+    const secondRow: FenRiskRow = { ...row, cod_ubi: '040102', des_dist: 'OTRO DISTRITO' };
+    reportService.getRegularTableResult.and.returnValue(of(response([row, secondRow])));
+    fixture.componentInstance.query = 'distrito';
 
-    fixture.componentInstance.searchByUbigeo();
+    fixture.componentInstance.search();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.rows.length).toBe(2);
+    expect(fixture.nativeElement.querySelector('.selection-summary')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.matrix-count').textContent.trim()).toBe('2 registros');
+  });
+
+  it('queries UBIGEO as a string', () => {
+    fixture.componentInstance.query = '040101';
+    fixture.componentInstance.filterType = 0;
+    fixture.componentInstance.search();
 
     expect(reportService.getRegularTableResult).toHaveBeenCalledWith('CON_AGRO_FEN', {
       col: 0,
       val: '040101'
     });
-    expect(fixture.componentInstance.result).toBe(row);
+    expect(fixture.componentInstance.rows.length).toBe(1);
   });
 
   it('does not query an invalid UBIGEO', () => {
-    fixture.componentInstance.ubigeoQuery = '40101';
-
-    fixture.componentInstance.searchByUbigeo();
+    fixture.componentInstance.query = '40101';
+    fixture.componentInstance.filterType = 0;
+    fixture.componentInstance.search();
 
     expect(reportService.getRegularTableResult).not.toHaveBeenCalled();
     expect(fixture.componentInstance.state).toBe('error');
@@ -133,9 +170,8 @@ describe('ConsultaFenComponent', () => {
   });
 
   it('does not query a district shorter than two characters', () => {
-    fixture.componentInstance.districtQuery = 'a';
-
-    fixture.componentInstance.searchByDistrict();
+    fixture.componentInstance.query = 'a';
+    fixture.componentInstance.search();
 
     expect(reportService.getRegularTableResult).not.toHaveBeenCalled();
     expect(fixture.componentInstance.state).toBe('error');
@@ -145,21 +181,10 @@ describe('ConsultaFenComponent', () => {
       .toContain('Ingresa al menos 2 caracteres');
   });
 
-  it('shows the commercial alert only for high risks', () => {
-    fixture.componentInstance.selectRisk({ ...row, exp_pre: 'Alto' });
-    fixture.detectChanges();
-
-    expect(fixture.componentInstance.showHighRiskAlert()).toBeTrue();
-    expect(fixture.nativeElement.querySelector('.metrics').nextElementSibling.classList.contains('risk-alert')).toBeTrue();
-
-    fixture.componentInstance.selectRisk(row);
-    expect(fixture.componentInstance.showHighRiskAlert()).toBeFalse();
-  });
-
   it('handles empty and failed requests and closes the loader', () => {
     reportService.getRegularTableResult.and.returnValue(of(response([])));
-    fixture.componentInstance.districtQuery = 'sin resultados';
-    fixture.componentInstance.searchByDistrict();
+    fixture.componentInstance.query = 'sin resultados';
+    fixture.componentInstance.search();
     fixture.detectChanges();
 
     expect(fixture.componentInstance.state).toBe('empty');
@@ -167,8 +192,70 @@ describe('ConsultaFenComponent', () => {
       .toContain('No se encontraron resultados para la búsqueda ingresada.');
 
     reportService.getRegularTableResult.and.returnValue(throwError(new Error('network')));
-    fixture.componentInstance.searchByDistrict();
+    fixture.componentInstance.search();
     expect(fixture.componentInstance.state).toBe('error');
     expect(loader.close).toHaveBeenCalled();
+  });
+
+  it('pages locally and resets the shared paginator for another equally sized result', () => {
+    const rows = Array.from({ length: 23 }, (_, index) => ({
+      ...row, cod_ubi: String(100000 + index)
+    }));
+    reportService.getRegularTableResult.and.returnValue(of(response(rows)));
+    const component = fixture.componentInstance;
+    component.query = 'distrito';
+    component.search();
+    fixture.detectChanges();
+    const paginator: StgPaginatorComponent = fixture.debugElement
+      .query(By.directive(StgPaginatorComponent)).componentInstance;
+
+    expect(component.pageRows.length).toBe(10);
+    expect(paginator.totalLenght).toBe(23);
+    expect(paginator.pageLenght).toBe(10);
+    paginator.nextPage();
+    fixture.detectChanges();
+    expect(component.pageRows.length).toBe(10);
+    paginator.lastPage();
+    fixture.detectChanges();
+    expect(component.pageRows.length).toBe(3);
+    expect(reportService.getRegularTableResult.calls.count()).toBe(1);
+
+    component.search();
+    fixture.detectChanges();
+    expect(component.currentPage).toBe(1);
+    expect(component.pageRows.length).toBe(10);
+    expect(paginator.currentPage).toBe(1);
+    expect(paginator.disableLast).toBeFalse();
+    expect(paginator.disablePrevious).toBeTrue();
+  });
+
+  it('clears the visible page while loading and hides pagination for empty or short results', () => {
+    const component = fixture.componentInstance;
+    component.query = 'distrito';
+    reportService.getRegularTableResult.and.returnValue(of(response(
+      Array.from({ length: 11 }, () => ({ ...row }))
+    )));
+    component.search();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('stg-paginator')).not.toBeNull();
+
+    const pending = new Subject<any>();
+    reportService.getRegularTableResult.and.returnValue(pending);
+    component.search();
+    fixture.detectChanges();
+    expect(component.state).toBe('loading');
+    expect(component.pageRows).toEqual([]);
+    expect(fixture.nativeElement.querySelector('stg-paginator')).toBeNull();
+    pending.next(response([]));
+    pending.complete();
+    fixture.detectChanges();
+    expect(component.state).toBe('empty');
+    expect(fixture.nativeElement.querySelector('stg-table2')).toBeNull();
+
+    reportService.getRegularTableResult.and.returnValue(of(response([row])));
+    component.search();
+    fixture.detectChanges();
+    expect(component.pageRows.length).toBe(1);
+    expect(fixture.nativeElement.querySelector('stg-paginator')).toBeNull();
   });
 });
