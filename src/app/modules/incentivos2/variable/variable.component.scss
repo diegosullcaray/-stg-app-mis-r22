@@ -1,0 +1,111 @@
+@import "../incentivos2-colors.component.scss";
+
+.base-short{
+    padding: 20px;
+    background-color: $base-color;
+}
+
+.btn-nav{
+    //min-width: 60px;
+    width: 80px;
+    //border: 1px solid rgba(0, 0, 0, 0.45);
+    //padding: 0px;
+    height: 40px;
+    .icon{
+        font-size: 30px;
+    }
+}
+
+.pie-cont{
+    background: white;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    @media only screen and (max-width: 959px) {
+        width: 92px;
+        height: 92px;
+    }
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.var-title{
+    font-weight: bold;
+}
+
+.var-title-short{
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.var-state{
+    font-size: 20px;
+}
+
+.var-state-short{
+    font-size: 28px;
+}
+
+.var-chip{
+    border: 1px solid $color-1;
+    padding-left: 5px;
+    border-radius: 4px;
+    .sub{
+        font-size: 9px;
+    }
+    .val{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .sub2{
+        font-size: 12px;
+    }
+    .val2{
+        font-size: 16px;
+    }
+}
+
+.var-chip-short{
+    border: 1px solid $color-1;
+    padding-left: 5px;
+    border-radius: 6px;
+    .sub{
+        font-size: 12px;
+    }
+    .val{
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .sub2{
+        font-size: 14px;
+    }
+    .val2{
+        font-size: 24px;
+    }
+}
+
+.var-chip.u,.var-chip-short.u{
+    background-color: $color-chip-u;
+}
+
+.var-chip.s,.var-chip-short.s{
+    background-color: $color-chip-s;
+}
+
+.var-chip.g1,.var-chip-short.g1{
+    background-color: $color-chip-g1;
+}
+
+.var-chip.g2,.var-chip-short.g2{
+    background-color: $color-chip-g2;
+}
+
+.var-chip.g3,.var-chip-short.g3{
+    background-color: $color-chip-g3;
+}
+
+.var-chip.m,.var-chip-short.m{
+    background-color: $color-1;
+    color: white;
+    font-weight: bold;
+}

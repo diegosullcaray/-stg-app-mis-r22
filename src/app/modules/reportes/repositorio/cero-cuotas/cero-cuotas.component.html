@@ -1,0 +1,224 @@
+<div fxFill fxLayout="column" class="container" style="overflow-y: auto;">
+  
+  <div class="header-top" 
+       fxLayout="row" 
+       fxLayout.lt-md="column" 
+       fxLayoutAlign="space-between center" 
+       fxLayoutAlign.lt-md="start stretch"
+       fxLayoutGap="15px"
+       fxLayoutGap.lt-md="10px">
+  
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+      <div class="header-title">Cero Cuotas</div>
+      <span> </span>
+      <!--<div class="header-subtitle">Banca Individual</div>-->
+    </div>
+
+    <!--<stg-window-bar-m
+      [items]="filter1"
+      [title]="'PERIODO'"
+      [showTitle]="false"
+      [icon]="'date_range'"
+      [placeholder]="'Seleccionar fecha'"
+      [(ngModel)]="selector1"
+      (selectionChange)="onFechaChange($event)">
+    </stg-window-bar-m>-->
+  </div>
+
+ <div class="kpi-card" fxFlex="none">
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px" fxLayoutGap.lt-md="10px">
+    
+    <!-- KPI 1: TOTAL CERO CUOTAS -->
+    <div fxFlex="25" class="kpi-item">
+      <div class="kpi-label">TOTAL CERO CUOTAS (S/)</div>
+      <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+        <span class="kpi-value">{{ (kpi_saldo_act/ 1000000) | number:'1.2-2' }}<span class="unit"> M</span></span>
+        <div class="kpi-subtext">
+          <div>Mes Anterior <span >{{ (kpi_saldo_ant /1000000)| number:'1.2-2' }}</span></div>
+          <div>TMM <span [ngClass]="{'text-green': kpi_dif_saldo >= 0, 'text-red': kpi_dif_saldo < 0}">{{ (kpi_dif_saldo/1000000) | number:'1.2-2' }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 2: CERO CUOTAS NUEVO -->
+    <div fxFlex="25" class="kpi-item">
+      <div class="kpi-label">CERO CUOTAS NUEVO (S/)</div>
+      <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+        <span class="kpi-value">{{ (kpi_zcuonuevo_act/1000000) | number:'1.2-2' }}<span class="unit"> M</span></span>
+        <div class="kpi-subtext">
+          <div>Mes Anterior <span >{{ (kpi_zcuonuevo_ant/1000000) | number:'1.2-2' }}</span></div>
+          <div>TMM <span [ngClass]="{'text-green': kpi_dif_zcuonuevo >= 0, 'text-red': kpi_dif_zcuonuevo < 0}">{{ (kpi_dif_zcuonuevo/1000000) | number:'1.2-2' }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 3: HASTA 60 DIAS -->
+    <div fxFlex="25" class="kpi-item">
+      <div class="kpi-label">HASTA 60 DIAS (S/)</div>
+      <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+        <span class="kpi-value">{{ (kpi_men60_act/1000000) | number:'1.2-2' }}<span class="unit"> M</span></span>
+        <div class="kpi-subtext">
+          <div>Mes Anterior <span>{{ (kpi_men60_ant/1000000) | number:'1.2-2' }}</span></div>
+          <div>TMM <span [ngClass]="{'text-green': kpi_dif_men60 < 0, 'text-red': kpi_dif_men60 >= 0}">{{ (kpi_dif_men60/1000000) | number:'1.2-2' }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 4: MAYOR A 60 DIAS ATRASO -->
+    <div fxFlex="25" class="kpi-item">
+      <div class="kpi-label">MAYOR A 60 DIAS ATRASO (S/)</div>
+      <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+        <span class="kpi-value">{{ (kpi_may60_act/1000000) | number:'1.2-2' }}<span class="unit"> M</span></span>
+        <div class="kpi-subtext">
+          <div>Mes Anterior <span >{{ (kpi_may60_ant/1000000) | number:'1.2-2' }}</span></div>
+          <div>TMM <span [ngClass]="{'text-green': kpi_dif_may60 < 0, 'text-red': kpi_dif_may60 >=0}">{{ (kpi_dif_may60/1000000) | number:'1.2-2' }}</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+  <!-- Breadcrumbs / Jerarquía -->
+  <!-- <div fxFlex="none" class="hier" fxLayout="row" fxLayoutAlign="center center">
+    <ng-scrollbar track="all" fxFlex>
+      <div fxFlex class="hier-cont" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <ng-container *ngFor="let item of principal.hierBuffer; index as idx">
+          <div (click)="changeHier(item)"><span>{{item.des_rel}}</span></div>
+        </ng-container>
+      </div>  
+    </ng-scrollbar>
+  </div> -->
+
+  <div fxLayout="row">
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1"
+            (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+</div>
+
+  <!-- Encabezado de Gráficos -->
+  <div fxFlex="none" *ngIf="isResumenReady" style="margin: 20px 15px 15px 15px; border-bottom: 2px solid #E5E7EB; padding-bottom: 8px;">
+    <h2 style="margin: 0; font-size: 18px; color: #004B8D; font-weight: 600; font-family: 'Roboto', sans-serif;">
+      📊 Análisis Gráfico
+    </h2>
+    <p style="margin: 4px 0 0 0; font-size: 13px; color: #757575;">
+      Visualización de métricas y tendencias del periodo actual.
+    </p>
+  </div>
+
+  <!-- Contenedor de Gráficos -->
+  <div fxFlex="none" class="chart-block" *ngIf="isResumenReady">
+    
+    <div class="chart-header" *ngIf="selectedRow" style="margin-bottom: 20px;">
+      <button class="back-button" (click)="backToTable()">
+        <span class="back-icon">←</span> Volver a General
+      </button>
+      <h2 class="chart-title">Viendo detalle de: {{nivel}}</h2>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between start" style="row-gap: 40px;" class="charts-wrapper-column">
+      
+      <!-- PARTICIPACION DE SALDO POR PRODUCTO -->
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isVariacionReadyCli">
+        <h3 class="chart-section-title"><!--PARTICIPACION DE SALDO POR PRODUCTO--></h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="variacionCliStockOptions"
+            [(update)]="updateFlagCliVariacion"
+            style="width: 100%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <!-- CONCENTRACION DE SALDOS POR TERRITORIO -->
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isIngresosSalidasReady">
+        <h3 class="chart-section-title"><!--CONCENTRACION DE SALDOS POR TERRITORIO--></h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="ingresosSalidasOptions"
+            [(update)]="updateFlagIngresosSalidas">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <!-- Mapa de Calor -->
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isMapaCalorReady">
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="mapaCalorOptions"
+            [(update)]="updateFlagMapaCalor"
+            style="width: 100%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isMapaCalorReady2">
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="mapaCalorOptions2"
+            [(update)]="updateFlagMapaCalor2"
+            style="width: 100%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <!-- 1. Cero Cuotas Nuevo Ingreso (N°) -->
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isCeroCuotas1Ready">
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="ceroCuotasNumOptions"
+            [(update)]="updateFlagCeroCuotas1"
+            style="width: 100%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <!-- 2. Cero Cuotas Nuevo Ingreso (S/MM) -->
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isCeroCuotas1Ready">
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="ceroCuotasMontoOptions"
+            [(update)]="updateFlagCeroCuotas1"
+            style="width: 100%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <!-- 3. Nuevo Ingreso x Tramos de Atraso (N°) -->
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isCeroCuotas2Ready">
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="ceroCuotasAtrasoNumOptions"
+            [(update)]="updateFlagCeroCuotas2"
+            style="width: 100%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <!-- 4. Nuevo Ingreso x Tramos de Atraso (S/MM) -->
+      <div class="chart-section" fxFlex="0 1 calc(50% - 20px)" fxFlex.lt-md="100" *ngIf="isCeroCuotas2Ready">
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts" 
+            [options]="ceroCuotasAtrasoMontoOptions"
+            [(update)]="updateFlagCeroCuotas2"
+            style="width: 100%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
+      </div> 
+
+    </div>
+  </div>
+
+</div>

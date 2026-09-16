@@ -1,0 +1,78 @@
+<!--
+<app-select-group [config_select_group]='config_select_group' (refresh)="load($event)"></app-select-group>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple>
+-->
+
+<div fxLayout="column">
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    <ng-container *ngIf="activeFilters">
+        <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)"></app-select-multiple>
+    </ng-container>
+    <!-- <app-table-multiheader *ngFor='let c of config;let i=index' [config_table]='config_table[i]'></app-table-multiheader>-->
+    <mat-tab-group>
+        <mat-tab label="Por Nivel">
+    
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[6]'></app-table-multiheader>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[7]'></app-table-multiheader>
+                </div>
+            </div>
+        </mat-tab>   
+        <mat-tab label="Por Rango">
+    
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[8]'></app-table-multiheader>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[9]'></app-table-multiheader>
+                </div>
+            </div>
+        </mat-tab>     
+        <mat-tab label="Por producto">
+    
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[0]'></app-table-multiheader>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[1]'></app-table-multiheader>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[2]'></app-table-multiheader>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Evolutivo">
+    
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[3]'></app-table-multiheader>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[4]'></app-table-multiheader>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+                    <app-table-multiheader [config_table]='config_table[5]'></app-table-multiheader>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

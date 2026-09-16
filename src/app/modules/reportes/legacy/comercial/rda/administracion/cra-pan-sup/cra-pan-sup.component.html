@@ -1,0 +1,39 @@
+
+<!--<app-select-group [config_select_group]='config_select_group' (refresh)="load($event)"></app-select-group>-->
+
+<div fxLayout="column">
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    
+    
+    <mat-tab-group>
+        <mat-tab label="Panel de Supervisión">
+            <app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple>
+            <app-table-multiheader [config_table]='config_table[0]'></app-table-multiheader>
+            <!--<app-select-multiple [config_select_multiple]='config_select_multiple_2' (refresh)="loadFilter_2($event)"></app-select-multiple>
+            <app-table-multiheader [config_table]='config_table[1]'></app-table-multiheader>-->
+        </mat-tab>
+        <mat-tab label="Listado de Operaciones">
+            <h1 class="title-module">Reviste de Gravedad y con Señales de Alerta</h1>
+            <app-select-multiple [config_select_multiple]='config_select_multiple_3' (refresh)="loadFilter_3($event)"></app-select-multiple>
+            <app-table-multiheader [config_table]='config_table[2]'></app-table-multiheader>
+        </mat-tab>
+    </mat-tab-group>
+    <br><br><br><br>
+    
+    
+    <!---->
+    <mat-tab-group>
+        <mat-tab label="Supervisión por monto desembolsado">
+            <app-select-multiple [config_select_multiple]='config_select_multiple_4' (refresh)="loadFilter_4($event)"></app-select-multiple>
+            <app-table-multiheader [config_table]='config_table[4]'></app-table-multiheader>
+        </mat-tab>
+    
+        <mat-tab label="Detalle Supervisión">    
+            <app-select-multiple [config_select_multiple]='config_select_multiple_5' (refresh)="loadFilter_5($event)"></app-select-multiple>
+            <app-table-multiheader [config_table]='config_table[5]'></app-table-multiheader>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<br><br><br><br><br>

@@ -1,0 +1,39 @@
+<div fxFill class="stg-mod-base">
+    <div class="stg-window base" fxLayout="column" style="height: 100%;">
+        <stg-window-bar title="Reprogramación de Vacaciones App FC" fontSize="16px" ></stg-window-bar>
+        
+        <div fxlayout="row" style="padding: 10px 15px;">
+            <div fxlayoutAlign="start center" fxLayoutGap="5px">
+                <!--span style="font-weight: bold;">Data Actualizada al:</span><span>nnn</span-->
+            </div>
+
+<!--         </div>
+        <div fxLayout="row"  fxlayoutAlign="start center" style="padding: 0px 15px;"
+            fxLayoutGap="5px">
+            <div fxFlex>
+                <span style="font-weight: bold;">Nro. Postulantes:</span><span>nnnn</span>
+            </div-->
+        </div>
+
+
+
+
+    <div fxFill class="stg-mod-base" style="border: solid 4px #f1f4fa;">
+
+        <div> 
+            <ng-container *ngIf="activeHier" >
+                <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>   
+        </div>
+            
+        <div fxFill class="base" fxLayout="column"> 
+            <div fxFlex>
+                <stg-table2 [options]="options" [dataSource]="dataSource" [headers]="headers" [optionsObserver]="optObs"   >
+                </stg-table2> 
+            </div>
+        </div> 
+
+        
+    </div>
+
+</div>

@@ -1,0 +1,157 @@
+<div fxFill fxLayout="column" class="base">
+    <div fxFill fxLayout="column" class="base-card">
+        <div fxFlex="47" fxLayout="row">
+            <div fxFlex="38" style="padding: 10px;flex: 1 1 100%;box-sizing: border-box;max-width: 38%;height: 320px !important;">
+                <div fxFill class="p-card" fxLayout="column">
+                    <div fxLayout="row" style="padding: 10px">
+                        <div fxFlex.gt-sm="35" fxFlex="30" fxLayout="column" fxLayoutAlign="start center">
+                            <div class="pic-box" fxLayoutAlign="center center">
+                                <img *ngIf="showPic" src="{{user.pictureURL}}" alt="" referrerpolicy="no-referrer">
+                                <span *ngIf="!showPic" class="material-icons icon">person</span>
+                            </div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div fxFlex.gt-sm="40" fxFlex="35" fxLayout="column">
+                                <div [class]="{'text-name':!layout.isMobile,'text-name-short':layout.isMobile}">
+                                    <span>{{dsProfile.name}}</span>
+                                </div>
+                                <div [class]="{'text-pos':!layout.isMobile,'text-pos-short':layout.isMobile}">
+                                    <span>{{dsProfile.position}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <stg-button *ngIf="analista.tip_use!=1" icon="person" color="primary" (click)="openSecPicker()"></stg-button>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="column" [class]="{'text-hier':!layout.isMobile,'text-hier-short':layout.isMobile}">
+                        <div fxFlex="25" fxLayout="row">
+                            <div fxFlex="50" fxLayout="row">
+                                <div fxFlex="25" fxLayoutAlign="start center" [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                                    <span>Unidad:</span>
+                                </div>
+                                <div fxFlex fxLayoutAlign="start center">
+                                    <span>{{dsProfile.hier1}}</span>
+                                </div>
+                            </div>
+                            <div fxFlex fxLayout="row">
+                                <div fxFlex="25" fxLayoutAlign="start center" [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                                    <span>Corredor:</span>
+                                </div>
+                                <div fxFlex fxLayoutAlign="start center">
+                                    <span>{{dsProfile.hier2}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex="25" fxLayout="row">
+                            <div fxFlex="50" fxLayout="row">
+                                <div fxFlex="25" fxLayoutAlign="start center" [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                                    <span>Territorio:</span>
+                                </div>
+                                <div fxFlex fxLayoutAlign="start center">
+                                    <span>{{dsProfile.hier3}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex="25" fxLayout="row">
+                            <div fxFlex="50" fxLayout="row">
+                                <div fxFlex="25" fxLayoutAlign="start center" [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                                    <span>Categoria:</span>
+                                </div>
+                                <div fxFlex fxLayoutAlign="start center">
+                                    <span>{{dsProfile.category}}</span>
+                                </div>
+                            </div>
+                            <div fxFlex fxLayout="row">
+                                <div fxFlex="25" fxLayoutAlign="start center" [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                                    <span>Genero:</span>
+                                </div>
+                                <div fxFlex fxLayoutAlign="start center">
+                                    <span>{{dsProfile.genre}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex style="padding: 10px;flex: 1 1 100%;box-sizing: border-box;max-width: 38%;height: 320px !important;">
+                <img src="assets/images/fc/modules/analista/categorizacion2.png" alt="" style="height: 100%;width: 100%;">
+            </div>
+        </div>
+        <div fxFlex fxLayout="column">
+            <div fxFlex="50" fxLayout="column">
+                <div class="b-title">
+                    <span>Estado Requisitos</span>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutGap="20px" style="padding: 20px;">
+                    <ng-container *ngFor='let b of dsRequisitos;let i=index'>
+                        <div fxFlex="25" fxLayout="column" class="r-card">
+                            <div class="c-title" fxLayoutAlign="center center">
+                                <span>{{b.des}}</span>
+                            </div>
+                            <div fxFlex fxLayout="column" style="padding: 10px;">
+                                <div fxFlex class="v-text" fxLayoutAlign="center center" [class]="{'color-c':b.sit==1,'color-nc':b.sit==0}">
+                                    <span>{{b.val}}</span>
+                                </div>
+                                <div fxFlex="20" style="font-size: 12px;" [innerHTML]="getCom(b.com)"></div>
+                                <div fxFlex="20" style="font-size: 12px;" [innerHTML]="getCom(b.com2)"></div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div fxFlex fxLayout="column">
+                <div class="b-title">
+                    <span>Resultados de Comisión :</span> <span style="font-size:13px; color:black">*Cabe indicar que, Las campañas de gradualidad y/o similares no serán consideradas dentro del cómputo de meses necesarios para categorizar.</span>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutGap="20px" style="padding: 20px;">
+                    <ng-container *ngFor='let b of dsComision; let i=index'>
+                        <div fxFlex="16.6" fxLayout="column" class="c-card">
+                            <div class="c-title" fxLayoutAlign="center center">
+                                <span>{{b.mon}}</span>
+                            </div>
+                            <div fxFlex fxLayout="column" style="padding: 10px 15px;">
+                                
+                                <!-- GRUPAL (codgru == 2): Formato original con número grande -->
+                                <ng-container *ngIf="codgru == 2">
+                                    <div fxFlex fxLayout="column" class="v-text" fxLayoutAlign="center center" [class]="{'color-c':b.sit==1,'color-nc':b.sit==0}">
+                                        <span>{{b.val}}</span>
+                                    </div>
+                                </ng-container>
+
+                                <!-- INDIVIDUAL (codgru == 1): Lista detallada con círculos -->
+                                <ng-container *ngIf="codgru == 1">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="item-row">
+                                        <span>Saldo Vigente:</span>
+                                        <div class="status-circle" [ngClass]="b.val1 == 0 ? 'circle-red' : 'circle-green'"></div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="item-row">
+                                        <span>Cli Prom:</span>
+                                        <div class="status-circle" [ngClass]="b.val2 == 0 ? 'circle-red' : 'circle-green'"></div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="item-row">
+                                        <span>Var Saldo Vig:</span>
+                                        <div class="status-circle" [ngClass]="b.val3 == 0 ? 'circle-red' : 'circle-green'"></div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="item-row">
+                                        <span>Efec -30-0:</span>
+                                        <div class="status-circle" [ngClass]="b.val4 == 0 ? 'circle-red' : 'circle-green'"></div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="item-row">
+                                        <span>Efec 1-30:</span>
+                                        <div class="status-circle" [ngClass]="b.val5 == 0 ? 'circle-red' : 'circle-green'"></div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="item-row">
+                                        <span>Sin Bajar Stock:</span>
+                                        <div class="status-circle" [ngClass]="b.val6 == 0 ? 'circle-red' : 'circle-green'"></div>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

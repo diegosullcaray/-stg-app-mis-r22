@@ -1,0 +1,13 @@
+<div fxFill fxLayout="column">
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar [title]="title.text" [barIcon]="title.icon" [titleAlign]="title.align" closable=true
+            (onClose)="closeForm()">
+        </stg-window-bar>
+        <div style="height: 100%;padding: 10px;">
+            <stg-form #localForm [fields]="form.fields" [dataSource]="form.data" [options]="form.options"></stg-form>
+        </div>
+    </div>
+    <div fxLayoutAlign="end center" style="padding: 10px 0px;">
+        <stg-button color="primary" (click)="submitForm()">{{submitButton.label}}</stg-button>
+    </div>
+</div>

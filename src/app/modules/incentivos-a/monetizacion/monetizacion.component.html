@@ -1,0 +1,239 @@
+<div fxLayout="column">
+    <div fxLayout="row" class="main-block">
+        <div fxFlex style="padding: 15px;">
+            <div fxFill class="stg-card-box" fxLayout="column">
+                <div class="card-title">
+                    <span>Resumen</span>
+                </div>
+                <div fxLayout="column" class="smf-block">
+                    <div class="t">
+                        <div *ngIf="config.state==1" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center end">
+                            <span style="font-weight: bold;">!Felcitaciones! Tu comisión esta</span>
+                            <span [class]="varsCompCls()">!Activada!</span>
+                        </div>
+                        <div *ngIf="config.state==0" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center end">
+                            <span style="font-weight: bold;">Aun te falta</span>
+                            <span [class]="varsCompCls()">{{varsCompTxt()}}</span>
+                            <span style="font-weight: bold;">variable(s) para activar tu comisión.</span>
+                        </div>
+                        <div *ngIf="config.state==2" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center end">
+                            <span style="font-weight: bold;">Por el momento no tienes metas asignadas.</span>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="5px" class="bi">
+                        <ng-container *ngFor="let item of config.icons">
+                            <div fxLayout="column" [ngClass]="{'color-active': item.a, 'color-inactive': !item.a}">
+                                <div fxFlex="25" fxLayoutAlign="center center" class="t">
+                                    <span>{{item.t}}</span>
+                                </div>
+                                <div fxFlex fxLayoutAlign="center center">
+                                    <span class="material-icons i">{{item.i}}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="tbl-block">
+                    <table class="tbl" cellspacing="0">
+                        <tr class="h">
+                            <th class="vn"></th>
+                            <ng-container *ngIf="!layout.isMobile">
+                                <th class="e"></th>
+                            </ng-container>
+                            <th>Cierre</th>
+                            <th style="text-align: center;">Meta</th>
+                            <th style="text-align: center;">Avance</th>
+                        </tr>
+                        <ng-container *ngFor="let item of config.detVars; let i = index">
+                            <tr>
+                                <td class="n">{{item.n}}</td>
+                                <ng-container *ngIf="!layout.isMobile">
+                                    <td>
+                                        <div style="height: 27px;padding-right: 20px;">
+                                            <div style="float: left;position: relative;width: 100%;height: 100%;">
+                                                <highcharts-chart
+                                                    style="width: 100%;height: 100%;min-height: 20px;position:absolute;"
+                                                    [Highcharts]="Highcharts" [options]="config.options">
+                                                    <!--style="width:100%;height: 100%;min-height: 200px;position:absolute;display: inline;"-->
+                                                </highcharts-chart>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container *ngIf="item.f=='n'">
+                                    <td>
+                                        <ng-container *ngIf="i==2">S/. </ng-container>{{item.r | number:'.0-2'}}
+                                    </td>
+                                    <td>
+                                        <ng-container *ngIf="i==2">S/. </ng-container>{{item.m | number:'.0-2'}}
+                                    </td>
+
+                                </ng-container>
+                                <ng-container *ngIf="item.f=='p'">
+                                    <td>{{item.r | percent:'.2-2'}}</td>
+                                    <td>{{item.m | percent:'.2-2'}}</td>
+                                </ng-container>
+                                <td>{{item.c | percent:'.2-2'}}</td>
+                            </tr>
+                        </ng-container>
+                    </table>
+                </div>
+                <div class="mon-block" fxLayout="column">
+                    <div fxFlex>
+                        <div fxFlex style="padding: 10px 20px;" fxLayout="row wrap">
+                            <ng-container *ngFor="let item of config.detBon;let i = index;">
+                                <div fxFlex=50 fxLayout="column">
+                                    <div style="color: #2196F3;" fxLayoutAlign.lt-md="center center">
+                                        <span>{{item.t}}</span>
+                                    </div>
+                                    <div fxFlex style="font-weight: bold;font-size: 16px;"
+                                        [ngClass]="{'color-inactive':!item.f && item.u,'color-active':item.f && item.u}"
+                                        fxLayoutAlign.lt-md="center center">
+                                        <span>S/. {{item.v | number:'.0-2'}}</span>
+                                    </div>
+                                    <div *ngIf="!item.f && item.u" class="color-inactive" style="font-size: 9px;"
+                                        fxLayoutAlign.lt-md="center center" fxLayout="row">
+                                        <span>(Comisión No Disponible: S/. {{item.sv | number:'.0-2'}})</span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div fxLayout="column">
+                        <span style="font-size: 10px;">*Los cálculos son referenciales y están sujetos a variaciones al
+                            final de mes y ajustes particulares de la normativa.</span>
+                        <span style="font-size: 10px;">*Los cálculos no contemplan los bonos por corresponales y riesgo operacional.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div *ngIf="!layout.isMobile" style="padding: 0px 15px;width: 516px;" fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout="row" fxLayoutGap="10px" class="var-block">
+                <div fxFlex="50" class="card-box d" fxLayout="column">
+                    <div class="t" fxLayout="column">
+                        <div fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <span style="font-weight: bold;color:red">Saldo Cartera (20%)</span>
+                        </div>
+                        <div fxLayoutAlign="start center" style="width:100%;padding-top: 5px;">
+                            <stg-progress style="width: 100%;" value="20" height="3" [showThumb]="false"></stg-progress>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="column" fxLayoutGap="10px">
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
+                            <div class="s"><span>Var. Real</span></div>
+                            <div class="v">6,750,865.1</div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div class="s"><span>Meta</span></div>
+                            <div class="v">29,558,555.9</div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="50" class="card-box d" fxLayout="column">
+                    <div class="t" fxLayout="column">
+                        <div fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <span style="font-weight: bold;color:red">Stock Clientes (76%)</span>
+                        </div>
+                        <div fxLayoutAlign="start center" style="width:100%;padding-top: 5px;">
+                            <stg-progress style="width: 100%;" value="76" height="3" [showThumb]="false"></stg-progress>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="column" fxLayoutGap="10px">
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
+                            <div class="s"><span>Var. Real</span></div>
+                            <div class="v">52</div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div class="s"><span>Meta</span></div>
+                            <div class="v">68</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px" class="var-block">
+                <div fxFlex="50" class="card-box d" fxLayout="column">
+                    <div class="t" fxLayout="column">
+                        <div fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <span style="font-weight: bold;color:red">Efectividad -30 a 0 días (35%)</span>
+                        </div>
+                        <div fxLayoutAlign="start center" style="width:100%;padding-top: 5px;">
+                            <stg-progress style="width: 100%;" value="35" height="3" [showThumb]="false"></stg-progress>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="column" fxLayoutGap="10px">
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
+                            <div class="s"><span>Cierre</span></div>
+                            <div class="v">35.68%</div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div class="s"><span>Meta</span></div>
+                            <div class="v">98.00%</div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="50" class="card-box d" fxLayout="column">
+                    <div class="t" fxLayout="column">
+                        <div fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <span style="font-weight: bold;color: #3bd136;">Efectividad 1 a 30 días (104%)</span>
+                        </div>
+                        <div fxLayoutAlign="start center" style="width:100%;padding-top: 5px;">
+                            <stg-progress style="width: 100%;" value="100" height="3" [showThumb]="false" color="#3bd136"></stg-progress>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="column" fxLayoutGap="10px">
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
+                            <div class="s"><span>Cierre</span></div>
+                            <div class="v">96.35%</div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div class="s"><span>Meta</span></div>
+                            <div class="v">92.50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px" class="var-block">
+                <div fxFlex="50" class="card-box d" fxLayout="column">
+                    <div class="t" fxLayout="column">
+                        <div fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <span style="font-weight: bold;color:red">Supervisión Capa 1 (93%)</span>
+                        </div>
+                        <div fxLayoutAlign="start center" style="width:100%;padding-top: 5px;">
+                            <stg-progress style="width: 100%;" value="93" height="3" [showThumb]="false"></stg-progress>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="column" fxLayoutGap="10px">
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
+                            <div class="s"><span>Cierre</span></div>
+                            <div class="v">75</div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div class="s"><span>Meta</span></div>
+                            <div class="v">80</div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="50" class="card-box d" fxLayout="column">
+                    <div class="t" fxLayout="column">
+                        <div fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <span style="font-weight: bold;color:red">% Asesores Comisionan (68%)</span>
+                        </div>
+                        <div fxLayoutAlign="start center" style="width:100%;padding-top: 5px;">
+                            <stg-progress style="width: 100%;" value="68" height="3" [showThumb]="false"></stg-progress>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="column" fxLayoutGap="10px">
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
+                            <div class="s"><span>Cierre</span></div>
+                            <div class="v">58.3%</div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div class="s"><span>Meta</span></div>
+                            <div class="v">85%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

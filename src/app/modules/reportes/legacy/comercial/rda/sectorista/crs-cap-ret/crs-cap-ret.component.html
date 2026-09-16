@@ -1,0 +1,101 @@
+<h2 class="title-module">{{title_module}}</h2>
+<app-auto-complete-sec (refresh)="load($event)"></app-auto-complete-sec>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)">
+</app-select-multiple>
+<mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="selected=$event">
+    <mat-tab label="Lista Clientes" >
+        <app-table-multiheader *ngFor='let c of config;let i=index' [config_table]='config_table[i]'
+            (refresh)="update($event)"></app-table-multiheader>
+    </mat-tab>
+    <mat-tab label="Actualizar Encuesta" disabled>
+        <mat-card class="mat-elevation-z m-033">
+            <h2 class="title-module">{{cliente}}</h2>
+                <div fxLayout="column">
+                    <ng-container [formGroup]="formG">
+                        <div fxLayout="column" >
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                                <mat-form-field fxFlex>
+                                    <mat-label>{{afec_neg.label}}</mat-label>
+                                    <mat-select formControlName="afec_neg">
+                                        <mat-option  *ngFor="let r of afec_neg.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="formG.controls.afec_neg.hasError('required')">
+                                        Este Campo es requerido
+                                    </mat-error>
+                                </mat-form-field>
+                    
+                                <mat-form-field fxFlex>
+                                    <mat-label>{{fun_neg.label}}</mat-label>
+                                    <mat-select formControlName="fun_neg">
+                                        <mat-option  *ngFor="let r of fun_neg.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="funNegF.hasError('required')">
+                                        Este Campo es requerido
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                                <mat-form-field fxFlex *ngIf='!sit_neg.hidden'>
+                                    <mat-label>{{sit_neg.label}}</mat-label>
+                                    <mat-select formControlName="sit_neg">
+                                        <mat-option  *ngFor="let r of sit_neg.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="sitNegF.hasError('required')">
+                                        Este Campo es requerido
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field fxFlex *ngIf='!red_neg.hidden'>
+                                    <mat-label>{{red_neg.label}}</mat-label>
+                                    <mat-select formControlName="red_neg">
+                                        <mat-option  *ngFor="let r of red_neg.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="redNegF.hasError('required')">
+                                        Este Campo es requerido
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                                <mat-form-field fxFlex *ngIf='!sec_eco.hidden'>
+                                    <mat-label>{{sec_eco.label}}</mat-label>
+                                    <mat-select formControlName="sec_eco">
+                                        <mat-option  *ngFor="let r of sec_eco.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="secEcoF.hasError('required')">
+                                        Este Campo es requerido
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field fxFlex *ngIf='!gir_neg.hidden'>
+                                    <mat-label>{{gir_neg.label}}</mat-label>
+                                    <mat-select formControlName="gir_neg">
+                                        <mat-option  *ngFor="let r of gir_neg.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="girNegF.hasError('required')">
+                                        Este Campo es requerido
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div fxLayout="row" fxFlex="100">
+                        <div fxLayout="row" fxFlex="50" fxLayoutAlign="center center">
+                            <div class="m-033">
+                                <button mat-raised-button color="primary" (click)="selected=0">
+                                    <mat-icon>keyboard_return</mat-icon>Regresar
+                                </button>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="50" fxLayoutAlign="center center">
+                            <div class="m-033">
+                                <button 
+                                    [disabled]='!formG.valid'
+                                    mat-raised-button color="primary" (click)="save()">
+                                    <mat-icon>save</mat-icon>Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

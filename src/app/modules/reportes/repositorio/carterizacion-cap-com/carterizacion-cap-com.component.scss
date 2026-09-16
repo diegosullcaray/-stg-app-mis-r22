@@ -1,0 +1,205 @@
+.bg-green {
+  background-color: #22c55e !important;
+  color: white !important;
+}
+
+.bg-light-green {
+  background-color: #84cc16 !important;
+  color: white !important;
+}
+
+.bg-yellow {
+  background-color: #eab308 !important;
+  color: black !important;
+}
+
+.bg-orange {
+  background-color: #f97316 !important;
+  color: white !important;
+}
+
+.bg-red {
+  background-color: #ef4444 !important;
+  color: white !important;
+}
+
+.header-with-date {
+  background: rgb(3, 80, 150);
+  color: white;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* =========================================================
+   NUEVAS TARJETAS KPI PREMIUM (Compactas)
+   ========================================================= */
+.kpi-card-premium {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 8px; 
+  padding: 12px 18px;
+  box-shadow: 0 2px 8px rgba(0, 75, 141, 0.05); 
+  border: 1px solid #E2E8F0;
+  border-top: 4px solid #004B8D; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-card-premium:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 15px rgba(0, 75, 141, 0.10);
+}
+
+.kpi-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px; 
+}
+
+.kpi-dot {
+  width: 8px; 
+  height: 8px;
+  background-color: #10B981; 
+  border-radius: 50%;
+  margin-right: 6px;
+  box-shadow: 0 0 4px rgba(16, 185, 129, 0.4);
+}
+
+.kpi-title-main {
+  font-size: 13px; 
+  font-weight: 700;
+  color: #004B8D; 
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-subtitle {
+  font-size: 10px; 
+  color: #64748B;
+  font-weight: 600;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.kpi-value {
+  font-size: 22px; 
+  font-weight: 700;
+  color: #1E293B; 
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.kpi-currency {
+  font-size: 14px; 
+  color: #94A3B8;
+  font-weight: 500;
+  margin-right: 3px;
+}
+
+/* =========================================================
+   ESTILOS DE VARIACIÓN EN TARJETAS (NUEVO)
+   ========================================================= */
+.kpi-variation {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+}
+
+.var-icon {
+  font-size: 11px;
+  margin-right: 4px;
+}
+
+.var-label {
+  font-size: 9px;
+  color: #94A3B8;
+  font-weight: 600;
+  margin-left: 6px;
+  letter-spacing: 0.3px;
+}
+
+/* Colores condicionales */
+.var-pos { color: #10B981; } /* Verde Esmeralda */
+.var-neg { color: #EF4444; } /* Rojo Alerta */
+.var-zero { color: #64748B; } /* Gris Neutro */
+
+/* =========================================================
+   MIGAS DE PAN (Estilo Pill / Píldora)
+   ========================================================= */
+.hier {
+  background: transparent;
+  padding: 0; 
+  border: none !important; 
+}
+
+.hier-cont {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-pill {
+  cursor: pointer;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #475569;
+  padding: 6px 16px;
+  border-radius: 20px; 
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.breadcrumb-pill:hover {
+  background: #F1F5F9;
+  color: #004B8D;
+  border-color: #94A3B8;
+}
+ 
+:host ::ng-deep tbody tr td:first-child {
+  cursor: var(--mi-cursor, default) !important;
+  text-decoration: var(--mi-subrayado, none) !important;
+}
+.hier-cont .breadcrumb-pill:last-child {
+  background: #E6F4EA; 
+  border: 1px solid #A5D6A7;
+  color: #004B8D; 
+  cursor: default;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* =========================================================
+   CONTENEDOR DE LA TABLA
+   ========================================================= */
+.table-wrapper {
+  margin: 0 20px 20px 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04); 
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+}
+
+stg-table2 {
+  display: block;
+  height: 100%;
+  margin: 0 !important;
+}

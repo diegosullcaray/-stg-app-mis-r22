@@ -1,0 +1,17 @@
+<ng-scrollbar track="all" class="stg-form" [style]=globalStyle() [formGroup]="localForm">
+    <table style="width: 100%;" [ngStyle]="config.style">
+        <tbody [ngStyle]="config.body.style">
+            <ng-container *ngFor="let tr of fields;let tri = index;let trl = count;">
+                <tr [style]="getBodyFieldStyle(tr,tri,trl)">
+                    <td [ngClass]="getFieldLabelStyle()">
+                        <span>{{tr.label}}</span>
+                    </td>
+                    <td>
+                        <input matInput [formControlName]="tr.key" class="stg-input">
+                    </td>
+                </tr>
+            </ng-container>
+
+        </tbody>
+    </table>
+</ng-scrollbar>

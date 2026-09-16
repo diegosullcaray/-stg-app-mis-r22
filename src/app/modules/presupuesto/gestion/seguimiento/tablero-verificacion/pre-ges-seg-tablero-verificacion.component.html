@@ -1,0 +1,28 @@
+<ng-container >
+    <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+</ng-container>
+<div clas="stg-space"></div>
+<div class="stg-panel">
+    <div class="stg-window">
+        <stg-window-bar [title]="title"></stg-window-bar>
+        <div clas="stg-space"></div>
+        <div>
+            <div fxLayout="row" style="padding: 10px;">
+                <div fxFlex></div>
+                <div fxFlex="50" fxFlex.gt-sm="30" fxLayout="row" fxLayoutAlign="end center">
+                    <!---->
+                    <input #filterInput type=text class="stg-input" placeholder="Buscar" (keyup)="filter($event)">
+                </div>
+            </div>
+            <div clas="stg-space"></div>
+            <div>
+                <stg-table [tableStyleConfig]="tableConf" [loadingObs]="loadingObs" [headersDef]="headerDefs"
+                    [dataSource]="dataSource" [iconizerMap]="iconColMap">
+                </stg-table>
+            </div>
+            <!-- [customComponentCell]="customComponent" (onEditCell)="editCell($event)" [customComponentStyler]="inputStyler"-->
+
+        </div>
+    </div>
+
+</div>

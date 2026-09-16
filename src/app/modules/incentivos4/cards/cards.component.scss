@@ -1,0 +1,65 @@
+.content {
+    padding: 10px;
+}
+
+.card {
+    background-color: white;
+    padding: 5px;
+    border-radius: 8px;
+    min-height: 110px;
+    min-width: 160px;
+    border: 1px solid #1d396e;
+    box-shadow: 6px 4px 6px rgba(0, 0, 0, 0.1);
+    //cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card:hover {
+    // background-color: #B6E2FF;
+    background: #DCEAFD;
+    transform: scale(1.05);
+}
+
+.lbl-icon {
+    .lbl {
+        color: #3399cc;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        //text-decoration: underline;
+    }
+
+    .is {
+        font-size: 18px;
+
+        @media only screen and (max-width: 959px) {
+            font-size: 14px;
+        }
+    }
+
+    .nm {
+        color: #d3d3d3 !important;
+    }
+
+    .dm {
+        color: #e91e2f !important;
+    }
+
+    .am {
+        color: #3bd136 !important;
+    }
+}
+
+.mone {
+    font-size: 14px;
+
+    .bon {
+        color: #999999;
+        font-size: 12px;
+    }
+
+    .tot {
+        color: #2d4665;
+        font-weight: bold;
+    }
+}

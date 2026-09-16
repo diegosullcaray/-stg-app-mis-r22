@@ -1,0 +1,72 @@
+@import "../compartido/estilos/colores.scss";
+
+.base{
+    padding: 10px 20px 20px 20px;
+    //background: $base-color;
+    background: white;
+}
+
+.text-title{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.text-name{
+    .st{
+        font-weight: bold;
+    }
+    .btn{
+        min-width: 36px;
+        width: 36px;
+        //border: 1px solid rgba(0, 0, 0, 0.45);
+        padding: 0px;
+    }
+}
+
+.table{
+    width: 100%;
+    border: none;
+    font-size: 12px;
+    border-collapse: collapse;
+    .header{
+        text-align: left;
+        font-size: 14px;
+        color:#2196f3;
+    }
+    .stg-input{
+        margin: 0px;
+        padding: 4px;
+        font-size: 12px;
+        font-family: Archivo, "Helvetica Neue", sans-serif;
+        color:#304156;
+    }
+    .foot{
+        height: 28px;
+        font-weight: bold;
+        //background: #FAFAFA;
+        background: #f4fafe;
+        border-top: 1px solid rgba(0, 0, 0, 0.45);
+    }
+    .foot.f{
+        //background: #EEEEEE;
+        background: #cae6fc;
+        font-size: 14px;
+    }
+    .ff{
+        width: 90px;
+        padding-left: 5px;
+        padding-bottom: 10px;
+    }
+    .fn{
+        padding-left: 10px;
+        padding-bottom: 10px;
+    }
+    .ftf{
+        padding-left: 5px;
+        font-weight: bold;
+    }
+    .ftn{
+        padding-left: 10px;
+        font-weight: bold;
+    }
+}

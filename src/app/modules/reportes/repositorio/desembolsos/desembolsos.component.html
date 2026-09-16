@@ -1,0 +1,16 @@
+<div class="stg-window" fxFill fxLayout="column">
+      <stg-window-bar title="Estructura de Desembolsos"> </stg-window-bar> 
+     
+    <div class="stg-panel" fxLayout="column" fxFlex>
+        <div fxLayout="row">
+            <ng-container *ngIf="activeHier">
+                <hier-rem-selector fxFlex [confHier]="confHier1"
+                    (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+        </div>
+          
+        <stg-table2 fxFlex [dataSource]="dataSource" [headers]="headerDefs" [options]="Opts" style="margin-left: 10px;margin-right: 10px;" >
+        </stg-table2>
+  
+    </div>
+</div>

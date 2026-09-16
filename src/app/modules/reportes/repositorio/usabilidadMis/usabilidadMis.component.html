@@ -1,0 +1,178 @@
+
+
+
+
+<div fxFill class="stg-mod-base">
+    <div class="stg-window base" fxLayout="column" style="border: solid 4px #467dbd;">
+        
+        <stg-window-bar title="Usabilidad por Reporte MIS" fontSize="16px" ></stg-window-bar>
+        
+        <div fxlayout="row" style="padding: 10px 15px;">
+            <div fxlayoutAlign="start center" fxLayoutGap="5px">
+                <span style="font-weight: bold;">Data Actualizada al:</span><span>getdate();</span>
+            </div>
+        </div>
+    
+
+        
+        <div fxLayout="row wrap" style="border: solid 4px #9016b6;">
+            <div fxLayout="row wrap" fxFlex="100%" style="border: solid 4px #63b616;">
+        
+        
+                <div fxLayout="row wrap" fxFlex="100%" fxLayoutAlign="space-round center" style="border: solid 4px #db9719;">
+                    <mat-card fxFlex> 
+                        <mat-card-title fxLayoutAlign="start center">
+                            <small class="text-muted">Total Reportes</small>
+                            <span fxFlex></span>
+                        </mat-card-title>
+                        <mat-card-content>
+                            <!--h3 class="m-0 font-normal">{{CorresponsalStock}}</h3-->
+                            <h3 class="m-0 font-normal">197</h3>
+                        </mat-card-content>
+                    </mat-card>
+
+
+
+                    <mat-card fxFlex> 
+                        <mat-card-title fxLayoutAlign="start center">
+
+                        <small class="text-muted">Total Visualizaciones de Reportes</small>
+                        <span fxFlex></span>
+                        </mat-card-title>
+                        <mat-card-content>
+                        <!--h3 class="m-0 font-normal">{{CorresponsalStock}}</h3-->
+                        <h3 class="m-0 font-normal">99 756</h3>
+                        
+                        <h3>
+                            <stg-table2  
+                            [headers]="headerDefs" [dataSource]="dataSource" [options]="tableOpts">
+                            </stg-table2> 
+                        </h3>
+
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+
+                <div fxLayout="row wrap" fxFlex="100%" fxLayoutAlign="space-evenly center" style="border: solid 4px #db9719;">
+                
+                    <mat-card fxFlex>
+                        <highcharts-chart [Highcharts]="Highcharts" [options]="graficaPrueba"></highcharts-chart>
+                    </mat-card>
+                
+                    <mat-card fxFlex>
+                        <highcharts-chart [Highcharts]="Highcharts" [options]="graficaTest"></highcharts-chart>
+                    </mat-card>
+
+                </div>
+
+
+
+                <div fxLayout="row wrap" fxFlex="100%" fxLayoutAlign="space-evenly center" style="border: solid 4px #a5241a;">
+                
+                    <mat-card fxLayout="row wrap" style="min-width: 1200px" fxLayoutAlign="center"> 
+                        <highcharts-chart [Highcharts]="Highcharts" [options]="GraficaTipo" fxFill></highcharts-chart>                        
+                    </mat-card>
+                               
+                
+                </div>
+
+
+                
+            </div>
+        </div>
+
+    </div>
+ </div>
+
+
+
+
+
+
+
+
+<!-------------->
+
+
+<!-- Tutorial 10 -->
+<!-- <div fxLayout="column wrap" fxLayoutAlign="center center">
+   <br>
+
+    <h1>Example 2 : </h1>
+    <br>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <ng-container *ngFor="let _ of [1,2,3,4,5,6,7,8] ; let i = index">
+        <mat-card fxLayoutAlign="center center" fxLayout="column wrap">
+          <img mat-card-image style="width: 80px; height: 80px"
+            src="{{'/assets/Angular.png'}}">
+          <a>Card Display {{i+1}}</a>
+        </mat-card>
+      </ng-container>
+    </div>
+    <br>
+
+</div>
+ -->
+
+
+
+
+
+
+<!----------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--- GRAFICOS  -->
+<!-- 
+<div fxLayout="row wrap">
+    <div fxFlex="50" fxFlex.gt-sm="50" fxFlex.sm="100">
+      <mat-card class="default">
+          <p class="text-blue ml-1 mt-1">Transacciones por Corresponsal</p>
+        <mat-card-content> 
+          <div  class="graf2">
+              <app-graphic-basic id="container" [config_graphic]='config_graphic_tcorr' class="highcharts-container"></app-graphic-basic> 
+          </div>
+            
+        </mat-card-content>
+       
+      </mat-card>
+    </div>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+

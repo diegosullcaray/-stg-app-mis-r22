@@ -1,0 +1,115 @@
+<div class="stg-window" fxFill fxLayout="column">
+    <stg-window-bar title="Agendamiento Comercial"> </stg-window-bar>
+    <div class="stg-panel" fxLayout="column" fxFlex>
+        <div fxLayout="row">
+            <ng-container *ngIf="activeHier">
+                <hier-rem-selector fxFlex [confHier]="confHier1"
+                    (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+        </div>
+        <div style="padding-right: 10px; padding-left: 10px;">
+            <div class="stg-simple-card" fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayoutGap="10">
+                    <mat-form-field  *ngIf="showFilterNivelFuga">
+                        <mat-label>Nivel de Fuga</mat-label>
+                        <mat-select [(value)]="selector1">
+                            <mat-option *ngFor="let item of filter1" [value]="item"
+                                (onSelectionChange)="eventFilter($event)">
+                                {{item.label}} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Nivel de propensión</mat-label>
+                        <mat-select [(value)]="selector2">
+                            <mat-option *ngFor="let item of filter2" [value]="item"
+                                (onSelectionChange)="eventFilter2($event)">
+                                {{item.labelf2}} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field  *ngIf="showFilterRangoFecha">
+                        <mat-label>Rango de fechas Cancela</mat-label>
+                        <mat-select [(value)]="selector3">
+                            <mat-option *ngFor="let item of filter3" [value]="item"
+                                (onSelectionChange)="eventFilter3($event)">
+                                {{item.labelf3}} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="showFilterBox">
+                        <mat-label>Buscar en Detalle</mat-label>
+                        <input matInput type="text" class="stg-input" placeholder="" (keyup)="eventSearch($event)">
+                    </mat-form-field>
+                    <mat-form-field *ngIf="showFilterBox2">
+                        <mat-label>Buscar en Detalle</mat-label>
+                        <input matInput type="text" class="stg-input" placeholder="" (keyup)="eventSearch2($event)">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <mat-tab-group style="height: 100%;" class="mat-tab-fill-height" (selectedTabChange)="onTabChanged($event);">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span style="font-size: 14px;">Resumen Total</span>
+                </ng-template>
+                <ng-template matTabContent>
+                    <div style="height: 100%;padding: 10px;" *ngIf="!loading" fxLayout="column" fxLayoutGap="10">
+                        <!-- <div fxLayoutAlign="center">
+                            <span style="font-weight: bold;font-size: 16px;">AGENDAMIENTO COMERCIAL TOTAL</span>
+                        </div> -->
+                        <stg-table2 fxFlex [dataSource]="dataSource" [headers]="headerDefs" [options]="Opts">
+                        </stg-table2>
+                    </div>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span style="font-size: 14px;">Resumen por Bases</span>
+                </ng-template>
+                <ng-template matTabContent>
+                    <div style="height: 100%;padding: 10px;" *ngIf="!loading" fxLayout="column" fxLayoutGap="10">
+                        <!-- <div fxLayoutAlign="center">
+                            <span style="font-weight: bold;font-size: 16px;">AGENDAMIENTO COMERCIAL POR BASES</span>
+                        </div> -->
+                        <stg-table2 fxFlex [dataSource]="dataSource2" [headers]="headerDefs2" [options]="Opts">
+                        </stg-table2>
+                    </div>
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span style="font-size: 14px;">Detalle Bases Vivas</span>
+                </ng-template>
+                <ng-template matTabContent>
+                    <div style="height: 100%;padding: 10px;" *ngIf="!loading" fxLayout="column" fxLayoutGap="10">
+                        <!-- <div fxLayoutAlign="center">
+                            <span style="font-weight: bold;font-size: 16px;">DETALLE DE AGENDAMIENTOBASES VIVAS</span>
+                        </div> -->
+                        <stg-table2 fxFlex [dataSource]="dataSource3" [headers]="headerDefs3" [options]="Opts2">
+                        </stg-table2>
+                        <stg-paginator #paginator [totalLenght]="dataSource3Length" pageLenght="10"
+                            (onChangePage)="eventChangePage($event)" *ngIf="showPaginator">
+                        </stg-paginator>
+                    </div>
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span style="font-size: 14px;">Detalle Bases Automáticos y express</span>
+                </ng-template>
+                <ng-template matTabContent>
+                    <div style="height: 100%;padding: 10px;" *ngIf="!loading" fxLayout="column" fxLayoutGap="10">
+                        <!-- <div fxLayoutAlign="center">
+                            <span style="font-weight: bold;font-size: 16px;">DETALLE DE AGENDAMIENTOBASES VIVAS</span>
+                        </div> -->
+                        <stg-table2 fxFlex [dataSource]="dataSource4" [headers]="headerDefs4"  [options]="Opts2">
+                        </stg-table2>
+                        <stg-paginator #paginator [totalLenght]="dataSource4Length" pageLenght="10"
+                            (onChangePage)="eventChangePage2($event)" *ngIf="showPaginator">
+                        </stg-paginator>
+                    </div>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

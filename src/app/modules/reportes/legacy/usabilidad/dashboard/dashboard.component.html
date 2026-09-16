@@ -1,0 +1,39 @@
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+        <h2 class="title-module">Reporte de Usabilidad</h2>
+    </div>
+</div>
+<!--<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="100">
+        <div>
+            
+            <div>
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="100">
+                    <small class="text-muted">Días pendientes de Goce:</small>
+                    <h1 class="m-0 font-normal">AA</h1>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="100">
+                 
+                    <h1 class="m-0 font-normal">AA</h1>
+                    <small class="text-muted">AA</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="100">
+        <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+            <div>
+                <highcharts-chart [Highcharts]="highchartsHeatmapRDA" [options]="chartOptionsRDA">
+                </highcharts-chart>
+            </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+            <div>
+                <highcharts-chart [Highcharts]="highchartsHeatmapRMA" [options]="chartOptionsRMA">
+                </highcharts-chart>
+            </div>
+        </div>
+    </div>
+</div>

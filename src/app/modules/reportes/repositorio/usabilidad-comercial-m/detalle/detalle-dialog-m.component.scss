@@ -1,0 +1,147 @@
+.stg-window-dialog .mat-dialog-container {
+  padding: 12px !important;
+  background: whitesmoke !important;
+}
+/* Animación elegante */
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .elegant-animate {
+    animation: fadeInUp 0.4s ease-out;
+  }
+  
+  /* Contenedor del modal */
+  .popup-container { 
+    max-width: 600px;       /* Disminuir este valor reducirá el ancho */
+  width: 90%;             /* Puedes controlar el porcentaje también */
+  height: 80vh;           /* Baja el alto para evitar el scroll */
+  margin: 1 auto;           /* Centrado horizontal */ 
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  }
+  .paginator-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+  }
+  
+  /* Cuerpo del popup */
+  .popup-body {
+    
+    padding: 12px 32px;  /* Más espacio a los lados */
+  background-color: #f9f8f7;// #f6f9fc;
+  flex: 1;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  }
+  
+  /* Header asesor */
+  .popup-header {
+    font-size: 16px;
+    font-weight: 500;
+    color: #003b73;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border-left: 5px solid #0072ce;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Etiquetas */
+  .label {
+    font-weight: 600;
+    color: #002f6c;
+  }
+  
+  .value {
+    font-weight: 500;
+    color: #0072ce;
+  }
+  
+  /* Tarjetas resumen */
+  .card-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  
+  /* Tarjeta individual */
+  .summary-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-width: 180px;
+    max-width: 180px;
+    height: 68px;
+    padding-left: 12px;/* 🔧 nuevo padding para dar espacio al ícono */
+  }
+  
+  .summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
+  }
+  
+  /* Icono */
+  .icon-wrapper {
+    background-color: #e6f0fa;
+    border-radius: 50%;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+  }
+  
+  .icon-wrapper mat-icon {
+    color: #0072ce;
+    font-size: 20px;
+  }
+  
+  /* Texto de tarjeta */
+  .card-title {
+    font-size: 13px;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  
+  .card-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #002f6c;
+  }
+  
+  /* Tabla */
+  .table-wrapper {
+    flex: 1;
+    overflow: auto;
+    margin-top: 8px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 12px;
+  }
+  

@@ -1,0 +1,6 @@
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+    <input type="file"  style="display: none;" #hstgf (change)="file($event)"/>
+    <div fxFlex class="stg-input" [style]="getStyle()"><span>{{fileName | truncate : truncateLimit}}</span></div>
+    <stg-button [disabled]="disableUpload" icon="upload" (click)="openFileChooser()"></stg-button>
+    <stg-button  icon="download" (click)="download($event)"></stg-button>
+</div>

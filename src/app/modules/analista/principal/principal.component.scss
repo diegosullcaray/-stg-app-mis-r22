@@ -1,0 +1,53 @@
+::ng-deep .mat-tab-label{
+    height: 30px !important;
+}
+
+.card-base{
+    border-radius: 0.5rem;
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+    background: white;
+    padding: 10px;
+    //margin-top: 0 !important;
+    //min-height: 100%;
+    //height: 100%;
+    //min-width: 333px;
+}
+
+.tbl-div{
+    border-bottom: 1px solid #e9e9ef;
+    //background: red;
+}
+
+.numbers-box{
+    border-radius: 0.5rem;
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+    background: white;
+    padding: 10px;
+}
+
+.mod-bar{
+    background:#035096;
+}
+
+.name-box{
+    padding: 10px;
+    color: white;
+    .n{
+        font-weight: bold;
+    }
+    .s{
+        font-size: 10px;
+    }
+}
+
+.pic-box{
+    border-radius: 7px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    padding: 20px;
+    width: 64px;
+    height: 64px;
+    .icon{
+        font-size: 64px;
+    }
+}

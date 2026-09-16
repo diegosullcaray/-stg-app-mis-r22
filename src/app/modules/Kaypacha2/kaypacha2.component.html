@@ -1,0 +1,69 @@
+<div fxLayout="column" fxFill class="base">
+    <div *ngIf="!layout.isMobile && !loading" fxLayout="column" fxFill>
+       
+<div fxLayout="row" style="height: 50px;margin-top: 50px;" >
+    <div fxLayoutAlign="center start"  fxLayout="column" > 
+        
+        <img src="assets/images/fc/modules/kaypacha/kaypacha_logo.png" style="height: 88px;">
+        <div style="padding: 5px 5px 5px 15px;" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
+            <div fxLayout="column" style="padding: 5px;"> 
+            <div fxFlex style="padding-left: 15px;font-weight: bold;"><span>ASESOR: {{cabeceraConfig.nombre}}</span></div>
+            <div fxFlex style="padding-left: 15px;font-weight: bold;"><span>CARGO: {{cabeceraConfig.cargo}}</span></div>
+        </div>
+        </div>
+    </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+       <div>
+            <mat-card class="pos-card" fxLayout="column" fxLayoutAlign="center center">
+                <span>Posición</span>
+                <span style="font-size: 28px; font-weight: bold;">{{historicoConfig.posicion}}</span>
+            </mat-card>
+        </div>
+          <!-- <div>
+            <mat-card class="pos-card" fxLayout="column" fxLayoutAlign="center center">
+                <span>Posición</span>
+                <span style="font-size: 28px; font-weight: bold;">{{cabeceraConfig.posicion}}</span>
+            </mat-card>
+        </div> -->
+        <div>
+            <button *ngIf="cabeceraConfig.boton" mat-button color="primary" class="bus-bot" (click)="openSearch()">
+                <span class="material-icons" style="font-size: 36px;">
+                    switch_account
+                </span>
+            </button>
+        </div>
+        <!-- <div fxLayoutAlign="center center"  >  
+            <img src="assets/images/fc/modules/kaypacha/copa.jpg"   mat-button color="primary"  (click)="showRanking(0)" style="height: 115px;">
+       
+        </div> -->
+       
+    </div> 
+    <div fxLayoutAlign="center center">
+        <img src="assets/images/fc/modules/kaypacha/fc.png" style="height: 115px; width: 190px;">
+    </div>
+ 
+</div>
+
+     
+<div  *ngIf="octultarPanel" fxFlex fxLayout="column" style="padding-top: 10px;">
+    <div fxLaout="row" >
+        <div fxFlex fxLayout="column"> 
+            <div> 
+                 <app-variable-kaypacha [config]="historicoConfig"></app-variable-kaypacha>  
+            </div> 
+        </div>
+    </div>  
+    <br>
+    <div fxLaout="row" >
+        <div fxFlex fxLayout="column"> 
+            <div> 
+                 <app-historico-kaypacha [config]="historicoConfig"></app-historico-kaypacha>  
+            </div> 
+        </div>
+    </div> <br>
+    <span style="color: green; font-weight: 700;">{{historicoConfig.Desc1}}</span>
+    <span style="color: green; font-weight: 700;">{{historicoConfig.Desc2}}</span>
+</div>
+ 
+</div>
+</div>

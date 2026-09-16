@@ -1,0 +1,95 @@
+ 
+<div fxFill class="stg-mod-base">
+    <ng-scrollbar track="all">
+        <div class="stg-window base" fxLayout="column">
+            <stg-window-bar title="Cuadro de Mando ESG" titleAlign="start" fontSize="20px"></stg-window-bar>
+            <div fxFlex fxLayout="column">
+                <stg-toolbar>
+                    <div fxLayout="row" fxFlex style="padding: 10px;">
+                        <div fxFlex fxLayoutGap="10px">
+                            <stg-button *ngIf="canEdit || isAdmin" [disabled]="disableEditMet" icon="edit_note" hideTextOnMobil=true
+                                (click)="showEdit()"><span>Editar</span>
+                            </stg-button>
+                            <stg-button [disabled]="disableDetMet" icon="table_view" hideTextOnMobil=true
+                                (click)="showView()">
+                                <span>Detalles</span>
+                            </stg-button>
+                        </div>
+                        <div fxLayoutGap="10px">
+                            <stg-button *ngIf="isAdmin" icon="supervisor_account" hideTextOnMobil=true (click)="showUse()"><span>Usuarios</span></stg-button>
+                            <stg-button fxHide icon="table_view" hideTextOnMobil=true><span>Maestros</span></stg-button>
+                        </div>
+                    </div>
+                </stg-toolbar>
+                <div style="padding: 10px;" fxFlex>
+                    <mat-tab-group style="height: 100%;" class="mat-tab-fill-height">
+                        <mat-tab label="Portada">
+                            <ng-template matTabContent>
+                                <div class="img-back">
+                                    <div class="img-fade" fxLayout="row wrap">
+                                        <div fxFlex="100"></div>
+                                        <div fxFlex="40"></div>
+                                        <div fxFlex="60" style="padding-top: 30px;padding-right: 10px;">
+                                            <stg-table2 [options]="tableOpts[0]" [headers]="headersOpts[0]"
+                                                [dataSource]="dataSources[0]">
+                                            </stg-table2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Medioambiente</span>
+                            </ng-template>
+                            <ng-template matTabContent>
+                                <div style="height: 100%;padding: 10px;">
+                                    <stg-table2 [options]="tableOpts[1]" [headers]="headersOpts[1]"
+                                        [dataSource]="dataSources[1]" (onSelectRow)="setSelectedRow($event)">
+                                    </stg-table2>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Social | Empleado</span>
+                            </ng-template>
+                            <ng-template matTabContent>
+                                <div style="height: 100%;padding: 10px;">
+                                    <stg-table2 [options]="tableOpts[2]" [headers]="headersOpts[2]"
+                                        [dataSource]="dataSources[2]" (onSelectRow)="setSelectedRow($event)">
+                                    </stg-table2>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Social | Cliente</span>
+                            </ng-template>
+                            <ng-template matTabContent>
+                                <div style="height: 100%;padding: 10px;">
+                                    <stg-table2 [options]="tableOpts[3]" [headers]="headersOpts[3]"
+                                        [dataSource]="dataSources[3]" (onSelectRow)="setSelectedRow($event)">
+                                    </stg-table2>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Gobierno</span>
+                            </ng-template>
+                            <ng-template matTabContent>
+                                <div style="height: 100%;padding: 10px;">
+                                    <stg-table2 [options]="tableOpts[4]" [headers]="headersOpts[4]"
+                                        [dataSource]="dataSources[4]" (onSelectRow)="setSelectedRow($event)">
+                                    </stg-table2>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </ng-scrollbar>
+
+</div> 

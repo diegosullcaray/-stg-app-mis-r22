@@ -1,0 +1,26 @@
+<div fxFill fxLayout="column">
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar title="Detalles del Prospecto" barIcon="settings" titleAlign="start" closable=true
+            (onClose)="navMain()">
+        </stg-window-bar>
+        <ng-scrollbar track="all">
+            <div *ngIf="show" fxFlex fxLayout="column" style="padding: 10px;" fxLayoutGap="10px">
+                <div fxLayout="column" fxLayoutGap="5px" style="padding-right: 10px;">
+                    <div class="cab"><span>Cliente:</span></div>
+                    <div class="stg-ro-field field"><span>{{dataSource.des_cli}}</span></div>
+                    <div class="cab"><span>Estado:</span></div>
+                    <div class="stg-ro-field  field"><span>{{dataSource.des_pro}}</span></div>
+                    <div class="cab"><span>Segmento:</span></div>
+                    <div class="stg-ro-field  field"><span>{{dataSource.seg_cli}}</span></div>
+                    <div class=cab><span>Usuario:</span></div>
+                    <div class="stg-ro-field  field"><span>{{dataSource.ori_sec}}</span></div>
+                    <div class=cab><span>Fecha:</span></div>
+                    <div class="stg-ro-field  field"><span>{{dataSource.fec_pro}}</span></div>
+                    <div class=cab><span>Comentario:</span></div>
+                    <div class="stg-ro-field  field"><span>{{dataSource.com_pro}}</span></div>
+                </div>
+
+            </div>
+        </ng-scrollbar>
+    </div>
+</div>

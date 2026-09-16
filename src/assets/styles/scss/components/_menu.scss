@@ -1,0 +1,17 @@
+/*funciona agregando no-pad para class en mat-menu*/
+/*.mat-menu-panel.no-pad {
+    background-color: red;
+}*/
+.mat-menu-content{
+    padding: 0px !important;
+}
+.mat-menu-panel.full{ max-width: 600px !important; }
+
+.mat-menu-panel.start-menu-node {
+    margin-top: -36px;
+    //margin-right: -100px;
+}
+
+.mat-list-base .no-rpad.mat-list-item .mat-list-item-content{
+    padding-right: 0px !important;
+}

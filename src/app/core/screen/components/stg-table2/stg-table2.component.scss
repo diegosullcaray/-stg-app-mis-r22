@@ -1,0 +1,48 @@
+.stg-table2 ::ng-deep .ng-scroll-viewport-wrapper{
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background: var(--global-background);
+     
+     
+}
+.stg-table2-traffic ::ng-deep .ng-scroll-viewport-wrapper{
+    .red-icon {color: #b80f0f;font-size: 19px;width: 18px;height: 18px;}
+    .orange-icon {color: orange;font-size: 19px;width: 18px;height: 18px;}
+    .green-icon {color: #0b8a0b;font-size: 19px;width: 18px;height: 18px;}
+}
+.stg-table2-row:hover {
+    background: var(--row-hover-background) !important;
+    color: var(--row-hover-color) !important; 
+     
+}
+
+.stg-table2-row-highlighted{
+    background: var(--row-selected-background) !important;
+    color: var(--row-selected-color) !important;
+     
+}
+
+@keyframes moving-gradient {
+    0% { background-position: -250px 0; }
+    100% { background-position: 250px 0; }
+}
+.stg-table2-cell-loading{
+    padding: 8px;
+    height: 16px;
+    //vertical-align: baseline;
+    span{
+        border-radius: 6px;
+        display: block;
+        height: 12px;
+        background: linear-gradient(to right, #eee 20%, #ddd 50%, #eee 80%);
+        //background: linear-gradient(to right, #b6fbff 80%, #83a4d4 10%);
+        background-size: 200px 300px;
+        animation-name: moving-gradient;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+         
+    }
+    
+}

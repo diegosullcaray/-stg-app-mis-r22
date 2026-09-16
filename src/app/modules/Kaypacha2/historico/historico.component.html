@@ -1,0 +1,98 @@
+ 
+
+<!-- <div fxLayout="row" class="punt-comp"> 
+    <div fxFlex fxLayout="column">  
+         <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Fecha</span></div>
+         <div *ngFor="let item of config.anio" fxLayoutAlign="center center" fxFlex class="punt-item">  
+             <span>{{item}}</span>
+        </div>  
+    </div>
+         <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>{{config.cab[0]}}</span></div>
+        <div *ngFor="let item of config.puntBase" fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: yellow;"><span>{{item}}</span></div>
+    </div>
+   <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Saldo Cartera</span></div>
+        <div  *ngFor="let item of config.salCarte" fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: #B1B1D0"><span>{{item}}</span></div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Stock Cliente</span></div> 
+        <div *ngFor="let item of config.stockCar" fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: #85C5E2"><span>{{item}}</span></div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Efec -30 a 0</span></div> 
+        <div  *ngFor="let item of config.efec30a0" fxLayoutAlign="center center"fxFlex class="punt-item" style="background-color: #6F9DD9"><span>{{item}}</span></div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Efec 1 a 30</span></div> 
+        <div *ngFor="let item of config.efec1a31"  fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: #A4A7DD"><span>{{item}}</span></div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Formación Extra</span></div> 
+        <div *ngFor="let item of config.formExtr" fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: #97EA9B"><span>{{item}}</span></div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Digtalización</span></div> 
+        <div *ngFor="let item of config.digitali" fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: #349038"><span>{{item}}</span></div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>Desempeño Social</span></div> 
+        <div *ngFor="let item of config.deseSoci" fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: #D3CE84"><span>{{item}}</span></div>
+    </div>
+    <div fxFlex  fxLayout="column">
+        <div fxLayoutAlign="center center" fxFlex="50" class="punt-cab"><span>RO</span></div> 
+        <div *ngFor="let item of config.ro" fxLayoutAlign="center center" fxFlex class="punt-item" style="background-color: #C8EA54"><span>{{item}}</span></div>
+    </div>    
+     
+</div>     -->
+<!-- <table>
+    <thead>
+    <tr class="punt-comp">
+    <th *ngFor="let item of config.cab;" class="punt-cab">{{item}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of config.anio; index as i"> 
+     <td class="punt-item">{{item}}</td>
+    <td class="punt-item">{{ config.puntBase[i] }}</td>
+    <td class="punt-item">{{ config.salCarte[i] }}</td>
+    <td class="punt-item">{{ config.stockCar[i] }}</td> 
+    <td class="punt-item">{{ config.stockcli[i] }}</td> 
+    <td class="punt-item">{{ config.efec30a0[i] }}</td>
+    <td class="punt-item">{{ config.efec1a31[i] }}</td>
+    <td class="punt-item">{{ config.formExtr[i] }}</td>
+    <td class="punt-item">{{ config.digitali[i] }}</td>
+    <td class="punt-item">{{ config.ro[i] }}</td>  
+    <td class="punt-item">{{ config.amones[i] }}</td>  
+    </tr>
+    </tbody>
+    </table> -->
+<!-- <div fxLayout="row" class="punt-comp"> 
+    <table fxFlex  fxLayout="column">
+        <tr >
+            <th *ngFor="let col of config.cab; let i = index" fxLayoutAlign="center center" fxFlex="50" class="punt-cab">{{setHeader(col, i)}}</th> 
+        </tr>
+        <tr *ngFor="let item of config.data; index as i" >
+          <td *ngFor="let column of config.cab" fxFlex class="punt-item">{{setData(item[column], column)}}</td>
+        </tr>
+      </table>
+ </div>  -->
+ 
+ <div fxLayout="row" class="punt-comp"> 
+    <div fxFlex fxLayout="column">  
+        <table fxFlex  fxLayout="column">
+            <tr >
+                <th *ngFor="let col of config.cab; let i = index" fxLayoutAlign="center center" fxFlex="50" class="punt-cab"
+                >
+               
+                {{setHeader(col, i)}}
+            
+            </th>   
+            </tr>
+             <tr *ngFor="let item of config.data; index as i" >
+             <td *ngFor="let column of config.cab" fxLayoutAlign="center center" fxFlex="50" class="punt-item">{{setData(item[column], column)}}</td>  
+ 
+            </tr> 
+          </table>
+    </div>  
+</div>

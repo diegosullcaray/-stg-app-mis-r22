@@ -1,0 +1,24 @@
+#pagestyle {
+    font-family: verdana;
+    
+    font-size: 25px;
+    background-color: transparent;
+    border: 0 none;
+    color: #6c757d;
+   
+    }
+   #pagestyle {
+    text-align: center !important;
+    }
+        .p-inputtext {
+            display: block;
+            margin-bottom: .5rem;
+    
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    
+    .p-field * {
+        display: block;
+    }

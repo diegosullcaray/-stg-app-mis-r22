@@ -1,0 +1,13 @@
+<div fxFill fxLayout="column" [formGroup]="textAreaForm">
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar [title]="title" barIcon="edit_note" titleAlign="start" closable=true
+            (onClose)="close()">
+        </stg-window-bar>
+        <div fxFlex>
+            <textarea formControlName="inText" class="stg-input"></textarea>
+        </div>
+    </div>
+    <div *ngIf="dataSource.enabled" fxLayoutAlign="end center" style="padding: 10px 0px;">
+        <stg-button color="primary" (click)="accept()">Aceptar</stg-button>
+    </div>
+</div>

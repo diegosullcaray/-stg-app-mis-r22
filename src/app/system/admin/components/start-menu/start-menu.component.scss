@@ -1,0 +1,97 @@
+@import "/src/assets/styles/scss/colors";
+
+/*
+.start-menu {
+    box-sizing: border-box;
+    //background-color: red;
+}
+.start-menu .mat-card{
+    padding:0px;
+}
+.start-menu .mat-card-header{
+    background-color:$blue-base;
+    color:white;
+    height: 30px;
+}
+.start-menu .mat-card-header .mat-card-title{
+    font-size: 12px;
+    //margin-left: -16px;
+}
+.start-menu .start-menu-cont {
+    //margin-left: -24px;
+    margin-right: -24px;
+}
+.start-menu .start-menu-cont .mat-list-item .mat-icon {
+    margin-right: 8px;
+}*/
+
+  /*.profile-sidebar .propic {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+  .profile-sidebar .propic img {
+    width: 50%;
+    height: auto;
+    border-radius: 50%;
+  }
+  .profile-sidebar .profile-title .main-title {
+    font-size: 1.5rem;
+  }
+
+  [dir=rtl] {
+    .profile-sidebar .profile-nav .mat-list-item .mat-icon {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+  }*/
+
+.adj-name{
+  margin-left: 10px;
+}
+
+.dd-icon{
+  margin-top: 10px; 
+  font-size: 12px;
+}
+
+.footer{
+  padding: 5px;
+  background-color: $blue-base;
+}
+
+#start-menu {
+    .mat-card-header{
+      background-color:$blue-base;
+      color:white;
+      padding:5px;
+      height: 40px;
+    }
+    .mat-menu-panel{
+        max-width: none;
+    }
+    .mat-card{
+      padding:0px;
+      margin: 0px;
+    }
+    .mat-card-content{
+      padding:0px;
+      margin-bottom: 0px;
+      //height: 200px;
+    }
+    .mat-card .mat-divider-horizontal{
+      position: relative;
+    }
+    .mat-card-title{
+        font-size: 14px;
+        //margin-top: 10px;
+        //margin-left: -16px;
+    }
+    .mat-card{
+        width: 370px;
+        //height: 200px;
+    }
+    .mat-list-item{
+      font-size: 12px;
+      height: 36px;
+    }
+}

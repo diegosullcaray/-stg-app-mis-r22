@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+/* =========================================================
+   VARIABLES GLOBALES
+   ========================================================= */
+:root {
+  --color-blue: #004B8D;
+  --color-text: #1F2937;
+  --bg-body: #F3F4F6;
+  --border: #E5E7EB;
+}
+
+/* =========================================================
+   1. CONTENEDOR PRINCIPAL Y FONDO AZUL SUPERIOR
+   ========================================================= */
+.container {
+  background-color: #F3F4F6;
+  min-height: 100vh;
+  padding: 10px 15px; 
+  box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative; 
+  z-index: 1;         
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 182px; 
+  background-color: #004B8D; 
+  z-index: -1; 
+}
+
+/* =========================================================
+   2. HEADER
+   ========================================================= */
+.header-top {
+  margin-bottom: 10px; 
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px; 
+  font-weight: 700;
+  color: #FFFFFF; 
+  letter-spacing: -0.5px;
+  margin-right: 15px;
+  margin-left: 17px;
+  margin-top: 5px;
+  line-height: 1; 
+}
+
+.header-subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px; 
+  font-weight: 300;
+  color: #E0E0E0; 
+  border-left: 1px solid rgba(255, 255, 255, 0.3); 
+  padding-left: 15px;
+  height: 20px; 
+  display: flex;
+  align-items: center;
+  
+  @media (max-width: 959px) {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 2px;
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   3. TARJETAS DE KPIs SUPERIORES
+   ========================================================= */
+.kpi-card {
+  background: #FFFFFF;
+  border-radius: 4px;
+  padding: 15px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+  border: none; 
+  margin-bottom: 5px; 
+  margin-left: 15px;
+  margin-right: 15px;  
+}
+
+.kpi-label { font-size: 10px; color: #757575; font-weight: 600; text-transform: uppercase; margin-bottom: 2px; }
+.kpi-label-xs { font-size: 9px; color: #757575; font-weight: 600; text-transform: uppercase; }
+
+.kpi-value { 
+  font-family: 'Roboto', sans-serif; font-size: 22px; font-weight: 400; color: #212121; line-height: 1; 
+  &.compact { font-size: 18px; font-weight: 500; } 
+  .unit { font-size: 12px; color: #616161; } 
+}
+
+.kpi-subtext { display: flex; flex-direction: column; font-size: 12px; color: #757575; line-height: 1.1; }
+
+.text-red { color: #E53935 !important; font-weight: 700; }
+.text-green { color: #43A047 !important; font-weight: 700; }
+.text-yellow { color: #FBC02D; font-weight: 700; }
+.text-gray { color: #9E9E9E; }
+.text-md { font-size: 11px; font-weight: 700; }
+
+.progress-container { margin-top: 4px; display: flex; flex-direction: column; }
+.progress-label { font-size: 10px; font-weight: 700; margin-bottom: 1px; &.red { color: #E53935; } }
+.progress-track { height: 6px; background-color: #EEEEEE; border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background-color: #E53935; border-radius: 3px; }
+.progress-footer { display: flex; justify-content: flex-end; margin-top: 2px; }
+.progress-footer span { font-size: 10px; color: #757575; font-family: 'Roboto', sans-serif; }
+
+.dashed-divider { border-bottom: 1px dashed #E0E0E0; margin: 10px 0; width: 100%; }
+.solid-divider { border-bottom: 1px solid #BDBDBD; margin: 4px 0; width: 100%; }
+
+.mini-stat { display: flex; flex-direction: column; font-size: 9px; color: #757575; strong { font-size: 12px; font-weight: 600; color: #424242; &.text-red { color: #E53935; } } }
+.align-right { text-align: right; }
+.val-medium { font-size: 13px; color: #212121; font-weight: 500; }
+.mini-text { font-size: 9px; font-weight: 500;}
+.split-col { &.border-right { border-right: 1px solid #E0E0E0; padding-right: 5px; } &.padding-left { padding-left: 5px; } }
+
+/* =========================================================
+   4. BLOQUE PRINCIPAL AGRUPADO (Botones, Tabs y Tabla)
+   ========================================================= */
+.main {
+  background-color: #FFFFFF !important;
+  border-radius: 8px; /* Redondeo igualado con el de gráficos */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+  margin: 15px 15px 20px 15px !important; 
+  padding: 20px !important; 
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 200px;
+  overflow: hidden;
+}
+
+.hier {
+  background: transparent;
+  padding: 0 0 10px 0; 
+  margin: 0 !important; 
+  border: none !important; 
+  min-height: 75px; 
+}
+
+.hier-cont div {
+  cursor: pointer;
+  border: 1px solid #D1FAE5; 
+  border-radius: 4px; 
+  background: #ECFDF5; 
+  color:#004B8D ; 
+  padding: 0 8px; 
+  height: 24px; 
+  font-size: 11px; 
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  letter-spacing: 0.2px;
+}
+
+.hier-cont div:hover {
+  background: #D1FAE5;
+  border-color: #10B981;
+}
+
+.separacion {
+  display: none; 
+}
+
+.tabs-scroll-container {
+  border-bottom: 1px solid #E5E7EB; 
+  width: 100%;
+  padding-bottom: 0;
+  display: flex;
+  gap: 5px; 
+  margin-top: 12px; 
+  margin-bottom: 15px; 
+}
+
+.tab-link {
+  font-family: 'Roboto', sans-serif;
+  color: #6B7280;
+  cursor: pointer;
+  height: 28px; 
+  font-size: 12px; 
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  padding: 0 12px; 
+  border-bottom: 2px solid transparent; 
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.tab-link:hover {
+  color: #004B8D;
+  background-color: #F8FAFC; 
+  border-radius: 4px 4px 0 0;
+}
+
+.tab-link.active {
+  color: #004B8D;        
+  font-weight: 600;     
+  border-bottom: 2px solid #004B8D; 
+}
+
+.table-container {
+  background-color: transparent !important;
+  margin: 0 !important; 
+  border: 1px solid #E5E7EB !important; 
+  border-radius: 6px; 
+  flex: 1;
+  overflow: auto;
+  min-height: 300px;
+}
+
+.table-container stg-table2, 
+.table-container stg-table4 {
+  display: block;
+  height: 100%;
+  overflow: hidden; 
+}
+
+/* =========================================================
+   5. GRÁFICOS HIGHCHARTS
+   ========================================================= */
+.chart-block {
+  /* SE ELIMINÓ 'width: 100%' para que los márgenes funcionen correctamente */
+  margin: 0 15px 100px 15px; /* UX: 15px laterales, exactamente igual que la tabla de arriba */
+  background: #FFFFFF;
+  padding: 20px;
+  border-radius: 8px; /* Redondeo igualado con la tabla */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Misma sombra que la tabla */
+  border: none; /* Quitamos el borde plano que tenía antes */
+  box-sizing: border-box;
+  overflow: hidden; 
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 0 15px 0;
+  border-bottom: 1px solid #e8eef7;
+  flex-shrink: 0;
+}
+
+.back-button {
+  display: flex; align-items: center; gap: 8px; 
+  background: linear-gradient(135deg, #4CAC54 0%, #45944d 100%); 
+  border: none; color: white; padding: 8px 14px; border-radius: 6px; 
+  cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.3s ease; 
+  box-shadow: 0 2px 8px rgba(76, 172, 84, 0.25);
+  
+  &:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(76, 172, 84, 0.35); }
+  &:active { transform: translateY(0); }
+  .back-icon { font-size: 16px; transition: transform 0.2s ease; }
+  &:hover .back-icon { transform: translateX(-2px); }
+}
+
+.chart-title { margin: 0; font-size: 15px; font-weight: 600; color: #374151; flex: 1; }
+
+.charts-wrapper-column { width: 100%; min-width: 0; }
+.chart-section { width: 100%; min-width: 0; display: block; }
+.chart-section-title { font-size: 13px; color: #004B8D; margin-bottom: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+.chart-wrapper { width: 100%; height: 450px; position: relative; min-width: 0; }
+.chart-wrapper highcharts-chart { width: 100% !important; height: 100% !important; display: block; }
+
+/* =========================================================
+   6. RESPONSIVE DESIGN (Móviles)
+   ========================================================= */
+@media (max-width: 959px) {
+  .mini-tabs-bar { 
+    background-color: #ffffff; height: 32px; padding: 0 15px; 
+    border: 1px solid #e2e8f0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #E0E0E0; 
+  }
+}
+
+@media (max-width: 599px) {
+  .container { padding: 10px; }
+  .main { margin: 10px !important; padding: 15px !important; }
+  
+  /* UX: En móviles también alineamos los gráficos con la tabla (10px laterales) */
+  .chart-block { padding: 15px; margin: 0 10px 100px 10px; } 
+  
+  .chart-wrapper { height: 350px; }
+}

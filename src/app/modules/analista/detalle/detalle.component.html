@@ -1,0 +1,13 @@
+<div fxFill fxLayout="column" >
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar [title]="title" barIcon="edit_note" titleAlign="start" closable=true
+            (onClose)="navMain()">
+        </stg-window-bar>
+        
+        <ng-scrollbar track="all">
+            <!-- <router-outlet name="detalleCont" ></router-outlet> -->
+            <app-cliente-detalle-analista *ngIf="showCli"></app-cliente-detalle-analista>
+            <app-operacion-detalle-analista *ngIf="showOpe"></app-operacion-detalle-analista>
+        </ng-scrollbar>
+    </div>   
+</div>

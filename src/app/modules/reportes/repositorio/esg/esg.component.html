@@ -1,0 +1,62 @@
+<div>
+    <!--<ng-container *ngIf="activeHier">
+        <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>-->
+    <div style="height: 10px;"></div>
+    <div style="padding: 10px;">
+        <div class="stg-window-ui">
+            <stg-window-bar [title]="mainTitle" ></stg-window-bar>
+            <div class="stg-panel">
+                <div style="padding: 0px 10px;">
+                    <mat-tab-group fxFlex style="overflow-y: auto;">
+                        <mat-tab label="Medioambiente">
+                            <ng-template matTabContent>
+                                <div fxLayout="column">
+                                    <div style="height: 10px;"></div> 
+                                    <div style="height: 10px;"></div>
+                                    <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource1" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler" (onEditCell)="editCell($event)">
+                                    </stg-table> 
+ 
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab label="Social | Empleado">
+                            <ng-template matTabContent>
+                                <div style="height: 10px;"></div>
+                                 <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf2" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource2" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table>
+                                 
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab label="Social | Cliente">
+                            <ng-template matTabContent>
+                                <div style="height: 10px;"></div> 
+                                <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf3" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource3" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table> 
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab label="Gobierno">
+                            <ng-template matTabContent>
+                                <div style="height: 10px;"></div> 
+                                <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf4" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource4" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table> 
+                            </ng-template>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

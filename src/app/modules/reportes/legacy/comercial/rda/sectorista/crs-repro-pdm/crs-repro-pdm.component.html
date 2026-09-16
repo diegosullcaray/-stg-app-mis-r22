@@ -1,0 +1,53 @@
+<h2 class="title-module">{{title_module}}</h2>
+<app-auto-complete-sec (refresh)="load($event)"></app-auto-complete-sec>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)">
+</app-select-multiple>
+<mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="selected=$event">
+    <mat-tab label="Lista Clientes" disabled>
+        <app-table-multiheader [config_table]='config_table' (refresh)="renderUpdate($event)"></app-table-multiheader>
+    </mat-tab>
+    <mat-tab label="Actualizar Datos" disabled>
+        <mat-card class="mat-elevation-z m-033">
+            <h2 class="title-module">{{cliente}}</h2>
+            <div fxLayout="column">
+                <div [formGroup]="form">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <div fxFlex="100" fxFlex.gt-sm="35" fxFlex.sm="35">
+                            <mat-form-field fxFlex>
+                                <mat-label>{{reaccion.label}}</mat-label>
+                                <mat-select [formControlName]="reaccion.variable">
+                                    <mat-option *ngFor="let r of reaccion.data" [value]="r.id">{{r.desc}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field 
+                        *ngIf='reaccionF.value!=="Aceptó" && reaccionF.value!==null'
+                        fxFlex>
+                            <mat-label>{{motivo.label}}</mat-label>
+                            <mat-select [formControlName]="motivo.variable">
+                                <mat-option *ngFor="let r of motivo.data" [value]="r.id">{{r.desc}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+          
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxFlex fxLayoutAlign="center center">
+                        <button mat-raised-button color="primary" (click)="selected=0">
+                            <mat-icon>keyboard_return</mat-icon>Regresar
+                        </button>
+                    </div>
+                    <div fxFlex fxLayoutAlign="center center">
+                        <button 
+                        [disabled]='!form.valid'
+                        mat-raised-button color="primary" (click)="save()">
+                            <mat-icon>save</mat-icon>Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

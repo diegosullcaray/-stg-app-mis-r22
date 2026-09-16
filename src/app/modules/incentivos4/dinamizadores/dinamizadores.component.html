@@ -1,0 +1,13 @@
+<div fxFill fxLayout="column" class="content" fxLayoutGap="10px">
+    <div class="lbl">
+        <span>Dinamizadores</span>
+    </div>
+    <div fxFlex fxLayoutAlign="space-around center" fxLayoutGap="1rem">
+        <ng-container *ngFor="let item of config.blocks">
+            <div *ngIf="item.show" class="block" [style]="blockStyle" fxLayout="column" fxLayoutAlign="start center">
+                <div class="dn-lbl"><span>{{item.lbl}}</span></div>
+                <div fxFlex fxLayoutAlign="center center" class="dn-val"><span>{{item.val}}</span></div>
+            </div>
+        </ng-container>
+    </div>
+</div>

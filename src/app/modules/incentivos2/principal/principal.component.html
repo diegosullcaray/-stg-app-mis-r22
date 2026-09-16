@@ -1,0 +1,33 @@
+<div fxFill fxLayout="column" class="base">
+    <div fxFlex.gt-sm="50" fxFill style="padding: 20px;">
+        <div fxFill class="base-card" style="padding: 15px;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="15px">
+            <app-perfil-incentivos2 fxFlex="50" [config]="profCfg"></app-perfil-incentivos2>
+            <app-monetizacion-incentivos2 fxFlex [config]="moneCfg"></app-monetizacion-incentivos2>
+        </div>
+    </div>
+    <ng-container *ngIf="!layout.isMobile">
+        <div fxFlex>
+            <div fxLayout="row" fxLayoutGap="20px" fxFlex style="padding: 0px 20px 20px 20px;">
+                <app-variable-incentivos2 fxFlex="25" [config]="cardCfg[0]"></app-variable-incentivos2>
+                <app-variable-incentivos2 fxFlex="25" [config]="cardCfg[1]"></app-variable-incentivos2>
+                <app-variable-incentivos2 fxFlex="25" [config]="cardCfg[2]"></app-variable-incentivos2>
+                <app-variable-incentivos2 fxFlex="25" [config]="cardCfg[3]"></app-variable-incentivos2>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<!-- <div *ngIf="unableView" fxLayout="column" fxFill fxLayout="column" style="background: white;"
+    fxLayoutAlign="center center" fxLayoutGap="20px">
+    <img src="assets/images/fc/kaypacha1.png" alt="" style="width: 240px;height: 300px;">
+    <div style="padding-left: 15px;padding-right: 15px;">
+        <span style="text-align: center;">Si eres asesor de negocio inclusivo grupal, te informamos que el módulo estará
+            desactivado hasta nuevo aviso,
+            debido a las modificaciones vigentes. Gracias por tu comprensión.</span>
+    </div>
+    <button mat-raised-button (click)="navMain()" style="background: #304156;color: white; min-width: 48px;min-height: 48px;">
+        <span class="material-icons icon">
+            home
+        </span>
+    </button>
+
+</div> -->

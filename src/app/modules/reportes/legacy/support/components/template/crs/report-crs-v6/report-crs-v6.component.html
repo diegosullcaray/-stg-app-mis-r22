@@ -1,0 +1,58 @@
+<h2 class="title-module">{{title_module}}</h2>
+  
+ 
+<div class="stg-window">
+<stg-window-bar [title]="mainTitle"></stg-window-bar>
+ <div class="stg-panel" style="padding-bottom: 0px; ">
+    <div id="main">
+        <div  fxLayout="column" fxFlex="94" fxLayoutAlign="center left">
+            <span [ngClass]="{'desk-1':!layout.isMobile,'mob-1':layout.isMobile}" style="font-weight: bold;font-size: 18px;" id="name">{{name}} <br> 
+                <span [ngClass]="{'desk-2':!layout.isMobile,'mob-2':layout.isMobile}" style="font-size: 10px;" id="name">{{position}}</span></span>  
+       
+        </div>
+        
+        <div  fxLayout="row" fxFlex="2" fxLayoutAlign="center right" >
+            <button   (click)="openSecSelector(false)" mat-button color="primary" class="bus-bot" style="height: 40px;" >
+                <span class="material-icons" style="font-size: 27px;">
+                    switch_account
+                </span>
+              
+            </button>
+        </div> 
+      </div>
+      <div id="boton">
+
+      </div >
+     
+    
+    
+ </div> 
+<div    >
+    <div   fxLayout="column" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="space-evenly start"[ngClass]="{'desk-3':!layout.isMobile,'mob-3':layout.isMobile}"></div>
+</div>  
+</div> 
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple> 
+   
+<div style="padding: 0.5rem;">
+    <div style="overflow: auto;">
+        <div style="padding: 0.5rem;">
+            <div style="position: relative;">
+                <input type=text class="stg-input" placeholder="Buscar" (keyup)="filterss($event)">
+            </div>
+        </div>
+         
+        <div fxLayout="column">
+            <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                       [headersDef]="headerDefs" [dataSource]="dataSource1" [loadingObs]="loadingObs"  
+                       [customCellStyler]="customStyler">
+            </stg-table>  
+            <ng-container *ngIf="showPaginator">
+                <stg-paginator #paginator [totalLenght]="dataSourceLenght" pageLenght="10" (onChangePage)="changePage($event)">
+                </stg-paginator>
+            </ng-container>  
+        </div> 
+    </div>  
+    <p>El segmento SIN SEGMENTO "no es excluyente, cliente puede participar"</p>
+</div>  
+     
+ 

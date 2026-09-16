@@ -1,0 +1,58 @@
+<div fxFill fxLayout="column" [formGroup]="editForm">
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar [title]="title" barIcon="edit_note" titleAlign="start" closable=true
+            (onClose)="navMain()">
+        </stg-window-bar>
+        <ng-scrollbar track="all">
+            <div fxFlex fxLayout="column" style="padding: 10px;" fxLayoutGap="10px">
+                <div fxLayout="column" fxLayoutGap="5px" style="padding-right: 10px;">
+                    <div class="cab"><span>Nombre:</span></div>
+                    <div><span>{{esgService.selectedRow.des_met}}</span></div>
+                    <div class=cab><span>Medida:</span></div>
+                    <div><span>{{esgService.selectedRow.des_med}}</span></div>
+
+                    <div class=cab style="color: #4472c4;"><span>¿Está Disponible?:</span></div>
+                    <div><input matInput formControlName="des_dis" class="stg-input"></div>
+                    <div class=cab style="color: #4472c4;"><span>Situación:</span></div>
+                    <div>
+                        <mat-select formControlName="sit_met" class="stg-input" [(value)]="esgService.selectedRow.sit_met">
+                            <ng-container *ngFor="let item of esgService.sitCfg">
+                                <mat-option [value]="item.cod">{{item.des}}</mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="stg-window" fxLayout="column">
+                    <div class="stg-window-label sec-title">Histórico</div>
+                    <table style="padding: 10px;">
+                        <ng-container *ngFor="let k of esgService.histEditKeys;">
+                            <tr>
+                                <td style="width: 50%;">{{k.label}}</td>
+                                <td><stg-binput [formControlName]="k.key"></stg-binput></td>
+                            </tr>
+                        </ng-container>
+
+                    </table>
+                </div>
+                <div class="stg-window" fxLayout="column">
+                    <div class="stg-window-label sec-title">Atributos</div>
+                    <table style="padding: 10px;">
+                        <ng-container *ngFor="let k of esgService.attributesCfg;">
+                            <tr>
+                                <td style="width: 50%;">{{k.label}}</td>
+                                <td><stg-binput [formControlName]="k.key"></stg-binput></td>
+                            </tr>
+                        </ng-container>
+
+                    </table>
+                </div>
+            </div>
+        </ng-scrollbar>
+        <div [@bottomAlert]="alertState" [fxHide]="alertHide">
+            --
+        </div>
+    </div>
+    <div *ngIf="editMode" fxLayoutAlign="end center" style="padding: 10px 0px;">
+        <stg-button color="primary" (click)="submitForm()">Guardar</stg-button>
+    </div>
+</div>

@@ -1,0 +1,151 @@
+<div fxFill fxLayout="column" class="base">
+    <div fxFlex="8" class="text-title" fxLayout="row" fxLayoutAlign="center center" style="padding-bottom: 5px;">
+        <div><span>Calculadora</span></div>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center" style="padding-bottom: 10px;">
+            <button mat-raised-button class="stg-btn-short-d" (click)="calc()">
+                <span class="material-icons icon">play_arrow</span>
+            </button>
+            <button mat-raised-button class="stg-btn-short-d" (click)="rest()">
+                <span class="material-icons icon">refresh</span>
+            </button>
+            <button mat-raised-button class="stg-btn-short-d" (click)="navMain()">
+                <span class="material-icons icon">home</span>
+            </button>
+        </div>
+    </div>
+
+    <div fxFlex fxLayout="column">
+        <ng-scrollbar track="all">
+            <table class="table" cellspacing="0">
+                <tr class="header">
+                    <th class="ff">Cierre</th>
+                    <th class="ff">Meta</th>
+                    <th class="fn" style="text-align: center;">B. Base</th>
+                    <th class="fn" style="text-align: center;">B. Plus</th>
+                </tr>
+                <tr>
+                    <td class="ftf" colspan="4">Var. Real Cartera</td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput value="{{config.var_sal}}"
+                            (keyup)="param($event,'var_sal')"></td>
+                    <td class="fn">S/. {{config.sal_met | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_sal | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_p_sal | number:'.0-2'}}</td>
+                </tr>
+                <tr>
+                    <td class="ftf" colspan="4">Var. Real Clientes</td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput value="{{config.var_cli}}"
+                            (keyup)="param($event,'var_cli')"></td>
+                    <td class="fn">{{config.cli_met | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_cli | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_p_cli | number:'.0-2'}}</td>
+                </tr>
+                <tr>
+                    <td class="ftf" colspan="4">Efectividad -30 a 0</td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput
+                            value="{{config.efec1_cie}}" (keyup)="param($event,'efec1_cie')"></td>
+                    <td class="fn">{{config.efec1_met | percent:'.2-2'}}</td>
+                    <td class="fn">S/. {{config.bon_efe1 | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_p_efe1 | number:'.0-2'}}</td>
+                </tr>
+                <tr>
+                    <td class="ftf" colspan="4">Efectividad 1 a 30</td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput
+                            value="{{config.efec2_cie}}" (keyup)="param($event,'efec2_cie')"></td>
+                    <td class="fn">{{config.efec2_met | percent:'.2-2'}}</td>
+                    <td class="fn">S/. {{config.bon_efe2 | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_p_efe2 | number:'.0-2'}}</td>
+                </tr>
+                <tr>
+                    <td class="ftf" colspan="4">Supervisión Capa 1</td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput value="{{config.sc1}}"
+                            (keyup)="param($event,'sc1')"></td>
+                    <td class="fn">{{config.sc1_met | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_sc1 | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_p_sc1 | number:'.0-2'}}</td>
+                </tr>
+                <tr>
+                    <td class="ftf" colspan="4">Porcentaje Asesores Comisionan</td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput value="{{config.pac}}"
+                            (keyup)="param($event,'pac')"></td>
+                    <td class="fn">{{config.pac_met | percent:'.2-2'}}</td>
+                    <td class="fn">S/. {{config.bon_pac | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{config.bon_p_pac | number:'.0-2'}}</td>
+                </tr>
+                <tr class="foot">
+                    <td class="ff" colspan="2">Totales:</td>
+                    <td class="fn">S/. {{bon_tot | number:'.0-2'}}</td>
+                    <td class="fn">S/. {{bon_p_tot | number:'.0-2'}}</td>
+                </tr>
+                <tr class="header">
+                    <th class="ff" colspan="4">Bono Super Plus</th>
+                </tr>
+                <tr>
+                    <td class="ftf">Tasa Mes</td>
+                    <td class="ftn">Tasa Mínima</td>
+                    <td class="ftn">Diferencial</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput value="{{config.tasa_mes}}"
+                            (keyup)="param($event,'tasa_mes')"></td>
+                    <td class="fn"><input class="stg-input" matInput value="{{config.tasa_min}}"
+                            (keyup)="param($event,'tasa_min')"></td>
+                    <td class="fn">{{config.tasa_dif | number:'.0-0'}} pbs</td>
+                    <td class="fn">S/. {{config.bon_s_tas | number:'.0-2'}}</td>
+                </tr>
+                <ng-container *ngIf="config.tip_cod==18">
+                    <tr>
+                        <td class="ftf" colspan="4">Clientes Bancarizados</td>
+                    </tr>
+                    <tr>
+                        <td class="ff" colspan="3"></td>
+                        <td class="fn">S/. {{config.bon_s_cli | number:'.0-2'}}</td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td class="ftf">Corr. Regulares</td>
+                    <td colspan="2" class="ftn">Corr. Satelitales</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="ff"><input class="stg-input" matInput value="{{config.cor_reg}}"
+                            (keyup)="param($event,'cor_reg')"></td>
+                    <td class="fn"><input class="stg-input" matInput value="{{config.cor_sat}}"
+                            (keyup)="param($event,'cor_sat')"></td>
+                    <td class="fn"></td>
+                    <td class="fn">S/. {{config.bon_s_cor | number:'.0-2'}}</td>
+                </tr>
+                <ng-container *ngIf="config.tip_cod==19">
+                    <tr>
+                        <td colspan="2" class="ftf">Riesgo Operacional</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="ff"><input class="stg-input" matInput value="{{config.rop}}"
+                                (keyup)="param($event,'rop')"></td>
+                        <td class="fn"></td>
+                        <td class="fn"></td>
+                        <td class="fn">S/. {{config.bon_s_rop | number:'.0-2'}}</td>
+                    </tr>
+                </ng-container>
+                <tr class="foot f">
+                    <td class="ff" colspan="3">Final:</td>
+                    <td class="fn">S/. {{bon_f_tot | number:'.0-2'}}</td>
+                </tr>
+            </table>
+        </ng-scrollbar>
+    </div>
+</div>

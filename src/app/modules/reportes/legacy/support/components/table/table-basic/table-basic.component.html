@@ -1,0 +1,45 @@
+<div *ngIf='isInit'>
+    <div class="content">
+        <div class="loading-shade" *ngIf="config_table.conf.isLoadingResults || config_table.conf.isErrorResults">
+            <mat-spinner *ngIf="config_table.conf.isLoadingResults" [diameter]="40"></mat-spinner>
+            <div class="rate-limit-reached" *ngIf="config_table.conf.isErrorResults">
+                Error Inesperado
+            </div>
+        </div>
+        <div *ngIf='isLoadingTable && !config_table.conf.isErrorResults'>
+            <div class="table-container" [style.height.px]="screenHeight">
+                <table mat-table #table 
+                    [ngStyle]="{'width':config_table.conf.width}"
+                    [ngClass]="config_table.conf.class" 
+                    [dataSource]="dataSource">
+                    <ng-container 
+                        *ngFor="let c of config_table.columns"
+                        [cdkColumnDef]="c.columnDef" 
+                        [sticky]='c.sticky'>
+                        <th mat-header-cell *cdkHeaderCellDef
+                            [attr.colspan]="c.cols" 
+                            [attr.rowspan]="c.rows"
+                            [innerHTML]="c.header" ></th>
+                        <td mat-cell *cdkCellDef="let row"
+                            [ngClass]="{'spaced':c.spaced,
+                                        'traffic-light':c.format?.type=='traffic-light',
+                                        'number':c.format?.type=='number',
+                                        'string':c.format?.type=='string',
+                                        'date':c.format?.type=='date',
+                                        'percent':c.format?.type=='percent',
+                                        'level-1':row.style==2,'level-2':row.style==1,'level-3':row.style==0,
+                                        'level-4':row.style==4,'level-5':row.style==5,
+                                        'green-text':row['style_'+c.columnDef]==1,
+                                        'red-text':row['style_'+c.columnDef]==-1,
+                                        'orange-text':row['style_'+c.columnDef]==0}" 
+                            [innerHTML]="c.cell(row) | localNumber: c.format">{{ c.cell(row) }} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewEdit(row)"></tr>
+                </table>
+            </div>
+            <mat-paginator *ngIf='config_table.conf.paginator' [pageSize]="config_table.conf.paginator_size"
+                showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>

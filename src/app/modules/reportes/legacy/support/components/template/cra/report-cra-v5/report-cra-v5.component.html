@@ -1,0 +1,37 @@
+<!-- <link href="https://unpkg.com/primeicons@4.1.0/primeicons.css" rel="stylesheet" type="text/css"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!--<app-select-group [config_select_group]='config_select_group' (refresh)="load($event)"></app-select-group>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple>-->
+
+<div>
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)">
+        </hier-rem-selector>
+    </ng-container>
+    <ng-container *ngIf="activeFilters">
+        <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)">
+        </app-select-multiple>
+    </ng-container>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col-1">
+            <span class="p-input-icon-left"> <input type="text" class="form-control" style="margin-left: 20px;"
+                    pInputText placeholder="Nombre del Cliente" [(ngModel)]="value3" />
+            </span>
+
+        </div>
+        <div class="col-2">
+            <button mat-raised-button color="primary" (click)="loadAsesor()" class="btn btn-primary text-center"
+                style="margin-top: 0px;">Buscar Nombre Cliente</button>
+        </div>
+
+    </div>
+
+    <app-table-multiheader *ngFor='let c of configT;let i=index' [config_table]='config_table[i]'>
+    </app-table-multiheader>
+
+    <app-graphic-basic [config_graphic]='config_graphic'></app-graphic-basic>
+
+    <!-- <p-paginator id="pagestyle" [rows]="10" [totalRecords]="vx" (onPageChange)="paginate($event)"></p-paginator> -->
+</div>

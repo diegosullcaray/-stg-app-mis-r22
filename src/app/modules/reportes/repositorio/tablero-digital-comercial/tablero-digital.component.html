@@ -1,0 +1,24 @@
+<div class="stg-window" fxFill fxLayout="column">
+    <stg-window-bar title="Tablero Digital Comercial"> </stg-window-bar>
+    <div class="stg-panel" fxLayout="column" fxFlex>
+        <div fxLayout="row">
+            <ng-container *ngIf="activeHier">
+                <hier-rem-selector fxFlex [confHier]="confHier1"
+                    (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+        </div> 
+        <div style="height: 100%;padding: 10px;" *ngIf="!loading" fxLayout="column" fxLayoutGap="10">
+            <!-- <div fxLayoutAlign="center">
+                <span style="font-weight: bold;font-size: 16px;">AGENDAMIENTO COMERCIAL TOTAL</span>
+            </div> -->
+            <stg-table2 fxFlex [dataSource]="dataSource" [headers]="headerDefs" [options]="Opts">
+            </stg-table2>
+            <span class="text-disc">Clientes Netos: Se contabilizan todos los creditos que tengan menor o igual a 60 días de atraso</span>
+                <span class="text-disc">Clientes Usabiliad: Se contabilizan todos los Clientes con trx monetarias del canal APP Cliente</span>
+                <span class="text-disc">Pago APP Cliente: Se contabilizan todos los Clientes stock con trx monetarias de los procesos Pago App</span>
+                <span class="text-disc">Pago Plin: Se contabilizan todos los Clientes stock con trx monetarias de los proceso Pago Plin</span>
+                 
+        </div>
+        
+    </div>
+</div>

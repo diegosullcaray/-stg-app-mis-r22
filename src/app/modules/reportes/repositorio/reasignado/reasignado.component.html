@@ -1,0 +1,40 @@
+<div class="stg-window" fxFill fxLayout="column">
+    <stg-window-bar title="Efectividad por tramos"> </stg-window-bar>
+    <div class="stg-panel" fxLayout="column" fxFlex>
+        <div fxLayout="row">
+            <ng-container *ngIf="activeHier">
+                <hier-rem-selector fxFlex [confHier]="confHier1"
+                    (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+        </div>
+
+
+
+        <div class="toggle-section" *ngIf="showFilterSinAsignar">
+            <div class="toggle-container">
+
+                <button *ngFor="let item of filter1" class="toggle-btn" [class.active]="selector1?.val === item.val"
+                    (click)="onToggleSelect(item)">
+
+                    <span class="desktop-text">{{ item.label }}</span>
+
+                    <span class="mobile-text">
+                        <ng-container *ngIf="item.val === 1">Total</ng-container>
+                        <ng-container *ngIf="item.val === 2">Sin Impulsa</ng-container>
+                    </span>
+
+                </button>
+            </div>
+        </div>
+
+        <div fxFlex class="main" fxLayout="column" fxLayoutGap="5px"> <!-- *ngIf="config.tip_cod !== 1">-->
+
+            <div style="height: 100%;padding: 10px;" *ngIf="!loading" fxLayout="column" fxLayoutGap="10">
+                <stg-table2 fxFlex [dataSource]="dataSource" [headers]="headerDefs" [options]="Opts" [enableSort]="1">
+                </stg-table2>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<div [ngStyle]="getMainStyle()">
+    <div class="title">
+        {{title}}
+    </div>
+    <div fxLayout="column">
+        <div *ngIf="!efecSource else efecTemp1" fxLayout="row" fxLayoutAlign.lt-md="center center">
+            <div fxLayout="column">
+                <div class="name"><span>Inicio</span></div>
+                <div>
+                    <mat-card class="card">
+                        {{rowSource.res_inicial | number:'.0-2'}}
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+        <ng-template #efecTemp1>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start end" fxLayoutAlign="center center">
+                <div fxFlex.lt-md="50" fxLayout="column">
+                    <div class="name"><span>Deteriorado</span></div>
+                    <div>
+                        <mat-card class="card">
+                            {{efecSource.sal_det | number:'.0-2'}}
+                        </mat-card>
+                    </div>
+                </div>
+                <div fxFlex.lt-md="50" fxLayout="column">
+                    <div class="name"><span>Mantiene Por Vencer</span></div>
+                    <div>
+                        <mat-card class="card">
+                            {{efecSource.sal_man_ven | number:'.0-2'}}
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <div *ngIf="!efecSource else efecTemp2" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start end"
+            fxLayoutAlign="center center">
+            <div fxLayout="column">
+                <div class="name"><span>Actual</span></div>
+                <div>
+                    <mat-card class="card">
+                        {{rowSource.res_actual | number:'.0-2'}}
+                    </mat-card>
+                </div>
+            </div>
+            <!-- <fa-icon fxFlexAlign="center" [icon]="fa.repo.plus"></fa-icon> -->
+            <div fxLayout="column">
+                <div class="name"><span>Trasladado</span></div>
+                <div>
+                    <mat-card class="card">
+                        {{isnull(rowSource.res_trasladado,0) | number:'.0-2'}}
+                    </mat-card>
+                </div>
+            </div>
+            <!-- <fa-icon fxFlexAlign="center" [icon]="fa.repo.minus"></fa-icon> -->
+            <div fxLayout="column">
+                <div class="name"><span>Heredado</span></div>
+                <div>
+                    <mat-card class="card">
+                        {{isnull(rowSource.res_heredado,0) | number:'.0-2'}}
+                    </mat-card>
+                </div>
+            </div>
+            <!-- <fa-icon fxFlexAlign="center" [icon]="fa.repo.equals"></fa-icon> -->
+            <div fxLayout="column">
+                <div class="name"><span>Real</span></div>
+                <div>
+                    <mat-card class="card">
+                        {{rowSource.res_real | number:'.0-2'}}
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+        <ng-template #efecTemp2>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start end" fxLayoutAlign="center center">
+                <div fxLayout="column"
+                    [ngStyle.gt-sm]="{'border-left': '1px solid rgb(47, 82, 153)'}"
+                    [ngStyle]="{'border-top': '1px solid rgb(47, 82, 153)'}">
+                    <div class="name"><span>Mejora</span></div>
+                    <div>
+                        <mat-card class="card">
+                            {{efecSource.sal_rec | number:'.0-2'}}
+                        </mat-card>
+                    </div>
+                </div>
+                <!-- <fa-icon fxFlexAlign="center" [icon]="fa.repo.plus"></fa-icon> -->
+                <div fxLayout="column"
+                    [ngStyle.gt-sm]="{'border-right': '1px solid rgb(47, 82, 153)'}"
+                    [ngStyle]="{'border-bottom': '1px solid rgb(47, 82, 153)'}">
+                    <div class="name"><span>Mantiene Efectivo</span></div>
+                    <div>
+                        <mat-card class="card">
+                            {{efecSource.sal_man_efec | number:'.0-2'}}
+                        </mat-card>
+                    </div>
+                </div>
+                <div [ngStyle.gt-sm]="{'padding-left': '5px'}" [ngStyle]="{'padding-top': '5px'}" fxFlexAlign="center">
+                    <!-- <fa-icon [icon]="fa.repo.divide"></fa-icon> -->
+                </div>
+
+                <div fxLayout="column">
+                    <div class="name"><span>Base Inicial</span></div>
+                    <div>
+                        <mat-card class="card">
+                            {{efecSource.sal_ini | number:'.0-2'}}
+                        </mat-card>
+                    </div>
+                </div>
+                <!-- <fa-icon fxFlexAlign="center" [icon]="fa.repo.equals"></fa-icon> -->
+                <div fxLayout="column">
+                    <div class="name"><span>Efectividad</span></div>
+                    <div>
+                        <mat-card class="card">
+                            {{rowSource.res_real | percent:'.2-2'}}
+                        </mat-card>
+                    </div>
+                </div>
+
+            </div>
+        </ng-template>
+    </div>
+</div>

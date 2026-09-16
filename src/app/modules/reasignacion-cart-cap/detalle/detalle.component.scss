@@ -1,0 +1,11 @@
+.base{
+    background-color: white;
+}
+body{
+    background: #ffffff;
+} 
+:host ::ng-deep .container-dynamic { 
+    height: 100%;min-height: 100%;min-width: 100%;width: 100%;background-color: #fff; 
+   }
+
+   @import "../compartido/estilos/colores.scss";

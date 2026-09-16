@@ -1,0 +1,21 @@
+<div *ngIf="!config.loading" fxFill fxLayout="row wrap" fxLayoutAlign="start center">
+    <ng-container *ngFor="let item of config.data; let i = index;">
+        <ng-container *ngIf="item.show">
+            <div [fxFlex]="item.flex" style="padding: 5px;height: 75px;">
+                <div matRipple fxLayout="column" [class]="getBoxCls(item)" (click)="showDetail(item,i+1)">
+                    <div fxFlex="50" fxLayoutAlign="center center">
+                        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2px"
+                            style="padding-top: 3px;">
+                            <span class="material-icons i">{{item.icon}}</span>
+                            <span class="t">{{item.des}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayoutAlign="center center">
+                        <span class="v">S/. {{item.val}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
+<blank-loader *ngIf="config.loading"></blank-loader>

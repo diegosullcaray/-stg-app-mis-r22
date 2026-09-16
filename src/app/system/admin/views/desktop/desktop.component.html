@@ -1,0 +1,46 @@
+<ng-scrollbar>
+    <div #desktop [fxLayout]="mainLayout()" fxLayoutAlign="start start" fxLayoutGap="15px" class="desktop-base">
+
+        <ng-container *ngIf="!layout.isMobile">
+            <ng-container *ngFor="let b of counter(sizeDist);let bi = index;">
+                <div [fxLayout]="blockLayout()" fxLayoutGap="15px">
+                    <ng-container *ngFor="let c of counter(maxDist);let ci = index;">
+                        <ng-container *ngIf="item(bi,ci)">
+                            <div class="shortcut-base" fxLayout="column" (click)="run(item(bi,ci))">
+                                <div>
+                                    <mat-icon fxLayoutAlign="center start" fxFill class="shortcut-icon">
+                                        {{item(bi,ci).icon}}
+                                    </mat-icon>
+                                </div>
+                                <div fxFlex fxLayoutAlign="center center" class="shortcut-text">
+                                    <span style="text-align: center;">{{item(bi,ci).name}}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="layout.isMobile">
+            <ng-container *ngFor="let b of counter(sizeDistM);let bi = index;">
+                <div fxFill [fxLayout]="blockLayout()" fxLayoutGap="15px" fxLayoutAlign="space-around center">
+                    <ng-container *ngFor="let c of counter(maxDistM);let ci = index;">
+                        <ng-container *ngIf="item(bi,ci)">
+                            <div class="shortcut-base" fxLayout="column" (click)="run(item(bi,ci))">
+                                <div>
+                                    <mat-icon fxLayoutAlign="center start" fxFill class="shortcut-icon">
+                                        {{item(bi,ci).icon}}
+                                    </mat-icon>
+                                </div>
+                                <div fxFlex fxLayoutAlign="center center" class="shortcut-text">
+                                    <span style="text-align: center;">{{item(bi,ci).name}}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </ng-container>
+
+    </div>
+</ng-scrollbar>

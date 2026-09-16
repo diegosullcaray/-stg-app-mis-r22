@@ -1,0 +1,49 @@
+/* Ajustes para el filtro toggle - alineado con los cards */
+.toggle-section {
+  margin-bottom: 4px !important;
+  padding: 0;
+  width: calc(100% - 30px) !important; /* Mismo ancho que la tabla */
+  margin-left: 0px !important; /* Alineado con la tabla */
+  margin-right: 0px !important;
+  //margin-top: 5px; /* Espacio adicional después de los cards */
+}
+
+.toggle-container {
+  border: none;
+  border-radius: 15px;  
+  padding: 4px 4px 4px 4px ;
+  display: inline-flex;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  //gap: 8px;
+  justify-content: flex-start; 
+}
+.toggle-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.toggle-btn.active {
+  background-color: #002d72;  
+  color: white;  
+  border-color: #002d72;
+  font-weight: 600;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}   
+
+ .mobile-text { display: none; }
+  .desktop-text { display: inline; }

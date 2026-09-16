@@ -1,0 +1,40 @@
+<div>
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    <div style="height: 10px;"></div>
+    <div style="padding: 10px;">
+        <div class="stg-window">
+            <stg-window-bar [title]="mainTitle"></stg-window-bar>
+            <stg-toolbar>
+               
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <button mat-button color="primary" (click)="save()" *ngIf="actSave"> 
+                        <mat-icon>save</mat-icon><span style="padding-left: 5px;">Guardar</span>
+                    </button>
+                    <button mat-flat-button (click)="restart()" *ngIf="actSave">
+                        <mat-icon>restore</mat-icon><span style="padding-left: 5px;">Reiniciar</span>
+                    </button>
+                    <button mat-flat-button (click)="verify()" *ngIf="actVeri">
+                        <mat-icon>check_circle</mat-icon><span style="padding-left: 5px;">Verificar</span>
+                    </button>
+                </div>
+            </stg-toolbar>
+            <div style="padding: 0px 10px;">
+                
+                <div style="height: 15px;"></div>
+                <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs"
+                    [dataSource]="wsSource" [loadingObs]="loadingObs" [customComponentCell]="customComponent"
+                    [customComponentStyler]="inputStyler" [metaSources]="tableMeta" (onEditCell)="editCell($event)">
+                    <!--[actionTrigger]="action" [iconizerMap]="iconColMap"
+                    [metaSources]="extraSources" >-->
+                </stg-table>
+            </div>
+            <div style="height: 10px;"></div>
+            <div style="height: 50px;padding-left: 10px;padding-top: 15px;font-size: 12px;">
+                <span>*Los datos mostrados estan construidos para generar un histórico en función de los últimos
+                    responsables vigentes.</span>
+            </div>
+        </div>
+    </div>
+</div>

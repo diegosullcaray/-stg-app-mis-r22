@@ -1,0 +1,51 @@
+<div style="padding: 10px;">
+    <div fxLayout="row wrap" class="stg-simple-card" fxLayoutGap="10px" fxLayoutAlign="start center">
+        <ng-container *ngIf="!layout.isMobile">
+            <ng-container *ngTemplateOutlet="drowpDowns"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="showMobileVer()">
+            <div fxLayout="row" fxFill>
+                <div fxFlex fxLayout="column" fxLayoutGap="10px" style="padding-left: 15px;">
+                    <span style="font-weight: bold;font-size: 12px;">{{lastSel.lbl_hier}} :</span>
+                    <span style="font-size: 14px;">{{lastSel.des_rel}}</span>
+                </div>
+                <div fxFlex="30" fxLayoutAlign="center center">
+                    <button mat-raised-button (click)="showDialog(dialogCont)" color="primary">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #dialogCont>
+    <div class="stg-window" style="min-width: 250px;">
+        <stg-window-bar [title]="title"></stg-window-bar>
+        <div fxLayout="column" style="padding: 10px;">
+            <ng-container *ngTemplateOutlet="drowpDowns"></ng-container>
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button  color="primary" mat-dialog-close>
+            Cerrar
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #drowpDowns>
+    <ng-container *ngFor='let cbo of dataSource;let i = index'>
+        <mat-form-field>
+            <mat-label>{{cbo.label}}</mat-label>
+            <mat-select [(value)]="selectedValues[i]">
+                <mat-option idProp="A" *ngFor="let val of cbo.data" [value]="val"
+                    (onSelectionChange)="onSelectItem($event)">
+                    {{val.des_rel}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div style="height: 10px;" *ngIf="layout.isMobile"></div>
+    </ng-container>
+    <div *ngIf="loading">cargando...</div>
+</ng-template>

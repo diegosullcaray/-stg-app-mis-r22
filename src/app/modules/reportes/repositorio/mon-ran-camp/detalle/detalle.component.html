@@ -1,0 +1,20 @@
+<div *ngIf="!config.loading" style="width:100%;height:100%" fxLayout="column" class="stg-window">
+    <stg-window-bar title="Detalle Clientes" barIcon="info" titleAlign="start" closable=true
+        (onClose)="navMain()">
+    </stg-window-bar>
+    <!-- <div style="padding: 5px;width: 100%;" fxLayoutGap="5px" fxLayout="row">
+        <ng-container>
+            <input type=text class="stg-input" placeholder="Buscar" (keyup)="filter($event)">
+        </ng-container>
+    </div> -->
+    <div fxFlex style="padding: 5px;">
+        <!--service.dataSource$ | async-->
+        <stg-table2 [options]="tableOpts" [dataSource]="dataSource" [headers]="tableHeaders">
+        </stg-table2>
+    </div>
+    <div *ngIf="showPaginator">
+        <stg-paginator #paginator [totalLenght]="dataSourceLenght" pageLenght="20"
+            (onChangePage)="changePage($event)">
+        </stg-paginator>
+    </div>
+</div>

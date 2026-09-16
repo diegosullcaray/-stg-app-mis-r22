@@ -1,0 +1,88 @@
+@import "../incentivos2-colors.component.scss";
+
+.pic-box{
+    border-radius: 7px;
+    background: $base-color;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    padding: 5px;
+    width: 64px;
+    height: 64px;
+    .icon{
+        font-size: 64px;
+    }
+}
+
+.text-name{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.text-name-short{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.text-pos{
+    font-size: 10px;
+    color: $color-1;
+}
+
+.text-pos-short{
+    font-size: 9px;
+    color: $color-1;
+}
+
+.text-hier{
+    font-size: 11px;
+    color: $color-1;
+    padding-top: 10px;
+}
+
+.text-hier-short{
+    font-size: 10px;
+    color: $color-1;
+}
+
+.text-hier-lbl{
+    font-size: 9px;
+    color: $color-2;
+}
+
+.text-hier-lbl-short{
+    font-size: 9px;
+    color: $color-2;
+}
+
+.text-bonus-alert{
+    .m{
+        font-weight: bold;
+    }
+}
+
+.text-bonus-alert-short{
+    font-size: 10px;
+    .m{
+        font-size: 11px;
+        font-weight: bold;
+    }
+}
+
+.var-icon{
+    font-size: 10px;
+    .s{
+        font-size: 42px;
+    }
+    .r{
+        border-radius: 8px;
+    }
+}
+
+.var-icon-short{
+    font-size: 8px;
+    .s{
+        font-size: 42px;
+    }
+    .r{
+        border-radius: 8px;
+    }
+}

@@ -1,0 +1,26 @@
+<div class="stg-table3-container" fxFill [ngStyle]="getContainerStyle()">
+    <ng-scrollbar fxFlex track="all">
+        <table [ngStyle]="options.style">
+            <thead [ngStyle]="options.header?.style" [ngClass]="{'sticky-header': options.header?.sticky}">
+                <ng-container *ngFor="let row of headerRows; let rowIndex = index">
+                    <tr>
+                        <th *ngFor="let cell of row; let cellIndex = index"
+                            [attr.colspan]="cell.colSpan && cell.colSpan > 1 ? cell.colSpan : null"
+                            [attr.rowspan]="cell.rowSpan && cell.rowSpan > 1 ? cell.rowSpan : null"
+                            [ngStyle]="computeHeaderCellStyle(rowIndex, cellIndex, cell.style)">
+                            {{ cell.label }}
+                        </th>
+                    </tr>
+                </ng-container>
+            </thead>
+            <tbody [ngStyle]="options.body?.style">
+                <tr *ngFor="let row of data; let i = index" (mouseover)="onRowMouseOver(i)"
+                    (mouseleave)="onRowMouseLeave()" (click)="onRowClick(i)" [ngStyle]="getRowStyle(i)">
+                    <td *ngFor="let col of leafColumns; let last = last" [ngStyle]="getCellStyle(last)">
+                        {{ col.key ? row[col.key] : '' }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-scrollbar>
+</div>

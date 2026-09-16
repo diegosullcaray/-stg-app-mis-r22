@@ -1,0 +1,13 @@
+<div fxLayout="column">
+    <div class="stg-window base" fxLayout="column" style="height: 100%;">
+        <stg-window-bar title="Confirmar" fontSize="16px" titleAlign="start"></stg-window-bar>
+        <div style="padding: 10px;">
+            <h6 class="m-0 pb-16" style="white-space: pre-wrap; line-height: 1.4;">{{ message }}</h6>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="15px" style="padding: 10px;">
+        <stg-button color="primary" (click)="confirm()"><span style="width: 62px;" >Aceptar</span>
+        </stg-button>
+        <stg-button (click)="cancel()"><span style="width: 62px;" >Cencelar</span></stg-button>
+    </div>
+</div>

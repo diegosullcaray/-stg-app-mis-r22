@@ -1,0 +1,19 @@
+<div fxFill  style="padding: 10px;" fxLayout="column" fxLayoutGap="10">
+    <div fxFlex>
+   
+            <table *ngIf="!loading" style="width: 100%;border-collapse: collapse;font-size: 13px;">
+                <tbody>
+                    <ng-container *ngFor="let tr of dataSource;let tri = index;let trl = count;">
+                        <tr class="tbl-div">
+                            <td><span style="font-weight: bold;">{{tr.lab}}</span></td>
+                            <td><span>{{tr.val}}</span></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+
+    </div>
+    <div fxFlex="25">
+
+    </div>
+</div>

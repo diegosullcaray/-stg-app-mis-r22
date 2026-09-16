@@ -1,0 +1,28 @@
+<div fxLayout="row" style="height: 100%;">
+    <div fxFlex="50" >
+        <mat-card fxFlex class="bono-comp" fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div class="bono-cab-tag" style="background: #689f38;">
+                    <span>03 Freno</span>
+                </div>
+            </div>
+            <div class="bono-cuer" fxLayout="column" fxFlex>
+                <div fxFlex="40" fxLayoutAlign="center center" class="bono-bloq-text"><span>Puntos por amonestaciones acumuladas:</span></div>
+                <div fxFlex fxLayoutAlign="center center" class="bono-bloq-val"><span >{{config.a1.val}}</span></div>
+            </div>
+        </mat-card>
+    </div>
+    <div fxFlex>
+        <mat-card fxFlex class="bono-comp" fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div class="bono-cab-tag" style="background: tomato;">
+                    <span>04 Bonus</span>
+                </div>
+            </div>
+            <div class="bono-cuer" fxLayout="column" fxFlex>
+                <div fxFlex="40" fxLayoutAlign="center center" class="bono-bloq-text"><span>Puntos por campañas acumuladas:</span></div>
+                <div fxFlex fxLayoutAlign="center center" class="bono-bloq-val"><span >{{config.a2.val}}</span></div>
+            </div>
+        </mat-card>
+    </div>
+</div>

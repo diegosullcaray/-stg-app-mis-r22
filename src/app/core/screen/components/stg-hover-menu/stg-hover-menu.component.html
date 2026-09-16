@@ -1,0 +1,62 @@
+<div fxLayout="row" (mouseenter)="levelOneTrigger.openMenu()" (mouseleave)="baseLeave(levelOneTrigger)">
+    <ng-content select="[trigger]"></ng-content>
+    <div [matMenuTriggerFor]="levelOne" #levelOneTrigger="matMenuTrigger"></div>
+</div>
+<mat-menu class="start-menu-node" #levelOne="matMenu" [hasBackdrop]="false" yPosition="below" xPosition="after"
+    [overlapTrigger]="false">
+    <span (mouseenter)="levelEnter('lvl1')" (mouseleave)="levelLeave('lvl1',levelOneTrigger)">
+        <ng-content *ngIf="!menuChilds || menuChilds.length===0" select="[content]"></ng-content>
+        <ng-container *ngIf="menuChilds!==undefined && menuChilds.length>0">
+            <ng-container *ngFor="let item of menuChilds;let i = index">
+                <li *ngIf="item.type!=='dropDown'" mat-menu-item [routerLink]="item.state">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span>{{item.name}}</span>
+                </li>
+                <ng-container *ngIf="item.type==='dropDown'">
+                    <li mat-menu-item #levelTwoTrigger="matMenuTrigger" [matMenuTriggerFor]="levelTwo">
+                        <mat-icon>
+                            {{item.icon}}
+                        </mat-icon>
+                        <span>{{item.name}}</span>
+                    </li>
+
+                    <mat-menu #levelTwo="matMenu">
+                        <span (mouseenter)="levelEnter('lvl2')" (mouseleave)="levelLeave('lvl2',levelOneTrigger,levelTwoTrigger)">
+                            <ng-container *ngFor="let item2 of item.sub;let i2 = index">
+                                <li *ngIf="item2.type!=='dropDown'" mat-menu-item [routerLink]="item2.state">
+                                    <mat-icon>
+                                        {{item2.icon}}
+                                    </mat-icon>
+                                    <span>{{item2.name}}</span>
+                                </li>
+                                <ng-container *ngIf="item2.type==='dropDown'">
+                                    <li mat-menu-item #levelThreeTrigger="matMenuTrigger"
+                                        [matMenuTriggerFor]="levelThree">
+                                        <mat-icon>
+                                            {{item2.icon}}
+                                        </mat-icon>
+                                        <span>{{item2.name}}</span>
+                                    </li>
+                                    <mat-menu #levelThree="matMenu">
+                                        <span (mouseenter)="levelEnter('lvl3')"
+                                            (mouseleave)="levelLeave('lvl3',levelOneTrigger,levelTwoTrigger,levelThreeTrigger)">
+                                            <ng-container *ngFor="let item3 of item2.sub">
+                                                <li mat-menu-item [routerLink]="item3.state">
+                                                    <mat-icon>
+                                                        {{item3.icon}}
+                                                    </mat-icon>
+                                                    <span>{{item3.name}} </span>
+                                                </li>
+                                            </ng-container>
+                                        </span>
+                                    </mat-menu>
+                                </ng-container>
+                            </ng-container>
+                        </span>
+                    </mat-menu>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+    </span>
+</mat-menu>

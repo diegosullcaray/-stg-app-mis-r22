@@ -1,0 +1,39 @@
+<!-- BOTÓN que dispara el menú (no es Material, solo usa la directiva de trigger) -->
+<button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" class="stg-menu-filter-btn"
+  fxLayoutAlign="center center">
+  <span class="material-icons-outlined" style="font-size: 18px !important;">
+    filter_alt
+  </span>
+</button>
+
+<mat-menu #menu="matMenu" xPosition="after" yPosition="below" panelClass="my-custom-menu">
+  <ng-scrollbar [style]="{ width: '200px', height: '170px' }" track="all">
+    <div fxLayout="column" fxLayoutGap="10px" style="padding: 16px;font-size: 12px;" (click)="$event.stopPropagation()">
+      <ng-container *ngFor="let item of config; let i = index">
+        <ng-container [ngSwitch]="item.type">
+
+          <!-- Caso SELECT -->
+          <ng-container *ngSwitchCase="'select'">
+            <label *ngIf="item.label" class="stg-menu-filter-label">{{ item.label }}</label>
+            <select class="stg-menu-filter-select" [(ngModel)]="selectedValues[i]">
+              <!-- <option [value]="null" disabled>-- Seleccione --</option> -->
+              <option *ngFor="let opt of item.data" [value]="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+          </ng-container>
+
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-scrollbar>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 8px;" (click)="$event.stopPropagation()">
+    <button class="stg-menu-filter-btn-secondary" (click)="cancel()">
+      Cancelar
+    </button>
+    <button class="stg-menu-filter-btn-primary" (click)="accept()">
+      Aceptar
+    </button>
+  </div>
+</mat-menu>

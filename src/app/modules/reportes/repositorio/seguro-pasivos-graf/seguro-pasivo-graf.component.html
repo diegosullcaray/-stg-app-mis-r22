@@ -1,0 +1,62 @@
+
+<div class="stg-window" fxFill fxLayout="column">
+    <stg-window-bar title="Seguros Pasivos"> </stg-window-bar>
+    <div class="stg-panel" fxLayout="column" fxFlex>
+      <div fxLayout="row">
+        <ng-container *ngIf="activeHier">
+          <hier-rem-selector fxFlex [confHier]="confHier1"
+              (onSelectHier)="selectHier($event)"></hier-rem-selector>
+      </ng-container>
+      </div>
+      <div  *ngIf="!loading" >
+
+      </div>
+    
+
+    <div fxLayout="row wrap">
+      <div fxFlex="50" >
+        <div #charts1    class="table-container" ></div> 
+      </div>
+  
+      <div fxFlex="50" >
+        <div #charts2 id="charts2"  class="table-container" ></div> 
+      </div>
+   
+  </div>
+
+   
+  
+  
+  
+    </div>
+  </div>  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+   
+  
+  
+  <div class="fondoblanco"> 
+  <div fxLayout="row wrap"> 
+  </div>
+  
+   <br>   
+  <br>
+  <ng-container *ngIf="activeFilters"><br>
+    <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)"></app-select-multiple>
+    
+  </ng-container>   
+          
+       
+    </div>
+   

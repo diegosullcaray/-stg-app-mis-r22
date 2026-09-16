@@ -1,0 +1,119 @@
+.bg-green {
+  background-color: #22c55e !important; /* Verde */
+  color: white !important;
+}
+
+.bg-light-green {
+  background-color: #84cc16 !important; /* Verde claro */
+  color: white !important;
+}
+
+.bg-yellow {
+  background-color: #eab308 !important; /* Amarillo */
+  color: black !important;
+}
+
+.bg-orange {
+  background-color: #f97316 !important; /* Naranja */
+  color: white !important;
+}
+
+.bg-red {
+  background-color: #ef4444 !important; /* Rojo */
+  color: white !important;
+}
+//
+.header-with-date {
+  background: rgb(3, 80, 150);
+  //background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: white;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+   
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.date-selector-header {
+  position: relative;
+}
+
+.date-trigger {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+
+.date-trigger:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.date-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  min-width: 280px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s;
+}
+
+.date-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.date-dropdown-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-weight: 600;
+}
+
+.date-options {
+  padding: 10px;
+}
+
+.date-option {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #374151;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.date-option:hover {
+  background: #f3f4f6;
+  color: #1e3a8a;
+}
+
+.date-option.active {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+}

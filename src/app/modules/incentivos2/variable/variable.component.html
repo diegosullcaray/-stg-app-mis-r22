@@ -1,0 +1,83 @@
+<div fxFill [class.base-short]="layout.isMobile" fxLayout.lt-md="column">
+    <div fxFlex.lt-md class="base-card" fxLayout="column" style="padding: 15px;">
+        <div fxFlex="10" fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="10px">
+            <span [class]="{'var-title':!layout.isMobile,'var-title-short':layout.isMobile}">{{config.title}}</span>
+            <span [class]="clsCardState()">radio_button_checked</span>
+        </div>
+        <div fxFlex="36" style="padding-top: 5px;">
+            <div [class]="pieCls()" fxLayoutAlign="center center">
+                <div class="pie-cont" fxLayoutAlign="center center"><span>{{getPerVal() | number:'.0-1'}}%</span></div>
+            </div>
+        </div>
+        <div fxFlex fxLayout="column" style="padding-top: 10px;">
+            <div fxFlex="25" fxLayout="row" fxLayoutGap="5px">
+                <div fxFlex="50" style="padding-bottom: 5px;">
+                    <div fxFlex [class]="clsChip(0)" fxLayout="column">
+                        <div fxFlex="40"><span class="sub">{{config.chips[0].label}}</span></div>
+                        <div fxFlex><span class="val">{{getFormatVal(0)}}</span></div>
+                    </div>
+                </div>
+                <div fxFlex style="padding-bottom: 5px;">
+                    <div fxFlex [class]="clsChip(1)" fxLayout="column">
+                        <div fxFlex="40"><span class="sub">{{config.chips[1].label}}</span></div>
+                        <div fxFlex><span class="val">{{getFormatVal(1)}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="25" fxLayout="row" fxLayoutGap="5px">
+                <div fxFlex="50" style="padding-bottom: 5px;">
+                    <div fxFlex [class]="clsChip(2)" fxLayout="column">
+                        <div fxFlex="40"><span class="sub">{{config.chips[2].label}}</span></div>
+                        <div fxFlex><span class="val">{{getFormatVal(2)}}</span></div>
+                    </div>
+                </div>
+                <div fxFlex style="padding-bottom: 5px;">
+                    <div fxFlex [class]="clsChip(3)" fxLayout="column">
+                        <div fxFlex="40"><span class="sub">{{config.chips[3].label}}</span></div>
+                        <div fxFlex><span class="val">{{getFormatVal(3)}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="25" fxLayout="row" fxLayoutGap="5px">
+                <div fxFlex="50" style="padding-bottom: 5px;">
+                    <div fxFlex [class]="clsChip(4)" fxLayout="column">
+                        <div fxFlex="40"><span class="sub">{{config.chips[4].label}}</span></div>
+                        <div fxFlex><span class="val">{{getFormatVal(4)}}</span></div>
+                    </div>
+                </div>
+                <div fxFlex style="padding-bottom: 5px;">
+                    <div fxFlex [class]="clsChip(5)" fxLayout="column">
+                        <div fxFlex="40"><span class="sub">{{config.chips[5].label}}</span></div>
+                        <div fxFlex><span class="val">{{getFormatVal(5)}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="25" fxLayout="row" fxLayoutAlign="center center">
+                <div fxFlex [class]="clsChipM()" fxLayout="row" style="height: 100%;">
+                    <div fxFlex="40" fxLayoutAlign="center center"><span class="sub2">Monetización:</span></div>
+                    <div fxFlex fxLayoutAlign="center center"><span class="val2">S/. {{config.monetization | number:'.0-2'}}</span></div>
+                </div>
+            </div>
+        </div>
+        <div style="height: 21px;">
+            <span style="font-size: 10px;">{{config.small_text}}</span>
+        </div>
+    </div>
+    <div *ngIf="layout.isMobile" fxLayout="row" fxLayoutGap="20px" fxFlex="10" fxLayoutAlign="center center" style="padding-top: 15px;">
+        <button mat-raised-button class="btn-nav" (click)="navBefore()">
+            <span class="material-icons-outlined icon">
+                navigate_before
+            </span>
+        </button>
+        <button mat-raised-button class="btn-nav" (click)="navMain()">
+            <span class="material-icons-outlined icon">
+                home
+            </span>
+        </button>
+        <button mat-raised-button class="btn-nav" (click)="navNext()">
+            <span class="material-icons-outlined icon">
+                navigate_next
+            </span>
+        </button>
+    </div>
+</div>

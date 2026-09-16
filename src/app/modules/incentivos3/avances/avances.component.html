@@ -1,0 +1,26 @@
+<div *ngIf="!config.loading" fxFill fxLayout="row wrap" style="padding-top: 5px;">
+    <ng-container *ngFor="let item of config.data;let i = index;">
+        <ng-container *ngIf="item.show">
+            <div matRipple fxFlex="50" fxLayout="column" class="cont" (click)="showDetail(item,i+1)">
+                <div class="des-box" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                    <div fxLayoutAlign="center center">
+                        <span [class]="clsState(item)">{{item.icon}}</span>
+                    </div>
+                    <div class="n" fxLayoutAlign="center center">
+                        <!--<span>{{inc3.model == '2025' && i==0?item.des2:item.des}}</span>-->
+                        <span>{{item.des}}</span>
+                    </div>
+                    
+                </div>
+                <div fxFlex>
+                    <div [style]="pieStyle(item)" [ngClass]="pieCls(item)" fxLayoutAlign="center center">
+                        <div class="pie-box" fxLayoutAlign="center center">
+                            <span>{{item.val*100| number:'.0-1'}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
+<blank-loader *ngIf="config.loading"></blank-loader>

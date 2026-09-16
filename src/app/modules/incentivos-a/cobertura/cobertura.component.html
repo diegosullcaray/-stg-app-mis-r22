@@ -1,0 +1,17 @@
+<div fxLayout="column" style="padding: 0px 15px;">
+    <div fxFill class="stg-card-box" fxLayout="column">
+        <div class="card-title">
+            <span>Seguimiento Equipo Asesores</span>
+        </div>
+        <div style="height: 400px;padding: 15px 30px;" fxLayout="column">
+            <!-- <div style="padding: 5px;width: 100%;">
+                <input type=text class="stg-input" style="font-size: 14px;"
+                    placeholder="Buscar" (keyup)="filter($event)">
+            </div> -->
+            <div fxFlex>
+                <stg-table2 [options]="options" [dataSource]="dataSource" [headers]="headers">
+                </stg-table2>
+            </div>
+        </div>
+    </div>
+</div>

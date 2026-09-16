@@ -1,0 +1,50 @@
+<div fxFill fxLayout.gt-sm="column" fxLayout="column-reverse">
+    <div fxFlex.gt-sm="20" fxFlex="35" fxLayout="row" fxLayoutAlign.gt-sm="end center" fxLayoutAlign="center center" fxLayoutGap="15px">
+        <button *ngIf="config.prof_typ==1" mat-raised-button [class]="{'stg-btn-short':!layout.isMobile,'btn-long':layout.isMobile}" (click)="showCliDetail()">
+            <span class="material-icons icon">
+                folder_shared
+            </span>
+        </button>
+        <button mat-raised-button [class]="{'stg-btn-short':!layout.isMobile,'btn-long':layout.isMobile}" (click)="showCalculator()">
+            <span class="material-icons icon">
+                calculate
+            </span>
+        </button>
+        <button *ngIf="incentivos.btnSelSec$ | async" mat-raised-button color="primary" [class]="{'stg-btn-short':!layout.isMobile,'btn-long':layout.isMobile}" (click)="openSelector()">
+            <span class="material-icons icon">
+                person_search
+            </span>
+        </button>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxFlex fxLayout="row">
+            <div fxFlex="50" fxLayout="column">
+                <div fxFlex="50" fxLayout="column">
+                    <div class="text-1" fxLayoutAlign.lt-md="center center"><span>Bono Base</span></div>
+                    <div class="text-2" fxLayoutAlign.lt-md="center center"><span>S/. {{config.base | number:'.0-2'}}</span></div>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <div class="text-1" fxLayoutAlign.lt-md="center center"><span>Bono Super Plus</span></div>
+                    <div [class]="bspCls()" fxLayoutAlign.lt-md="center center"><span>S/. {{config.super_plus | number:'.0-2'}}</span></div>
+                </div>
+            </div>
+            <div fxFlex fxLayout="column">
+                <div fxFlex="50" fxLayout="column">
+                    <div class="text-1" fxLayoutAlign.lt-md="center center"><span>Bono Plus</span></div>
+                    <div class="text-2" fxLayoutAlign.lt-md="center center"><span>S/. {{config.plus | number:'.0-2'}}</span></div>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <div class="text-1" fxLayoutAlign.lt-md="center center"><span>Total Monetizado</span></div>
+                    <div [class]="totMonCls()" fxLayoutAlign.lt-md="center center">
+                        <span *ngIf="config.state">S/. {{config.total | number:'.0-2'}}</span>
+                        <span *ngIf="!config.state"> S/. 0</span>
+                    </div>
+                    <div *ngIf="!config.state" class="state-2 text-nd" fxLayoutAlign.lt-md="center start" fxlayoutAlign="start start" fxLayout="row"><span>(Comisión No Disponible: S/. {{config.total | number:'.0-2'}})</span></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="text-disc">*Los cálculos son referenciales y están sujetos a variaciones al final de mes y ajustes particulares de la normativa.</span>
+        </div>
+    </div>
+</div>

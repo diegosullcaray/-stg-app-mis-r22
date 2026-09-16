@@ -1,0 +1,79 @@
+/********* Circle Pie ***********/
+$circle-diameter: 90px;
+$circle-border-width: 8px;
+$circle-diameter-short: 120px;
+$circle-border-width-short: 14px;
+$circle-background-color: #fff;
+$circle-border-color-remaining: #ccc;
+$circle-border-color-elapsed: #2196f3;
+
+.pie {
+  width: $circle-diameter;
+  height: $circle-diameter;
+  @media only screen and (max-width: 959px) {
+    width: $circle-diameter-short;
+    height: $circle-diameter-short;
+  }
+  display: block;
+  border-radius: 50%;
+  background-color: $circle-border-color-elapsed;
+  position: relative;
+  border: none;
+  margin: 0 auto;
+
+  &:after {
+    display: none;
+  }
+
+  // Remove this if you do not need the percentage circle
+  &:after {
+    display: block;
+    position: absolute;
+    top: $circle-border-width;
+    left: $circle-border-width;
+    height: $circle-diameter - 2*$circle-border-width;
+    width:  $circle-diameter - 2*$circle-border-width;
+    line-height:  $circle-diameter - 2*$circle-border-width;
+    @media only screen and (max-width: 959px) {
+      top: $circle-border-width-short;
+      left: $circle-border-width-short;
+      height: $circle-diameter-short - 2*$circle-border-width-short;
+      width:  $circle-diameter-short - 2*$circle-border-width-short;
+      line-height:  $circle-diameter-short - 2*$circle-border-width-short;
+    }
+    background: $circle-background-color;
+    border-radius: 50%;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+
+  // loop to rotate first 50 percent
+  @for $j from 0 through 50 {
+    &.p#{$j} {
+      background-image:
+        /* 10% = 126deg = 90 + ( 360 * .1 ) */
+        linear-gradient(90deg+(360*0.01*$j), transparent 50%, $circle-border-color-remaining 50%),
+        linear-gradient(90deg, $circle-border-color-remaining 50%, transparent 50%); // remove highlight at the bottom half of the border/circle
+
+      /*&:after {
+        content: "#{$j}%";
+      }*/
+    }
+  }
+  // loop to rotate last 50 percent
+  @for $j from 51 through 100 {
+    &.p#{$j} {
+      background-image:
+        linear-gradient(90deg, transparent 50%, $circle-border-color-elapsed 50%), // highlight the right half of the border/circle
+        /* 90% = 54deg = -90 + (360*0.01*($j - 50) */
+        linear-gradient(-90deg+(360*0.01*($j - 50)), transparent 50%, $circle-border-color-remaining 50%);
+
+      /*&:after {
+        content: "#{$j}%";
+      }*/
+    }
+  }
+}
+/********* End Circle Pie ***********/

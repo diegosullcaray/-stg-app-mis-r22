@@ -1,0 +1,47 @@
+<div *ngIf="!config.loading" fxFill fxLayout="row" class="container-cs" fxLayoutGap="5px">
+    <div fxFlex="50" class="block" fxLayout="column">
+        <div class="header">
+
+        </div>
+        <div class="profile" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="5px">
+            <div class="avatar"></div>
+            <div class="name"><span>{{config.base.nam}}</span></div>
+            <div><span>Cliente desde {{config.base.dat_ini}}</span></div>
+        </div>
+        <div fxFlex fxLayout="column" fxLayoutGap="5px" style="padding: 5px">
+            <div class="tabs-header">
+                <ng-container *ngFor="let item of config.blocks;let idx = index">
+                    <div matRipple class="tab" [class.active]="activeTab === idx" (click)="setActiveTab(idx)">
+                        <span>{{item.title}}</span>
+                    </div>
+                </ng-container>
+            </div>
+            <ng-container *ngFor="let block of config.blocks;let idx = index">
+                <div fxFlex *ngIf="activeTab === idx" class="tabs-content" fxLayout="column">
+                    <ng-scrollbar track="all">
+                        <ng-container *ngFor="let prop of block.items">
+                            <div class="prop" fxLayout="row" >
+                                <div [fxFlex]="block.lab_flex" class="label"><span>{{prop.desc}}</span></div>
+                                <div fxFlex class="value"><span>{{prop.val}}</span></div>
+                            </div>
+                        </ng-container>
+                    </ng-scrollbar>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div fxFlex fxLayout="column" fxLayoutGap="5px">
+        <div fxFlex="65" class="block" style="padding: 5px">
+            <google-map height="100%" width="100%" [center]="config.base.geo" [zoom]="geo_zoom" [options]="geo_options">
+
+                <!-- Ejemplo de marcador -->
+                <map-marker [position]="config.base.geo">
+                </map-marker>
+
+                <!--<map-advanced-marker [position]="config.base.geo"></map-advanced-marker>-->
+
+            </google-map>
+        </div>
+        <div fxFlex class="block"></div>
+    </div>
+</div>

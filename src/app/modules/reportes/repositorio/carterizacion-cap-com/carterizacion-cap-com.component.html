@@ -1,0 +1,50 @@
+<div class="stg-window" fxFill fxLayout="column">
+    <stg-window-bar title="Vinculación de Cartera - Captaciones"> </stg-window-bar> 
+     
+    <div class="stg-panel" fxLayout="column" fxFlex style="background-color: #F4F7F9;">
+        
+        <div fxLayout="row" fxLayoutGap="20px" style="padding: 20px 20px 5px 20px;" *ngIf="kpiCards && kpiCards.length > 0">
+            <div fxFlex class="kpi-card-premium" *ngFor="let kpi of kpiCards">
+                <div class="kpi-header">
+                    <span class="kpi-dot"></span>
+                    <div class="kpi-title-main">{{ kpi.PRODUCTO }}</div>
+                </div>
+                <div class="kpi-body">
+                    <div class="kpi-subtitle">SALDO TOTAL</div>
+                    <div class="kpi-value">
+                        <span class="kpi-currency">S/</span> {{ kpi.HSBSDO1 | number:'1.2-2' }}
+                    </div>
+                    
+                    <div class="kpi-variation" [ngClass]="{'var-pos': kpi.variacionNum > 0, 'var-neg': kpi.variacionNum < 0, 'var-zero': kpi.variacionNum === 0}">
+                        <span *ngIf="kpi.variacionNum > 0" class="var-icon">▲</span>
+                        <span *ngIf="kpi.variacionNum < 0" class="var-icon">▼</span>
+                        <span>{{ kpi.variacionAbs | number:'1.0-0' }}</span>
+                        <span class="var-label">VAR. MES</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div fxFlex="none" class="hier" fxLayout="row" fxLayoutAlign="start center" style="margin: 10px 20px; height: 32px; min-height: 32px; overflow: hidden;">
+    
+            <div fxFlex style="position: relative; height: 100%; overflow: hidden;">
+                <ng-scrollbar track="horizontal" style="height: 100%; width: 100%; --scrollbar-size: 4px;">
+                    <div class="hier-cont" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" style="height: 100%;">
+                        <ng-container *ngFor="let item of hierBuffer; index as idx">
+                            <div (click)="changeHier(item)" class="breadcrumb-pill">
+                                <span>{{item.des_rel}}</span>
+                            </div>
+                        </ng-container>
+                    </div> 
+                </ng-scrollbar>
+            </div>
+        
+        </div>
+        <div class="table-wrapper" fxFlex>
+            <stg-table2 fxFlex [dataSource]="dataSource" [headers]="headerDefs" [options]="Opts" 
+                (onClickCell)="ddHier($event)">
+            </stg-table2>
+        </div>
+  
+    </div>
+</div>

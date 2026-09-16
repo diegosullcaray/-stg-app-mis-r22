@@ -1,0 +1,17 @@
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+        <h2 class="title-module">CARGA DE FUENTES PRODUCCIÓN</h2>
+    </div>
+</div>
+
+<h4 class="text-primary" style="text-align:left">ACTUALIZADO AL: {{today}} <span class="green-text" style="font-size:18px"></span></h4>
+<app-table-multiheader [config_table]='config_table_prod'></app-table-multiheader>
+
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+        <h2 class="title-module">PROCESOS DIARIOS MIS</h2>
+    </div>
+</div>
+
+<h4 class="text-primary" style="text-align:left">ACTUALIZADO AL: {{today}} <span class="green-text" style="font-size:18px"></span></h4>
+<app-table-multiheader [config_table]='config_table_sum'></app-table-multiheader>

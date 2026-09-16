@@ -1,0 +1,118 @@
+<h2 class="title-module">{{title_module}}</h2>
+<app-auto-complete-sec (refresh)="load($event)"></app-auto-complete-sec>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)">
+</app-select-multiple>
+<mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="selected=$event">
+    <mat-tab label="Lista Clientes" disabled>
+        <app-table-multiheader *ngFor='let c of config;let i=index' [config_table]='config_table[i]'
+            (refresh)="update($event)"></app-table-multiheader>
+    </mat-tab>
+    <mat-tab label="Actualizar Datos" disabled>
+        <mat-card class="mat-elevation-z m-033">
+            <h2 class="title-module">{{cliente}}</h2>
+                <div fxLayout="column">
+                    <ng-container [formGroup]="formG">
+                        <div fxLayout="column" >
+                            <!--<button (click)="addCels()">Add</button>-->
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                                
+                                    <mat-form-field formGroupName="bantotal" fxFlex>
+                                        <input matInput formControlName="cel" placeholder="# Teléfono Bantotal" >
+                                    </mat-form-field>
+                               
+                                <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
+                                    <mat-form-field fxFlex>
+                                        <mat-label>{{verificador.label}} Teléfono</mat-label>
+                                        <mat-select formControlName="verificador_num_tele">
+                                            <mat-option  *ngFor="let r of verificador_tele.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div formArrayName="cels" *ngFor="let cels of formG.controls.cels?.value; let i = index; trackBy: trackByFn">
+                                <ng-container [formGroupName]="i">
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                                        <mat-form-field fxFlex>
+                                            <input matInput formControlName="num_tele" placeholder="# Teléfono - {{i+1}}">
+                                            <mat-error *ngIf="formG.controls.cels[i].controls.num_tele.hasError('pattern')">
+                                                Ingresar # Teléfono - {{i+1}} válido
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <ng-container *ngFor="let cbo of form">
+                                            <mat-form-field fxFlex>
+                                                <mat-label>{{cbo.label}} - {{i+1}}</mat-label>
+                                                <mat-select [formControlName]="cbo.variable">
+                                                    <mat-option  *ngFor="let r of cbo.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                            <div fxFlex="100" fxFlex.gt-sm="75" fxFlex.sm="75">
+                                <mat-form-field fxFlex>
+                                    <input matInput formControlName="email" placeholder="Email">
+                                    <mat-error *ngIf="formG.controls.email.hasError('email')">
+                                        Ingresar Email válido
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+               
+                                <mat-form-field formGroupName="bantotal" fxFlex>
+                                    <mat-label>CIIU Bantotal</mat-label>
+                                    <mat-select formControlName="ciu">
+                                        <mat-option  *ngFor="let r of ciiu.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                        
+                            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+                                <mat-form-field fxFlex>
+                                    <mat-label>{{verificador.label}} CIIU</mat-label>
+                                    <mat-select formControlName="verificador_ciiu">
+                                        <mat-option  *ngFor="let r of verificador.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                            <ng-container formArrayName="cius" *ngFor="let number of [0,1,2]; let i=index">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                                    <div fxFlex="100" fxFlex.gt-sm="75" fxFlex.sm="75">
+                                        <mat-form-field fxFlex>
+                                            <mat-label>{{ciiu.label}} - {{i+1}}</mat-label>
+                                            <mat-select [formControlName]="i">
+                                                <mat-option  *ngFor="let r of ciiu.data" [value]="r.id" >{{r.desc}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </ng-container>
+            
+                        
+                    </ng-container>
+                    <div fxLayout="row" fxFlex="100">
+                        <div fxLayout="row" fxFlex="50" fxLayoutAlign="center center">
+                            <div class="m-033">
+                                <button mat-raised-button color="primary" (click)="selected=0">
+                                    <mat-icon>keyboard_return</mat-icon>Regresar
+                                </button>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="50" fxLayoutAlign="center center">
+                            <div class="m-033">
+                                <button 
+                                    [disabled]='!formG.valid'
+                                    mat-raised-button color="primary" (click)="save()">
+                                    <mat-icon>save</mat-icon>Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

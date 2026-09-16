@@ -1,0 +1,105 @@
+<div #popupContainer fxLayout="column" style="width:100%;height:100%" class="elegant-animate stg-window">
+  <stg-window-bar 
+    title="Detalle Producto" 
+    barIcon="info" 
+    titleAlign="start" 
+    closable="true" 
+    (onClose)="closeDialog()" >
+  </stg-window-bar>
+  
+  <div class="popup-body" fxLayout="column" fxFlex>
+
+    <ng-container *ngIf="currentView === 'table'">
+      <div class="popup-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+        <span class="label">Producto:</span>
+        <span class="value">{{ data.modalTitle }}</span>
+      </div>
+      
+      <div class="card-summary" 
+           fxLayout="row" 
+           fxLayout.lt-lg="row wrap" 
+           fxLayoutAlign="space-between center" 
+           fxLayoutAlign.lt-lg="start start" 
+           fxLayoutGap="16px" 
+           fxLayoutGap.lt-lg="12px"> 
+        
+        <div class="summary-card animate-card" fxFlex="25" fxFlex.lt-lg="calc(50% - 6px)"> 
+          <div class="icon-wrapper"><mat-icon>account_balance_wallet</mat-icon></div>
+          <div>
+            <div class="card-title">Saldo Capital</div>
+            <div class="card-value">{{data.modalSalcartera | number:'1.0-0' }}</div>
+          </div>
+        </div> 
+
+        <div class="summary-card animate-card" fxFlex="25" fxFlex.lt-lg="calc(50% - 6px)">
+          <div class="icon-wrapper"><mat-icon>warning_amber</mat-icon></div>
+          <div>
+            <div class="card-title">Saldo Vencido</div>
+            <div class="card-value">{{data.modalSaldoVencido | number:'1.0-0' }}</div>
+          </div>
+        </div>
+
+        <div class="summary-card animate-card" fxFlex="25" fxFlex.lt-lg="calc(50% - 6px)">
+          <div class="icon-wrapper"><mat-icon>percent</mat-icon></div>
+          <div>
+            <div class="card-title">% Saldo Vencido</div>
+            <div class="card-value">{{data.modalPercenSVencido | number:'1.1-2' }}</div>
+          </div>
+        </div> 
+
+        <div class="summary-card animate-card" fxFlex="25" fxFlex.lt-lg="calc(50% - 6px)">
+          <div class="icon-wrapper"><mat-icon>landscape</mat-icon></div>
+          <div>
+            <div class="card-title">Extensión</div>
+            <div class="card-value">{{data.modalSExtension | number:'1.0-0' }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-wrapper" >
+                <input 
+                  type="text" 
+                  class="stg-input" 
+                  placeholder="Buscar en producto, cliente, estado,cta cliente" 
+                 [value]="filterValue"           (keyup)="filter($event)">
+                <mat-icon class="search-icon" style="
+        margin-top: 10px;
+    ">search</mat-icon>
+              </div>
+      <div class="table-wrapper"  fxFlex>
+        <stg-table2 
+          fxFlex  
+          [dataSource]="modalData" 
+          [headers]="data.headerDefsModal" 
+          [options]="OptsModal" 
+          (onClickCell)="ddMaps($event)"> </stg-table2>
+      </div>
+      
+      <div class="paginator-wrapper" *ngIf="showPaginator">
+        <stg-paginator 
+          #paginator 
+          [totalLenght]="dataSource3Length" 
+          pageLenght="10"
+          (onChangePage)="eventChangePage($event)">
+        </stg-paginator> 
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="currentView === 'map'">
+      
+      <div class="popup-header-back" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" (click)="goBackToTable()">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="label">Atrás</span>
+      </div>
+
+      <div class="detail-content-wrapper" fxFlex fxLayout="column">
+        <div class="map-frame"
+             leaflet
+             (leafletMapReady)="onMapReady($event)"
+             [leafletOptions]="options">
+        </div>
+      </div>
+      
+    </ng-container>
+    
+  </div>
+</div>

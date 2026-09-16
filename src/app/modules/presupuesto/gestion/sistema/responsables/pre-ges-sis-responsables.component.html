@@ -1,0 +1,44 @@
+<div class="stg-panel">
+    <div class="stg-window">
+        <stg-window-bar [title]="title"></stg-window-bar>
+        <stg-toolbar>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <button mat-button color="primary" (click)="save()">
+                    <mat-icon>save</mat-icon><span style="padding-left: 5px;">Guardar</span>
+                </button>
+                <button mat-flat-button (click)="restart()">
+                    <mat-icon>restore</mat-icon><span style="padding-left: 5px;">Reiniciar</span>
+                </button>
+            </div>
+        </stg-toolbar>
+        <div clas="stg-space"></div>
+        <div>
+            <div fxLayout="row" style="padding: 10px;">
+                <div>
+                    <mat-form-field style="width: 150px;">
+                        <mat-label>Nivel</mat-label>
+                        <mat-select [(value)]="currLvl">
+                            <!---->
+                            <mat-option idProp="A" *ngFor="let val of dataLvls" [value]="val" (onSelectionChange)="onSelectItem($event)">
+                                {{val.des_lvl}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex></div>
+                <div fxFlex="50" fxFlex.gt-sm="30" fxLayout="row" fxLayoutAlign="end center">
+                    <!---->
+                    <input #filterInput type=text class="stg-input" placeholder="Buscar" (keyup)="filter($event)">
+                </div>
+            </div>
+            <div clas="stg-space"></div>
+            <div>
+                <stg-table [tableStyleConfig]="tableConf" [loadingObs]="loadingObs" [headersDef]="headerDefs"
+                    [dataSource]="dataSource" [customComponentStyler]="inputStyler">
+                </stg-table>
+            </div>
+            <!-- [customComponentCell]="customComponent" (onEditCell)="editCell($event)" -->
+
+        </div>
+    </div>
+</div>

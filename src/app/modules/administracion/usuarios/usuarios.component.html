@@ -1,0 +1,36 @@
+<div fxFill class="base-panel" fxLayout="column">
+    <div fxLayout="row" fxLayoutGap="10px" class="header" fxLayoutAlign="start center">
+        <button class="b" mat-button (click)="navRoot()">
+            <span class="material-icons i">arrow_circle_left</span>
+        </button>
+        <span class="material-icons i">people</span>
+        <span class="t">Usuarios</span>
+    </div>
+    <div fxLayout="row" class="actions">
+        <div fxLayout="row" fxLayoutGap="15px">
+ 
+            <stg-button icon="add" (click)="add()">Agregar</stg-button>
+            <button class="b" mat-button>
+                <span class="material-icons i">remove</span>
+                <span>Eliminar</span>
+            </button>
+            <button class="b" mat-button>
+                <span class="material-icons i">edit</span>
+                <span>Editar</span>
+            </button>
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+            <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
+                <span>Buscar:</span>
+                <input class="stg-input">
+            </div>
+        </div>
+    </div>
+    <div fxFlex style="padding: 0px 15px;" fxLayout="column">
+        <stg-table2 fxFlex [options]="options" [dataSource]="dataSource" [headers]="headers"  (onSelectRow)="onSelectedRow($event)">
+        </stg-table2>
+        <stg-paginator *ngIf="showPaginator" #paginator [totalLenght]="dataSourceLenght" [pageLenght]="pageLenght"
+            (onChangePage)="changePage($event)">
+        </stg-paginator>
+    </div>
+</div>

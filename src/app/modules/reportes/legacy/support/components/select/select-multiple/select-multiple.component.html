@@ -1,0 +1,23 @@
+<div *ngIf='isLoadingSelect'>
+    <mat-card class="mat-elevation-z m-033" ><!--style="padding: 0px"-->
+        <div fxLayout="row wrap">
+            <div [formGroup]="fgroupSelect" 
+                    *ngFor='let cbo of data' 
+                    fxFlex="100" 
+                    fxFlex.gt-sm="16" 
+                    fxFlex.sm="33">
+                <div class="m-033">
+                    <mat-form-field style="width: 100%">
+                        <mat-label>{{cbo.label}}</mat-label>
+                        <mat-select [formControlName]="cbo.variable">
+                            <mat-option *ngFor="let r of cbo.data" [value]="r.id">
+                                <!--(onSelectionChange)="exec(r,cbo,$event)"-->
+                                {{r.desc}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

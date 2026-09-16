@@ -1,0 +1,47 @@
+<div fxFill class="base" fxLayout="column">
+    <div fxLayoutAlign="start center" style="width: 100%;padding: 5px 10px;">
+        <div fxLayoutAlign="center center" style="width: 85px;">
+            <div class="portrait">
+                <img class="p" src="{{config.user.img}}" alt="" referrerpolicy="no-referrer">
+            </div>
+        </div>
+        <div fxFlex fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div fxLayout="column" class="user">
+                <div class="nam"><span>{{config.user.nam}}</span></div>
+                <div class="pos"><span>{{config.user.pos}}</span></div>
+            </div>
+            <div fxLayoutAlign="center center">
+                <stg-button color="primary" icon="person_search"></stg-button>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+            <div fxLayoutGap="3px" fxLayoutAlign="start center">
+                <span>Monetizado:</span><span style="font-size: 18px;font-weight: bold;">S/. 2,000.86</span>
+            </div>
+            <div fxLayoutGap="3px" fxLayoutAlign="start center">
+                <span>Estado:</span><span style="font-size: 18px;font-weight: bold;">Desactivado</span>
+            </div>
+            <div fxLayoutGap="3px" fxLayoutAlign="start center">
+                <span>Modelo:</span><span style="font-size: 18px;font-weight: bold;">2025-I</span>
+            </div>
+            <stg-button icon="calculate"></stg-button>
+            <stg-button icon="date_range" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="dateMenu"></stg-button>
+            <div class="dat-lbl">
+                <span>{{date | date:'YYYY-MM-dd'}}</span>
+            </div>
+        </div>
+    </div>
+    <app-cards-incentivos4></app-cards-incentivos4>
+    <div fxFlex style="padding: 10px;">
+        <app-avances-incentivos4></app-avances-incentivos4>
+    </div>
+    <div style="height: 130px;padding: 0px 10px 10px 10px;">
+        <app-dinamizadores-incentivos4></app-dinamizadores-incentivos4>
+    </div>
+</div>
+<mat-menu #dateMenu="matMenu">
+    <div (click)="$event.stopPropagation();">
+        <mat-calendar style="width:15rem" #calendar [selected]="date">
+        </mat-calendar>
+    </div>
+</mat-menu>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Strategos FC</title>
+  <meta name="description" content="Sistema MIS de Financiera Confianza">
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!--<link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+    rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap"
+    rel="stylesheet" />
+
+  <!--   <link href='https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css'
+    rel='stylesheet'> -->
+
+  <link href='https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css'
+    rel='stylesheet'>
+
+  <style>
+    .app-loader {
+      background-color: #1d396e;
+      height: 100%;
+    }
+
+    .cube {
+      margin: auto;
+      font-size: 24px;
+      height: 1em;
+      width: 1em;
+      top: 50%;
+      position: relative;
+      transform: rotatex(30deg) rotatey(45deg);
+      transform-style: preserve-3d;
+      animation: cube-spin 1.5s infinite ease-in-out alternate;
+    }
+
+    .side {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transform-style: preserve-3d;
+    }
+
+    .side::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      transform: translatez(0.5em);
+      animation: cube-explode 1.5s infinite ease-in-out;
+      opacity: 0.5;
+    }
+
+    .side:nth-child(1) {
+      transform: rotatey(90deg);
+    }
+
+    .side:nth-child(2) {
+      transform: rotatey(180deg);
+    }
+
+    .side:nth-child(3) {
+      transform: rotatey(270deg);
+    }
+
+    .side:nth-child(4) {
+      transform: rotatey(360deg);
+    }
+
+    .side:nth-child(5) {
+      transform: rotatex(90deg);
+    }
+
+    .side:nth-child(6) {
+      transform: rotatex(270deg);
+    }
+
+    @keyframes cube-spin {
+      0% {
+        transform: rotatex(30deg) rotatey(45deg);
+      }
+
+      100% {
+        transform: rotatex(30deg) rotatey(405deg);
+      }
+    }
+
+    @keyframes cube-explode {
+      0% {
+        transform: translatez(0.5em);
+      }
+
+      50% {
+        transform: translatez(0.75em);
+      }
+
+      100% {
+        transform: translatez(0.5em);
+      }
+    }
+  </style>
+
+  <!-- Global site tag (gtag.js) - Google Analytics 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177825859-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-177825859-1');
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCssgTcOZ9XPv63CGrGyXZL9xPtAgLUKp4"></script>-->
+</head>
+
+<body class="">
+  
+  
+  <app-root>
+    <div class="app-loader">
+      <div class="cube">
+        <div class="side"></div>
+        <div class="side"></div>
+        <div class="side"></div>
+        <div class="side"></div>
+        <div class="side"></div>
+        <div class="side"></div>
+      </div>
+    </div>
+  </app-root>
+</body>
+
+</html>

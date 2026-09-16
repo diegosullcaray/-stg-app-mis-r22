@@ -1,0 +1,56 @@
+<div fxFill fxLayout="column" [ngClass]="{'stg-window-container':esgService.isMobile()}">
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar title="Administrar Usuarios" barIcon="supervisor_account" titleAlign="start" closable=true
+            (onClose)="navMain()">
+        </stg-window-bar>
+        <stg-toolbar>
+            <stg-button icon="save" hideTextOnMobil=true [disabled]="!submit" (click)="saveUsers()">Guardar</stg-button>
+        </stg-toolbar>
+        <ng-scrollbar track="all">
+            <div fxFlex fxLayout="column" fxLayoutGap="15px" style="padding: 10px;">
+                <div style="height: 230px;" fxLayout="column" fxLayoutGap="10px">
+                    <div class="block-title">
+                        <span>Categoría</span>
+                    </div>
+                    <mat-select class="stg-input" [(value)]="esgService.currMetListCat">
+                        <ng-container *ngFor="let item of esgService.catsCfg">
+                            <mat-option [value]="item.cod" (onSelectionChange)="selectCat($event)">{{item.des}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <div class="block-title">
+                        <span>Metricas</span>
+                    </div>
+                    <div fxFlex>
+                        <stg-list [dataSource]="metsDataSource" labelKey="name" [options]="listOptions"
+                            (onSelectItem)="selectMetric($event)"></stg-list>
+                    </div>
+                </div>
+                <div style="height: 230px;" fxLayout="column" fxLayoutGap="10px">
+                    <div class="block-title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <span>Usuarios con Acceso</span>
+                        <div class="spinner07" [fxHide]="!spinn"></div>
+                    </div>
+                    <div fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <stg-button [disabled]="disabledAddUser" mode="min" icon="person_add" (click)="addUser()">
+                        </stg-button>
+                        <stg-button [disabled]="disabledRemoveUser" mode="min" icon="person_remove"
+                            (click)="removeUser()"></stg-button>
+                        <stg-button [disabled]="disabledRefreshUser" mode="min" icon="refresh" (click)="refreshUser()">
+                        </stg-button>
+
+                    </div>
+                    <div fxFlex>
+                        <stg-list [dataSource]="usersDataSource.value" labelKey="cod_bt" [options]="listOptions"
+                            (onSelectItem)="selectUser($event)"></stg-list>
+                    </div>
+                </div>
+            </div>
+        </ng-scrollbar>
+        <div [@bottomAlert]="alertState" [fxHide]="alertHide">
+            <div class="alert-box" [ngClass]="{'alert-warn':resultState=='warn'}">
+                {{alertMsg}}
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,12 @@
+.bg-1{
+    //background-color: #1076e3;
+    background-color: rgb(255, 255, 255);
+    //background-repeat: no-repeat;
+    //background-position: center;
+    background-image: url('../../../../../assets/images/fc/wallpaper.png');
+    background-size: cover;
+}
+
+.bg-2::before{
+    background-color: black;
+}

@@ -1,0 +1,34 @@
+ 
+ <div fxFill class="base" fxLayout="column">
+    <div fxLayout="row" class="title-box" fxLayoutGap="15px" fxLayoutAlign="start end">
+        <span class="material-icons icon">military_tech</span>
+        <span class="name">Ranking Kaypacha 2026</span>
+    </div>  
+
+
+            <!-- NO <div fxLayout="row" class="filters-box">
+                <div fxLayout="row" fxLayoutGap="15px">
+                    <mat-button-toggle [checked]="btn1Val" (click)="filterCat(1)">
+                        <span>Power BI</span>
+                    </mat-button-toggle>
+                    <mat-button-toggle [checked]="btn2Val" (click)="filterCat(2)">
+                        <span>Oracle AC</span>
+                    </mat-button-toggle>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+                    <input type=text class="stg-input search" placeholder="Buscar" (keyup)="filter($event)">
+                </div>
+            </div> -->
+
+
+     <div fxFlex>
+         <stg-table2 [options]="options" [dataSource]="dataSource" [headers]="headers" [optionsObserver]="optObs" (onClickCell)="actionLink($event)" >
+        </stg-table2> 
+    </div>
+</div> 
+
+<!-- <div fxfill style="background-color: #fff; height : 20px"></div>
+<div fxFill class="base"></div>
+<div fxfill style="background-color: #fff; height : 20px"></div>
+ -->
+

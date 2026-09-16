@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>{{label}}</mat-label>
+    <mat-select [(value)]="selectedValue">
+        <mat-option *ngFor="let val of data" [value]="val" (onSelectionChange)="onSelect($event)">
+            {{val.des_rel}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

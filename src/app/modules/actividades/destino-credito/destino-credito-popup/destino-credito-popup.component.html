@@ -1,0 +1,56 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="cod_asesor" [formControl]="$any(itemForm).controls['cod_asesor']" placeholder="Código Asesor">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="asesor" [formControl]="$any(itemForm).controls['asesor']" placeholder="Asesor">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="des_cli" [formControl]="$any(itemForm).controls['des_cli']" placeholder="Cliente">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="cta_cli" [formControl]="$any(itemForm).controls['cta_cli']" placeholder="Cuenta Cliente">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="cod_ope" [formControl]="$any(itemForm).controls['cod_ope']" placeholder="Operación">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="fec_des" [formControl]="$any(itemForm).controls['fec_des']" placeholder="Fecha Desembolso">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="mon_des" [formControl]="$any(itemForm).controls['mon_des']" placeholder="Monto Desembolsado">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="fec_vis" [matDatepicker]="picker1" [formControl]="$any(itemForm).controls['fec_vis']"
+          placeholder="Fecha de Visita">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-slide-toggle [formControl]="$any(itemForm).controls['is_valid']">Cumple Destino Crédito</mat-slide-toggle>
+    </div>
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,9 @@
+<button mat-raised-button [disabled]="disabled" [ngClass]="{'stg-btn':mode=='reg','stg-btn-min':mode=='min'}" [color]="color" [ngStyle]="getStyle()">
+    <div fxFlex fxLayoutAlign="start center">
+        <span *ngIf="icon && iconSource=='google'" [ngClass]="iconCls()">{{icon}}</span>
+        <span *ngIf="icon && iconSource=='microsoft'" [ngClass]="iconCls()"></span>
+        <div fxFlex class="btn-cnt" fxLayoutAlign="start end" [fxHide]="hideTextOnMobil && layout.isMobile">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</button>

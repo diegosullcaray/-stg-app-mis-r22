@@ -1,0 +1,145 @@
+<main class="consulta-fen">
+  <div class="consulta-fen__wrap">
+    <header class="page-head">
+      <div>
+        <h1>{{ title }}</h1>
+        <p class="page-subtitle">Consulta el nivel de exposición territorial antes de completar la evaluación.</p>
+      </div>
+      <div class="stamp" role="status" *ngIf="matrixUpdatedAt">
+        <span class="stamp__dot"></span>
+        Matriz actualizada: {{ matrixUpdatedAt }}
+      </div>
+    </header>
+
+    <section class="card top-panel">
+      <div class="panel query-panel">
+        <div class="panel-head">
+          <div class="icon-box"><mat-icon>search</mat-icon></div>
+          <div>
+            <h2>Consulta rápida</h2>
+            <p>Busca por código o ubicación</p>
+          </div>
+        </div>
+
+        <mat-tab-group class="query-tabs" animationDuration="0ms">
+          <mat-tab label="Por distrito">
+            <form class="query-form" (ngSubmit)="searchByDistrict()">
+              <label for="district-query">Distrito</label>
+              <div class="search-row">
+                <div class="input-shell">
+                  <mat-icon>search</mat-icon>
+                  <input
+                    id="district-query"
+                    name="districtQuery"
+                    type="text"
+                    minlength="2"
+                    placeholder="Ingresa un distrito"
+                    [(ngModel)]="districtQuery">
+                </div>
+                <button class="primary-button" type="submit" [disabled]="state === 'loading'">Consultar</button>
+              </div>
+              <p class="hint">Ingresa el nombre del distrito.</p>
+            </form>
+          </mat-tab>
+
+          <mat-tab label="Por ubigeo">
+            <form class="query-form" (ngSubmit)="searchByUbigeo()">
+              <label for="ubigeo-query">Código ubigeo</label>
+              <div class="search-row">
+                <div class="input-shell">
+                  <mat-icon>search</mat-icon>
+                  <input
+                    id="ubigeo-query"
+                    name="ubigeoQuery"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    placeholder="150101"
+                    [(ngModel)]="ubigeoQuery">
+                </div>
+                <button class="primary-button" type="submit" [disabled]="state === 'loading'">Consultar</button>
+              </div>
+              <p class="hint">Ingresa los 6 dígitos del código ubigeo.</p>
+            </form>
+          </mat-tab>
+        </mat-tab-group>
+
+        <div class="error-notice" role="alert" *ngIf="state === 'error'">
+          <mat-icon>error_outline</mat-icon>
+          <p>{{ errorMessage }}</p>
+        </div>
+        <div class="empty-notice" role="status" *ngIf="state === 'empty'">
+          <mat-icon>info_outline</mat-icon>
+          <p>No se encontraron resultados para la búsqueda ingresada.</p>
+        </div>
+      </div>
+
+      <div class="panel result-panel">
+        <div class="result-head" *ngIf="result as currentResult">
+          <div class="place">
+            <mat-icon>location_on</mat-icon>
+            <div>
+              <h2>{{ currentResult.des_dist }}</h2>
+              <p>{{ currentResult.des_dep }} · {{ currentResult.des_prov }}</p>
+            </div>
+          </div>
+
+          <div class="result-meta">
+            <span class="ubigeo-pill">UBIGEO {{ currentResult.cod_ubi }}</span>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric" [ngClass]="riskClass(result?.exp_mas)">
+            <ng-container *ngIf="result as currentResult">
+              <span>Movimiento en masa</span>
+              <strong>{{ currentResult.exp_mas }}</strong>
+            </ng-container>
+          </div>
+          <div class="metric" [ngClass]="riskClass(result?.exp_inu)">
+            <ng-container *ngIf="result as currentResult">
+              <span>Inundación</span>
+              <strong>{{ currentResult.exp_inu }}</strong>
+            </ng-container>
+          </div>
+          <div class="metric" [ngClass]="riskClass(result?.exp_seq)">
+            <ng-container *ngIf="result as currentResult">
+              <span>Sequía</span>
+              <strong>{{ currentResult.exp_seq }}</strong>
+            </ng-container>
+          </div>
+          <div class="metric" [ngClass]="riskClass(result?.exp_pre)">
+            <ng-container *ngIf="result as currentResult">
+              <span>Riesgo predominante</span>
+              <strong>{{ currentResult.exp_pre }}</strong>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="risk-alert" role="alert" *ngIf="showHighRiskAlert()">
+          <mat-icon>warning_amber</mat-icon>
+          <p>{{ highRiskMessage }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card matrix" *ngIf="rows.length > 0">
+      <header class="matrix-head">
+        <div>
+          <h2>Matriz de riesgos por distrito</h2>
+          <p>Consulta la información para seguimiento comercial.</p>
+        </div>
+        <span class="matrix-count">{{ rows.length }} {{ rows.length === 1 ? 'registro' : 'registros' }}</span>
+      </header>
+      <div class="table-panel">
+        <stg-table2
+          [options]="tableOptions"
+          [dataSource]="rows"
+          [headers]="tableHeaders"
+          (onSelectRow)="selectRisk($event)">
+        </stg-table2>
+      </div>
+    </section>
+  </div>
+</main>

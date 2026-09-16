@@ -1,0 +1,9 @@
+<div fxFill class="stg-mod-base">
+    <div class="stg-window base" fxLayout="column" style="height: 100%;">
+        <stg-window-bar title="Listas" titleAlign="start" fontSize="20px"></stg-window-bar>
+        <div fxFlex style="padding: 15px;">
+            <stg-table2 [options]="options" [dataSource]="dataSource" [headers]="headers" (onClickCell)="actionLink($event)">
+            </stg-table2>
+        </div>
+    </div>
+</div>

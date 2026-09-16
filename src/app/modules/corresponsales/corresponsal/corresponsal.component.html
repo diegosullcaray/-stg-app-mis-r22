@@ -1,0 +1,275 @@
+<div class="fondoblanco">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="100">
+      <div class="content mat-elevation-z" class="m-033">
+
+        <h1 class="title-module">CORRESPONSALES</h1>
+
+      </div>
+    </div>
+  </div><br>
+  <!-- Dashboard card row -->
+  <ng-container *ngIf="activeHier">
+    <hier-rem-selector [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+  </ng-container>
+  <br>
+  <ng-container *ngIf="activeFilters"><br>
+    <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)"></app-select-multiple>
+
+  </ng-container>
+  <!-- <app-select-group [config_select_group]='configFilters' (refresh)="load($event)" style="background-color: white;"></app-select-group>   -->
+
+  <!-- Fullwidth chart -->
+  <div fxLayout="row wrap" [@animate]="{value:'*',params:{y:'25px',delay:'300ms'}}" style="background-color: white;">
+    <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="100" style="background-color: white;">
+      <div fxLayout="row wrap" style="background-color: white;">
+        <p class="text-blue ml-1 mt-1" style="margin: 0PX">Indicadores</p>
+        <div fxFlex="100">
+          <div fxLayout="row wrap">
+            <div fxFlex="100"> <mat-chip-list aria-label="Fish selection">
+                <mat-chip color="primary" selected style="margin-top: 35px;color: black">STOCK</mat-chip>
+              </mat-chip-list>
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{scale:'.9',delay:'300ms'}}">
+
+                <mat-card>
+                  <mat-card-title fxLayoutAlign="start center">
+
+                    <small class="text-muted">#Corresponsales</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{CorresponsalStock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">#Transacciones</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{transstockStock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">Monto</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{montstock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">Ticket Prom</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{tickstock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+            <div fxFlex="100">
+              <mat-chip-list aria-label="Fish selection">
+                <mat-chip color="primary" selected style="margin-top: 35px; padding-left: 11px;color: black">
+                  MES
+                </mat-chip>
+              </mat-chip-list>
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="margin-left: 15px"
+                [@animate]="{value:'*',params:{scale:'.9',delay:'300ms'}}">
+                <mat-card>
+                  <mat-card-title fxLayoutAlign="start center">
+                    <small class="text-muted">#Corresponsales</small>
+                    <span fxFlex></span>
+
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{CorresponsalMes}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">#Transacciones</small>
+                    <span fxFlex></span>
+
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{transstockMes}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">Monto</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{montMes}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">Ticket Prom</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{tickMes}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="100">
+          <mat-card class="default">
+
+            <p class="text-blue ml-1 mt-1">Tendencia por Tipo de Transacción</p>
+            <mat-card-content class="p-0">
+              <div class="graf1">
+                <app-graphic-basic [config_graphic]='config_graphic' class="table-container"
+                  style="width:100%;height:400px;"></app-graphic-basic>
+              </div>
+
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="100">
+      <mat-card class="default">
+        <p class="text-blue ml-1 mt-1">Distribución Corresponsales</p>
+        <!-- <highcharts-chart  *ngIf="mostrarGrafico" id="container" [Highcharts]="HighchartsMaps" [constructorType]="chartConstructor"
+          [options]="mapsschartOptions" style="width: 100%; height: 635px; display: block;">
+        </highcharts-chart> -->
+        <tr>
+          <div fxFlex="100" fxFlex.gt-sm="100">
+            <mat-card class="p-0">
+              <mat-card-content class="p-0">
+                <!-- <agm-map #gm
+              [ngStyle]="{height: '600px'}"
+              [zoom]="zoom" 
+              [latitude]="lat" 
+              [longitude]="lng"> 
+
+              <agm-marker  *ngFor="let m of jsonmapgoogle; let i = index"
+              [latitude]="m.lat" [longitude]="m.lng" (mouseOver)="onMouseOver(infoWindow, $event)"
+              (mouseOut)="onMouseOut(infoWindow, $event)"  >
+              <agm-info-window [disableAutoPan]="false" #infoWindow>
+  
+                  <div>
+                      {{m.label}}
+                  </div>
+      
+              </agm-info-window> 
+              </agm-marker>
+
+              </agm-map> -->
+
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+      </mat-card>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="50" fxFlex.gt-sm="50" fxFlex.sm="100">
+      <mat-card class="default">
+        <p class="text-blue ml-1 mt-1">Transacciones por Corresponsal</p>
+        <mat-card-content>
+          <div class="graf2">
+            <app-graphic-basic id="container" [config_graphic]='config_graphic_tcorr'
+              class="highcharts-container"></app-graphic-basic>
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+    <div fxFlex="50" fxFlex.gt-sm="50" fxFlex.sm="100">
+      <mat-card class="default">
+        <p class="text-blue ml-1 mt-1">Transacciones por Territorio</p>
+        <mat-card-content>
+          <div class="graf3">
+            <app-graphic-basic [config_graphic]='config_graphic_tteri' class="highcharts-container"></app-graphic-basic>
+
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+    </div>
+  </div>
+
+
+  <!-- <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card >
+            <p class="text-blue ml-1 mt-1">Transacciones por Corresponsal</p>
+        <mat-card-content >
+          <app-graphic-basic [config_graphic]='config_graphic_g4' class="highcharts-container"></app-graphic-basic> 
+        </mat-card-content>
+       
+      </mat-card>
+     
+    </div>
+    </div> -->
+  <!-- <div class="table-container"> -->
+  <p class="text-blue ml-1 mt-1">Transacciones por Corresponsal</p>
+
+  <!-- </div> -->
+
+  <div fxLayout="row wrap">
+    <div fxFlex="100" class="graf4">
+      <app-graphic-basic [config_graphic]='config_graphic_g4' class="highcharts-container"></app-graphic-basic>
+
+    </div>
+  </div>
+
+
+  <br><br>
+
+
+  <p class="text-blue ml-1 mt-1" style="margin: 0PX">Fecha (año y mes) / #Transacciones / Monto / Ticket Prom</p>
+  <div class="table-container" style="background-color: white;">
+    <app-table-multiheader *ngFor='let c of config;let i=index'
+      [config_table]='config_table[i]'></app-table-multiheader>
+
+  </div>
+  <br>
+  <br>
+
+  <p class="text-blue ml-1 mt-1" style="margin: 0PX">Meta Corresponsales</p>
+  <div class="table-container">
+    <app-table-multiheader *ngFor='let c of config;let i=index'
+      [config_table]='config_table6[i]'></app-table-multiheader>
+
+  </div>
+
+
+
+</div>

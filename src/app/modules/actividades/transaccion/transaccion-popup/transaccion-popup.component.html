@@ -1,0 +1,334 @@
+
+<div style='height: 800px; overflow: scroll;'> 
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="nom_cli" [formControl]="$any(itemForm).controls['nom_cli']" placeholder="Cliente">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="dni" [formControl]="$any(itemForm).controls['dni']" placeholder="DNI">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field class="full-width">
+            <mat-label>{{HTIPAGENT.label}}</mat-label>
+                <mat-select formControlName="HTIPAGENT">
+                        <mat-option  *ngFor="let r of HTIPAGENT.data" [value]="r.id" >{{r.desc}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="itemForm.get('HTIPAGENT').hasError('required')">
+                      Ingrese el tipo de agente
+                    </mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field class="full-width">
+          <input matInput name="HTIPAGENT" [formControl]="$any(itemForm).controls['HTIPAGENT']" placeholder="Tipo Agente">
+        </mat-form-field> -->
+      </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="ruc" [formControl]="$any(itemForm).controls['ruc']" placeholder="Ruc">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field class="full-width">
+          <input matInput name="consultaruc" [formControl]="$any(itemForm).controls['consultaruc']" placeholder="Consulta Ruc">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-16">
+        <mat-form-field class="full-width">
+          <input matInput name="consultarcc" [formControl]="$any(itemForm).controls['consultarcc']" placeholder="Consulta RCC">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-16">
+        <mat-form-field class="full-width">
+          <input matInput name="consultaLn" [formControl]="$any(itemForm).controls['consultaLn']" placeholder="Consulta Lista Negras">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-16">
+        <mat-form-field class="full-width">
+          <input matInput name="consultaLF" [formControl]="$any(itemForm).controls['consultaLF']" placeholder="Consulta Licencia Funcionamiento">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-16">
+          <mat-form-field class="full-width">
+            <input matInput name="celular" [formControl]="$any(itemForm).controls['celular']" placeholder="Celular">
+          </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-16">
+            <mat-form-field class="full-width">
+                <mat-label>{{HIDCORRES.label}}</mat-label>
+                    <mat-select formControlName="HIDCORRES">
+                            <mat-option  *ngFor="let r of HIDCORRES.data" [value]="r.id" >{{r.desc}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="itemForm.get('HIDCORRES').hasError('required')">
+                          Ingrese el Id corresponsal
+                        </mat-error>
+            </mat-form-field>
+             <!-- <mat-form-field class="full-width">
+              <input matInput name="idcorresponsal" [formControl]="$any(itemForm).controls['idcorresponsal']" placeholder="ID Corresponsal">
+              <mat-error *ngIf="itemForm.get('idcorresponsal').hasError('required')">
+                  Ingrese el ID Corresponsal
+                </mat-error>
+            </mat-form-field>  -->
+          </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="direc" [formControl]="$any(itemForm).controls['direc']" placeholder="Dirección">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field class="full-width">
+            <input matInput name="nomComerc" [formControl]="$any(itemForm).controls['nomComerc']" placeholder="Nomb.Comercial">
+            <!-- <mat-label>{{HNOMCOM.label}}</mat-label>
+                <mat-select formControlName="HNOMCOM">
+                        <mat-option  *ngFor="let r of HNOMCOM.data" [value]="r.id" >{{r.desc}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="itemForm.get('HNOMCOM').hasError('required')">
+                      Ingrese el nombre comercial
+                    </mat-error> -->
+        </mat-form-field>
+         
+      </div>
+      <div fxFlex="50" class="pr-16">
+          <mat-form-field class="full-width">
+              <mat-label>{{HZONA.label}}</mat-label>
+                  <mat-select formControlName="HZONA">
+                          <mat-option  *ngFor="let r of HZONA.data" [value]="r.id" >{{r.desc}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="itemForm.get('HZONA').hasError('required')">
+                        Ingrese la zona
+                      </mat-error>
+          </mat-form-field>
+          <!-- <mat-form-field class="full-width">
+            <input matInput name="HZONA" [formControl]="$any(itemForm).controls['HZONA']" placeholder="Zona">
+          </mat-form-field> -->
+        </div>
+        <div fxFlex="50" class="pr-16" [hidden]="isHidden">
+            <mat-form-field class="full-width">
+                <input matInput name="HMESINST" [formControl]="$any(itemForm).controls['HMESINST']" placeholder="Mes Instalación" >
+                <!-- <mat-error *ngIf="itemForm.get('HMESINST').hasError('required')">
+                    Ingrese el mes de instalación 
+                  </mat-error> -->
+              </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-16">
+            <mat-form-field class="full-width">
+                <mat-label>{{HVINFAMI.label}}</mat-label>
+                    <mat-select formControlName="HVINFAMI">
+                        <mat-option  *ngFor="let r of HVINFAMI.data" [value]="r.id" >{{r.desc}}</mat-option>
+                            <!-- <mat-option  *ngFor="let r of HVINFAMI.data" [value]="r.id" >{{r.desc}}</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="itemForm.get('HVINFAMI').hasError('required')">
+                          Ingrese el vinculo familiar
+                        </mat-error>
+            </mat-form-field>
+            <!-- <mat-form-field class="full-width">
+              <input matInput name="HZONA" [formControl]="$any(itemForm).controls['HZONA']" placeholder="Zona">
+            </mat-form-field> -->
+          </div>
+          <div fxFlex="50" class="pr-16">
+              <mat-form-field class="full-width">
+                  <mat-label>{{HTIPVINC.label}}</mat-label>
+                      <mat-select formControlName="HTIPVINC">
+                              <mat-option  *ngFor="let r of HTIPVINC.data" [value]="r.id" >{{r.desc}}</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="itemForm.get('HTIPVINC').hasError('required')">
+                            Ingrese el tipo de vinculo familiar
+                          </mat-error>
+              </mat-form-field>
+              <!-- <mat-form-field class="full-width">
+                <input matInput name="HZONA" [formControl]="$any(itemForm).controls['HZONA']" placeholder="Zona">
+              </mat-form-field> -->
+            </div>
+         <div fxFlex="50" class="pr-16">
+            <!-- <mat-form-field class="full-width">
+              <input matInput name="estcorresponsal" [formControl]="$any(itemForm).controls['estcorresponsal']" placeholder="Estado Corresponsal">
+            </mat-form-field> -->
+
+            <mat-form-field class="full-width">
+                <mat-label>{{HESTDCORE.label}}</mat-label>
+                    <mat-select formControlName="HESTDCORE">
+                            <mat-option  *ngFor="let r of HESTDCORE.data" [value]="r.id" >{{r.desc}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="itemForm.get('HESTDCORE').hasError('required')">
+                          Ingrese el estado corresponsal
+                        </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="50" class="pr-16" [hidden]="!isInputShown">
+              <mat-form-field class="full-width" >
+                  <input matInput name="feccance"  placeholder="Fecha Cancelación" type="date" [formControl]="$any(itemForm).controls['feccance']" formControlName="feccance"> 
+                  <mat-error *ngIf="getFecCancelac.hasError('required')"> 
+                    Este Campo es requerido
+                </mat-error>   
+                </mat-form-field>
+            <!-- <mat-form-field class="full-width">
+              <input matInput name="feccance" type="date" [formControl]="$any(itemForm).controls['feccance']" placeholder="Fecha Cancelación" formControlName="HFECCANCE"> 
+             
+            
+            </mat-form-field> -->
+          </div>
+          <div fxFlex="50" class="pr-16">
+              <mat-form-field fxFlex>
+                  <mat-label>{{HINSTALAD.label}}</mat-label>
+                  <mat-select formControlName="HINSTALAD">
+                      <mat-option  *ngFor="let r of HINSTALAD.data" [value]="r.id" >{{r.desc}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="itemForm.get('HINSTALAD').hasError('required')">
+                      Ingrese si fue instalado
+                    </mat-error>
+              </mat-form-field>
+       
+          </div>
+    <div fxFlex="25" class="pr-16"> 
+       <mat-form-field class="full-width">
+          <mat-label>{{HDESAGE.label}}</mat-label>
+              <mat-select formControlName="HDESAGE">
+                      <mat-option  *ngFor="let r of HDESAGE.data" [value]="r.id" >{{r.desc}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="itemForm.get('HDESAGE').hasError('required')">
+                    Ingrese la agencia
+                  </mat-error>
+      </mat-form-field>  
+
+      <!-- <mat-form-field fxFlex>
+        <mat-label>  Agencia</mat-label>
+        <mat-select formControlName="HDESAGE">
+            <mat-option  *ngFor="let r of HDESAGE.data" [value]="r.id" >{{r.desc}}</mat-option>
+        </mat-select>
+    </mat-form-field> -->
+     
+     
+      
+    </div>
+    <div fxFlex="25" class="pr-16"> 
+        <mat-form-field class="full-width">
+            <mat-label>{{HDEPA.label}}</mat-label>
+                <mat-select formControlName="HDEPA">
+                        <mat-option  *ngFor="let r of HDEPA.data" [value]="r.id" >{{r.desc}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="itemForm.get('HDEPA').hasError('required')">
+                      Ingrese el departamento
+                    </mat-error>
+        </mat-form-field>
+    </div>  
+    <div fxFlex="25" class="pr-16"> 
+        <mat-form-field class="full-width">
+            <mat-label>{{HPROV.label}}</mat-label>
+                <mat-select formControlName="HPROV">
+                        <mat-option  *ngFor="let r of HPROV.data" [value]="r.id" >{{r.desc}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="itemForm.get('HPROV').hasError('required')">
+                      Ingrese la provincia
+                    </mat-error>
+        </mat-form-field>
+    </div>  
+    <div fxFlex="25" class="pr-16"> 
+        <mat-form-field class="full-width">
+            <mat-label>{{HDISTR.label}}</mat-label>
+                <mat-select formControlName="HDISTR">
+                        <mat-option  *ngFor="let r of HDISTR.data" [value]="r.id" >{{r.desc}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="itemForm.get('HDISTR').hasError('required')">
+                      Ingrese el distrito
+                    </mat-error>
+        </mat-form-field>
+    </div>  
+    <div fxFlex="50" class="pr-16"> 
+        <mat-form-field class="full-width">
+            <mat-label>{{HDESCOR.label}}</mat-label>
+                <mat-select formControlName="HDESCOR">
+                        <mat-option  *ngFor="let r of HDESCOR.data" [value]="r.id" >{{r.desc}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="itemForm.get('HDESCOR').hasError('required')">
+                      Ingrese el corredor
+                    </mat-error>
+        </mat-form-field>
+    </div>  
+    <div fxFlex="50" class="pr-16"> 
+        <mat-form-field class="full-width">
+            <mat-label>{{HDESTER.label}}</mat-label>
+                <mat-select formControlName="HDESTER">
+                        <mat-option  *ngFor="let r of HDESTER.data" [value]="r.id" >{{r.desc}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="itemForm.get('HDESTER').hasError('required')">
+                      Ingrese el territorio
+                    </mat-error>
+        </mat-form-field>
+    </div>  
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="lat" [formControl]="$any(itemForm).controls['lat']" placeholder="Latitud">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="log" [formControl]="$any(itemForm).controls['log']" placeholder="Longitud">
+      </mat-form-field>
+    </div>  
+      <div fxFlex="50" class="pr-16">
+          <mat-form-field class="full-width">
+            <input matInput name="codasesorasignado" [formControl]="$any(itemForm).controls['codasesorasignado']" placeholder="Cod BT Asesor Asignado">
+          </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-16">
+            <mat-form-field class="full-width">
+              <input matInput name="asesorasignado" [formControl]="$any(itemForm).controls['asesorasignado']" placeholder="Asesor Asignado">
+            </mat-form-field>
+          </div> 
+      
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field fxFlex>
+            <mat-label>{{HAPERTCTA.label}}</mat-label>
+            <mat-select formControlName="HAPERTCTA">
+                <mat-option  *ngFor="let r of HAPERTCTA.data" [value]="r.id" >{{r.desc}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="itemForm.get('HAPERTCTA').hasError('required')">
+                Ingrese la apertura de Cta
+              </mat-error>
+        </mat-form-field>
+       
+    </div>
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field fxFlex>
+            <mat-label>{{HPROSPEC.label}}</mat-label>
+            <mat-select formControlName="HPROSPEC">
+                <mat-option  *ngFor="let r of HPROSPEC.data" [value]="r.id" >{{r.desc}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="itemForm.get('HPROSPEC').hasError('required')">
+                Ingrese el Prospecto
+              </mat-error>
+        </mat-form-field>  
+      </div>  
+      
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field class="full-width">
+          <input matInput name="fecinstalado" type="date" [formControl]="$any(itemForm).controls['fecinstalado']" placeholder="Fecha Instalado">
+        </mat-form-field>
+      </div>
+      <!-- <mat-form-field class="full-width">
+        <input matInput name="prospecto" [formControl]="$any(itemForm).controls['prospecto']" placeholder="Prospecto">
+      </mat-form-field> 
+    </div>-->
+    <!-- <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="instalado" [matDatepicker]="picker1" [formControl]="$any(itemForm).controls['instalado']"
+          placeholder="Fecha de Visita">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div> -->
+    <!-- <div fxFlex="50" class="pr-16">
+      <mat-slide-toggle [formControl]="$any(itemForm).controls['is_valid']">Cumple Destino Crédito</mat-slide-toggle>
+    </div> -->
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" [disabled]="!itemForm.valid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>
+</div>

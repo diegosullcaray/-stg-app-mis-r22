@@ -1,0 +1,55 @@
+.cont {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 15%;
+
+    &:hover {
+        cursor: pointer;
+
+        .n {
+            text-decoration: underline;
+
+        }
+    }
+
+    @media only screen and (max-width: 959px) {
+        padding-left: 2px;
+        padding-right: 2px;
+        border-radius: 10%;
+    }
+
+    .des-box {
+        font-size: 10px;
+        padding-bottom: 5px;
+
+        @media only screen and (max-width: 959px) {
+            font-size: 10px;
+            padding-bottom: 3px;
+        }
+
+    }
+
+    .pie-box {
+        background: white;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        font-size: 14px;
+
+        @media only screen and (max-width: 959px) {
+            width: 45px;
+            height: 45px;
+            font-size: 13px;
+        }
+
+        font-weight: bold;
+    }
+
+    .s {
+        font-size: 20px;
+
+        @media only screen and (max-width: 959px) {
+            font-size: 18px;
+        }
+    }
+}

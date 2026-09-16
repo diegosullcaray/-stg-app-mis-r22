@@ -1,0 +1,30 @@
+.base{
+    background-color: white;
+}
+
+.title{
+    font-size: 24px;
+    padding: 30px 0px;
+}
+
+.card{
+    height: 120px;
+    width: 250px;
+    padding-top: 24px;
+    font-size: 12px;
+    .i{
+        font-size: 36px;
+    }
+    .t{
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .b{
+        padding: 10px;
+        border: 1px solid white;
+    }
+    .b:hover {
+        border-color: rgba(0,0,0,.125);
+    }
+}
+

@@ -1,0 +1,8 @@
+<ng-container *ngIf='isLoadingSelect'>
+    <div style="width: 100%">
+        <mat-label>{{config_select.label}}</mat-label>
+        <mat-select [formControlName]="config_select.variable">
+            <mat-option *ngFor="let r of data" [value]="r.id">{{r.desc}}</mat-option>
+        </mat-select>
+    </div>
+</ng-container>

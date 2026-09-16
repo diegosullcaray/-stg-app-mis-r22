@@ -1,0 +1,482 @@
+<div fxFill fxLayout="column"  [formGroup]="itemForm"> 
+  <div fxFlex fxLayout="column" class="stg-window">
+     <stg-window-bar [title]="title" barIcon="edit_note" titleAlign="start" closable=true
+         (onClose)="navMain()">
+     </stg-window-bar> 
+     <ng-scrollbar track="all">
+         <div fxFlex fxLayout="column" style="padding: 10px;" fxLayoutGap="10px">
+             <mat-tab-group style="height: 100%;" class="mat-tab-fill-height">
+                 <mat-tab>
+                     <ng-template mat-tab-label>
+                         <span>Conoce al prospecto</span>
+                     </ng-template>
+                     <ng-template matTabContent>
+                         <div style="height: 100%;padding: 10px;"> 
+                             <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                                 <div fxFlex="50" class="pr-16">
+                                     <mat-form-field class="full-width" >
+                                         <input matInput name="nom_cli" maxlength="50"  onkeydown="return /[a-z, ]/i.test(event.key)" placeholder="Nombre Cliente" formControlName="HAPENOMB"  >
+                                           <mat-error *ngIf="itemForm.get('HAPENOMB').hasError('required')">  
+                                           Ingrese Apellidos y Nombres
+                                           </mat-error>  
+                                       </mat-form-field>
+                                 </div>
+                                  <div fxFlex="50" class="pr-16">
+                                     <mat-form-field class="full-width" >
+                                         <input matInput name="dni" type="number" onKeyPress="if(this.value.length==8) return false;" placeholder="DNI" formControlName="HNUMDOC">
+                                         <mat-error *ngIf="itemForm.get('HNUMDOC').hasError('required')">
+                                             Ingrese el DNI
+                                           </mat-error>  
+                                       </mat-form-field>
+                                 </div>
+                                 <div fxFlex="50" class="pr-16">
+                                     <mat-form-field class="full-width" >
+                                       <input matInput name="direccion"  maxlength="128" placeholder="Dirección" formControlName="HDIREC">
+                                       <mat-error *ngIf="itemForm.get('HDIREC').hasError('required')">
+                                         Ingrese la dirección
+                                       </mat-error>
+                                     </mat-form-field>
+                                   </div>
+                                   <div fxFlex="50" class="pr-16">
+                                     <mat-form-field class="full-width" >
+                                       <input matInput name="cel" type="number" onKeyPress="if(this.value.length==9) return false;"  placeholder="Celular" formControlName="HCELULAR">
+                                       <mat-error *ngIf="itemForm.get('HCELULAR').hasError('required')">
+                                         Ingrese el celular
+                                       </mat-error>
+                                     </mat-form-field>
+                                   </div>
+                                   <div fxFlex="50" class="pr-16">
+     <mat-form-field class="full-width" >
+                                       <input matInput name="ruc" type="number"  onKeyPress="if(this.value.length==11) return false;" placeholder="RUC" formControlName="HNUMRUC">
+                                       <mat-error *ngIf="itemForm.get('HNUMRUC').hasError('required')">
+                                         Ingrese el ruc
+                                       </mat-error>
+                                     </mat-form-field>  
+                                    
+                                   </div>
+                                   <div fxFlex="50" class="pr-16">
+                                     <mat-form-field class="full-width" >
+                                         <mat-label>Departamento</mat-label> 
+
+                                         <mat-select formControlName="HDEPA"  [(value)]="esgService.selectedRow.HDEPA">
+                                             <ng-container >
+                                                 <mat-option  *ngFor="let item of esgService.dep" [value]="item.cod">{{item.des}}</mat-option>
+                                             </ng-container>
+                                         </mat-select>
+                                         <mat-error *ngIf="itemForm.get('HDEPA').hasError('required')">
+                                           Ingrese el Departamento
+                                         </mat-error> 
+                                     </mat-form-field>
+                                   </div>
+                                   <div fxFlex="50" class="pr-16">
+                                     <mat-form-field class="full-width" >
+                                         <mat-label>Provincia</mat-label> 
+                                         <mat-select formControlName="HPROV"  [(value)]="esgService.selectedRow.HPROV">
+                                             <ng-container >
+                                                 <mat-option  *ngFor="let item of esgService.prov" [value]="item.cod">{{item.des}}</mat-option>
+                                             </ng-container>
+                                         </mat-select>
+                                         <mat-error *ngIf="itemForm.get('HPROV').hasError('required')">
+                                           Ingrese la Provincia
+                                         </mat-error> 
+                                     </mat-form-field>
+                                   </div>
+                                   <div fxFlex="50" class="pr-16">
+                                     <mat-form-field class="full-width" >
+                                         <mat-label>Distrito</mat-label>  
+                                          
+                                         <mat-select formControlName="HDISTR"  [(value)]="esgService.selectedRow.HDISTR">
+                                             <ng-container >
+                                                 <mat-option  *ngFor="let item of esgService.dist" [value]="item.cod">{{item.des}}</mat-option>
+                                             </ng-container>
+                                         </mat-select>
+                                         <mat-error *ngIf="itemForm.get('HDISTR').hasError('required')">
+                                           Ingrese el Distrito
+                                         </mat-error> 
+                                     </mat-form-field>
+                                 </div>
+                                 <div fxFlex="50" class="pr-16"> 
+                                   <mat-form-field class="full-width" >
+                                    <input matInput name="nomComercial"   maxlength="128"  placeholder="Nombre Comercial" formControlName="HNOMCOM">
+                                    <mat-error *ngIf="itemForm.get('HNOMCOM').hasError('required')">
+                                      Ingrese el nombre comercial
+                                    </mat-error>
+                                  </mat-form-field> 
+                                 
+                                </div>
+                                <div fxFlex="50" class="pr-16">
+                                 <mat-form-field class="full-width" >
+                                     <mat-label>Ciiu</mat-label>   
+                                     <mat-select formControlName="HDCIIU"  [(value)]="esgService.selectedRow.HDCIIU">
+                                         <ng-container >
+                                             <mat-option  *ngFor="let item of esgService.ciiu" [value]="item.cod">{{item.des}}</mat-option>
+                                         </ng-container>
+                                     </mat-select>
+                                     <mat-error *ngIf="itemForm.get('HDCIIU').hasError('required')">
+                                       Ingrese el Ciiu
+                                     </mat-error>
+                                 </mat-form-field>
+                             </div>
+                             <div fxFlex="50" class="pr-16">
+                               <mat-form-field fxFlex>
+                                   <mat-label>Cuenta con Licencía?</mat-label> 
+
+                                   <mat-select formControlName="HCTALICEF"  [(value)]="esgService.selectedRow.HCTALICEF">
+                                     <ng-container >
+                                         <mat-option  *ngFor="let item of esgService.ctalicenc" [value]="item.cod">{{item.des}}</mat-option>
+                                     </ng-container>
+                                 </mat-select>
+
+                                   <mat-error *ngIf="itemForm.controls.HCTALICEF.hasError('required')">
+                                       Este Campo es requerido
+                                   </mat-error>
+                               </mat-form-field>
+                           
+                           </div>  
+                             <div fxFlex="50" class="pr-16">
+                             <mat-form-field class="full-width" >
+                               <input matInput name="licenciafuncionamiento"    placeholder="Licencia Funcionamiento" formControlName="HLICFUNCI">
+                               
+
+                             <mat-error *ngIf="itemForm.get('HLICFUNCI').hasError('required')">
+                               Ingrese el nombre comercial
+                             </mat-error> 
+                             </mat-form-field>
+                            
+                           </div>
+
+                           
+                                 
+                             </div>
+                         </div>
+                     </ng-template>
+                 </mat-tab>
+                 <mat-tab>
+                   <ng-template mat-tab-label>
+                     <span>Carga de Archivos</span>
+                   </ng-template>
+                   <ng-template matTabContent>
+                     <div style="height: 100%;padding: 10px;">
+                       <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                         <div fxFlex="100" class="pr-16">
+                           <!-- <mat-form-field class="full-width" >
+                             <input matInput name="CNSRUC"   placeholder="Consulta Ruc" formControlName="HCONSRUC"   >
+                           </mat-form-field> -->
+                           <label>Consulta Ruc</label>
+                           <stg-finput formControlName="HCONSRUC" [fileName]="file_des" disableDownload=false  ></stg-finput>
+                         </div>
+                         <div fxFlex="100" class="pr-16">
+                           <!-- <mat-form-field class="full-width" >
+                             <input matInput name="HCONPREV"   placeholder="Consulta Pre Evaluador" formControlName="HCONPREV"   >
+                           </mat-form-field> -->
+                           <label>Consulta Pre Evaluador</label>
+                           <stg-finput formControlName="HCONPREV" [fileName]="file_des2" disableDownload=false></stg-finput>
+                         </div>
+                         <div fxFlex="100" class="pr-16">
+                           <!-- <mat-form-field class="full-width" >
+                             <input matInput name="HCONSLNE"   placeholder="Consulta Listas Negras" formControlName="HCONSLNE"   >
+                           </mat-form-field> -->
+                           <label>Consulta Listas Negras</label>
+                           <stg-finput formControlName="HCONSLNE" [fileName]="file_des3" disableDownload=false></stg-finput>
+                         </div>
+                         <div fxFlex="100" class="pr-16">
+                           <label>Foto de Negocio</label>
+                           <!-- <mat-form-field class="full-width" >
+                             <input matInput name="HFOTNEGO"   placeholder="Foto de Negocio" formControlName="HFOTNEGO"   >
+                           </mat-form-field> -->
+                           <stg-finput formControlName="HFOTNEGO" [fileName]="file_des4" disableDownload=false></stg-finput>
+                         </div>
+
+                       </div>
+                     </div>
+                   </ng-template>
+                 </mat-tab>
+                 <mat-tab>
+                     <ng-template mat-tab-label>
+                         <span>Ubica al agente</span>
+                     </ng-template>
+                     <ng-template matTabContent>
+                         <div style="height: 100%;padding: 10px;">
+                           <div fxLayout="row wrap" fxLayout.lt-sm="column"> 
+                             <div fxFlex="50" class="pr-16">
+                               <mat-form-field class="full-width" >
+                                 <mat-label>Territorio</mat-label> 
+
+                                 <mat-select formControlName="HDESTER"  [(value)]="esgService.selectedRow.HDESTER">
+                                   <ng-container >
+                                       <mat-option  *ngFor="let item of esgService.terr" [value]="item.cod">{{item.des}}</mat-option>
+                                   </ng-container>
+                               </mat-select>
+
+                                 <mat-error *ngIf="itemForm.get('HDESTER').hasError('required')">
+                                   Ingrese el territorio
+                                 </mat-error>
+                               </mat-form-field>
+                              
+                             </div>
+
+                             <div fxFlex="50" class="pr-16">
+                               <mat-form-field class="full-width" >
+                                 <mat-label>Corredor</mat-label> 
+
+                                 <mat-select formControlName="HDESCOR"  [(value)]="esgService.selectedRow.HDESCOR">
+                                   <ng-container >
+                                       <mat-option  *ngFor="let item of esgService.corr" [value]="item.cod">{{item.des}}</mat-option>
+                                   </ng-container>
+                               </mat-select>
+
+                                 <mat-error *ngIf="itemForm.get('HDESCOR').hasError('required')">
+                                   Ingrese el territorio
+                                 </mat-error>
+                               </mat-form-field>
+                              
+                             </div>
+
+                             <div fxFlex="50" class="pr-16">
+                               <mat-form-field class="full-width" >
+                                 <mat-label>Agencia</mat-label> 
+
+                                 <mat-select formControlName="HDESAGE"  [(value)]="esgService.selectedRow.HDESAGE">
+                                   <ng-container >
+                                       <mat-option  *ngFor="let item of esgService.agen" [value]="item.cod">{{item.des}}</mat-option>
+                                   </ng-container>
+                               </mat-select>
+
+                                 <mat-error *ngIf="itemForm.get('HDESAGE').hasError('required')">
+                                   Ingrese la Agencia
+                                 </mat-error>
+                               </mat-form-field>
+                              
+                             </div>
+
+                             <div fxFlex="50" class="pr-16"> 
+                               <mat-form-field fxFlex>
+                                 <mat-label>Canal Captación</mat-label>
+                                
+                                 <mat-select formControlName="HCANACAP"  [(value)]="esgService.selectedRow.HCANACAP">
+                                   <ng-container >
+                                       <mat-option  *ngFor="let item of esgService.canalcap" [value]="item.cod">{{item.des}}</mat-option>
+                                   </ng-container>
+                               </mat-select>
+                                 
+                                 <mat-error *ngIf="itemForm.controls.HCANACAP.hasError('required')">
+                                     Este Campo es requerido
+                                 </mat-error>
+                             </mat-form-field>
+                              
+                             </div>
+                              
+                           </div>
+                            
+                         </div>
+                     </ng-template>
+                 </mat-tab>
+                 <mat-tab>
+                   <ng-template mat-tab-label>
+                     <span>Culminando</span>
+                   </ng-template>
+                   <ng-template matTabContent>
+                     <div style="height: 100%;padding: 10px;">
+                       <div fxLayout="row wrap" fxLayout.lt-sm="column"> 
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="latitud"   placeholder="Latitud" formControlName="HGEOLATI">
+                             <mat-error *ngIf="itemForm.get('HGEOLATI').hasError('required')">
+                               Ingrese la latitud
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="longitud"   placeholder="Longitud" formControlName="HGEOLON">
+                             <mat-error *ngIf="itemForm.get('HGEOLON').hasError('required')">
+                               Ingrese la longitud
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Apertura de Cta</mat-label> 
+
+                             <mat-select formControlName="HAPERTCTA"  [(value)]="esgService.selectedRow.HAPERTCTA">
+                               <ng-container  *ngFor="let item of esgService.apertCta"  >
+                                   <mat-option [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HAPERTCTA').hasError('required')">
+                               Ingrese la Apertura de Cta
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Estado Corresponsal</mat-label> 
+
+                             <mat-select formControlName="HESTDCORE"  [(value)]="esgService.selectedRow.HESTDCORE">
+                               <ng-container >
+                                   <mat-option  *ngFor="let item of esgService.estadCorr" [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HESTDCORE').hasError('required')">
+                               Ingrese el Estado Corresponsal
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="HFECESTA"   placeholder="Fecha Estado" formControlName="HFECESTA" type="date"   >
+                           </mat-form-field>
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="HNOMFINAL"   placeholder="Nombre Final" formControlName="HNOMFINAL">
+                             <mat-error *ngIf="itemForm.get('HGEOLATI').hasError('required')">
+                               Ingrese la latitud
+                             </mat-error>
+                           </mat-form-field>
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Instalado</mat-label> 
+
+                             <mat-select formControlName="HINSTALAD"  [(value)]="esgService.selectedRow.HINSTALAD">
+                               <ng-container >
+                                   <mat-option  *ngFor="let item of esgService.instalado" [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HINSTALAD').hasError('required')">
+                               Ingrese el Instalado
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="HFECINSTAL"   placeholder="Fecha Instalación" formControlName="HFECINSTAL" type="date"   >
+                           </mat-form-field>
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Zona</mat-label> 
+
+                             <mat-select formControlName="HZONA"  [(value)]="esgService.selectedRow.HZONA">
+                               <ng-container >
+                                   <mat-option  *ngFor="let item of esgService.zona" [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HZONA').hasError('required')">
+                               Ingrese la Zona
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Prospecto</mat-label> 
+
+                             <mat-select formControlName="HPROSPEC"  [(value)]="esgService.selectedRow.HPROSPEC">
+                               <ng-container >
+                                   <mat-option  *ngFor="let item of esgService.prospecto" [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HPROSPEC').hasError('required')">
+                               Ingrese el Prospecto
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="HFIRMADN"   placeholder="Firmo Adendo" formControlName="HFIRMADN"    >
+                           </mat-form-field>
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Tipo Agente</mat-label> 
+
+                             <mat-select formControlName="HTIPAGENT"  [(value)]="esgService.selectedRow.HTIPAGENT">
+                               <ng-container >
+                                   <mat-option  *ngFor="let item of esgService.tipAgente" [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HTIPAGENT').hasError('required')">
+                               Ingrese el Prospecto
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="HCODASEBT"   placeholder="Cod Asesor BT" formControlName="HCODASEBT"    >
+                           </mat-form-field>
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="HCODSECASIG"   placeholder="Asesor Asignado" formControlName="HCODSECASIG"    >
+                           </mat-form-field>
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Tipo Vinculo</mat-label> 
+
+                             <mat-select formControlName="HTIPVINC"  [(value)]="esgService.selectedRow.HTIPVINC">
+                               <ng-container >
+                                   <mat-option  *ngFor="let item of esgService.tipVinculo" [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HTIPVINC').hasError('required')">
+                               Ingrese el Tipo Vinculo
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <mat-label>Vinculo Familiar</mat-label> 
+
+                             <mat-select formControlName="HVINFAMI"  [(value)]="esgService.selectedRow.HVINFAMI">
+                               <ng-container >
+                                   <mat-option  *ngFor="let item of esgService.vincFamil" [value]="item.cod">{{item.des}}</mat-option>
+                               </ng-container>
+                           </mat-select>
+
+                             <mat-error *ngIf="itemForm.get('HVINFAMI').hasError('required')">
+                               Ingrese el Vinculo Familiar
+                             </mat-error>
+                           </mat-form-field>
+                          
+                         </div>
+                         <div fxFlex="50" class="pr-16">
+                           <mat-form-field class="full-width" >
+                             <input matInput name="HIDCORRES"   placeholder="ID Corresponsal BT" formControlName="HIDCORRES"   type="number" >
+                           </mat-form-field>
+                         </div>
+                       </div>
+                     </div>  
+                   </ng-template>
+
+                 </mat-tab>
+             </mat-tab-group> 
+              
+         </div>
+     </ng-scrollbar>
+     <div [@bottomAlert]="alertState" [fxHide]="alertHide">
+         hola mundo
+     </div>
+ </div>
+ <div *ngIf="editMode" fxLayoutAlign="end center" style="padding: 10px 0px;">
+     <stg-button color="primary" (click)="submitForm()">Guardar</stg-button>
+ </div>  
+</div>

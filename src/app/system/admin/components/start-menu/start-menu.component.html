@@ -1,0 +1,61 @@
+<div id="start-menu">
+    <mat-card class="">
+        <div>
+            <mat-card-header style="height: 50px;">
+                <mat-icon mat-card-avatar style="font-size: 40px;">account_circle</mat-icon>
+                <mat-card-title>{{user.name}}</mat-card-title>
+                <!--<mat-card-subtitle style="color: white;font-size: 12px;">holi boli</mat-card-subtitle>-->
+            </mat-card-header>
+            <mat-card-content>
+                <div fxLayout="row" fxFill>
+                    <div fxFlex="70">
+                        <mat-nav-list style="padding: 0px;">
+                            <ng-container *ngFor="let item of menuItems; let i = index">
+                                <!--routerLinkActive="list-item-active"-->
+                                <stg-hover-menu *ngIf="item.type==='dropDown'" [childs]="item.sub">
+                                    <mat-list-item class="no-rpad" trigger [routerLink]="item.state?item.state:null">
+                                        <mat-icon>{{item.icon}}</mat-icon>
+                                        <div fxFlex class="adj-name">{{item.name}}</div>
+                                        <mat-icon class="dd-icon">play_arrow</mat-icon>
+                                    </mat-list-item>
+                                </stg-hover-menu>
+                                <mat-list-item *ngIf="item.type!=='dropDown'" class="no-rpad"
+                                    style="font-size: 12px;height: 36px;" [routerLink]="item.state">
+                                    <mat-icon>{{item.icon}}</mat-icon>
+                                    <div fxFlex style="margin-left: 10px;">{{item.name}}</div>
+                                </mat-list-item>
+                            </ng-container>
+                        </mat-nav-list>
+                    </div>
+                    <mat-list fxLayout="column" fxLayoutGap="5px" fxFlex
+                        style="border-left-style: groove;padding: 5px;">
+                        <button mat-stroked-button style="font-size: 12px;" *ngIf="!user.isAlt"
+                            [disabled]="admin.disableAltUserBtn()" fxLayoutAlign="start center"
+                            (click)="admin.openAltUserDialog()">
+                            <mat-icon>people_alt</mat-icon>
+                            <span style="padding-left: 10px;">Cambiar Usuario</span>
+                        </button>
+                        <button mat-stroked-button style="font-size: 12px;" *ngIf="user.isAlt"
+                            (click)="login.onOriLogin()" fxLayoutAlign="start center">
+                            <mat-icon>person</mat-icon>
+                            <span style="padding-left: 10px;">Mi Usuario</span>
+                        </button>
+                        <div>
+                            <mat-divider></mat-divider>
+                        </div>
+
+                    </mat-list>
+                </div>
+
+            </mat-card-content>
+            <div fxLayoutAlign="end" class="footer">
+                <button mat-button style="font-size: 14px;color: white;" (click)="auth.logout()">
+                    <mat-icon style="font-size: 18px;">
+                        logout
+                    </mat-icon>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </mat-card>
+</div>

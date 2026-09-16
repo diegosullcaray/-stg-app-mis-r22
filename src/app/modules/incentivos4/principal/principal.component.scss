@@ -1,0 +1,50 @@
+.base {
+  background-color: #f7f7f7;
+}
+
+.user{
+  .nam{
+    color:#2d4665;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .pos{
+    color:#999999;
+    font-size: 14px;
+  }
+}
+
+.portrait {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #045394;
+  padding: 3px;
+
+  border: 1px solid #fff;
+  box-shadow: 0 0 10px rgba(212, 214, 214, 0.5);
+
+  transition: all 0.3s ease;
+
+  .p {
+    border-radius: 50%;
+  }
+
+  &:hover {
+    filter: brightness(1.1);
+    transform: scale(1.1);
+  }
+
+  @media only screen and (max-width: 959px) {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.dat-lbl{
+  background-color: white;
+  border: 1px solid #ced4da;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}

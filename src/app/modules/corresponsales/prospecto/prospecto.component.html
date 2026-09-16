@@ -1,0 +1,179 @@
+<div class="fondoblanco"> 
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-xs="100">
+    <div class="content mat-elevation-z" class="m-033">
+      
+        <h1 class="title-module">CORRESPONSALES</h1>
+     
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard card row -->
+<!-- <app-select-group [config_select_group]='config_select_group' (refresh)="load($event)" style="background-color: white;"></app-select-group> -->
+<br> 
+<!-- Dashboard card row -->
+<ng-container *ngIf="activeHier">
+  <hier-rem-selector   [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+</ng-container>
+<br>
+<ng-container *ngIf="activeFilters"><br>
+  <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)"></app-select-multiple>
+  
+</ng-container> 
+<!-- Fullwidth chart -->
+<div fxLayout="row wrap" [@animate]="{value:'*',params:{y:'25px',delay:'300ms'}}" style="background-color: white;">
+    <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" style="background-color: white;"> 
+      <div fxLayout="row wrap" style="background-color: white;">
+          <p class="text-blue ml-1 mt-1" style="margin: 0PX" >Instalados (Prospectos)</p>
+        <div fxFlex="100">
+          <div fxLayout="row wrap">
+            <div fxFlex="100"> <mat-chip-list aria-label="Fish selection">
+                <mat-chip color="primary" selected  style="margin-top: 35px;color: black">Total</mat-chip>
+              </mat-chip-list> 
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{scale:'.9',delay:'300ms'}}">
+               
+                <mat-card> 
+                  <mat-card-title fxLayoutAlign="start center">
+  
+                    <small class="text-muted">#Prospectos</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{CorresponsalStock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+  
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">No Califica</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{transstockStock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+  
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">En Evaluación</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{montstock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">En Proceso</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{tickstock}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">#Instalados</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{numinstalado}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50"
+                [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+                <mat-card>
+                  <mat-card-title>
+                    <small class="text-muted">%Instalado</small>
+                    <span fxFlex></span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <h3 class="m-0 font-normal">{{percetInstalado}}</h3>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>   
+            
+          </div>
+        </div>
+        <div fxFlex="100">
+          <mat-card class="default"> 
+          
+              <p class="text-blue ml-1 mt-1">Instalados</p>
+            <mat-card-content class="p-0" >
+              <div  class="graf1"> 
+               <app-graphic-basic   [config_graphic]='config_graphic9' class="table-container" style="width:100%;height:400px;" ></app-graphic-basic> 
+              </div>
+  
+            </mat-card-content>
+          </mat-card>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+      <div fxLayout="row wrap">
+          <div fxFlex="50" fxFlex.gt-sm="50" fxFlex.sm="100">
+            <mat-card class="default">
+                <p class="text-blue ml-1 mt-1">Total Prospectos</p>
+              <mat-card-content> 
+                <div  class="graf2">
+                      <div #charts1 id="test"></div> 
+                  </div>
+                  
+              </mat-card-content>
+             
+            </mat-card>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="50" fxFlex.sm="100" >
+            <mat-card class="default">
+                <p class="text-blue ml-1 mt-1">En proceso + Instalados</p>
+              <mat-card-content > 
+              <div class="graf3">
+                <!-- <app-graphic-basic [config_graphic]='config_graphic_tteri' class="highcharts-container"></app-graphic-basic>   -->
+                <div #charts2 id="test1"></div>
+              </div>
+                    
+              </mat-card-content> 
+              
+            </mat-card>
+            
+          </div>
+        </div>
+        
+  
+  <br><br>
+     
+  
+      <p class="text-blue ml-1 mt-1" style="margin: 0PX" >Numero de Prospecciones</p>
+     <div  class="table-container" style="background-color: white;">
+        <app-table-multiheader *ngFor='let c of config;let i=index'[config_table]='config_table[i]'></app-table-multiheader>
+      
+     </div>
+  
+     <p class="text-blue ml-1 mt-1" style="margin: 0PX" >Meta Corresponsales</p>
+     <div  class="table-container">
+        <app-table-multiheader *ngFor='let c of config;let i=index'[config_table]='config_table6[i]'></app-table-multiheader>
+      
+     </div> 
+ 
+
+
+  </div>
+  

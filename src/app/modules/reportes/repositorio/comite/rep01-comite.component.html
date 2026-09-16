@@ -1,0 +1,16 @@
+<div>
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>    
+    <div style="padding: 10px;">
+        <div class="stg-window-ui">
+            <stg-window-bar [title]="mainTitle" titleAlign="center"></stg-window-bar>
+            <div class="stg-panel"> 
+                <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs" 
+                    [dataSource]="dataSource" [loadingObs]="loadingObs" [customCellStyler]="customStyler">
+                </stg-table>
+            </div>
+        </div>
+
+    </div> 
+</div>
