@@ -85,7 +85,8 @@
                         [pageSize]="detailPageSize"
                         [pageSizeOptions]="[detailPageSize]"
                         showFirstLastButtons
-                        (page)="changeDetailPage($event)">
+                        (page)="changeDetailPage($event)"
+                        [pageIndex]="detailPageIndex">
                     </mat-paginator>
                     <mat-card class="mat-elevation-z lower" *ngIf="detailAnnotation?.lower" [innerHTML]="detailAnnotation.lower"></mat-card>
                 </ng-container>

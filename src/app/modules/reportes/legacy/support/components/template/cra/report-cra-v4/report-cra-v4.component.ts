@@ -70,12 +70,30 @@ export class ReportCraV4Component implements OnInit, OnDestroy {
   detailLoading = false;
   detailError = false;
   detailAnnotation: any = {};
-  readonly detailTableOptions = {
-    body: {
-      loading: { enabled: false, rows: 4 },
-      hover: { enabled: true }
+  detailPageIndex = 0;
+
+readonly detailTableOptions = {
+  style: {
+    'font-size': '12px'
+  },
+  header: {
+    cellStyle: {
+      'min-width': '0',
+      'padding': '4px 6px',
+      'line-height': '15px',
+      'white-space': 'normal'
     }
-  };
+  },
+  body: {
+    loading: { enabled: false, rows: 4 },
+    hover: { enabled: true },
+    cellStyle: {
+      'height': '20px',
+      'padding': '2px 4px',
+      'line-height': '16px'
+    }
+  }
+};
 
   private filter$ = new Subject<{}>();
   private filterAjax$ = new Subject<{}>();
@@ -156,9 +174,10 @@ export class ReportCraV4Component implements OnInit, OnDestroy {
     }
   }
 
-  changeDetailPage(event: PageEvent): void {
-    this.page$.next({ pagen: event.pageIndex + 1 });
-  }
+changeDetailPage(event: PageEvent): void {
+  this.detailPageIndex = event.pageIndex;
+  this.page$.next({ pagen: this.detailPageIndex + 1 });
+}
 
   private mergeParams(): void {
     combineLatest([this.filter$, this.level$])

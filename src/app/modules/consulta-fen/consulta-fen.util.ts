@@ -109,19 +109,19 @@ export const fenTableOptions = createStgLightTable2Config({
   }
 });
 
-const styR = { 'text-align': 'right' };
-const styC = { 'text-align': 'center' };
+const styR = { 'text-align': 'right' ,  'width': '100px', 'min-width': '100px', 'max-width': '100px' };
+const styC = { 'text-align': 'center', 'width': '90px', 'min-width': '90px', 'max-width': '90px'  };
 
 export const fenTableHeaders = [
-  { label: 'UBIGEO', key: 'cod_ubi', style: { 'min-width': '105px', ...styR }, cellStyle: { 'min-width': '105px', 'font-weight': '700', 'color': '#0f172a', ...styR } },
-  { label: 'Distrito', key: 'des_dist', style: { 'min-width': '150px', ...styR }, cellStyle: { 'min-width': '150px', 'color': '#2b6cb0', ...styR } },
-  { label: 'Provincia', key: 'des_prov', style: { 'min-width': '150px', ...styR }, cellStyle: { 'min-width': '150px', ...styR } },
-  { label: 'Departamento', key: 'des_dep', style: { 'min-width': '170px', ...styR }, cellStyle: { 'min-width': '170px', ...styR } },
-  { label: 'Mov. en masa', key: 'exp_mas', format: riskFormat, cellStyle: styC },
-  { label: 'Inundación', key: 'exp_inu', format: riskFormat, cellStyle: styC },
-  { label: 'Sequía', key: 'exp_seq', format: riskFormat, cellStyle: styC },
-  { label: 'Predominante', key: 'exp_pre', format: riskFormat, cellStyle: styC },
-  { label: 'Observación', key: 'obs', format: obsFormat, style: { 'min-width': '220px', ...styR }, cellStyle: { 'min-width': '220px', 'white-space': 'normal', 'line-height': '1.35', ...styR } }
+  { label: 'UBIGEO', key: 'cod_ubi', style: {  ...styR }, cellStyle: { 'font-weight': '700', 'color': '#0f172a', ...styR } },
+  { label: 'Distrito', key: 'des_dist', style: {...styR }, cellStyle: {  'color': '#2b6cb0', ...styR } },
+  { label: 'Provincia', key: 'des_prov', style: { ...styR }, cellStyle: {  ...styR } },
+  { label: 'Departamento', key: 'des_dep', style: {...styR }, cellStyle: { ...styR } },
+  { label: 'Huayco', key: 'exp_mas', format: riskFormat, style: styC, cellStyle: styC },
+  { label: 'Inundación', key: 'exp_inu', format: riskFormat, style: styC, cellStyle: styC },
+  { label: 'Sequía', key: 'exp_seq', format: riskFormat, style: styC, cellStyle: styC },
+  { label: 'Predominante', key: 'exp_pre', format: riskFormat, style: styC, cellStyle: styC },
+  { label: 'Observación', key: 'obs', format: obsFormat, style: { 'min-width': '220px',  'text-align': 'right' }, cellStyle: { 'min-width': '220px', 'white-space': 'normal', 'line-height': '1.35', 'text-align': 'right' } }
 ];
 
 const styRisk = { 'min-width': '28px', 'width': '30px', 'max-width': '30px', 'text-align': 'center' };
@@ -132,7 +132,7 @@ const styProv = { 'min-width': '65px', 'width': '65px', 'max-width': '65px', 'te
 
 export const fenTableHeadersMobile = [
   { label: 'Distrito', key: 'des_dist', style: styDist, cellStyle: { ...styDist, 'color': '#2b6cb0' } },
-  { label: 'Movi.', key: 'exp_mas', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
+  { label: 'Huay.', key: 'exp_mas', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
   { label: 'Inun.', key: 'exp_inu', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
   { label: 'Sequ.', key: 'exp_seq', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
   { label: 'Pred.', key: 'exp_pre', format: mobileRiskFormat, style: styRisk, cellStyle: styRisk },
