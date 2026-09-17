@@ -1,20 +1,51 @@
-import { Component, ChangeDetectorRef, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
-
-import { ReplaySubject, Subject, combineLatest, merge, BehaviorSubject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { takeUntil, startWith, switchMap, map, tap } from 'rxjs/operators';
-
+import { DatePipe } from '@angular/common';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, combineLatest, ReplaySubject, Subject } from 'rxjs';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
+
+import { isNull, isNullOrUndefined } from 'app/core/shared/functions.util';
+import { ComercialService } from 'app/modules/reportes/legacy/comercial/comercial.service';
+import { com } from 'app/modules/reportes/legacy/comercial/com-map.module';
+import { ModRepService } from 'app/modules/reportes/compartido/servicios/mod-rep.service';
 import { ReportT } from '../../../../services/report';
 import { SelectService } from '../../../../services/select.service';
 import { TableMHService } from '../../../../services/table.service';
-import { ComercialService } from 'app/modules/reportes/legacy/comercial/comercial.service';
-import { UserService } from 'app/system/admin/services/user.service';
-import { com } from 'app/modules/reportes/legacy/comercial/com-map.module';
-import { isNull, isNullOrUndefined } from 'app/core/shared/functions.util';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { DatePipe } from '@angular/common';
-import { ModRepService } from 'app/modules/reportes/compartido/servicios/mod-rep.service';
+
+interface LegacyColumn {
+  columnDef: string;
+  header: string;
+  cols?: number;
+  isdata?: boolean;
+  format?: {
+    type?: string;
+    mode?: string;
+    unit?: string;
+  };
+}
+
+interface LegacyHeaderRow {
+  columns: LegacyColumn[];
+}
+
+interface Table2Header {
+  label: string;
+  key?: string;
+  subs?: Table2Header[];
+  format?: {
+    type: string;
+    params?: { max_decimals?: number; fix_decimals?: boolean };
+  };
+}
+
+interface RegularResult {
+  headers?: LegacyHeaderRow[];
+  body?: any[];
+  additional?: { Total?: number };
+}
 
 @Component({
   selector: 'app-report-cra-v4',
@@ -23,60 +54,50 @@ import { ModRepService } from 'app/modules/reportes/compartido/servicios/mod-rep
 })
 export class ReportCraV4Component implements OnInit, OnDestroy {
   report: ReportT;
-  activeHier: boolean;
+  activeHier = false;
   confHier1: any;
+  activeFilters = false;
 
-  activeFilters: boolean;
-
-  config_select;
+  config_select: SelectService;
   config_select_multiple: SelectService[] = [];
   config_select_multiple_ajax: SelectService[] = [];
-  config_select_group: string = '';
-  //config:string[];
-  current_hierarchy;
-  active_db = false;
-  db_values = [7, 6, 5];
   config_table: TableMHService[] = [];
-  config_table_ajax: TableMHService;
-  filter$ = new Subject<{}>();
-  filterFecha$ = new Subject<{}>();
-  filterF$ = new Subject<{}>();
-  filterAjax$ = new Subject<{}>();
-  level$ = new Subject<any>();
-  page$ = new Subject<{}>();
-  fecCompr$ = new BehaviorSubject({ fcompro: 'TODO' });; //new Subject<{}>();
-  //fecCompromiso = String();
-  asesor$ = new BehaviorSubject({ nom: '%%' });;
+
+  detailRows: any[] = [];
+  detailHeaders: Table2Header[] = [];
+  detailTotal = 0;
+  detailPageSize = 30;
+  detailLoading = false;
+  detailError = false;
+  detailAnnotation: any = {};
+  readonly detailTableOptions = {
+    body: {
+      loading: { enabled: false, rows: 4 },
+      hover: { enabled: true }
+    }
+  };
+
+  private filter$ = new Subject<{}>();
+  private filterAjax$ = new Subject<{}>();
+  private level$ = new Subject<any>();
+  private page$ = new Subject<{}>();
+  private filterF$ = new Subject<{}>();
+  private fecCompr$ = new BehaviorSubject({ fcompro: 'TODO' });
+  private asesor$ = new BehaviorSubject({ nom: '%%' });
+  private destroy$ = new ReplaySubject<boolean>(1);
+
   txt_asesor = new UntypedFormControl();
-  private destroy$: ReplaySubject<boolean> = new ReplaySubject(1);
 
-  //@Output()dateChange:EventEmitter< MatDatepickerInputEvent< any>>;
-  events: string[] = [];
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    if (event.value === null) {
-      this.fecCompr$.next({ fcompro: 'TODO' })
-    }
-    else {
-      this.fecCompr$.next({ fcompro: this.datePipe.transform(`${event.value}`, 'dd/MM/yyyy') });
-    }
-    //console.log(this.fecCompr$);
-  }
-
-
-  constructor(private cdr: ChangeDetectorRef,
+  constructor(
+    private cdr: ChangeDetectorRef,
     private cs: ComercialService,
-    private us: UserService,
     private antRep: ModRepService,
-    //private fs: FileService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe,) {
-  }
+    private datePipe: DatePipe
+  ) {}
 
-  ngOnInit() {
-    this.activeHier = false;
-    this.activeFilters = false;
-
-    this.route.data.subscribe(d => {
+  ngOnInit(): void {
+    this.route.data.pipe(takeUntil(this.destroy$)).subscribe(d => {
       this.report = new ReportT(com(d.report));
       this.mergeParams();
       this.rendererSync();
@@ -85,224 +106,279 @@ export class ReportCraV4Component implements OnInit, OnDestroy {
       this.page$.next({ pagen: 1 });
       this.iniHierarchy();
     });
-
-
   }
 
-  private iniHierarchy() {
-    let cfg = this.antRep.getHierarchyConfig(this.report.getJerar());
-    this.antRep.getBaseHierarchy(cfg.code).subscribe(
-      x => {
-        let bh: any = x.body.base_hierarchy;
+  private iniHierarchy(): void {
+    const cfg = this.antRep.getHierarchyConfig(this.report.getJerar());
+    this.antRep.getBaseHierarchy(cfg.code)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(x => {
+        const bh: any = x.body.base_hierarchy;
         this.confHier1 = {
           roots: bh,
-          /*r_tip_cod: bh.tip_cod,
-          r_cod_rel: bh.cod_rel,
-          r_lvl_hier: bh.lvl,*/
           cod_hier: cfg.code,
-          //params_hier:{key:"fec",val:currentDate},
           max_lvl: cfg.max_lvl,
-          dlg_tlt: "JERARQUIA UNIDAD"
-        }
+          dlg_tlt: 'JERARQUIA UNIDAD'
+        };
         if (!isNullOrUndefined(cfg.params)) {
-          this.confHier1["params_hier"] = cfg.params;
+          this.confHier1.params_hier = cfg.params;
         }
         this.activeHier = true;
+      });
+  }
 
+  loadFilter(filter: {}): void {
+    this.filter$.next(filter);
+  }
+
+  loadFilterAjax(filter: {}): void {
+    this.filterAjax$.next(filter);
+  }
+
+  selectHier(evt: any[]): void {
+    this.level$.next(evt[0]);
+  }
+
+  loadF(filter: {}): void {
+    this.filterF$.next(filter);
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>): void {
+    const value = event.value
+      ? this.datePipe.transform(event.value, 'dd/MM/yyyy')
+      : 'TODO';
+    this.fecCompr$.next({ fcompro: value });
+  }
+
+  loadAsesor(): void {
+    if (!isNull(this.txt_asesor.value)) {
+      this.asesor$.next({ nom: `%${this.txt_asesor.value}%` });
+    }
+  }
+
+  changeDetailPage(event: PageEvent): void {
+    this.page$.next({ pagen: event.pageIndex + 1 });
+  }
+
+  private mergeParams(): void {
+    combineLatest([this.filter$, this.level$])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(([filter, level]) => {
+        const params = { ...filter, tip_cod: level.tip_cod, cod_rel: level.cod_rel };
+        this.renderTable(params, { find: '_01', index: 0 });
+        this.renderTableWithAdditional(params, { find: '_03', index: 2 });
+        this.renderTableWithAdditional(params, { find: '_03', index: 3 });
+      });
+  }
+
+  private renderTable(paramsValue: {}, add: { find: string; index: number }): void {
+    const table = this.report.getTableFind(add.index);
+    const report = this.report.getRNameCompleted(add.find);
+    const loading = new TableMHService(table);
+    loading.results(true, true, false);
+    this.config_table[add.index] = loading;
+    const params = { ...loading.getParamsAdd(), ...paramsValue };
+
+    this.cs.getRegularData(report, params).pipe(takeUntil(this.destroy$)).subscribe(
+      data => {
+        const result = data.body.result;
+        const config = new TableMHService(table);
+        config.results(true, false, false);
+        config.addColumns(result.headers);
+        config.addELEMENT_DATA(result.body);
+        this.config_table[add.index] = config;
+        this.cdr.detectChanges();
+      },
+      () => this.setLegacyTableError(table, add.index)
+    );
+  }
+
+  private renderTableWithAdditional(paramsValue: {}, add: { find: string; index: number }): void {
+    const table = this.report.getTableFind(add.index);
+    const report = this.report.getRNameCompleted(add.find);
+    const loading = new TableMHService(table);
+    loading.results(true, true, false);
+    this.config_table[add.index] = loading;
+    const params = { ...loading.getParamsAdd(), ...paramsValue };
+
+    this.cs.getRegularData(report, params).pipe(takeUntil(this.destroy$)).subscribe(
+      data => {
+        const result = data.body.result;
+        const config = new TableMHService(table);
+        config.results(true, false, false);
+        config.addColumns(result.headers);
+        config.addELEMENT_DATA(result.body);
+        config.addExt(result.additional);
+        this.config_table[add.index] = config;
+        this.cdr.detectChanges();
+      },
+      () => this.setLegacyTableError(table, add.index)
+    );
+  }
+
+  private setLegacyTableError(table: any, index: number): void {
+    const config = new TableMHService(table);
+    config.results(true, false, true);
+    this.config_table[index] = config;
+    this.cdr.detectChanges();
+  }
+
+  private rendererSync(): void {
+    combineLatest([
+      this.page$,
+      this.level$,
+      this.filter$,
+      this.filterAjax$,
+      this.asesor$,
+      this.filterF$,
+      this.fecCompr$
+    ]).pipe(
+      takeUntil(this.destroy$),
+      map(([page, level, filter, filterAjax, asesor, filterF, fecCompr]) => {
+        const table = this.report.getTableFind(1);
+        const tableConfig = new TableMHService(table);
+        this.detailLoading = true;
+        this.detailError = false;
+        this.detailRows = [];
+        this.detailAnnotation = table.content || {};
+        this.detailPageSize = table.theme && table.theme.paginator_size
+          ? table.theme.paginator_size
+          : 30;
+        const params = {
+          ...tableConfig.getParamsAdd(),
+          ...page,
+          ...level,
+          ...filter,
+          ...filterAjax,
+          ...asesor,
+          ...filterF,
+          ...fecCompr
+        };
+        return { params, report: this.report.getRNameCompleted('_02') };
+      }),
+      switchMap(request => this.cs.getRegularData(request.report, request.params))
+    ).subscribe(
+      data => this.setDetailResult(data.body.result as RegularResult),
+      () => {
+        this.detailLoading = false;
+        this.detailError = true;
+        this.detailRows = [];
+        this.cdr.detectChanges();
       }
     );
   }
 
-  loadFilter(r) {
-    this.filter$.next(r)
+  private setDetailResult(result: RegularResult): void {
+    this.detailHeaders = this.toTable2Headers(result.headers || []);
+    this.detailRows = result.body || [];
+    this.detailTotal = result.additional && result.additional.Total
+      ? result.additional.Total
+      : this.detailRows.length;
+    this.detailLoading = false;
+    this.detailError = false;
+    this.cdr.detectChanges();
   }
 
-  loadFilterAjax(r) {
-    this.filterAjax$.next(r)
-  }
+  private toTable2Headers(rows: LegacyHeaderRow[]): Table2Header[] {
+    if (!rows.length) {
+      return [];
+    }
 
-  private activateDB() {
-    /*this.us.getAppPreference("btn_efec").then(x => {
-      if (this.db_values.includes(this.current_hierarchy.tip_cod)) {
-        this.active_db = true && (x=="true");
-        //this.active_db = true && x;
-      } else {
-        this.active_db = false;
-      }
-    });*/
-    return false;
-  }
-
-  selectHier(evt: any) {
-    //this.current_hierarchy = r;
-    //this.activateDB();
-    let lv: any = evt[0];
-    this.level$.next(lv);
-  }
-
-  loadAjax(r) {
-    this.page$.next(r);
-  }
-
-  loadF(r) {
-    this.filterF$.next(r);
-  }
-
-  loadAsesor() {
-    if (!isNull(this.txt_asesor.value))
-      this.asesor$.next({ nom: '%' + this.txt_asesor.value + '%' });
-  }
-
-  downloadDetail() {
-    /*let tc = this.current_hierarchy.tip_cod;
-    let cr = this.current_hierarchy.cod_rel;
-    this.cs.downloadSimpleStoredReportData({ tip_cod: tc, cod_rel: cr, a_grup: "MONI_EFEC" }).subscribe(data => {
-      this.fs.saveAs(data);
-    });*/
-  }
-
-  mergeParams() {
-    combineLatest([this.filter$, this.level$])
-      .subscribe(([filter, level]) => {
-        let lp = { tip_cod: level.tip_cod, cod_rel: level.cod_rel };
-        let params = { ...filter, ...lp }
-        this.renderTable(params, { find: '_01', index: 0 })
-        this.renderTable_1(params, { find: '_03', index: 2 })
-        this.renderTable_1(params, { find: '_03', index: 3 })
-      })
-  }
-
-  private renderTable(r, add): void {
-    const table = this.report.getTableFind(add.index);
-    const report = this.report.getRNameCompleted(add.find);
-    const confT = new TableMHService(table);
-    confT.results(true, true, false);
-    this.config_table[add.index] = confT;
-    const params = { ...confT.getParamsAdd(), ...r };
-    this.cs.getRegularData(report, params)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (data) => {
-          let result = data.body['result'];
-          const confT = new TableMHService(table);
-          confT.results(true, false, false);
-          confT.addColumns(result.headers);
-          confT.addELEMENT_DATA(result.body);
-          this.config_table[add.index] = confT;
-          this.cdr.detectChanges();
-        },
-        () => {
-          const confT = new TableMHService(table);
-          confT.results(true, false, true);
-          this.config_table[add.index] = confT;
-          this.cdr.detectChanges();
-        });
-  }
-
-  private renderTable_1(r, add): void {
-    const table = this.report.getTableFind(add.index);
-    const report = this.report.getRNameCompleted(add.find);
-    const confT = new TableMHService(table);
-    confT.results(true, true, false);
-    this.config_table[add.index] = confT;
-    const params = { ...confT.getParamsAdd(), ...r };
-    this.cs.getRegularData(report, params)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (data) => {
-          let result = data.body['result'];
-          const confT = new TableMHService(table);
-          confT.results(true, false, false);
-          confT.addColumns(result.headers);
-          confT.addELEMENT_DATA(result.body);
-          confT.addExt(result.additional);
-          this.config_table[add.index] = confT;
-          this.cdr.detectChanges();
-        },
-        () => {
-          const confT = new TableMHService(table);
-          confT.results(true, false, true);
-          this.config_table[add.index] = confT;
-          this.cdr.detectChanges();
-        });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
-
-  private rendererSync(): void {
-    combineLatest([this.page$, this.level$, this.filter$, this.filterAjax$, this.asesor$, this.filterF$, this.fecCompr$])
-      .pipe(
-        takeUntil(this.destroy$),
-        map(([page, level, filter, filterA, asesor, filterF, fecCompr]) => {
-          const find = '_02'
-          const index = 1
-          const table = this.report.getTableFind(index);
-          const report: string = this.report.getRNameCompleted(find);
-          const confT = new TableMHService(table);
-          confT.results(true, true, false);
-          this.config_table_ajax = confT;
-          const params = { ...confT.getParamsAdd(), ...page, ...level, ...filter, ...filterA, ...asesor, ...filterF, ...fecCompr };
-          return { params: params, report: report }
-        }),
-        switchMap((r) => this.cs.getRegularData(r.report, r.params)),
-      ).subscribe(data => {
-        const table = this.report.getTableFind(1);
-        let result = data.body['result'];
-        const confT = new TableMHService(table);
-        confT.results(true, false, false);
-        confT.addColumns(result.headers);
-        confT.addELEMENT_DATA(result.body);
-        confT.addExt(result.additional)
-        this.config_table_ajax = confT;
-        this.cdr.detectChanges();
+    const positioned = rows.map(row => {
+      let cursor = 0;
+      return row.columns.map(column => {
+        const start = cursor;
+        cursor += column.cols || 1;
+        return { column, start, end: cursor };
       });
+    });
 
+    const build = (level: number, start: number, end: number): Table2Header[] =>
+      (positioned[level] || [])
+        .filter(item => item.start >= start && item.end <= end)
+        .map(item => {
+          const header: Table2Header = { label: item.column.header || '' };
+          const children = build(level + 1, item.start, item.end);
+          if (!item.column.isdata && children.length) {
+            header.subs = children;
+          } else {
+            header.key = item.column.columnDef;
+            header.format = this.toTable2Format(item.column.format);
+          }
+          return header;
+        });
+
+    return build(0, 0, Number.MAX_SAFE_INTEGER);
   }
 
-  private rendererFilterG() {
-    const filters: any = this.report.getFilters();
-    filters.forEach(f => {
-      const confS = new SelectService();
-      confS.labelName(f.label);
-      confS.getVariable(f.variable);
-      confS.selectedVAlue(f.selected);
-      confS.adddata(f.data);
-      this.config_select_multiple.push(confS);
-      this.activeFilters=true;
-    })
+  private toTable2Format(format?: LegacyColumn['format']): Table2Header['format'] | undefined {
+    if (!format || format.type === 'string' || format.type === 'date') {
+      return undefined;
+    }
+    if (format.type === 'traffic-light') {
+      return { type: 'trafficlight' };
+    }
+    if (format.type === 'percent') {
+      return { type: 'percent', params: this.decimalParams(format.mode) };
+    }
+    if (format.type === 'number') {
+      const params = this.decimalParams(format.mode);
+      return params.max_decimals === 0
+        ? { type: 'integer' }
+        : { type: 'decimal', params };
+    }
+    return undefined;
   }
 
-  private rendererFilterT(findT: string) {
-    const filters: any = this.report.getFiltersTableFind(findT);
-    filters.forEach(f => {
-      const confS = new SelectService();
-      confS.labelName(f.label);
-      confS.getVariable(f.variable);
-      confS.selectedVAlue(f.selected);
-      confS.adddata(f.data);
-      this.config_select_multiple_ajax.push(confS);
-    })
+  private decimalParams(mode?: string): { max_decimals: number; fix_decimals: boolean } {
+    const match = mode ? mode.match(/\.(\d+)-(\d+)/) : null;
+    const min = match ? Number(match[1]) : 0;
+    const max = match ? Number(match[2]) : 2;
+    return { max_decimals: max, fix_decimals: min === max };
+  }
+
+  private rendererFilterG(): void {
+    const filters: any[] = this.report.getFilters();
+    filters.forEach(filter => {
+      const config = new SelectService();
+      config.labelName(filter.label);
+      config.getVariable(filter.variable);
+      config.selectedVAlue(filter.selected);
+      config.adddata(filter.data);
+      this.config_select_multiple.push(config);
+      this.activeFilters = true;
+    });
+  }
+
+  private rendererFilterT(findTable: string): void {
+    const filters: any[] = this.report.getFiltersTableFind(findTable);
+    filters.forEach(filter => {
+      const config = new SelectService();
+      config.labelName(filter.label);
+      config.getVariable(filter.variable);
+      config.selectedVAlue(filter.selected);
+      config.adddata(filter.data);
+      this.config_select_multiple_ajax.push(config);
+    });
     this.renderUltGestion();
   }
 
   private renderUltGestion(): void {
-    let report = 'SEL_EFEC_01';
-    this.cs.getRegularData(report, {}).subscribe(
-      (data) => {
-        let result = data.body['result'];
-        const confS = new SelectService();
-        confS.labelName('Última Gestión');
-        confS.getVariable('resp');
-        confS.selectedVAlue('TODO');
-        confS.adddata(result.body);
-        this.config_select = confS;
-        this.cdr.detectChanges()
-      })
+    this.cs.getRegularData('SEL_EFEC_01', {})
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        const config = new SelectService();
+        config.labelName('Última Gestión');
+        config.getVariable('resp');
+        config.selectedVAlue('TODO');
+        config.adddata(data.body.result.body);
+        this.config_select = config;
+        this.cdr.detectChanges();
+      });
   }
 
-
-
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 }

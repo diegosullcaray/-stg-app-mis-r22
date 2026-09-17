@@ -11,6 +11,7 @@ import { first, startWith } from 'rxjs/operators';
 export class SelectMultipleComponent implements OnInit,OnChanges {
   @Output() refresh = new EventEmitter<Object>();
   @Input() config_select_multiple:any[];
+  @Input() embedded = false;
   fgroupSelect:UntypedFormGroup=new UntypedFormGroup({});
   data:any[]=[];
   isLoadingSelect=false;
