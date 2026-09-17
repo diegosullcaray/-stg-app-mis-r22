@@ -1,27 +1,3 @@
-.filters-card,
-.detail-filters-card {
-  box-sizing: border-box;
-  width: calc(100% - 16px);
-}
-
-.filter-field {
-  box-sizing: border-box;
-  padding: 5px;
-}
-
-.full-width,
-.date-filter {
-  width: 100%;
-}
-
-.date-filter {
-  font-size: 13px;
-}
-
-.date-filter ::ng-deep .mat-form-field-wrapper {
-  padding-bottom: 0;
-}
-
 .detail-table {
   position: relative;
 }
@@ -36,15 +12,4 @@
 
 .error-state {
   color: #b00020;
-}
-
-@media (max-width: 599px) {
-  .filters-card,
-  .detail-filters-card {
-    width: calc(100% - 10px);
-  }
-
-  .filter-field button {
-    width: 100%;
-  }
 }

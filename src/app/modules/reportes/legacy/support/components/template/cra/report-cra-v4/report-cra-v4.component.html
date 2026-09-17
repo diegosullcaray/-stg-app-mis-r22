@@ -1,14 +1,10 @@
 <div fxLayout="column">
-    <mat-card class="mat-elevation-z m-033 filters-card">
-        <ng-container *ngIf="activeHier">
-            <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
-        </ng-container>
-        <app-select-multiple
-            [embedded]="true"
-            [config_select_multiple]="config_select_multiple"
-            (refresh)="loadFilter($event)">
-        </app-select-multiple>
-    </mat-card>
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+
+    <app-select-multiple [config_select_multiple]="config_select_multiple" (refresh)="loadFilter($event)">
+    </app-select-multiple>
 
     <mat-tab-group>
         <mat-tab label="Monitor de Efectividades">
@@ -24,41 +20,39 @@
         </mat-tab>
 
         <mat-tab label="Detalle de Efectividades">
-            <mat-card class="mat-elevation-z m-033 detail-filters-card">
-                <app-select-multiple
-                    [embedded]="true"
-                    [config_select_multiple]="config_select_multiple_ajax"
-                    (refresh)="loadFilterAjax($event)">
-                </app-select-multiple>
+            <app-select-multiple
+                [config_select_multiple]="config_select_multiple_ajax"
+                (refresh)="loadFilterAjax($event)">
+            </app-select-multiple>
 
-                <div fxLayout="row wrap" fxLayoutAlign="start center">
-                    <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" class="filter-field">
-                        <app-select-basic (refresh)="loadF($event)" [config_select]="config_select"></app-select-basic>
+            <mat-card class="mat-elevation-z m-033">
+                <div fxLayout="row wrap">
+                    <div fxFlex="100" fxFlex.gt-sm="16" fxFlex.sm="33">
+                        <div class="m-033">
+                            <app-select-basic (refresh)="loadF($event)" [config_select]="config_select"></app-select-basic>
+                        </div>
                     </div>
-
-                    <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" class="filter-field">
-                        <mat-form-field appearance="outline" class="date-filter">
-                            <input
-                                matInput
-                                readonly
-                                [matDatepicker]="commitmentPicker"
-                                aria-label="Fecha compromiso"
-                                placeholder="Fecha compromiso"
-                                (dateChange)="addEvent($event)">
-                            <mat-datepicker-toggle
-                                matSuffix
-                                [for]="commitmentPicker"
-                                matTooltip="Fecha compromiso"
-                                aria-label="Seleccionar fecha compromiso">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #commitmentPicker></mat-datepicker>
-                        </mat-form-field>
+                    <div fxFlex="100" fxFlex.gt-sm="28" fxFlex.sm="33">
+                        <div class="m-033">
+                            <mat-form-field class="example-full-width" style="width:100%">
+                                <mat-label>Fecha Compromiso</mat-label>
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker"
+                                    placeholder=""
+                                    (dateInput)="addEvent('input', $event)"
+                                    (dateChange)="addEvent('change', $event)">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
                     </div>
-
-                    <div fxFlex="100" fxFlex.gt-sm="35" fxFlex.sm="50" class="filter-field">
-                        <mat-form-field class="full-width">
-                            <input matInput [formControl]="txt_asesor" placeholder="Asesor">
-                        </mat-form-field>
+                    <div fxFlex="100" fxFlex.gt-sm="28" fxFlex.sm="33">
+                        <div class="m-033">
+                            <mat-form-field class="example-full-width" style="width:100%">
+                                <input matInput [formControl]="txt_asesor" placeholder="Asesor" #input>
+                            </mat-form-field>
+                        </div>
                     </div>
 
                     <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="filter-field">

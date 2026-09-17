@@ -143,7 +143,7 @@ export class ReportCraV4Component implements OnInit, OnDestroy {
     this.filterF$.next(filter);
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>): void {
+  addEvent(_type: string, event: MatDatepickerInputEvent<Date>): void {
     const value = event.value
       ? this.datePipe.transform(event.value, 'dd/MM/yyyy')
       : 'TODO';
@@ -280,35 +280,24 @@ export class ReportCraV4Component implements OnInit, OnDestroy {
   }
 
   private toTable2Headers(rows: LegacyHeaderRow[]): Table2Header[] {
-    if (!rows.length) {
-      return [];
-    }
+    const headers: Table2Header[] = [];
+    const registeredKeys = new Set<string>();
 
-    const positioned = rows.map(row => {
-      let cursor = 0;
-      return row.columns.map(column => {
-        const start = cursor;
-        cursor += column.cols || 1;
-        return { column, start, end: cursor };
+    rows.forEach(row => {
+      (row.columns || []).forEach(column => {
+        if (!column.isdata || !column.columnDef || registeredKeys.has(column.columnDef)) {
+          return;
+        }
+        registeredKeys.add(column.columnDef);
+        headers.push({
+          label: column.header || column.columnDef,
+          key: column.columnDef,
+          format: this.toTable2Format(column.format)
+        });
       });
     });
 
-    const build = (level: number, start: number, end: number): Table2Header[] =>
-      (positioned[level] || [])
-        .filter(item => item.start >= start && item.end <= end)
-        .map(item => {
-          const header: Table2Header = { label: item.column.header || '' };
-          const children = build(level + 1, item.start, item.end);
-          if (!item.column.isdata && children.length) {
-            header.subs = children;
-          } else {
-            header.key = item.column.columnDef;
-            header.format = this.toTable2Format(item.column.format);
-          }
-          return header;
-        });
-
-    return build(0, 0, Number.MAX_SAFE_INTEGER);
+    return headers;
   }
 
   private toTable2Format(format?: LegacyColumn['format']): Table2Header['format'] | undefined {
