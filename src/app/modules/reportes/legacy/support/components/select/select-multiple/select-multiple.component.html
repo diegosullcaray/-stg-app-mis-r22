@@ -19,5 +19,14 @@
                 </div>
             </div>
         </div>
-    </mat-card>
-</div>
+    </div>
+</ng-template>
+
+<ng-container *ngIf="isLoadingSelect">
+    <ng-container *ngIf="embedded; else cardFilters" [ngTemplateOutlet]="filterFields"></ng-container>
+    <ng-template #cardFilters>
+        <mat-card class="mat-elevation-z m-033">
+            <ng-container [ngTemplateOutlet]="filterFields"></ng-container>
+        </mat-card>
+    </ng-template>
+</ng-container>
