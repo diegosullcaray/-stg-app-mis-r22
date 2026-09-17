@@ -19,7 +19,7 @@ interface LegacyColumn {
   columnDef: string;
   header: string;
   cols?: number;
-  isdata?: boolean;
+  isdata?: boolean | number | string;
   format?: {
     type?: string;
     mode?: string;
@@ -269,8 +269,8 @@ export class ReportCraV4Component implements OnInit, OnDestroy {
   }
 
   private setDetailResult(result: RegularResult): void {
-    this.detailHeaders = this.toTable2Headers(result.headers || []);
-    this.detailRows = result.body || [];
+    this.detailRows = Array.isArray(result.body) ? result.body : [];
+    this.detailHeaders = this.toTable2Headers(result.headers || [], this.detailRows);
     this.detailTotal = result.additional && result.additional.Total
       ? result.additional.Total
       : this.detailRows.length;
@@ -279,23 +279,37 @@ export class ReportCraV4Component implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  private toTable2Headers(rows: LegacyHeaderRow[]): Table2Header[] {
+  private toTable2Headers(rows: LegacyHeaderRow[], data: any[]): Table2Header[] {
     const headers: Table2Header[] = [];
     const registeredKeys = new Set<string>();
+    const dataKeys = new Set<string>();
+
+    data.forEach(item => {
+      if (item && typeof item === 'object') {
+        Object.keys(item).forEach(key => dataKeys.add(key));
+      }
+    });
 
     rows.forEach(row => {
       (row.columns || []).forEach(column => {
-        if (!column.isdata || !column.columnDef || registeredKeys.has(column.columnDef)) {
+        const key = column.columnDef;
+        if (!key || !dataKeys.has(key) || registeredKeys.has(key)) {
           return;
         }
-        registeredKeys.add(column.columnDef);
+        registeredKeys.add(key);
         headers.push({
-          label: column.header || column.columnDef,
-          key: column.columnDef,
+          label: column.header || key,
+          key,
           format: this.toTable2Format(column.format)
         });
       });
     });
+
+    // Si la metadata no cruza con las filas, se usan sus claves exactas como
+    // respaldo. Así la tabla nunca queda sin columnas aunque falte `isdata`.
+    if (!headers.length) {
+      dataKeys.forEach(key => headers.push({ label: key, key }));
+    }
 
     return headers;
   }
