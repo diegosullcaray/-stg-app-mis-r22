@@ -1,10 +1,10 @@
 <div *ngIf='isLoadingSelect'>
     <mat-card class="mat-elevation-z m-033" ><!--style="padding: 0px"-->
         <div fxLayout="row wrap">
-            <div [formGroup]="fgroupSelect" 
-                    *ngFor='let cbo of data' 
-                    fxFlex="100" 
-                    fxFlex.gt-sm="16" 
+            <div [formGroup]="fgroupSelect"
+                    *ngFor='let cbo of data'
+                    fxFlex="100"
+                    fxFlex.gt-sm="16"
                     fxFlex.sm="33">
                 <div class="m-033">
                     <mat-form-field style="width: 100%">
