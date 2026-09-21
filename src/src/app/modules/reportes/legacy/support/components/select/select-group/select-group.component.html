@@ -1,0 +1,26 @@
+<mat-card class="mat-elevation-z m-033"
+[ngClass.gt-md] = " ['mat-elevation-z8'] " 
+[ngStyle.gt-md] = "{'top':0,'position':'sticky','z-index':2}">
+    <div *ngIf='isLoadingSelect'>
+        <div fxLayout="row wrap">
+            <div [formGroup]="fgroupSelect" 
+            *ngFor='let cbo of data' 
+            fxFlex="100" 
+            fxFlex.gt-sm="17" 
+            fxFlex.sm="33">
+                <div class="m-033">
+                    <mat-form-field style="width: 100%">
+                        <mat-label>{{cbo.label}}</mat-label>
+                        <mat-select [formControlName]="cbo.label">
+                            <mat-option *ngFor="let r of cbo.data" [value]="r.cod_rel"
+                                (onSelectionChange)="exec(r,cbo,$event)">
+                                {{r.des}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>
+<!--{{data | json }}-->

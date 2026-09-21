@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f8fa;
+    color: #333;
+  }
+  
+  .header {
+    background-color: #004481;
+    color: #fff;
+    padding: 15px 15px 100px 0px;
+    text-align: left;
+    display: flex;
+    align-items: flex-start; 
+  }
+  
+  .dashboard-container {
+    padding: 20px;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .card {
+    width: 260px;
+    background-color: #f7f7f7
+    ;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    border-color: #ffff;
+    text-align: center;
+    flex: 1;
+    box-shadow: 6px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: -80px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .card:hover {
+   // background-color: #B6E2FF;
+   background: #DCEAFD;
+    transform: scale(1.05);
+  }
+  .t {
+    text-decoration: underline;
+
+}
+  
+  .card h3 {
+    margin: 0;
+    color: #004481;
+    font-size: 18px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table th, .table td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #fff;
+    color: #004481;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .table th:hover {
+    background-color: #d9e6f2;
+    transform: scale(1.05);
+  }
+  
+  .table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .status {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  
+  .btn {
+    background-color: #004481;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background-color: #003366;
+  }
+  
+  .table .task-title {
+    color: #004481;
+    font-size: 16px;
+   // font-weight: bold;
+  }
+  
+  .table .task-title a {
+    color: #164D90;
+    text-decoration: none;
+    //font-weight: bold;
+  }
+  
+  .table .task-title a:hover {
+    text-decoration: underline; 
+  }

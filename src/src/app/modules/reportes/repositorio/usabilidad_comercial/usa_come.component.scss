@@ -1,0 +1,23 @@
+::ng-deep td[key='descripcion'][style*="cursor: pointer"] {
+    cursor: pointer !important;
+    text-decoration: underline !important;
+    color: #007bff !important;
+  }
+  
+  ::ng-deep td[key='descripcion'][style*="cursor: pointer"]:hover {
+    color: #0056b3 !important;
+  }
+  .celda-link {
+    color: #007bff !important;
+    cursor: pointer !important;
+    text-decoration: underline !important;
+  }
+
+  .resaltado-hover {
+  background-color: #eef5ff;
+}
+
+.resaltado-hover:hover {
+  background-color: #d6e6ff;
+  cursor: pointer;  
+}

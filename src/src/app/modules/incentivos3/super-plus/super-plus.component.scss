@@ -1,0 +1,41 @@
+.sp-box {
+    border-radius: 0.5rem;
+    border: 1px solid lightgrey;
+    padding: 5px;
+    color: white;
+    height: 100%;
+
+    &:hover {
+        cursor: pointer;
+
+        .t {
+            text-decoration: underline;
+
+        }
+    }
+
+    .t {
+        font-size: 10px;
+    }
+
+    .v{
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .i{
+        font-size: 10px !important;
+    }
+}
+
+.bg1{
+    background-color: #009fe3;
+}
+
+.bg2{
+    background-color: #E3005B;
+}
+
+.bg3{
+    background-color: darkgrey;
+}

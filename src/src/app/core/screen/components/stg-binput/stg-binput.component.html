@@ -1,0 +1,4 @@
+<div fxLayout="row" fxLayoutGap="10px">
+    <div fxFlex class="stg-input" [style]="getStyle()"><span>{{value | truncate : truncateLimit}}</span></div>
+    <button mat-raised-button class="btn" (click)="showDialog()">...</button>
+</div>

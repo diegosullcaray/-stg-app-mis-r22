@@ -1,0 +1,58 @@
+/**************** Mat Tab ****************/
+.mat-tab-label {
+    min-width: 40px !important;
+    //padding: 5px;
+    //background-color: red;
+    //color: red;
+    //font-weight: 700;
+}
+
+.mat-tab-group.mat-tab-fill-height .mat-tab-body-wrapper {
+    flex: 1 1 100%;
+ }
+
+/* Styles for the active tab label 
+.mat-tab-label.mat-tab-label-active {
+    min-width: 25px !important;
+    padding: 5px;
+    background-color: transparent;
+    color: red;
+    font-weight: 700;
+}*/
+
+/* Styles for the ink bar 
+.mat-ink-bar {
+    background-color: green;
+}*/
+
+/*****************************************/
+
+/********* Mat Button Toggle *************/
+
+.mat-button-toggle {
+    //border: 1px rgba(0,0,0,0) solid !important;
+    //margin-top: 5px !important;
+    //padding: 0 5px !important;
+    //z-index: 3 !important;
+    background: #f4fafe !important;
+}
+
+/* .mat-button-toggle:hover {
+    //border: 1px #000 solid !important;
+    //background-color: #FFF !important;
+    //border-radius: 5px !important;
+} */
+
+.mat-button-toggle-checked {
+	//box-shadow: 0 0 30px #000 !important;
+    //border: 1px #000 solid !important;
+    //border-radius: 5px !important;
+    background-color: #304156 !important;
+    color: white !important;
+}
+
+/* .mat-button-toggle-input {
+    background-color: none !important;
+    padding-left: 32px !important;
+} */
+/*****************************************/

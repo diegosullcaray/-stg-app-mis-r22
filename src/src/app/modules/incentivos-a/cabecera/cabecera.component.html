@@ -1,0 +1,49 @@
+<div class="base" fxLayout="row" fxLayout.lt-md="column">
+    <div style="padding: 5px 5px 5px 15px;" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
+        <div class="pic-box" fxLayoutAlign="center center">
+            <img *ngIf="config.showPic" src="{{user.pictureURL}}" alt="" referrerpolicy="no-referrer">
+            <span *ngIf="!config.showPic" class="material-icons icon" >
+                person
+            </span>
+        </div>
+        <div fxLayout="column" style="padding: 5px;">
+            <div [class]="{'text-name':!layout.isMobile,'text-name-short':layout.isMobile}">
+                <span>{{config.name}}</span>
+            </div>
+            <div [class]="{'text-pos':!layout.isMobile,'text-pos-short':layout.isMobile}">
+                <span>{{config.position}}</span>
+            </div>
+            <div [class]="{'text-pos':!layout.isMobile,'text-pos-short':layout.isMobile}">
+                <span>({{config.des_rel}})</span>
+            </div>
+        </div>
+    </div>
+    <div fxFlex fxLayoutAlign="end center" fxLayoutAlign.lt-md="center center" fxLayoutGap="15px" class="btn-block">
+        <button fxHide mat-raised-button class="stg-btn-short" (click)="showSecList()">
+            <span class="material-icons-round icon">
+                grid_view
+            </span>
+        </button>
+        <button fxHide mat-raised-button class="stg-btn-short" (click)="showCliDetail()">
+            <span class="material-icons icon">
+                folder_shared
+            </span>
+        </button>
+        <button mat-raised-button class="stg-btn-short" [disabled]="!config.enableButtons" (click)="showCalculator()">
+            <span class="material-icons icon">
+                calculate
+            </span>
+        </button>
+        <button *ngIf="config.showButtons[0]" [disabled]="!config.enableButtons" mat-raised-button class="stg-btn-short" (click)="returnUser()">
+            <span class="material-icons icon">
+                person_pin
+            </span>
+        </button>
+        <!--*ngIf="incentivos.btnSelSec$ | async"-->
+        <button *ngIf="config.showButtons[1]" [disabled]="!config.enableButtons" mat-raised-button color="primary" class="stg-btn-short" (click)="openSelector()">
+            <span class="material-icons icon">
+                person_search
+            </span>
+        </button>
+    </div>
+</div>

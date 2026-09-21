@@ -1,0 +1,60 @@
+<div class="stg-window" style="width:100%;height:100%" fxLayout="column">
+    <stg-window-bar title="Monitor de Desembolso"></stg-window-bar>
+    <div style="height: 100%;padding: 10px;" fxLayout="row">
+        <div fxFlex style="height: 100%;">
+            <mat-tab-group style="height: 100%;" class="mat-tab-fill-height">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span style="font-size: 12px;">Operaciones</span>
+                    </ng-template>
+                    <ng-template matTabContent>
+                        <div style="height: 100%;padding: 10px;">
+                            <stg-table2 fxFlex [dataSource]="datos.tbl_ds" [options]="tableOpts1"
+                                [headers]="headTblOpe">
+                            </stg-table2>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span style="font-size: 10px;">Monto</span>
+                    </ng-template>
+                    <ng-template matTabContent>
+                        <div style="height: 100%;padding: 10px;">
+                            <stg-table2 fxFlex [dataSource]="datos.tbl_ds" [options]="tableOpts1"
+                                [headers]="headTblDesem">
+                            </stg-table2>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <div fxFlex="50" fxLayout="column">
+            <div fxFlex="50">
+                <div style="float: left;position: relative;width: 100%;height: 100%;">
+                    <highcharts-chart style="width: 100%;height: 100%;min-height: 80px;position:absolute;"
+                        [Highcharts]="Highcharts" [options]="datos.graph_opts">
+                        <!--style="width:100%;height: 100%;min-height: 200px;position:absolute;display: inline;"-->
+                    </highcharts-chart>
+                </div>
+            </div>
+            <div fxFlex fxLayout="column">
+                <div fxFlex="50">
+                    <div style="height: 100%;padding: 10px;">
+                        <stg-table2 fxFlex [dataSource]="dsTblDesem3" [options]="tableOpts1"
+                            [headers]="headTblRank">
+                        </stg-table2>
+                    </div>
+                </div>
+                <div fxFlex>
+                    <div style="height: 100%;padding: 10px;">
+                        <stg-table2 fxFlex [dataSource]="dsTblDesem4" [options]="tableOpts1"
+                            [headers]="headTbl12M">
+                        </stg-table2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,52 @@
+import { Directive, Host, Self, Optional, OnDestroy, OnInit } from '@angular/core';
+import { MediaChange, MediaObserver } from "@angular/flex-layout";
+import { Subscription } from "rxjs";
+import { MatSidenav } from '@angular/material/sidenav';
+
+
+@Directive({
+  selector: '[AdminSideNavToggle]'
+})
+export class AdminSideNavToggleDirective implements OnInit, OnDestroy {
+  isMobile: any;
+  screenSizeWatcher: Subscription;
+  constructor(
+    private mediaObserver: MediaObserver,
+    @Host() @Self() @Optional() public sideNav: MatSidenav
+  ) {
+  }
+
+  ngOnInit() {
+    this.initSideNav();
+  }
+
+  ngOnDestroy() {
+    if (this.screenSizeWatcher) {
+      this.screenSizeWatcher.unsubscribe()
+    }
+  }
+
+  updateSidenav() {
+    var self = this;
+    setTimeout(() => {
+      self.sideNav.opened = !self.isMobile;
+      self.sideNav.mode = self.isMobile ? 'over' : 'side';
+    })
+  }
+  initSideNav() {
+    this.isMobile = this.mediaObserver.isActive('xs') || this.mediaObserver.isActive('sm');
+    // console.log(this.isMobile)
+    this.updateSidenav();
+    this.screenSizeWatcher = this.mediaObserver.asObservable().subscribe(change => {
+      change.forEach(item => {
+        this.isMobile = (item.mqAlias == 'xs') || (item.mqAlias == 'sm');
+        this.updateSidenav();
+      });
+    })
+
+    /*this.screenSizeWatcher = this.mediaObserver.media$.subscribe((change: MediaChange) => {
+        
+      }); */
+  }
+
+}

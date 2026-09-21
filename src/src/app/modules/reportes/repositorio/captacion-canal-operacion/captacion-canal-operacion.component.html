@@ -1,0 +1,21 @@
+<div>
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    <div style="padding: 10px;">
+        <div class="stg-window">
+            <stg-window-bar [title]="mainTitle" ></stg-window-bar> 
+            <div class="stg-panel">
+                <!-- [customCellStyler]="customStyler"-->
+                <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs"
+                    [dataSource]="dataSource" [loadingObs]="loadingObs" [customCellStyler]="customStyler">
+                </stg-table>
+                <ng-container *ngIf="showPaginator">
+                    <stg-paginator #paginator [totalLenght]="dataSourceLenght" [pageLenght]="pageSize"
+                        (onChangePage)="changePage($event)">
+                    </stg-paginator>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

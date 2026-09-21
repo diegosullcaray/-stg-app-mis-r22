@@ -1,0 +1,118 @@
+<div>
+    <!--<ng-container *ngIf="activeHier">
+        <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>-->
+    <div style="height: 10px;"></div>
+    <div style="padding: 10px;">
+        <div class="stg-window">
+            <stg-window-bar [title]="mainTitle" ></stg-window-bar>
+            <div class="stg-panel">
+                <div style="padding: 0px 10px;">
+                    <mat-tab-group fxFlex style="overflow-y: auto;">
+                        <mat-tab label="Carteras">
+                            <ng-template matTabContent>
+                                <div fxLayout="column">
+                                    <div style="height: 10px;"></div>
+                                    <span class="tbl-title">Clientes Activo</span>
+                                    <div style="height: 10px;"></div>
+                                    <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource1" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler">
+                                    </stg-table>
+                                    <div class="low-ltrs" fxLayout="column">
+                                        <span>1/ Clientes Nuevos del mes: clientes que no se encontraban en el stock
+                                            desde May-13.</span>
+                                        <span>2/ Clientes Recuperados: aquellos clientes que han tenido alguna operación
+                                            desde May-13 y que han desembolsado en el mes en curso.</span>
+                                        <span>3/ Clientes que se encontraban en la cartera del mes anterior y en la
+                                            cartera del mes actual no figuran.</span>
+                                    </div>
+                                    <div style="height: 30px;"></div>
+                                    <span class="tbl-title">Clientes Pasivo</span>
+                                    <div style="height: 10px;"></div>
+                                    <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource2" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler">
+                                    </stg-table>
+                                    <div style="height: 30px;"></div>
+                                    <span class="tbl-title">Clientes Compartido</span>
+                                    <div style="height: 10px;"></div>
+                                    <stg-table [tableStyleConfig]="tableConf2" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource3" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler">
+                                    </stg-table>
+                                    <div style="height: 30px;"></div>
+                                    <span class="tbl-title">Clientes Neto</span>
+                                    <div style="height: 10px;"></div>
+                                    <stg-table [tableStyleConfig]="tableConf2" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource4" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler">
+                                    </stg-table>
+                                    <div class="low-ltrs" fxLayout="column">
+                                        <span>4/ Clientes Nuevos del mes: clientes que no se encontraban en el stock del mes anterior.</span>
+                                        <span>5/ Clientes con 12 meses de inactividad y con saldo menor igual a S/.1.</span>
+                                        <span>6/ Clientes con 12 meses de inactividad y con saldo mayor a S/.1.</span>
+                                        <span>7/ Clientes del pasivo neto:  considera todos los clientes del pasivo sin considerar los clientes inactivos cuyo saldo sea menor o igual a S/1.(Nota 5/).</span>
+                                        <span>8/ Clientes compartidos que tienen cuentas de productos pasivos con 12 meses de inactividad y con saldo menor o igual a S/.1 (no se consideran clientes netos del pasivo).</span>
+                                    </div>
+                                    <div style="height: 30px;"></div>
+                                    <span class="tbl-title">Clientes Rurales Activo</span>
+                                    <div style="height: 10px;"></div>
+                                    <stg-table [tableStyleConfig]="tableConf2" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource11" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler">
+                                    </stg-table>
+                                    
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab label="Producto">
+                            <ng-template matTabContent>
+                                <div style="height: 10px;"></div>
+                                <span class="tbl-title">Clientes por Producto Comercial</span>
+                                <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource7" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table>
+                                <div style="height: 30px;"></div>
+                                <span class="tbl-title">Clientes Castigados por Producto Comercial</span>
+                                <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource8" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab label="Género">
+                            <ng-template matTabContent>
+                                <div style="height: 10px;"></div>
+                                <span class="tbl-title">Clientes Mujeres</span>
+                                <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf2" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource6" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table>
+                                <div style="height: 30px;"></div>
+                                <span class="tbl-title">Clientes por Género</span>
+                                <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf2" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource9" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table>
+                                <div style="height: 30px;"></div>
+                                <span class="tbl-title">Clientes Castigados por Género</span>
+                                <div style="height: 10px;"></div>
+                                <stg-table [tableStyleConfig]="tableConf2" [loadingStyleConfig]="loadingConf"
+                                    [headersDef]="headerDefs" [dataSource]="dataSource10" [loadingObs]="loadingObs"
+                                    [customCellStyler]="customStyler">
+                                </stg-table>
+                            </ng-template>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

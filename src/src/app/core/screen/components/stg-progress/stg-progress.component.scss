@@ -1,0 +1,14 @@
+.curr::after{
+    //border: 3px solid #4099ff;
+    border: var(--t-border);
+    content: "";
+    background: var(--t-background);
+    position: absolute;
+    right: var(--t-right);//-6px
+    top: var(--t-top);//-4px
+    //right: 0px;
+    border-radius: 50%;
+    width: var(--t-diam);//15px
+    height: var(--t-diam);
+    box-sizing: border-box;
+}

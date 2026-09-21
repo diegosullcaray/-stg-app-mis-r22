@@ -1,0 +1,221 @@
+<div class="dashboard-wrapper">
+    <div class="dashboard-header-container">
+        <h1 class="main-app-title">Banca Solidaria</h1>
+        <div class="title-accent-bar"></div>
+      </div>
+
+    <div class="kpi-row" style="
+  
+    margin-left: 12px;
+  
+    margin-right: 12px;
+    padding-right: 25px;
+  ">
+  
+        <div class="kpi-card"><div class="kpi-title">Saldo Vigente</div><div class="kpi-value">S/ {{ kpi_saldovig | number:'1.0-0' }}</div></div>
+  
+        <div class="kpi-card"><div class="kpi-title">Mto. Desembolsado</div><div class="kpi-value">S/ {{ kpi_mdesem | number:'1.0-0' }}</div></div>
+  
+        <div class="kpi-card"><div class="kpi-title">Ticket Promedio</div><div class="kpi-value">S/ {{ kpi_ticpro | number:'1.2-2' }}</div></div>
+  
+        <div class="kpi-card"><div class="kpi-title">N° Clientes</div><div class="kpi-value">{{ kpi_numcli | number:'1.0-0' }}</div></div>
+  
+        <div class="kpi-card"><div class="kpi-title">Tasa Mes</div><div class="kpi-value">{{ tappmes * 100 | number:'1.0-0' }}%</div></div>
+  
+    </div>
+  
+  
+  
+    <div class="charts-row" style="
+  
+    margin-left: 12px;
+  
+    margin-right: 12px;
+  
+  ">
+  
+        <div class="chart-card">
+  
+            <div class="chart-header"><i class="fa-solid fa-chart-pie"></i> Estado de Renovación (Base Inicial)</div>
+  
+            <div class="chart-body">
+  
+                <div class="canvas-container" #donutChart></div>
+  
+            </div>
+  
+        </div>
+  
+       
+  
+        <div class="chart-card">
+  
+            <div class="chart-header"><i class="fa-solid fa-chart-column"></i> Antigüedad de Cliente</div>
+  
+            <div class="chart-body">
+  
+                <div class="canvas-container" #barChart></div>
+  
+            </div>
+  
+        </div>
+  
+    </div>
+  
+  
+   
+    <ng-container>
+  
+      <div fxFlex fxLayout="column" fxLayoutGap="0px" class="main">
+  
+          <div fxFlex="none" class="hier" fxLayout="row" fxLayoutAlign="center center">
+  
+              <ng-scrollbar track="all" fxFlex >
+  
+                  <div fxFlex class="hier-cont" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px"
+  
+                  style="height: 39.6px !important">
+  
+                      <ng-container *ngFor="let item of principal.hierBuffer; index as idx">
+  
+                          <div (click)="changeHier(item)"><span>{{item.des_rel}}</span></div>
+  
+                      </ng-container>
+  
+                    </div>
+  
+              </ng-scrollbar>
+  
+          </div>
+  
+          <div fxFlex class="table-container">
+  
+              <stg-table2
+  
+                      [dataSource]="dataSource"
+  
+                      [headers]="headerDefs"
+  
+                      [options]="Opts"
+  
+                      (onClickCell)="ddHier($event)">
+  
+          </stg-table2>
+  
+          </div>
+  
+      </div>
+  
+    </ng-container>
+  
+    <!-- <div class="table-section">
+  
+        <div class="table-badge">Financiera Confianza</div>
+  
+       
+  
+        <div class="table-wrapper">
+  
+            <table>
+  
+                <thead>
+  
+                    <tr>
+  
+                        <th rowspan="2" style="background-color: #F8FAFC;">Descripción</th>
+  
+                        <th colspan="6" class="header-group" style="background-color: #F1F5F9;">Indicadores de Cartera</th>
+  
+                        <th colspan="5" class="header-group" style="background-color: #EFF6FF;">Variables de Renovación</th>
+  
+                        <th colspan="4" class="header-group" style="background-color: #E0F2FE;">Indicadores de Efectividad y Pago</th>
+  
+                    </tr>
+  
+                    <tr>
+  
+                        <th style="background-color: #F1F5F9;">Saldo Vigente</th>
+  
+                        <th style="background-color: #F1F5F9;">Mto. Desembolsado</th>
+  
+                        <th style="background-color: #F1F5F9;">Ticket Promedio</th>
+  
+                        <th style="background-color: #F1F5F9;">N° Clientes</th>
+  
+                        <th style="background-color: #F1F5F9;">Tasa Mes</th>
+  
+                        <th style="background-color: #F1F5F9;">Conteo Grupos</th>
+  
+                       
+  
+                        <th style="background-color: #EFF6FF;">Base Inicial</th>
+  
+                        <th style="background-color: #EFF6FF;">Renovados</th>
+  
+                        <th style="background-color: #EFF6FF;">Por Renovar</th>
+  
+                        <th style="background-color: #EFF6FF;">Vencidos</th>
+  
+                        <th style="background-color: #EFF6FF;">Vencen Hoy</th>
+  
+  
+  
+                        <th style="background-color: #E0F2FE;">Pago Puntual</th>
+  
+                        <th style="background-color: #E0F2FE;">Efect. -30 a 0</th>
+  
+                        <th style="background-color: #E0F2FE;">Efect. 1 a 30</th>
+  
+                    </tr>
+  
+                </thead>
+  
+                <tbody>
+  
+                    <tr *ngFor="let row of tableData" [ngClass]="{'row-total': row.isTotal, 'row-data': !row.isTotal}">
+  
+                        <td>{{ row.nombre }}</td>
+  
+                        <td class="col-nat">{{ row.saldoVigente }}</td>
+  
+                        <td class="col-nat">{{ row.mtoDesembolsado }}</td>
+  
+                        <td class="col-nat">{{ row.ticketPromedio }}</td>
+  
+                        <td class="col-nat">{{ row.nClientes }}</td>
+  
+                        <td class="col-nat">{{ row.tasaMes }}</td>
+  
+                       
+  
+                        <td>{{ row.baseInicial }}</td>
+  
+                        <td>{{ row.renovados }}</td>
+  
+                        <td>{{ row.porRenovar }}</td>
+  
+                        <td>{{ row.vencidos }}</td>
+  
+                        <td>{{ row.vencenHoy }}</td>
+  
+                       
+  
+                        <td class="col-efect">{{ row.pagoPuntual }}</td>
+  
+                        <td class="col-efect">{{ row.efectividad30a0 }}</td>
+  
+                        <td class="col-efect">{{ row.efectividad1a30 }}</td>
+  
+                        <td class="col-efect">{{ row.conteoGrupos }}</td>
+  
+                    </tr>
+  
+                </tbody>
+  
+            </table>
+  
+        </div>
+  
+    </div> -->
+  
+  </div>

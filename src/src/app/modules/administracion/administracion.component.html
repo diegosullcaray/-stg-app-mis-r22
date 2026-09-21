@@ -1,0 +1,18 @@
+<div fxFill fxLayout="column" class="base" fxLayout="column">
+    <div fxLayoutAlign="center center" class="title">
+        <span>Administración MIS</span>
+    </div>
+    <div fxLayout="row wrap" style="padding: 48px;" fxLayoutGap="24px">
+        <ng-container *ngFor="let item of menuItems; let i = index">
+            <div class="card" (click)="openSec(item.state)">
+                <div fxFlex class="b" fxLayout="row" fxLayoutGap="10px">
+                    <div><span class="material-icons-outlined i">{{item.icon}}</span></div>
+                    <div fxLayout="column" fxFlex>
+                        <div class="t"><span>{{item.name}}</span></div>
+                        <div><span>{{item.info}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.detalle-producto-dialog {
+
+    /* Busca el componente stg-window-bar DENTRO de este diálogo */
+    stg-window-bar {
+  
+      /* * ❗ IMPORTANTE: Inspecciona <stg-window-bar> en el navegador 
+       * para encontrar la CLASE INTERNA real que controla el fondo.
+       * Reemplaza '.clase-interna-real-del-fondo' con la clase correcta.
+      */
+      .clase-interna-real-del-fondo { // <--- 🧐 REEMPLAZA ESTO
+        background: linear-gradient(135deg, #2d7738 0%, #4CAC54 100%) !important;
+        color: white !important; /* Asegura texto legible */
+      }
+    }
+  }

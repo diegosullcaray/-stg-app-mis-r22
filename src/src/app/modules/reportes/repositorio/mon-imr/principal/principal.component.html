@@ -1,0 +1,111 @@
+<div fxFill fxLayout="column" class="stg-window mc" *ngIf="!config.loading">
+    <div class="headerC" fxLayout="column">
+        <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="start start" class="title">
+                <span [ngClass]="{ 'mobile-text': layout.isMobile}">
+                    MONITOR IMR
+                </span>
+            </div>
+            <div fxLayoutAlign="center start" *ngIf="!layout.isMobile">
+                <!-- <img width="auto" height="64px" src="assets/images/fc/fc_blank.png" alt="" referrerpolicy="no-referrer"> -->
+                <div fxLayoutGap="5px">
+                    <span style="font-weight: bold;">{{ curr_hier.des_lab}}:</span><span>{{curr_hier.des_rel}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div fxFlex class="bodyC" fxLayout="column">
+        <!-- CARDS-->
+        <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+            <ng-container *ngFor="let item of config.dataCards; index as idx">
+                <div fxFlex.lt-md="calc(50% - 10px)" fxFlex.gt-md="0 1 200px" class="card"
+                    [ngClass]="{ 'card-mov': layout.isMobile}" fxLayout="column" (click)="detCard(idx, item)">
+                    <div class="lbl" fxFlex="45" fxLayoutAlign="center start">
+                        <span style="text-align: center;">{{item.lbl}}</span>
+                    </div>
+                    <div fxFlex="35" fxLayoutAlign="center center" fxLayoutGap="5px">
+                        <div *ngIf="item.tl!=-99" class="tl"
+                            [innerHTML]="item.tl | dynamicFormatPipe:{type:'trafficlight'}"
+                            fxLayoutAlign="center center">
+                        </div>
+                        <span class="val" [style]="getCardValStyle(idx)">{{getFormatVal(item.val, item.typ)}}</span>
+                    </div>
+                    <div fxFlex fxLayoutAlign="center end" fxLayoutGap="3px">
+                        <ng-container *ngIf="item.val2">
+                            <span class="lbl2">{{item.lbl2}}:</span>
+                            <span [ngClass]="{ 'text-blue-val2': item.val2 < 0, 'text-red-val2': item.val2 >= 0 }">
+                                {{ getFormatVal(item.val2, item.typ) }}
+                            </span>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+
+        <div fxFlex class="main" fxLayout="column" fxLayoutGap="5px" *ngIf="config.tip_cod !== 1">
+            <div class="hier" fxLayout="row" fxLayoutAlign="center center">
+                <ng-scrollbar track="all" fxFlex>
+                    <div fxFlex class="hier-cont" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                        <ng-container *ngFor="let item of config.hierBuffer; index as idx">
+                            <div (click)="changeHier(item)"><span>{{item.des_rel}}</span></div>
+                        </ng-container>
+                    </div> 
+                </ng-scrollbar>
+            </div>
+
+            
+            <div class="toggle-section" *ngIf="showFilterFlagAsesor">
+                <div class="toggle-container"> 
+                    <button *ngFor="let item of filter1" class="toggle-btn"
+                    [class.active]="selector1?.val === item.val"
+                    [class.inactive]="selector1?.val !== item.val"
+                    [disabled]="config.loading"
+                    (click)="onToggleSelect(item)">
+                    {{ item.label }}
+                    <!-- ✅ Indicador visual de carga en el botón activo -->
+                    <span *ngIf="config.loading && selector1?.val === item.val" class="loading-indicator">
+                        ⏳
+                    </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ✅ Overlay de carga para la tabla -->
+            <div class="table-container" fxFlex>
+                <!-- Spinner/Overlay cuando está cargando -->
+                <div *ngIf="config.loading" class="loading-overlay">
+                    <div class="spinner-container">
+                        <div class="spinner"></div>
+                        <span>Cargando datos...</span>
+                    </div>
+                </div>
+                
+                <!-- Tabla principal -->
+                <stg-table2 
+                    [style.opacity]="config.loading ? '0.5' : '1'"
+                    [dataSource]="config.dataTable" 
+                    [options]="tblOpts" 
+                    [headers]="config.dataHeaders"
+                    (onClickCell)="ddEvent($event)">
+                </stg-table2>
+            </div>
+            
+            <!-- <div [ngClass]="{ 'tbl-mov': layout.isMobile, 'tbl': !layout.isMobile }">
+                <stg-table2 fxFlex [dataSource]="config.dataTable" [options]="tblOpts" [headers]="config.dataHeaders"
+                    (onClickCell)="ddEvent($event)" >
+                </stg-table2>
+            </div>    -->
+        </div>
+
+         <div> <span class="piepag">
+        Var.Mes→ Var fecha actual vs. el cierre de mes anterior. <br>
+        TMM - Tasa Mensual Móvil → Var. fecha actual vs. mismo día del mes anterior.
+        </span> </div>
+
+
+    </div>
+
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,56 @@
+.base {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    @media only screen and (max-width: 959px) {
+        font-size: 12px;
+    }
+    .c{
+        padding: 3px;
+
+        .m {
+            font-size: 14px;
+            font-weight: bold;
+            color: #009fe3;
+            @media only screen and (max-width: 959px) {
+                font-size: 12px;
+            }
+        }
+
+        .mt {
+            font-size: 18px;
+            font-weight: bold;
+            color: #009fe3;
+            @media only screen and (max-width: 959px) {
+                font-size: 17px;
+            }
+        }
+
+        .ms {
+            font-size: 12px;
+            font-weight: bold;
+            @media only screen and (max-width: 959px) {
+                font-size: 10px;
+            }
+        }
+    
+        .d {
+            font-size: 10px;
+            @media only screen and (max-width: 959px) {
+                font-size: 8px;
+            }
+        }
+    }
+    .s{
+        font-size: 12px;
+    }
+    
+}
+
+.cn{
+    color: #E3005B !important;
+}
+
+.cp{
+    color: #3bd136 !important;
+}

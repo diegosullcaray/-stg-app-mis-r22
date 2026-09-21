@@ -1,0 +1,39 @@
+<div fxLayout="column" fxFill>
+    <!--cabecera-->
+    <div fxLayout="row" style="height: 48px;">
+        <div fxFlex.gt-sm="10" fxLayoutAlign="start center" style="padding-left: 5px;background-color: white;">
+            <button mat-button (click)="toggleExplorer()">
+                <mat-icon style="color: black;">dehaze</mat-icon>
+            </button>
+        </div>
+        <div fxFlex style="background-color: white;">
+
+        </div>
+        <div fxHide fxShow.gt-sm fxFlex="10" style="background-color: white;"></div>
+    </div>
+    <div fxFlex style="overflow-y: auto;height: 100%;">
+        <mat-sidenav-container style="height: 100%;">
+            <mat-sidenav [style]="calcWidth()" mode="side" [(opened)]="layout.isMobile?openExplorerMob:openExplorerDesk" >
+                <mat-tab-group fxFlex style="overflow-y: auto;">
+                    <mat-tab label="Lineas">
+                        <ng-template matTabContent>
+                            <stg-basic-tree-sidenav [menuItems]="menuItems" (onSelectMenuItem)="selectSec($event)"></stg-basic-tree-sidenav>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Gestión" *ngIf="activeGes">
+                        <ng-template matTabContent>
+                            <stg-basic-tree-sidenav [menuItems]="menuItems2" (onSelectMenuItem)="selectSec($event)"></stg-basic-tree-sidenav>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+                
+            </mat-sidenav>
+
+            <mat-sidenav-content>
+                <div fxLayout="column" >
+                    <router-outlet></router-outlet>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+</div>

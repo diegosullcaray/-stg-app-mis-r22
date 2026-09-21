@@ -1,0 +1,36 @@
+<div class="stg-window" style="width:100%;height:100%" fxLayout="column">
+    <stg-window-bar *ngIf="dialog.title.enabled" [title]="dialog.title.text"></stg-window-bar>
+    <div style="padding: 5px;width: 100%;" [fxLayoutGap]="dialog.refreshButton.enabled?'5px':'0px'" fxLayout="row">
+        <ng-container *ngIf="dialog.searchBox.enabled">
+            <input type=text class="stg-input" [ngStyle]="dialog.searchBox.style"
+                [placeholder]="dialog.searchBox.placeholder" (keyup)="filter($event)">
+        </ng-container>
+        <ng-container *ngIf="dialog.refreshButton.enabled">
+            <stg-button icon="refresh" color="primary"></stg-button>
+        </ng-container>
+    </div>
+    <div fxFlex style="padding: 5px;">
+        <!--service.dataSource$ | async-->
+        <stg-table2 *ngIf="headers" [options]="table" [dataSource]="dataSource" [headers]="headers"
+            (onSelectRow)="selectRow($event)">
+        </stg-table2>
+    </div>
+    <div>
+        <ng-container *ngIf="dialog.paginator.enabled">
+            <stg-paginator *ngIf="showPaginator" #paginator [totalLenght]="dataSourceLenght" pageLenght="10"
+                (onChangePage)="changePage($event)">
+            </stg-paginator>
+        </ng-container>
+    </div>
+    <div style="padding: 10px 5px 10px 5px;" fxLayoutAlign.gt-sm="end center" fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <!--cdkFocusInitial-->
+        <button mat-raised-button color="primary" (click)="selectAndClose()" [disabled]="!dialog.selectButton.enabled">
+            {{dialog.selectButton.label}}
+        </button>
+        <button *ngIf="dialog.closeButton.enabled" mat-raised-button [mat-dialog-close]="undefined"
+            style="width: 105px;">
+            {{dialog.closeButton.label}}
+        </button>
+    </div>
+</div>

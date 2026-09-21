@@ -1,0 +1,9 @@
+<div *ngIf="!config.loading" style="width:100%;height:100%" fxLayout="column" class="stg-window">
+    <stg-window-bar [title]="'Detalle Clientes '+title" barIcon="info" titleAlign="start" closable=true
+        (onClose)="navMain()">
+    </stg-window-bar>
+    <div style="height: 100%;width: 100%;">
+        <ng-template *ngIf="!layout.isMobile" [ngTemplateOutlet]="contentTemplate"></ng-template>
+        <router-outlet *ngIf="layout.isMobile"></router-outlet>
+    </div>
+</div>

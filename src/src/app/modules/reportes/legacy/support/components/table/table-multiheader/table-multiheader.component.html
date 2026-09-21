@@ -1,0 +1,135 @@
+<div *ngIf='isInit' class="m-033">
+    <div class="content">
+        <div class="loading-shade" *ngIf="config_table.conf.isLoadingResults || config_table.conf.isErrorResults">
+            <mat-spinner *ngIf="config_table.conf.isLoadingResults" [diameter]="40"></mat-spinner>
+            <div class="rate-limit-reached" *ngIf="config_table.conf.isErrorResults">
+                Error Inesperado
+            </div>
+        </div>
+        <div *ngIf='isLoadingTable && !config_table.conf.isErrorResults'>
+            <mat-card class="mat-elevation-z"
+                        *ngIf="filterInput">
+                <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target)" placeholder="Filtrar">
+                </mat-form-field>
+            </mat-card>
+            <mat-card class="mat-elevation-z higher"
+                        *ngIf="annotation?.higher" 
+                        [innerHTML]="annotation?.higher"></mat-card>
+            <div class="table-container">
+                <table mat-table #table 
+                    [dataSource]="dataSource" 
+                    [ngStyle]="{'width':config_table.conf_init.width}"
+                    [ngClass]="config_table.conf_init.class">
+                        <ng-container  
+                            *ngFor="let c of columns"
+                            [cdkColumnDef]="c.columnDef" 
+                            [sticky]='c.sticky && isMovil'
+                            [stickyEnd]='c.stickyEnd && isMovil'>
+                            <th mat-header-cell *cdkHeaderCellDef 
+                                [attr.colspan]="c.cols" 
+                                [attr.rowspan]="c.rows"
+                                [ngClass]="{'hidden':c.hidden}"
+                                [ngStyle.lt-sm] = "{'border-right':c.format?.style?.border,'background-color':c.style?.background}"
+                                [ngStyle.gt-xs] = "{'border-right':c.format?.style?.border,'background-color':c.style?.background,
+                                                    'width':c.style?.desktop?.width,
+                                                    'max-width':c.style?.desktop?.width,
+                                                    'min-width':c.style?.desktop?.width}"
+                                [innerHTML]="c.header" ></th>
+                            <ng-container *ngIf="c.isdata">
+                                <td mat-cell  *cdkCellDef="let row"
+                                [ngStyle.gt-xs] = "{'border-right':c.format?.style?.border,'background':row['background_'+c.columnDef],
+                                                    'width':c.format?.type=='traffic-light'?style.width_gt_xs_tl:'',
+                                                    'max-width':c.format?.type=='traffic-light'?style.width_gt_xs_tl:'',
+                                                    'min-width':c.format?.type=='traffic-light'?style.width_gt_xs_tl:''}"
+                                [ngStyle.lt-sm]="{'border-right':c.format?.style?.border,'background':row['background_'+c.columnDef]}"
+                                [ngClass]="{'traffic-light':c.format?.type=='traffic-light',
+                                            'variation':c.format?.type=='variation',
+                                            'ratio':c.format?.type=='ratio',
+                                            'number':c.format?.type=='number',
+                                            'string':c.format?.type=='string',
+                                            'date':c.format?.type=='date',
+                                            'percent':c.format?.type=='percent',
+                                            'level-1':row.style==2,'level-2':row.style==1,'level-3':row.style==0,'level-4':row.style==4,'level-5':row.style==5}">
+                                    <ng-container [ngSwitch]="c.format?.type">
+                                        <ng-container *ngSwitchCase="'traffic-light'">
+                                            <mat-icon
+                                                *ngIf="c.cell(row)!=undefined" 
+                                                
+                                                aria-label="Example home icon" 
+                                                [ngClass]="{'orange-icon':c.cell(row)==0,
+                                                            'red-icon':c.cell(row)==-1,
+                                                            'green-icon':c.cell(row)==1}"
+                                            >lens</mat-icon>
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'button'">
+                                            <button 
+                                                *ngIf="row['btn_'+c.columnDef]==undefined || row['btn_'+c.columnDef]"
+                                                mat-icon-button 
+                                                mat-sm-button 
+                                                color="accent" 
+                                                (click)="loadButton(row,c)">
+                                                <mat-icon>{{c.format?.action?.icon}}</mat-icon>{{c.format?.action?.desc}}
+                                            </button>
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'checkbox'">
+                                            <mat-checkbox 
+                                                *ngIf="row['chk_'+c.columnDef]==undefined || row['chk_'+c.columnDef]"
+                                                (click)="loadButton(row,c)">{{c.action?.desc}}</mat-checkbox>
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'radio'">
+                                            <mat-radio-button 
+                                                *ngIf="row['rbt_'+c.columnDef]==undefined || row['rbt_'+c.columnDef]"
+                                                (click)="loadButton(row,c)">{{c.action?.desc}}
+                                            </mat-radio-button>
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'variation'">
+                                            {{variation(row,c) | number:'.0-0'}}
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'ratio'">
+                                            {{ratio(row,c) | percent:'.2-2'}}
+                                        </ng-container>
+                                        <ng-container *ngSwitchDefault>
+                                            <span
+                                                [ngStyle]="{'color':row['color_'+c.columnDef]}" 
+                                                [ngClass]="{'green-text':row['style_'+c.columnDef]==1,
+                                                            'red-text':row['style_'+c.columnDef]==-1,
+                                                            'orange-text':row['style_'+c.columnDef]==0}">
+                                                            
+                                                {{c.cell(row) | localNumber: c.format}}
+                                            </span>
+                                        </ng-container>
+                                    </ng-container>
+                                </td>
+                                <!--<td mat-footer-cell *cdkFooterCellDef
+                                [attr.rowspan]="c.rows"
+                                [attr.colspan]="c.cols" 
+                                [ngClass]="{'spaced':c.spaced,'hidden':c.hidden}" [innerHTML]="c.header"></td>-->
+                            </ng-container>
+                        </ng-container>
+                    <ng-container *ngFor="let tr of displayedColumns">
+                        <tr mat-header-row *cdkHeaderRowDef="tr; sticky: true"></tr>
+                    </ng-container>
+                    <tr mat-row (click)="tr(row)"
+                        *matRowDef="let row; columns: displayedData;"
+                        [ngClass]="{'level-1':row.style==2,'level-2':row.style==1,'level-3':row.style==0,'level-4':row.style==4,'level-5':row.style==5}"
+                        [ngStyle]="{'background':row.background}"></tr>
+                    <!--<tr mat-footer-row *cdkFooterRowDef="displayedData;sticky: true"></tr>
+                    <ng-container *ngFor="let tr of displayedColumns">
+                        <tr mat-footer-row *cdkFooterRowDef="tr; sticky: true"></tr>
+                    </ng-container>-->
+                </table>
+                <div *ngIf="(noData | async) && !this.config_table.conf.isLoadingResults" class="no-records">
+                    {{annotation?.nodata!=undefined?annotation?.nodata:"No hay Registros"}}
+                </div>
+            </div>
+            <mat-paginator *ngIf='config_table.conf_init.paginator' [pageSize]="config_table.conf_init.paginator_size"
+                showFirstLastButtons></mat-paginator>
+            <mat-card class="mat-elevation-z lower" 
+                    *ngIf="annotation?.lower"
+                    [innerHTML]="annotation?.lower"></mat-card>
+        </div>
+    </div>
+</div>
+<!--[attr.format]="c.format?.type"
+10px solid #fff-->

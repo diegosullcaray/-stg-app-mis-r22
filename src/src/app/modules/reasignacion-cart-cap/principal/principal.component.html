@@ -1,0 +1,42 @@
+<div fxFill class="stg-mod-base">
+    <ng-scrollbar track="all">
+        <div class="stg-window base" fxLayout="column">
+            <stg-window-bar title="Reasignación Carterización de Captaciones" titleAlign="start" fontSize="20px"></stg-window-bar>
+            <div fxFlex fxLayout="column">
+                <stg-toolbar>
+                    <div fxLayout="row" fxFlex style="padding: 10px;">
+                        <div fxFlex fxLayoutGap="10px">
+                            <stg-button   icon="edit_note" hideTextOnMobil=true
+                            (click)="showEdit()" ><span>Editar</span>
+                            </stg-button>
+                            <stg-button icon="note_add" hideTextOnMobil=true
+                            (click)="showAdd()" ><span>Agregar</span>
+                            </stg-button> 
+                            <stg-button icon="delete" hideTextOnMobil=true
+                            (click)="showDelete()" ><span>Eliminar</span>
+                            </stg-button>
+                        </div> 
+                        <div fxFlex fxLayoutGap="10px">
+                        
+                        </div>
+                    </div>
+ 
+                </stg-toolbar>
+                <div style="padding: 10px;" fxFlex>
+                    <div style="height: 100%;" class="mat-tab-fill-height">
+                        <div style="height: 63%;padding: 10px;">
+                            <stg-table2 [options]="options" [headers]="headers"
+                                 [dataSource]="dataSources"  (onSelectRow)="setSelectedRow($event)"  >
+                             </stg-table2>
+                         </div> 
+                         <b style="color: red;font-weight: 700;font-size: .875rem;line-height: 1.5;font-size: 16px;">
+                            * Todos los cambios realizados en este panel, serán efectuados al día siguiente.
+                         </b>
+                    </div> 
+                </div>
+                
+            </div>
+        </div>
+    </ng-scrollbar>
+
+</div>

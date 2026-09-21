@@ -1,0 +1,183 @@
+::ng-deep td[key='descripcion'][style*="cursor: pointer"] {
+    cursor: pointer !important;
+    text-decoration: underline !important;
+    color: #007bff !important;
+  }
+  
+  ::ng-deep td[key='descripcion'][style*="cursor: pointer"]:hover {
+    color: #0056b3 !important;
+  }
+  .celda-link {
+    color: #007bff !important;
+    cursor: pointer !important;
+    text-decoration: underline !important;
+  }
+
+  .resaltado-hover {
+  background-color: #eef5ff;
+}
+
+.resaltado-hover:hover {
+  background-color: #d6e6ff;
+  cursor: pointer;  
+}
+
+//
+.header-with-date {
+  background: rgb(3, 80, 150);
+  //background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: white;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+   
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.date-selector-header {
+  position: relative;
+}
+.custom-select-container {
+  position: relative;
+  min-width: 250px;
+}
+.date-trigger {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+
+.date-trigger:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+.select-icon {
+  font-size: 16px;
+  color: rgb(3, 80, 150);
+}
+.select-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.select-value {
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+}
+.select-arrow {
+  color: white;
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.custom-select-trigger.open .select-arrow {
+  transform: rotate(180deg);
+}
+.custom-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid rgba(3, 80, 150, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.3s ease;
+}
+
+.custom-select-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  animation: slideDown 0.3s ease-out;
+}
+.select-options {
+  padding: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+/* Scrollbar personalizado para las opciones */
+.select-options::-webkit-scrollbar {
+  width: 6px;
+}
+
+.select-options::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.select-options::-webkit-scrollbar-thumb {
+  background: rgba(3, 80, 150, 0.3);
+  border-radius: 3px;
+}
+
+.select-options::-webkit-scrollbar-thumb:hover {
+  background: rgba(3, 80, 150, 0.5);
+}
+.select-option {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.select-option:hover {
+  background: rgba(3, 80, 150, 0.05);
+}
+
+.select-option.selected {
+  background: rgba(3, 80, 150, 0.1);
+  color: rgb(3, 80, 150);
+  font-weight: 600;
+}
+.select-option.selected .option-icon {
+  color: rgb(3, 80, 150);
+}
+.select-option.selected .option-text {
+  color: rgb(3, 80, 150);
+}
+.select-icon {
+  font-size: 16px;
+  color: rgb(3, 80, 150);
+}
+.option-text {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Animación de entrada */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

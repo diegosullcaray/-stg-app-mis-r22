@@ -1,0 +1,50 @@
+<!-- original report-cra-v1p4-->
+<div fxLayout="column">
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    <ng-container *ngIf="activeFilters">
+        <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)"></app-select-multiple>
+    </ng-container>
+    
+    <mat-tab-group>
+
+     
+
+    <mat-tab label="Resumen">
+
+             
+ 
+     <!--  <app-table-multiheader *ngFor='let c of configT;let i=index'[config_table]='config_table[i]'></app-table-multiheader> -->
+     <app-table-multiheader  [config_table]='config_table[0]'></app-table-multiheader>
+     <app-table-multiheader  [config_table]='config_table[1]'></app-table-multiheader>
+    </mat-tab>
+
+    <mat-tab label="Detalle">
+<!--
+        <mat-card class="mat-elevation-z m-033">
+            <div fxLayout="row wrap">
+
+                <div fxFlex="100" fxFlex.gt-sm="28" fxFlex.sm="33">
+                    <div class="m-033"> 
+                        <input matInput [formControl]="txt_asesor" placeholder="Asesor" #input> 
+                    </div>
+                </div>
+
+                <div fxFlex="100" fxFlex.gt-sm="28" fxFlex.sm="33"> 
+                    <div class="m-033"> 
+                    <button mat-raised-button color="primary" (click)="loadAsesor()">Buscar Asesor</button> 
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+-->
+
+      <app-table-multiheader  [config_table]='config_table[2]'></app-table-multiheader>
+      <!--<app-table-ajax [config_table]='config_table_ajax' (refresh)="loadAjax($event)"></app-table-ajax>-->
+    </mat-tab>
+    
+    </mat-tab-group>
+    <app-graphic-basic [config_graphic]='config_graphic'></app-graphic-basic>
+</div>

@@ -1,0 +1,17 @@
+<div *ngIf="!config.loading" fxFill fxLayout="column" fxLayoutGap="5px">
+    <div fxFlex>
+        <div style="height: 100%">
+            <stg-table2 fxFlex [dataSource]="config.ds1" [options]="config.opt1"
+                [headers]="config.hd1">
+            </stg-table2>
+        </div>
+    </div>
+    <div fxFlex="47">
+        <div style="height: 100%;padding-top: 5px;">
+            <stg-table2 fxFlex [dataSource]="config.ds2" [options]="config.opt1"
+                [headers]="config.hd2">
+            </stg-table2>
+        </div>
+    </div>
+</div>
+<blank-loader *ngIf="config.loading"></blank-loader>

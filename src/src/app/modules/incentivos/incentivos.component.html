@@ -1,0 +1,35 @@
+<div fxFill fxLayout="column" class="base">
+    <div fxFlex fxLayout="column">
+        <div fxFlex.gt-sm="10" fxFlex="20" fxLayout.gt-sm="row" fxLayout="column">
+            <div fxFlex="70" fxLayout="row" fxFlex.gt-sm="80">
+                <div  fxLayout="column" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="space-evenly start"
+                    [ngClass]="{'desk-3':!layout.isMobile,'mob-3':layout.isMobile}">
+                    <span [ngClass]="{'desk-1':!layout.isMobile,'mob-1':layout.isMobile}">{{name}}</span>
+                    <span [ngClass]="{'desk-2':!layout.isMobile,'mob-2':layout.isMobile}">
+                        {{position}}
+                    </span>
+                </div>
+                <div *ngIf="activeBtnSecSelect" style="padding: 0px 10px;" fxLayoutAlign="center center">
+                    <button mat-raised-button (click)="openSecSelector(false)"
+                    color="primary" [ngClass]="{'desk-4':!layout.isMobile,'mob-4':layout.isMobile}">
+                        <!-- <fa-icon [icon]="fa.repo['idBadge-r']"></fa-icon> -->
+                    </button>
+                </div>
+            </div>
+            <div fxFlex fxLayoutAlign="center center"
+                [ngClass]="{'desk-1':!layout.isMobile,'mob-1':layout.isMobile}">{{currentDate}}</div>
+        </div>
+        <mat-tab-group fxFlex style="overflow-y: auto;">
+            <mat-tab label="Resumen">
+                <ng-template matTabContent>
+                    <res-incentivos [dataSource]="dataSource" [loadingObs]="dataLoadObs" [cardsSource]="cardsSource" [extraSources]="otherSource"></res-incentivos>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="Calculadora" [disabled]="disableCalcTab">
+                <ng-template matTabContent>
+                    <calc-incentivos [dataSource]="dataSourceCalc" [cod_bt]="cod_bt" [cards]="cardsSourceCalc" [loadingObs]="calcDataLoadObs"></calc-incentivos>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<!-- PLANTILLA PARA PROYECCIONES-->
+<div fxLayout="column">
+        <ng-container *ngIf="activeHier">
+            <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+        </ng-container>
+        <ng-container *ngIf="activeFilters">
+            <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)"></app-select-multiple>
+        </ng-container>
+                    <!--<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple>-->
+             
+        <mat-tab-group>
+                <mat-tab label="Resumen">          
+                        <!--<app-table-multiheader  [config_table]='config_table[0]'></app-table-multiheader>
+                        <app-table-multiheader  [config_table]='config_table[1]'></app-table-multiheader>-->
+                        <app-table-multiheader  [config_table]='config_table[0]'></app-table-multiheader>
+                </mat-tab>
+                                
+                <mat-tab label="Detalle">
+                        <app-table-multiheader  [config_table]='config_table[1]'></app-table-multiheader>
+                        <!--<app-table-multiheader [config_table]='config_table[2]'></app-table-multiheader> 
+                        <app-table-multiheader [config_table]='config_table[3]'></app-table-multiheader>-->   
+                </mat-tab>
+                        
+        </mat-tab-group>
+        <app-graphic-basic [config_graphic]='config_graphic'></app-graphic-basic>
+</div>
+            

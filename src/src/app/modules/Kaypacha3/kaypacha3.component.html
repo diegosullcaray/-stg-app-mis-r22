@@ -1,0 +1,132 @@
+  <div   style="	background:#f1f1f1;   min-height: 100%;background-color: #fff; "     >
+<div    fxLayout="row"  style="	background:#f1f1f1" >
+    <div fxLayout="row" fxFlex> 
+    <div fxFlex="100" >
+        <div fxLayout="row wrap">
+            <div fxFlex="50" fxLayoutAlign="start center" style="color: rgba(0,0,0,.54);font-size: 12px;">
+                <img src="assets/images/fc/modules/kaypacha/logo.png" style="width: inherit;max-height: 150px; height: 100%;">
+            </div>
+            <div fxFlex="10" style="margin-top: 20px;" >
+                <button *ngIf="boton"  mat-button   class="bus-bot" (click)="openSearch()">
+                    <span class="material-icons" style="font-size: 36px;">
+                        switch_account
+                    </span>
+                </button>
+            </div>
+           
+             <div fxFlex="40" fxLayoutAlign="end center"  style="color: rgba(0,0,0,.54);font-size: 12px;">
+                    <img src="assets/images/fc/modules/kaypacha/logofc10-sinfondo2.png" style="width: 100%;margin-top: 2rem;max-height: 170px;">
+             </div>
+        </div>
+    </div>
+</div>
+</div>
+<div fxLayout="row" >
+    <div fxLayout="row" fxFlex >
+        <div fxFlex="100"  >
+            <div fxLayout="row wrap" style="height: 70px;">
+                <div fxFlex="7" fxLayoutAlign="start center" style="height: 70px" >
+                    <div  fxFlex style="padding-left: 15px;font-weight: bold;padding-top: 10px; "><span  style="border-radius: 5px;border: 2px solid rgb(3, 80, 150); background-color:rgb(3, 80, 150); color: #ffffff; padding: 4px; font-size: 17px;" >ASESOR:</span>   </div>   
+                </div>
+                <div fxFlex="43" fxLayoutAlign="start center" style="height: 70px;font-weight: bold;padding-top: 10px;" >
+                    <div style="border-radius: 5px;border: 2px solid rgb(3, 80, 150);   color: black; font-size: 17px; padding: 4px; margin-left: 5px; width: 50%;">{{nombreUsuario}} </div>
+                </div>
+                <div *ngIf="posicion <= '20'"   fxFlex="15" fxLayoutAlign="center center"  style="color: rgba(0,0,0,.54);font-size: 12px;">
+                    <img  src="assets/images/fc/modules/kaypacha/PlataformaMIS2.png" style="width: 100%;margin-top: 1rem;max-height: 180px;">
+                </div>
+                <div *ngIf="posicion > '20'"   fxFlex="15" fxLayoutAlign="center center"  style="color: rgba(0,0,0,.54);font-size: 12px;">
+                    <img  src="assets/images/fc/modules/kaypacha/PlataformaMIS1.png" style="width: 100%;margin-top: 1rem;max-height: 180px;">
+                </div>
+                <div fxFlex="35" fxLayoutAlign="end center" style="margin-top: 10px;">
+                    <mat-card class="pos-card2"  fxLayout="column" style="background: #efb810;"  fxLayoutAlign="center center" style="width: 210px;margin-left: 15px;height: 110px;" >
+                        <span style="font-weight:700;font-size: 16px;" >Puntaje Promedio Final</span>
+                        <span style="font-size: 28px; font-weight: bold;">{{puntajeFinal}}</span>
+                    </mat-card>
+                    <mat-card class="pos-card"  fxLayout="column"  fxLayoutAlign="center center" style="width: 210px;margin-left: 18px;height: 110px;">
+                        <span style="font-weight:700;font-size: 16px;">Posición</span>
+                        <span style="font-size: 28px; font-weight: bold;">{{posicion}}</span>
+                    </mat-card>
+                </div>
+               
+            </div>    
+            
+        </div>
+    </div>
+
+</div>
+<div fxLayout="row" >
+    <div fxLayout="row" fxFlex >
+        <div fxFlex="100"  >
+            <div fxLayout="row wrap">
+                <div fxFlex="7" fxLayoutAlign="start center">
+                    <div fxFlex style="padding-left: 15px;font-weight: bold;padding-top: 2px; margin-top: 2px; "><span style="border-radius: 5px;border: 2px solid rgb(3, 80, 150); background-color:rgb(3, 80, 150); color: #ffffff; padding: 4px; font-size: 17px;">CARGO:   </span> </div>
+                </div>
+                <div fxFlex="43" fxLayoutAlign="start center" style="height: 70px;font-weight: bold;padding-top: 10px;" >
+                    <div style="border-radius: 5px;border: 2px solid rgb(3, 80, 150);   color: black; font-size: 17px; padding: 4px;  margin-left: 5px; width: 50%;">{{cargo}}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> 
+ 
+ 
+           <div style="height: 10%;   padding-top: 20px; margin-top: 20px;"   >
+                <stg-window-bar title="Puntos Acumulados" titleAlign="start" fontSize="20px" style="background: rgb(3, 80, 150);color: white;font-size: 20px;flex-direction: row;box-sizing: border-box;display: flex;place-content: center flex-start;align-items: center;margin-left: 18px;margin-right: 18px;border-radius: 25px 20px 0px 0px;border-top-right-radius: 5px;border-top-left-radius: 5px;border-bottom: 1px solid #e9e9ef; "></stg-window-bar>
+                <div fxFlexFill  style="height: 200px;min-width: 100%;width: 100%;flex-direction: row;box-sizing: border-box;display: flex;">
+                    <div fxFlex fxLayout="row"  fxLayout.xs="column"  style="height: 200px;"  >
+                        <div style="padding: 10px;" fxFlex="50" fxFlex.gt-xs="100"  fxFlex.xs="100" class="conten"> 
+                            
+                        <stg-table2 [options]="options" [dataSource]="dataSources" 
+                                    [headers]="headers" [optionsObserver]="optObs"   >
+                        </stg-table2>
+                    
+                        </div>
+                        <div style="padding: 10px;" fxFlex="50" fxFlex.gt-xs="100" fxFlex.xs="100" class="conten" > 
+                            
+                            <stg-table2 [options]="options" [dataSource]="dataSources" 
+                                        [headers]="headers1_1" [optionsObserver]="optObs"   >
+                            </stg-table2>
+                        
+                        </div>  
+                    </div>
+                </div> 
+                
+                
+            </div>    
+
+            <!--NO  <div style="height: 30%; background: #fff; padding-top: 1px;"   > -->
+
+
+     <div style="height: 10%;   padding-top: 20px; margin-top: 20px;"   >
+    <stg-window-bar title="Variables Históricas" titleAlign="start" fontSize="20px" class="stgwindows" style="background: rgb(3, 80, 150);color: white;font-size: 20px;flex-direction: row; display: flex; align-items: center;margin-left: 18px;margin-right: 18px;border-top-right-radius: 5px;border-top-left-radius: 5px; border-bottom: 0px !important;"  ></stg-window-bar>
+    <div fxFlexFill style="height: 215px;min-width: 100%;width: 100%;flex-direction: row;box-sizing: border-box;display: flex; border-bottom: 0px !important;">
+         
+        <div fxFlex fxLayout="row"   fxLayout.xs="column" style="height: 210px;"   >
+            <div style="padding: 10px;" fxFlex="50" fxFlex.gt-xs="100"  fxFlex.xs="100" class="conten"> 
+                
+            <stg-table2 [options]="options" [dataSource]="dataSources2" 
+                        [headers]="headers2" [optionsObserver]="optObs">
+            </stg-table2>
+        
+            </div>
+            <div style="padding: 10px;" fxFlex="50" fxFlex.gt-xs="100" fxFlex.xs="100" class="conten"> 
+                
+                <stg-table2 [options]="options" [dataSource]="dataSources2" 
+                            [headers]="headers2_2" [optionsObserver]="optObs">
+                </stg-table2>
+             
+                </div>
+        </div>
+    </div> 
+  
+     
+</div> 
+    
+</div>    
+
+ 
+<!-- <div fxfill style="background-color: #fff; height : 20px"></div>
+<div fxFill class="base"></div>
+<div fxfill style="background-color: #fff; height : 20px"></div> -->
+     

@@ -1,0 +1,152 @@
+<div class="dashboard-container">
+   
+  <div class="dashboard-header">
+    <div class="header-left">
+      <h1 class="dashboard-title" style="color: #ffffff;">Dashboard Analista</h1>
+      <div class="nav-wrapper">
+        <button class="nav-btn" 
+                [class.active]="isActiveTab('credito')"
+                (click)="changeTab('credito')">
+          Crédito
+        </button>
+        <button class="nav-btn" 
+                [class.active]="isActiveTab('metrica')"
+                (click)="changeTab('metrica')">
+          Digital
+        </button>
+        <button class="nav-btn" 
+                [class.active]="isActiveTab('seguros')"
+                (click)="changeTab('seguros')">
+          Seguros
+        </button>
+       <button class="nav-btn" 
+                [class.active]="isActiveTab('categorizacion')"
+                (click)="changeTab('categorizacion')">
+          Categorización
+        </button> 
+         <!-- <button class="nav-btn" 
+                [class.active]="isActiveTab('desembolsos')"
+                (click)="changeTab('desembolsos')">
+          Desembolsos
+        </button>
+        <button class="nav-btn" 
+                [class.active]="isActiveTab('efectividad')"
+                (click)="changeTab('efectividad')">
+          Efectividad
+        </button>
+        -->
+      </div>
+    </div>
+  </div>
+ 
+  <div class="dashboard-layout">
+     
+    <aside class="sidebar"> 
+      <div class="profile-card">
+        <img class="profile-img" [src]="perfil.usu.img_url" alt="Perfil" referrerpolicy="no-referrer">
+        <h2 class="profile-name" style="color: #ffffff;">{{perfil.usu.nom}}</h2>
+        <p class="profile-title">{{perfil.usu.carg}}</p>
+        
+        <div class="score-badge">
+          <p class="score-value">89.8</p>
+          <p class="score-label">SCORE GLOBAL</p>
+        </div>
+      </div>
+ 
+      <div class="chart-card">
+        <h3 class="chart-title">TENDENCIA</h3>
+        <div class="chart-placeholder">
+          <canvas baseChart
+          [data]="demoradarChartData"
+          [type]="radarChartType"
+          [options]="radarChartOptions"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)">
+        </canvas>
+        </div>
+      </div>
+    </aside>
+ 
+    <main class="main-content" style="height: 490px;">
+       
+      <div class="metrics-row">
+        <div class="metric-card blue">
+          <p class="metric-label">{{getCurrentConfig().card1}}</p>
+          <p class="metric-value" style="color: #ffffff;">{{VariableCard1 ?? 0}}</p>
+        </div>
+        <div class="metric-card green">
+          <p class="metric-label">{{getCurrentConfig().card2}}</p>
+          <p class="metric-value" style="color: #ffffff;">{{VariableCard2 ?? 0}}</p>
+        </div>
+        <div class="metric-card purple">
+          <p class="metric-label">{{getCurrentConfig().card3}}</p>
+          <p class="metric-value" style="color: #ffffff;">{{VariableCard3 ?? 0}}</p>
+        </div>
+        <div class="metric-card cyan">
+          <p class="metric-label">{{getCurrentConfig().card4}}</p>
+          <p class="metric-value" style="color: #ffffff;">{{VariableCard4 ?? 0}}</p>
+          <div class="card-footer-links" *ngIf="Ccategorizacion">
+            <a href="https://mfbbva.csod.com/login/render.aspx?id=defaultclp&CLP=false" target="_blank" class="footer-link">
+              Si no eres apto, ingresa aquí
+            </a>
+            <a href="https://docs.google.com/presentation/d/1tJrj2KN3KXtQVLU0OCBS4n4NUsR1BwVykEa1SUV6kCs/edit#slide=id.p1" target="_blank" class="footer-link">
+              Guía para desarrollar el catálogo: Link
+            </a>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="table-section">
+        <div class="table-header">
+          <h2 class="table-title" style="color: #ffffff;">Indicadores Detallados</h2>
+        </div>
+        <div class="table-wrapper">
+          <stg-table2 
+            [dataSource]="dataSource" 
+            [headers]="headerDefs" 
+            [options]="Opts">
+          </stg-table2>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+
+  <!-- Modal para mostrar detalles del punto del radar -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: #ffffff;">Detalle: {{ selectedPoint?.label }}</h3>
+        <button class="modal-close" (click)="closeModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-info-item">
+          <span class="modal-info-label">Categoría</span>
+          <span class="modal-info-value">{{ selectedPoint?.label }}</span>
+        </div>
+        
+        <div class="modal-info-item">
+          <span class="modal-info-label">Tipo</span>
+          <span class="modal-info-value" [style.color]="selectedPoint?.color">
+            {{ selectedPoint?.dataset }}
+          </span>
+        </div>
+        
+        <div class="modal-info-item">
+          <span class="modal-info-label">Valor</span>
+          <span class="modal-info-value">{{ selectedPoint?.value }}</span>
+        </div>
+        
+        <div class="modal-info-item">
+          <span class="modal-info-label">Estado</span>
+          <span class="modal-info-value" 
+                [style.color]="selectedPoint?.value >= 80 ? '#10b981' : selectedPoint?.value >= 60 ? '#f59e0b' : '#f87171'">
+            {{ selectedPoint?.value >= 80 ? 'Excelente' : selectedPoint?.value >= 60 ? 'Bueno' : 'Necesita mejorar' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

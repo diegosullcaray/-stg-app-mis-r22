@@ -1,0 +1,47 @@
+<div>
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    
+    <div style="height: 10px;"></div>
+    
+    <div style="padding: 10px;">
+        <div class="stg-window">
+            <stg-window-bar [title]="mainTitle" ></stg-window-bar>
+           
+            <div class="stg-panel"> 
+                <mat-select class="combo" [formControlName]="reaccion.variable">
+                        <mat-option *ngFor="let r of reaccion.data" [value]="r.id">{{r.desc}}
+                        </mat-option>
+                    </mat-select>
+   
+
+                <div style="padding: 0px 10px;">
+                    <mat-tab-group fxFlex style="overflow-y: auto;">
+                        <mat-tab label="Precosechas">
+                            <ng-template matTabContent>
+                                <div fxLayout="column">
+                                    <div style="height: 10px;"></div>
+                                    <span class="tbl-title">
+                                     LISTO DE PRECOSECHAS
+                                    </span>
+                                    <div style="height: 10px;"></div>
+                                    <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource1" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler">
+                                    </stg-table>
+                                    <div class="low-ltrs" fxLayout="column">
+                                        <span>Texto</span> 
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

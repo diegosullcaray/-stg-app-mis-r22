@@ -1,0 +1,36 @@
+<div fxFill class="stg-mod-base">
+    <div class="stg-window base" fxLayout="column" style="height: 100%;">
+        <stg-window-bar [title]="title" fontSize="16px" (onClose)="navMain()"></stg-window-bar>
+        <div fxlayout="row" style="padding: 10px 15px;">
+            <div fxlayoutAlign="start center" fxLayoutGap="5px">
+                <span style="font-weight: bold;">Analista:</span><span>{{analista.nom_sec}}</span>
+            </div>
+            <div fxFlex fxLayoutAlign="end center" *ngIf="analista.tip_use!=1">
+                <stg-button icon="person" color="primary" (click)="openSecPicker()"></stg-button>
+            </div>
+        </div>
+        <div fxLayout="row" *ngIf="dataSourceLength>0" fxlayoutAlign="start center" style="padding: 0px 15px;"
+            fxLayoutGap="5px">
+            <div fxFlex>
+                <span style="font-weight: bold;">Total registros:</span><span>{{dataSourceLength}}</span>
+            </div>
+            <!-- <div fxLayout="column" fxLayout.gt-sm="row">
+                <ng-container *ngFor="let cb of checkFilters">
+                    <span>
+                        <mat-checkbox color="primary" style="margin: 0 12px" (change)="checkFilter(cb.key)"></mat-checkbox>{{cb.label}}
+                    </span>
+                </ng-container>
+            </div> -->
+        </div>
+        <div fxFlex style="padding: 15px;" fxlayout="column">
+            <stg-table2 *ngIf="dataSourceLength>0 || loadingDataSource" [options]="tableOptions" [dataSource]="dataSource"
+                [headers]="headers">
+            </stg-table2>
+            <div *ngIf="emptyDataSource===1" fxLayoutAlign="center center" fxLayout="column">
+                <span class="material-icons" style="font-size: 64px;">search</span>
+                <span style="font-size: 24px;font-weight: bold;">No se encontraron registros.</span>
+            </div>
+        </div>
+
+    </div>
+</div>

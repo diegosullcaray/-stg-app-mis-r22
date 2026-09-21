@@ -1,0 +1,80 @@
+<!--
+    
+<app-select-group [config_select_group]='config_select_group' (refresh)="load($event)"></app-select-group>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)">
+</app-select-multiple>
+    
+
+-->
+<div fxLayout="column">
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    
+        <app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple>
+ 
+    
+    <mat-tab-group>
+        <mat-tab label="Monitor de Efectividades">
+            <app-table-multiheader  [config_table]='config_table[0]'></app-table-multiheader>
+            <!--<div fxLayout="row" fxLayout.lt-md="column" >
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                    <app-table-multiheader  [config_table]='config_table[2]'></app-table-multiheader>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+                    <app-table-multiheader  [config_table]='config_table[3]'></app-table-multiheader>
+                </div>
+            </div>--->
+        </mat-tab>
+        <mat-tab label="Detalle de Efectividades">
+            <!--<mat-card *ngIf="active_db" class="mat-elevation-z m-033">
+                <div fxFlex="100" fxLayoutAlign="end">
+                    <div class="m-033">
+                        <button mat-raised-button color="primary" (click)="downloadDetail()">Descarga Detalle</button>
+                    </div>
+                </div>
+            </mat-card>-->
+            <app-select-multiple [config_select_multiple]='config_select_multiple_ajax' (refresh)="loadFilterAjax($event)">
+            </app-select-multiple>
+            <mat-card class="mat-elevation-z m-033">
+                <div fxLayout="row wrap">
+                    <div fxFlex="100" fxFlex.gt-sm="16" fxFlex.sm="33">
+                        <div class="m-033">
+                            <app-select-basic (refresh)="loadF($event)" [config_select]='config_select'></app-select-basic>
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxFlex.gt-sm="28" fxFlex.sm="33">
+                        <div class="m-033">
+                            <mat-form-field class="example-full-width" style="width:100%">
+                                <!-- <mat-label>Fecha Compromiso</mat-label> 
+                                <input matInput [matDatepicker]="picker" (dateChange)="fechapicker($event)">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker> -->
+                                <mat-label>Fecha Compromiso</mat-label> 
+                                <input matInput [matDatepicker]="picker" placeholder=""
+                                (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                         <mat-datepicker #picker disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+    
+                    <div fxFlex="100" fxFlex.gt-sm="28" fxFlex.sm="33">
+                        <div class="m-033">
+                            <mat-form-field class="example-full-width" style="width:100%">
+                                <input matInput [formControl]="txt_asesor" placeholder="Asesor" #input>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxFlex.gt-sm="28" fxFlex.sm="33">
+                        <div class="m-033">
+                            <button mat-raised-button color="primary" (click)="loadAsesor()">Buscar Asesor</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            
+            <app-table-ajax [config_table]='config_table_ajax' (refresh)="loadAjax($event)"></app-table-ajax>
+        </mat-tab>
+    </mat-tab-group>
+</div>

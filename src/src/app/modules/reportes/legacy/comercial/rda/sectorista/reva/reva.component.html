@@ -1,0 +1,2432 @@
+<div class="row">
+    <div class="col-md-6 col-md-2 col-sm-6 col-lg-12" style="text-align:center">
+        <p style="color: #164d90;margin:20px;font-size: 15px;">
+            Estamos trabajando para mejorar esta herramienta y sea más útil para tu seguimiento de metas. Agradecemos
+            tu comprensión, te mantendremos informado.
+        </p>
+    </div>
+    <div class="col-md-6 col-md-8 col-sm-6 col-lg-12" style="text-align:center">
+        <img src="./assets/images/enconstruccion.jpg" style="width:40%;height:40%;margin:20px">
+    </div>
+    <div class="col-md-6 col-md-2 col-sm-6 col-lg-12" style="text-align:center">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-2 col-sm-6 col-lg-12" style="text-align:center">
+        <p style="color: #164d90;margin:20px;font-size: 15px;">Puede descargar los simuladores de REVA en los
+            siguientes enlaces:</p>
+        <a href="https://drive.google.com/open?id=1YpTcOFjYd9ThMnRxwauauYg2mf6urkFe" style="color:green" target="_blank">REVA
+            IND</a>
+        <br />
+        <a href="https://drive.google.com/open?id=1MUW5ker9z_YFViJuCInauROEMXmIZG4v" style="color:green" target="_blank">REVA
+            PDM</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<h2 class="text-center">REVA</h2>
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="50" class="m-033" *ngIf="!this.isSec" style="align-self: flex-end">
+        <app-search-sec  *ngIf="$asesores | async;else load_asesores" (refresh)="render($event)" [data]="dataFilter"></app-search-sec>
+    </div>
+    <div fxFlex="100" fxFlex.gt-xs="20" class="m-033" *ngIf="isTipo==0">
+        <mat-form-field style="width: 100%">
+            <mat-label>Portafolio</mat-label>
+            <mat-select [formControl]="portafolio">
+                <mat-option [value]="1">Individual</mat-option>
+                <mat-option [value]="2">PDM</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="20">
+        <mat-checkbox class="m-033" (change)="isSimulated=!isSimulated">Mostrar Simulador</mat-checkbox>
+    </div>
+</div>
+<div fxLayout="row wrap" *ngIf="$reva | async;else load_reva">
+    <div fxFlex="100" fxFlex.gt-xs="10" *ngIf="isSimulated">
+        <button mat-raised-button color="primary" class="m-033" (click)="renderSimular()">Simular</button>
+    </div>
+    <div fxFlex="100">
+        <div class="m-033 content-container" *ngIf="portafolio.value==1 && isTipo==1">
+            <perfect-scrollbar [config]="config" [ngStyle]="{'max-height.px': screenHeight}">
+                <table class="t-reva " [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <thead>
+                        <tr>
+                            <td rowspan="2" class="sticky-top-left var" style="min-width: 50px;">
+                                <label fxHide fxShow.gt-xs>Variables / Valores</label>
+                                <label fxHide fxShow.xs>Var.</label>
+                            </td>
+                            <td colspan="7" class="sticky-top-1 var0">VALORES REALES</td>
+                            <td colspan="4" class="sticky-top-1 var0" *ngIf="isSimulated"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                VALORES SIMULADOS
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sticky-top-2 var" style="min-width:40px"></td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Valor</td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Meta</td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Cump.</td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Peso</td>
+                            <td class="sticky-top-2 var" style="min-width:60px">PJ. Mes</td>
+                            <td class="sticky-top-2 var" style="min-width:60px">PJ. Tri</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td class="sticky-top-2 var" style="min-width:40px"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td style="min-width:80px"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    class="sticky-top-2 var">Valor S.</td>
+                                <td style="min-width:60px"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    class="sticky-top-2 var">PJ. Mes</td>
+                                <td style="min-width:60px"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    class="sticky-top-2 var">PJ. Tri</td>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Saldo Capital</label>
+                                <label fxHide fxShow.xs>SC</label>
+                            </td>
+                            <td></td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('sal_cap').get('val_re1').value!=null}">{{ fInd.get('sal_cap').get('val_re').value}}</label><br>
+                                {{ fInd.get('sal_cap').get('val_re1').value}}
+                            </td>
+                            <td>{{ fInd.get('sal_cap').get('meta').value | number:'1.0-0' }}</td>
+                            <td>{{ fInd.get('sal_cap').get('cump').value  }}</td>
+                            <td>{{ fInd.get('sal_cap').get('peso').value  }}</td>
+                            <td colspan="2"
+                                [ngClass]="{'dl-r':true,'semcumplr': fInd.get('sal_cap').get('semf_re').value==-1,'semcumplo': fInd.get('sal_cap').get('semf_re').value==0,'semcumplg': fInd.get('sal_cap').get('semf_re').value==1}">
+                                {{ fInd.get('sal_cap').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [ngClass]="'dl-l'" 
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    style="width:1px">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.sal_cap.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': fInd.get('sal_cap').get('semf_re').value==-1,'semcumplo': fInd.get('sal_cap').get('semf_re').value==0,'semcumplg': fInd.get('sal_cap').get('semf_re').value==1}">
+                                    {{ fInd.get('sal_cap').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td rowspan="4" class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Operaciones Desembolsadas</label>
+                                <label fxHide fxShow.xs>OD</label>
+                            </td>
+                            <td> S1</td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('ope_desem').get('val_re1').get('0').value!=null}">{{ fInd.get('ope_desem').get('val_re').get('0').value}}</label><br>
+                                {{ fInd.get('ope_desem').get('val_re1').get('0').value}}
+                            </td>
+                            <td rowspan="4">{{ fInd.get('ope_desem').get('meta').value | number:'1.0-0' }}</td>
+                            <td rowspan="4">{{ fInd.get('ope_desem').get('cump').value  }}</td>
+                            <td rowspan="4">{{ fInd.get('ope_desem').get('peso').value  }}</td>
+                            <td rowspan="4" colspan="2"
+                                [ngClass]="{'dl-r':true,'semcumplr': fInd.get('ope_desem').get('semf_re').value==-1,'semcumplo': fInd.get('ope_desem').get('semf_re').value==0,'semcumplg': fInd.get('ope_desem').get('semf_re').value==1}">
+                                {{ fInd.get('ope_desem').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [ngClass]="'dl-l'" 
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S1</td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('0')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="4"
+                                    colspan="2"
+                                    [ngClass]="{'semcumplr': semNumOpePuntSim==-1,'semcumplo': semNumOpePuntSim==0,'semcumplg': semNumOpePuntSim==1}">
+                                    {{ fInd.get('ope_desem').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> S2</td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('ope_desem').get('val_re1').get('1').value!=null}">{{ fInd.get('ope_desem').get('val_re').get('1').value}}</label><br>
+                                {{ fInd.get('ope_desem').get('val_re1').get('1').value}}
+                            </td>
+                            <ng-container *ngIf="isSimulated">
+                                <td 
+                                [ngClass]="'dl-l'"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S2</td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('1')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> S3</td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('ope_desem').get('val_re1').get('2').value!=null}">{{ fInd.get('ope_desem').get('val_re').get('2').value}}</label><br>
+                                {{ fInd.get('ope_desem').get('val_re1').get('2').value}}
+                            </td>
+                            <ng-container *ngIf="isSimulated">
+                                <td 
+                                [ngClass]="'dl-l'"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S3</td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('2')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> S4</td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('ope_desem').get('val_re1').get('3').value!=null}">{{ fInd.get('ope_desem').get('val_re').get('3').value}}</label><br>
+                                {{ fInd.get('ope_desem').get('val_re1').get('3').value}}
+                            </td>
+                            <ng-container *ngIf="isSimulated">
+                                <td 
+                                [ngClass]="'dl-l'"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S4</td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('3')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Incremento de Clientes</label>
+                                <label fxHide fxShow.xs>IC</label>
+                            </td>
+                            <td> T-2</td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('incre_cli').get('val_re1').get('0').value!=null}">{{ fInd.get('incre_cli').get('val_re').get('0').value}}</label><br>
+                                {{ fInd.get('incre_cli').get('val_re1').get('0').value}}
+                            </td>
+                            <td>{{ fInd.get('incre_cli').get('meta').get('0').value  }}</td>
+                            <td rowspan="3">{{ fInd.get('incre_cli').get('cump').value  }}</td>
+                            <td rowspan="3">{{ fInd.get('incre_cli').get('peso').value  }}</td>
+                            <td rowspan="3"
+                                [ngClass]="{'semcumplr': fInd.get('incre_cli').get('semf_re').value==-1,'semcumplo': fInd.get('incre_cli').get('semf_re').value==0,'semcumplg': fInd.get('incre_cli').get('semf_re').value==1}">
+                                {{ fInd.get('incre_cli').get('pu_re').value  }}</td>
+                            <td rowspan="3"
+                                [ngClass]="{'dl-r':true,'semcumplr': fInd.get('incre_cli').get('semf_re_tri').value==-1,'semcumplo': fInd.get('incre_cli').get('semf_re_tri').value==0,'semcumplg': fInd.get('incre_cli').get('semf_re_tri').value==1}">
+                                {{ fInd.get('incre_cli').get('pu_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td rowspan="3" 
+                                [ngClass]="'dl-l'"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                </td>
+                                <td rowspan="3" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.incre_cli.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="3"
+                                    [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                                    {{ fInd.get('incre_cli').get('pu_si_me').value  }}</td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="3"
+                                    [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                                    {{ fInd.get('incre_cli').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> T-1</td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('incre_cli').get('val_re1').get('1').value!=null}">{{ fInd.get('incre_cli').get('val_re').get('1').value}}</label><br>
+                                {{ fInd.get('incre_cli').get('val_re1').get('1').value}}
+                            </td>
+                            <td>{{ fInd.get('incre_cli').get('meta').get('1').value  }}</td>
+                        </tr>
+                        <tr>
+                            <td> T</td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('incre_cli').get('val_re1').get('2').value!=null}">{{ fInd.get('incre_cli').get('val_re').get('2').value}}</label><br>
+                                {{ fInd.get('incre_cli').get('val_re1').get('2').value}}
+                            </td>
+                            <td>{{ fInd.get('incre_cli').get('meta').get('2').value  }}</td>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Efectividad -30-0</label>
+                                <label fxHide fxShow.xs>E -30-0</label>
+                            </td>
+                            <td></td>
+                            <td>{{fInd.get('efec_30_0').get('val_re').value  }}</td>
+                            <td>{{fInd.get('efec_30_0').get('meta').value | percent:'1.2'  }}</td>
+                            <td>{{fInd.get('efec_30_0').get('cump').value  }}</td>
+                            <td>{{fInd.get('efec_30_0').get('peso').value  }}</td>
+                            <td colspan="2"
+                                [ngClass]="{'dl-r':true,'semcumplr': fInd.get('efec_30_0').get('semf_re').value==-1,'semcumplo': fInd.get('efec_30_0').get('semf_re').value==0,'semcumplg': fInd.get('efec_30_0').get('semf_re').value==1}">
+                                {{fInd.get('efec_30_0').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [ngClass]="'dl-l'"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.efec_30_0.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semEfecN30T0PuntSim==-1,'semcumplo': semEfecN30T0PuntSim==0,'semcumplg': semEfecN30T0PuntSim==1}">
+                                    {{fInd.get('efec_30_0').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Efectividad 1-30</label>
+                                <label fxHide fxShow.xs>E 1-30</label>
+                            </td>
+                            <td></td>
+                            <td>{{fInd.get('efec_1_30').get('val_re').value  }}</td>
+                            <td>{{fInd.get('efec_1_30').get('meta').value | percent:'1.2'  }}</td>
+                            <td>{{fInd.get('efec_1_30').get('cump').value  }}</td>
+                            <td>{{fInd.get('efec_1_30').get('peso').value  }}</td>
+                            <td colspan="2"
+                                [ngClass]="{'dl-r':true,'semcumplr': fInd.get('efec_1_30').get('semf_re').value==-1,'semcumplo': fInd.get('efec_1_30').get('semf_re').value==0,'semcumplg': fInd.get('efec_1_30').get('semf_re').value==1}">
+                                {{fInd.get('efec_1_30').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td 
+                                [ngClass]="'dl-l'"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.efec_1_30.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semEfec1T30PuntSim==-1,'semcumplo': semEfec1T30PuntSim==0,'semcumplg': semEfec1T30PuntSim==1}">
+                                    {{fInd.get('efec_1_30').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Mora Contable Ajustada Castigos</label>
+                                <label fxHide fxShow.xs>MC</label>
+                            </td>
+                            <td></td>
+                            <td>
+                                <label [ngClass]="{'traslado':fInd.get('mora').get('val_re1').value!=null}">{{ fInd.get('mora').get('val_re').value}}</label><br>
+                                {{ fInd.get('mora').get('val_re1').value}}
+                            </td>
+                            <td>{{fInd.get('mora').get('meta').value | percent:'1.2'}}</td>
+                            <td>{{fInd.get('mora').get('cump').value  }}</td>
+                            <td>{{fInd.get('mora').get('peso').value  }}</td>
+                            <td colspan="2"
+                                [ngClass]="{'dl-r':true,'semcumplr': fInd.get('mora').get('semf_re').value==-1,'semcumplo': fInd.get('mora').get('semf_re').value==0,'semcumplg': fInd.get('mora').get('semf_re').value==1}">
+                                {{fInd.get('mora').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td
+                                [ngClass]="'dl-l'" 
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si" [formControl]="fInd.controls.mora.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                    {{fInd.get('mora').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="sticky-bottom-left var">
+                                <label fxHide fxShow.gt-xs>Puntaje</label>
+                                <label fxHide fxShow.xs>PJ.</label>
+                            </td>
+                            <td colspan="5" class="sticky-bottom total">REAL</td>
+                            <td class="sticky-bottom total"
+                                [ngClass]="{'semcumplr': fInd.get('total').get('semf_re').value==-1,'semcumplo': fInd.get('total').get('semf_re').value==0,'semcumplg': fInd.get('total').get('semf_re').value==1}">
+                                {{fInd.get('total').get('val_re').value  }}</td>
+                            <td class="sticky-bottom total"
+                                [ngClass]="{'semcumplr': fInd.get('total').get('semf_re_tri').value==-1,'semcumplo': fInd.get('total').get('semf_re_tri').value==0,'semcumplg': fInd.get('total').get('semf_re_tri').value==1}">
+                                {{fInd.get('total').get('val_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" colspan="2"
+                                    class="sticky-bottom total">SIMULADO</td>
+                                <td class="sticky-bottom total"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                                    {{fInd.get('total').get('pu_si_me').value  }}</td>
+                                <td class="sticky-bottom total"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                                    {{fInd.get('total').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                    </tfoot>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+    <div fxFlex="100">
+        <div class="m-033 content-container" *ngIf="portafolio.value==2 && isTipo==2">
+            <perfect-scrollbar [config]="config" [ngStyle]="{'max-height.px': screenHeight}">
+                <table class="t-reva " [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <thead>
+                        <tr>
+                            <td rowspan="2" class="sticky-top-left var" style="min-width: 50px;">
+                                <label fxHide fxShow.gt-xs>Variables / Valores</label>
+                                <label fxHide fxShow.xs>Var.</label>
+                            </td>
+                            <td colspan="6" class="sticky-top-1 var0">VALORES REALES</td>
+                            <td colspan="3" class="sticky-top-1 var0" *ngIf="isSimulated"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                VALORES SIMULADOS
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sticky-top-2 var" style="min-width:40px"></td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Valor</td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Meta</td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Cump.</td>
+                            <td class="sticky-top-2 var" style="min-width:80px">Peso</td>
+                            <td class="sticky-top-2 var" style="min-width:60px">PJ.</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td class="sticky-top-2 var" style="min-width:40px"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td style="min-width:80px"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    class="sticky-top-2 var">Valor S.</td>
+                                <td style="min-width:60px"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    class="sticky-top-2 var">PJ.</td>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Incremento de Clientes</label>
+                                <label fxHide fxShow.xs>IC</label>
+                            </td>
+                            <td> T-2</td>
+                            <td>{{ fPdm.get('incre_cli').get('val_re').get('0').value  }}</td>
+                            <td>{{ fPdm.get('incre_cli').get('meta').get('0').value  }}</td>
+                            <td rowspan="3">{{ fPdm.get('incre_cli').get('cump').value  }}</td>
+                            <td rowspan="3">{{ fPdm.get('incre_cli').get('peso').value  }}</td>
+                            <td rowspan="3"
+                                [ngClass]="{'semcumplr': fPdm.get('incre_cli').get('semf_re').value==-1,'semcumplo': fPdm.get('incre_cli').get('semf_re').value==0,'semcumplg': fPdm.get('incre_cli').get('semf_re').value==1}">
+                                {{ fPdm.get('incre_cli').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td rowspan="3" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                </td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fPdm.controls.incre_cli.get('val_si').get('0')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="3"
+                                [ngClass]="{'semcumplr': fPdm.get('incre_cli').get('semf_si_me').value==-1,'semcumplo': fPdm.get('incre_cli').get('semf_si_me').value==0,'semcumplg': fPdm.get('incre_cli').get('semf_si_me').value==1}">
+                                    {{ fPdm.get('incre_cli').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> T-1</td>
+                            <td>{{ fPdm.get('incre_cli').get('val_re').get('1').value  }}</td>
+                            <td>{{ fPdm.get('incre_cli').get('meta').get('1').value  }}</td>
+                            <td *ngIf="isSimulated" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                <mat-form-field appearance="outline" class="input-value">
+                                    <mat-label>Valor Simulado</mat-label>
+                                    <input matInput name="val_si"
+                                        [formControl]="fPdm.controls.incre_cli.get('val_si').get('1')"
+                                        placeholder="Valor Simulado" autocomplete="off">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> T</td>
+                            <td>{{ fPdm.get('incre_cli').get('val_re').get('2').value  }}</td>
+                            <td>{{ fPdm.get('incre_cli').get('meta').get('2').value  }}</td>
+                            <td *ngIf="isSimulated" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                <mat-form-field appearance="outline" class="input-value">
+                                    <mat-label>Valor Simulado</mat-label>
+                                    <input matInput name="val_si"
+                                        [formControl]="fPdm.controls.incre_cli.get('val_si').get('2')"
+                                        placeholder="Valor Simulado" autocomplete="off">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Clientes Promedio por Grupo Desembolsado</label>
+                                <label fxHide fxShow.xs>CPGD</label>
+                            </td>
+                            <td></td>
+                            <td>{{fPdm.get('cli_prom').get('val_re').value  }}</td>
+                            <td>{{fPdm.get('cli_prom').get('meta').value  }}</td>
+                            <td>{{fPdm.get('cli_prom').get('cump').value  }}</td>
+                            <td>{{fPdm.get('cli_prom').get('peso').value  }}</td>
+                            <td
+                            [ngClass]="{'semcumplr': fPdm.get('cli_prom').get('semf_re').value==-1,'semcumplo': fPdm.get('cli_prom').get('semf_re').value==0,'semcumplg': fPdm.get('cli_prom').get('semf_re').value==1}">
+                                {{fPdm.get('cli_prom').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fPdm.controls.cli_prom.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                    {{fPdm.get('cli_prom').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Clientes Desembolsados</label>
+                                <label fxHide fxShow.xs>CD</label>
+                            </td>
+                            <td></td>
+                            <td>{{fPdm.get('cli_desem').get('val_re').value  }}</td>
+                            <td>{{fPdm.get('cli_desem').get('meta').value  }}</td>
+                            <td>{{fPdm.get('cli_desem').get('cump').value  }}</td>
+                            <td>{{fPdm.get('cli_desem').get('peso').value  }}</td>
+                            <td
+                            [ngClass]="{'semcumplr': fPdm.get('cli_desem').get('semf_re').value==-1,'semcumplo': fPdm.get('cli_desem').get('semf_re').value==0,'semcumplg': fPdm.get('cli_desem').get('semf_re').value==1}">
+                                {{fPdm.get('cli_desem').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si"
+                                            [formControl]="fPdm.controls.cli_desem.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                    {{fPdm.get('cli_desem').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Mora > 1 día</label>
+                                <label fxHide fxShow.xs>M > 1 día</label>
+                            </td>
+                            <td></td>
+                            <td>{{fPdm.get('mora').get('val_re').value  }}</td>
+                            <td>{{fPdm.get('mora').get('meta').value | percent:'1.2'   }}</td>
+                            <td>{{fPdm.get('mora').get('cump').value  }}</td>
+                            <td>{{fPdm.get('mora').get('peso').value  }}</td>
+                            <td
+                            [ngClass]="{'semcumplr': fPdm.get('mora').get('semf_re').value==-1,'semcumplo': fPdm.get('mora').get('semf_re').value==0,'semcumplg': fPdm.get('mora').get('semf_re').value==1}">
+                                {{fPdm.get('mora').get('pu_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                    <mat-form-field appearance="outline" class="input-value">
+                                        <mat-label>Valor Simulado</mat-label>
+                                        <input matInput name="val_si" [formControl]="fPdm.controls.mora.get('val_si')"
+                                            placeholder="Valor Simulado" autocomplete="off">
+                                    </mat-form-field>
+                                </td>
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                    {{fPdm.get('mora').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="sticky-bottom-left var">
+                                <label fxHide fxShow.gt-xs>Puntaje</label>
+                                <label fxHide fxShow.xs>PJ.</label>
+                            </td>
+                            <td colspan="5" class="sticky-bottom total">REAL</td>
+                            <td class="sticky-bottom total"
+                            [ngClass]="{'semcumplr': fPdm.get('total').get('semf_re').value==-1,'semcumplo': fPdm.get('total').get('semf_re').value==0,'semcumplg': fPdm.get('total').get('semf_re').value==1}">
+                                {{fPdm.get('total').get('val_re').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" colspan="2"
+                                    class="sticky-bottom total">SIMULADO</td>
+                                <td class="sticky-bottom total"
+                                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                    [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                                    {{fPdm.get('total').get('pu_si_me').value  }}</td>
+                            </ng-container>
+                        </tr>
+                    </tfoot>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+</div>
+<ng-template #load_reva >
+    <div *ngIf="(state_2 | async) as e" class="m-033">
+        <strong [style.color]="e.color">{{e.text}}</strong>
+    </div>
+</ng-template>
+<ng-template #load_asesores>
+    <div class="example-full-width" style="width: 100%;" *ngIf="(state_1 | async) as e">
+        <mat-progress-bar
+            [mode]="e.pb.mode"
+            [color]="e.pb.color"
+            [value]="e.pb.value">
+        </mat-progress-bar>
+        <strong [style.color]="e.desc.color">{{e.desc.text}}</strong>
+    </div>
+</ng-template>
+
+-->
+
+<!--<div style="overflow: auto;" [ngStyle]="{'max-height.px': screenHeight}"
+    *ngIf="portafolio.value==1 && (isTipo==1 || isTipo==0)">
+    <table class="t-reva" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+        <thead>
+            <tr>
+                <td rowspan="2" class="sticky-top-left var" style="min-width: 50px;">
+                    <label fxHide fxShow.gt-xs>Variables / Valores</label>
+                    <label fxHide fxShow.xs>Var.</label>
+                </td>
+                <td colspan="7" class="sticky-top-1 var0">VALORES REALES</td>
+                <td colspan="4" class="sticky-top-1 var0" *ngIf="isSimulated"
+                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    VALORES SIMULADOS
+                </td>
+            </tr>
+            <tr>
+                <td class="sticky-top-2 var" style="min-width:40px"></td>
+                <td class="sticky-top-2 var" style="min-width:80px">Valor</td>
+                <td class="sticky-top-2 var" style="min-width:80px">Meta</td>
+                <td class="sticky-top-2 var" style="min-width:80px">Cump.</td>
+                <td class="sticky-top-2 var" style="min-width:80px">Peso</td>
+                <td class="sticky-top-2 var" style="min-width:60px">PJ. Mes</td>
+                <td class="sticky-top-2 var" style="min-width:60px">PJ. Tri</td>
+                <ng-container *ngIf="isSimulated">
+                    <td style="min-width:120px" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        class="sticky-top-2 var" colspan="2">Valor S.</td>
+                    <td style="min-width:60px" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        class="sticky-top-2 var">PJ. Mes</td>
+                    <td style="min-width:60px" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        class="sticky-top-2 var">PJ. Tri</td>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Saldo Capital</label>
+                    <label fxHide fxShow.xs>SC</label>
+                </td>
+                <td></td>
+                <td>{{ fInd.get('sal_cap').get('val_re').value  }}</td>
+                <td>{{ fInd.get('sal_cap').get('meta').value  }}</td>
+                <td>{{ fInd.get('sal_cap').get('cump').value  }}</td>
+                <td>{{ fInd.get('sal_cap').get('peso').value  }}</td>
+                <td colspan="2"
+                    [ngClass]="{'semcumplr': semSalCapPunt==-1,'semcumplo': semSalCapPunt==0,'semcumplg': semSalCapPunt==1}">
+                    {{ fInd.get('sal_cap').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" style="width:1px">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.sal_cap.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semSalCapPuntSim==-1,'semcumplo': semSalCapPuntSim==0,'semcumplg': semSalCapPuntSim==1}">
+                        {{ fInd.get('sal_cap').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+
+            <tr>
+                <td rowspan="4" class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Operaciones Desembolsadas</label>
+                    <label fxHide fxShow.xs>OD</label>
+                </td>
+                <td> S1</td>
+                <td>{{ fInd.get('ope_desem').get('val_re').get('0').value  }}</td>
+                <td rowspan="4">{{ fInd.get('ope_desem').get('meta').value  }}</td>
+                <td rowspan="4">{{ fInd.get('ope_desem').get('cump').value  }}</td>
+                <td rowspan="4">{{ fInd.get('ope_desem').get('peso').value  }}</td>
+                <td rowspan="4" colspan="2"
+                    [ngClass]="{'semcumplr': semNumOpePunt==-1,'semcumplo': semNumOpePunt==0,'semcumplg': semNumOpePunt==1}">
+                    {{ fInd.get('ope_desem').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S1</td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.ope_desem.get('val_si').get('0')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="4" colspan="2"
+                        [ngClass]="{'semcumplr': semNumOpePuntSim==-1,'semcumplo': semNumOpePuntSim==0,'semcumplg': semNumOpePuntSim==1}">
+                        {{ fInd.get('ope_desem').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td> S2</td>
+                <td>{{ fInd.get('ope_desem').get('val_re').get('1').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S2</td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.ope_desem.get('val_si').get('1')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td> S3</td>
+                <td>{{ fInd.get('ope_desem').get('val_re').get('2').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S3</td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.ope_desem.get('val_si').get('2')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td> S4</td>
+                <td>{{ fInd.get('ope_desem').get('val_re').get('3').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">S4</td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.ope_desem.get('val_si').get('3')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td rowspan="3" class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Incremento de Clientes</label>
+                    <label fxHide fxShow.xs>IC</label>
+                </td>
+                <td> T-2</td>
+                <td>{{ fInd.get('incre_cli').get('val_re').get('0').value  }}</td>
+                <td>{{ fInd.get('incre_cli').get('meta').get('0').value  }}</td>
+                <td rowspan="3">{{ fInd.get('incre_cli').get('cump').value  }}</td>
+                <td rowspan="3">{{ fInd.get('incre_cli').get('peso').value  }}</td>
+                <td rowspan="3"
+                    [ngClass]="{'semcumplr': semIncCliPromPunt==-1,'semcumplo': semIncCliPromPunt==0,'semcumplg': semIncCliPromPunt==1}">
+                    {{ fInd.get('incre_cli').get('pu_re').value  }}</td>
+                <td rowspan="3"
+                    [ngClass]="{'semcumplr': semIncCliPromPunt==-1,'semcumplo': semIncCliPromPunt==0,'semcumplg': semIncCliPromPunt==1}">
+                    {{ fInd.get('incre_cli').get('pu_re_tri').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td rowspan="3" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td rowspan="3" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.incre_cli.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="3"
+                        [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                        {{ fInd.get('incre_cli').get('pu_si_me').value  }}</td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="3"
+                        [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                        {{ fInd.get('incre_cli').get('pu_si_tri').value  }}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td> T-1</td>
+                <td>{{ fInd.get('incre_cli').get('val_re').get('1').value  }}</td>
+                <td>{{ fInd.get('incre_cli').get('meta').get('1').value  }}</td>
+            </tr>
+            <tr>
+                <td> T</td>
+                <td>{{ fInd.get('incre_cli').get('val_re').get('2').value  }}</td>
+                <td>{{ fInd.get('incre_cli').get('meta').get('2').value  }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Efectividad -30-0</label>
+                    <label fxHide fxShow.xs>E -30-0</label>
+                </td>
+                <td></td>
+                <td>{{fInd.get('efec_30_0').get('val_re').value  }}</td>
+                <td>{{fInd.get('efec_30_0').get('meta').value  }}</td>
+                <td>{{fInd.get('efec_30_0').get('cump').value  }}</td>
+                <td>{{fInd.get('efec_30_0').get('peso').value  }}</td>
+                <td colspan="2"
+                    [ngClass]="{'semcumplr': semEfecN30T0Punt==-1,'semcumplo': semEfecN30T0Punt==0,'semcumplg': semEfecN30T0Punt==1}">
+                    {{fInd.get('efec_30_0').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.efec_30_0.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semEfecN30T0PuntSim==-1,'semcumplo': semEfecN30T0PuntSim==0,'semcumplg': semEfecN30T0PuntSim==1}">
+                        {{fInd.get('efec_30_0').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Efectividad 1-30</label>
+                    <label fxHide fxShow.xs>E 1-30</label>
+                </td>
+                <td></td>
+                <td>{{fInd.get('efec_1_30').get('val_re').value  }}</td>
+                <td>{{fInd.get('efec_1_30').get('meta').value  }}</td>
+                <td>{{fInd.get('efec_1_30').get('cump').value  }}</td>
+                <td>{{fInd.get('efec_1_30').get('peso').value  }}</td>
+                <td colspan="2"
+                    [ngClass]="{'semcumplr': semEfec1T30Punt==-1,'semcumplo': semEfec1T30Punt==0,'semcumplg': semEfec1T30Punt==1}">
+                    {{fInd.get('efec_1_30').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.efec_1_30.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semEfec1T30PuntSim==-1,'semcumplo': semEfec1T30PuntSim==0,'semcumplg': semEfec1T30PuntSim==1}">
+                        {{fInd.get('efec_1_30').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Mora Contable Ajustada Castigos</label>
+                    <label fxHide fxShow.xs>MC</label>
+                </td>
+                <td></td>
+                <td>{{fInd.get('mora').get('val_re').value  }}</td>
+                <td>{{fInd.get('mora').get('meta').value  }}</td>
+                <td>{{fInd.get('mora').get('cump').value  }}</td>
+                <td>{{fInd.get('mora').get('peso').value  }}</td>
+                <td colspan="2"
+                    [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                    {{fInd.get('mora').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fInd.controls.mora.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td colspan="2" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                        {{fInd.get('mora').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="sticky-bottom-left var">
+                    <label fxHide fxShow.gt-xs>Puntaje</label>
+                    <label fxHide fxShow.xs>PJ.</label>
+                </td>
+                <td colspan="5" class="sticky-bottom total">REAL</td>
+                <td class="sticky-bottom total"
+                    [ngClass]="{'semcumplr': semFinalPunt==-1,'semcumplo': semFinalPunt==0,'semcumplg': semFinalPunt==1}">
+                    {{fInd.get('total').get('val_re').value  }}</td>
+                <td class="sticky-bottom total"
+                    [ngClass]="{'semcumplr': semFinalPunt==-1,'semcumplo': semFinalPunt==0,'semcumplg': semFinalPunt==1}">
+                    {{fInd.get('total').get('val_re_tri').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" colspan="2"
+                        class="sticky-bottom total">SIMULADO</td>
+                    <td class="sticky-bottom total" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                        {{fInd.get('total').get('pu_si_me').value  }}</td>
+                    <td class="sticky-bottom total" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                        {{fInd.get('total').get('pu_si_tri').value  }}</td>
+                </ng-container>
+            </tr>
+        </tfoot>
+    </table>
+</div>-->
+
+<!--<div style="overflow: auto" [ngStyle]="{'max-height.px': screenHeight}"
+    *ngIf="portafolio.value==2 && (isTipo==2 || isTipo==0)">
+    <table class="t-reva" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+        <thead>
+            <tr>
+                <td rowspan="2" class="sticky-top-left var" style="min-width: 50px;">
+                    <label fxHide fxShow.gt-xs>Variables / Valores</label>
+                    <label fxHide fxShow.xs>Var.</label>
+                </td>
+                <td colspan="6" class="sticky-top-1 var0">VALORES REALES</td>
+                <td colspan="3" class="sticky-top-1 var0" *ngIf="isSimulated"
+                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    VALORES SIMULADOS
+                </td>
+            </tr>
+            <tr>
+                <td class="sticky-top-2 var" style="min-width:40px"></td>
+                <td class="sticky-top-2 var" style="min-width:80px">Valor</td>
+                <td class="sticky-top-2 var" style="min-width:80px">Meta</td>
+                <td class="sticky-top-2 var" style="min-width:80px">Cump.</td>
+                <td class="sticky-top-2 var" style="min-width:80px">Peso</td>
+                <td class="sticky-top-2 var" style="min-width:60px">PJ.</td>
+                <ng-container *ngIf="isSimulated">
+                    <td style="min-width:120px" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        class="sticky-top-2 var" colspan="2">Valor S.</td>
+                    <td style="min-width:60px" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        class="sticky-top-2 var">PJ.</td>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3" class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Incremento de Clientes</label>
+                    <label fxHide fxShow.xs>IC</label>
+                </td>
+                <td> T-2</td>
+                <td>{{ fPdm.get('incre_cli').get('val_re').get('0').value  }}</td>
+                <td>{{ fPdm.get('incre_cli').get('meta').get('0').value  }}</td>
+                <td rowspan="3">{{ fPdm.get('incre_cli').get('cump').value  }}</td>
+                <td rowspan="3">{{ fPdm.get('incre_cli').get('peso').value  }}</td>
+                <td rowspan="3"
+                    [ngClass]="{'semcumplr': semIncCliPromPunt==-1,'semcumplo': semIncCliPromPunt==0,'semcumplg': semIncCliPromPunt==1}">
+                    {{ fPdm.get('incre_cli').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td rowspan="3" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fPdm.controls.incre_cli.get('val_si').get('0')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="3"
+                        [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                        {{ fPdm.get('incre_cli').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td> T-1</td>
+                <td>{{ fPdm.get('incre_cli').get('val_re').get('1').value  }}</td>
+                <td>{{ fPdm.get('incre_cli').get('meta').get('1').value  }}</td>
+                <td *ngIf="isSimulated" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-form-field appearance="outline" class="input-value">
+                        <mat-label>Valor Simulado</mat-label>
+                        <input matInput name="val_si" [formControl]="fPdm.controls.incre_cli.get('val_si').get('1')"
+                            placeholder="Valor Simulado" autocomplete="off">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td> T</td>
+                <td>{{ fPdm.get('incre_cli').get('val_re').get('2').value  }}</td>
+                <td>{{ fPdm.get('incre_cli').get('meta').get('2').value  }}</td>
+                <td *ngIf="isSimulated" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-form-field appearance="outline" class="input-value">
+                        <mat-label>Valor Simulado</mat-label>
+                        <input matInput name="val_si" [formControl]="fPdm.controls.incre_cli.get('val_si').get('2')"
+                            placeholder="Valor Simulado" autocomplete="off">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Clientes Promedio por Grupo Desembolsado</label>
+                    <label fxHide fxShow.xs>CPGD</label>
+                </td>
+                <td></td>
+                <td>{{fPdm.get('cli_prom').get('val_re').value  }}</td>
+                <td>{{fPdm.get('cli_prom').get('meta').value  }}</td>
+                <td>{{fPdm.get('cli_prom').get('cump').value  }}</td>
+                <td>{{fPdm.get('cli_prom').get('peso').value  }}</td>
+                <td
+                    [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                    {{fPdm.get('cli_prom').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fPdm.controls.cli_prom.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                        {{fPdm.get('cli_prom').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Clientes Desembolsados</label>
+                    <label fxHide fxShow.xs>CD</label>
+                </td>
+                <td></td>
+                <td>{{fPdm.get('cli_desem').get('val_re').value  }}</td>
+                <td>{{fPdm.get('cli_desem').get('meta').value  }}</td>
+                <td>{{fPdm.get('cli_desem').get('cump').value  }}</td>
+                <td>{{fPdm.get('cli_desem').get('peso').value  }}</td>
+                <td
+                    [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                    {{fPdm.get('cli_desem').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fPdm.controls.cli_desem.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                        {{fPdm.get('cli_desem').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td class="sticky-left var">
+                    <label fxHide fxShow.gt-xs>Mora > 1 día</label>
+                    <label fxHide fxShow.xs>M > 1 día</label>
+                </td>
+                <td></td>
+                <td>{{fPdm.get('mora').get('val_re').value  }}</td>
+                <td>{{fPdm.get('mora').get('meta').value  }}</td>
+                <td>{{fPdm.get('mora').get('cump').value  }}</td>
+                <td>{{fPdm.get('mora').get('peso').value  }}</td>
+                <td
+                    [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                    {{fPdm.get('mora').get('pu_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                        <mat-form-field appearance="outline" class="input-value">
+                            <mat-label>Valor Simulado</mat-label>
+                            <input matInput name="val_si" [formControl]="fPdm.controls.mora.get('val_si')"
+                                placeholder="Valor Simulado" autocomplete="off">
+                        </mat-form-field>
+                    </td>
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                        {{fPdm.get('mora').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="sticky-bottom-left var">
+                    <label fxHide fxShow.gt-xs>Puntaje</label>
+                    <label fxHide fxShow.xs>PJ.</label>
+                </td>
+                <td colspan="5" class="sticky-bottom total">REAL</td>
+                <td class="sticky-bottom total"
+                    [ngClass]="{'semcumplr': semFinalPunt==-1,'semcumplo': semFinalPunt==0,'semcumplg': semFinalPunt==1}">
+                    {{fInd.get('total').get('val_re').value  }}</td>
+                <ng-container *ngIf="isSimulated">
+                    <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" colspan="2"
+                        class="sticky-bottom total">SIMULADO</td>
+                    <td class="sticky-bottom total" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                        [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                        {{fInd.get('total').get('pu_si_me').value  }}</td>
+                </ng-container>
+            </tr>
+        </tfoot>
+    </table>
+</div>-->
+
+
+<!--<div class="horizontal-container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="stretch" fxFlex="100%">
+    <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
+        <perfect-scrollbar [config]="config">
+            <table class="t-reva" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                <thead>
+                    <tr>
+                        <td rowspan="2" class="sticky-top-left var" style="min-width: 50px;">
+                            <label fxHide fxShow.gt-xs>Variables / Valores</label>
+                            <label fxHide fxShow.xs>Var.</label>
+                        </td>
+                        <td colspan="6" class="sticky-top-1 var0">VALORES REALES</td>
+                        <td colspan="3" class="sticky-top-1 var0" *ngIf="isSimulated"
+                            [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                            VALORES SIMULADOS
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="sticky-top-2 var" style="min-width:40px"></td>
+                        <td class="sticky-top-2 var" style="min-width:80px">Valor</td>
+                        <td class="sticky-top-2 var" style="min-width:80px">Meta</td>
+                        <td class="sticky-top-2 var" style="min-width:80px">Cump.</td>
+                        <td class="sticky-top-2 var" style="min-width:80px">Peso</td>
+                        <td class="sticky-top-2 var" style="min-width:60px">PJ.</td>
+                        <ng-container *ngIf="isSimulated">
+                            <td style="min-width:120px"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                class="sticky-top-2 var" colspan="2">Valor S.</td>
+                            <td style="min-width:60px"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                class="sticky-top-2 var">PJ.</td>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3" class="sticky-left var">
+                            <label fxHide fxShow.gt-xs>Incremento de Clientes</label>
+                            <label fxHide fxShow.xs>IC</label>
+                        </td>
+                        <td> T-2</td>
+                        <td>{{ fPdm.get('incre_cli').get('val_re').get('0').value  }}</td>
+                        <td>{{ fPdm.get('incre_cli').get('meta').get('0').value  }}</td>
+                        <td rowspan="3">{{ fPdm.get('incre_cli').get('cump').value  }}</td>
+                        <td rowspan="3">{{ fPdm.get('incre_cli').get('peso').value  }}</td>
+                        <td rowspan="3"
+                            [ngClass]="{'semcumplr': semIncCliPromPunt==-1,'semcumplo': semIncCliPromPunt==0,'semcumplg': semIncCliPromPunt==1}">
+                            {{ fPdm.get('incre_cli').get('pu_re').value  }}</td>
+                        <ng-container *ngIf="isSimulated">
+                            <td rowspan="3" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                <mat-form-field appearance="outline" class="input-value">
+                                    <mat-label>Valor Simulado</mat-label>
+                                    <input matInput name="val_si"
+                                        [formControl]="fPdm.controls.incre_cli.get('val_si').get('0')"
+                                        placeholder="Valor Simulado" autocomplete="off">
+                                </mat-form-field>
+                            </td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" rowspan="3"
+                                [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                                {{ fPdm.get('incre_cli').get('pu_si_me').value  }}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td> T-1</td>
+                        <td>{{ fPdm.get('incre_cli').get('val_re').get('1').value  }}</td>
+                        <td>{{ fPdm.get('incre_cli').get('meta').get('1').value  }}</td>
+                        <td *ngIf="isSimulated" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                            <mat-form-field appearance="outline" class="input-value">
+                                <mat-label>Valor Simulado</mat-label>
+                                <input matInput name="val_si"
+                                    [formControl]="fPdm.controls.incre_cli.get('val_si').get('1')"
+                                    placeholder="Valor Simulado" autocomplete="off">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> T</td>
+                        <td>{{ fPdm.get('incre_cli').get('val_re').get('2').value  }}</td>
+                        <td>{{ fPdm.get('incre_cli').get('meta').get('2').value  }}</td>
+                        <td *ngIf="isSimulated" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                            <mat-form-field appearance="outline" class="input-value">
+                                <mat-label>Valor Simulado</mat-label>
+                                <input matInput name="val_si"
+                                    [formControl]="fPdm.controls.incre_cli.get('val_si').get('2')"
+                                    placeholder="Valor Simulado" autocomplete="off">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="sticky-left var">
+                            <label fxHide fxShow.gt-xs>Clientes Promedio por Grupo Desembolsado</label>
+                            <label fxHide fxShow.xs>CPGD</label>
+                        </td>
+                        <td></td>
+                        <td>{{fPdm.get('cli_prom').get('val_re').value  }}</td>
+                        <td>{{fPdm.get('cli_prom').get('meta').value  }}</td>
+                        <td>{{fPdm.get('cli_prom').get('cump').value  }}</td>
+                        <td>{{fPdm.get('cli_prom').get('peso').value  }}</td>
+                        <td
+                            [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                            {{fPdm.get('cli_prom').get('pu_re').value  }}</td>
+                        <ng-container *ngIf="isSimulated">
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                <mat-form-field appearance="outline" class="input-value">
+                                    <mat-label>Valor Simulado</mat-label>
+                                    <input matInput name="val_si" [formControl]="fPdm.controls.cli_prom.get('val_si')"
+                                        placeholder="Valor Simulado" autocomplete="off">
+                                </mat-form-field>
+                            </td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                {{fPdm.get('cli_prom').get('pu_si_me').value  }}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td class="sticky-left var">
+                            <label fxHide fxShow.gt-xs>Clientes Desembolsados</label>
+                            <label fxHide fxShow.xs>CD</label>
+                        </td>
+                        <td></td>
+                        <td>{{fPdm.get('cli_desem').get('val_re').value  }}</td>
+                        <td>{{fPdm.get('cli_desem').get('meta').value  }}</td>
+                        <td>{{fPdm.get('cli_desem').get('cump').value  }}</td>
+                        <td>{{fPdm.get('cli_desem').get('peso').value  }}</td>
+                        <td
+                            [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                            {{fPdm.get('cli_desem').get('pu_re').value  }}</td>
+                        <ng-container *ngIf="isSimulated">
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                <mat-form-field appearance="outline" class="input-value">
+                                    <mat-label>Valor Simulado</mat-label>
+                                    <input matInput name="val_si" [formControl]="fPdm.controls.cli_desem.get('val_si')"
+                                        placeholder="Valor Simulado" autocomplete="off">
+                                </mat-form-field>
+                            </td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                {{fPdm.get('cli_desem').get('pu_si_me').value  }}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td class="sticky-left var">
+                            <label fxHide fxShow.gt-xs>Mora > 1 día</label>
+                            <label fxHide fxShow.xs>M > 1 día</label>
+                        </td>
+                        <td></td>
+                        <td>{{fPdm.get('mora').get('val_re').value  }}</td>
+                        <td>{{fPdm.get('mora').get('meta').value  }}</td>
+                        <td>{{fPdm.get('mora').get('cump').value  }}</td>
+                        <td>{{fPdm.get('mora').get('peso').value  }}</td>
+                        <td
+                            [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                            {{fPdm.get('mora').get('pu_re').value  }}</td>
+                        <ng-container *ngIf="isSimulated">
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"></td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                                <mat-form-field appearance="outline" class="input-value">
+                                    <mat-label>Valor Simulado</mat-label>
+                                    <input matInput name="val_si" [formControl]="fPdm.controls.mora.get('val_si')"
+                                        placeholder="Valor Simulado" autocomplete="off">
+                                </mat-form-field>
+                            </td>
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                {{fPdm.get('mora').get('pu_si_me').value  }}</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="sticky-bottom-left var">
+                            <label fxHide fxShow.gt-xs>Puntaje</label>
+                            <label fxHide fxShow.xs>PJ.</label>
+                        </td>
+                        <td colspan="5" class="sticky-bottom total">REAL</td>
+                        <td class="sticky-bottom total"
+                            [ngClass]="{'semcumplr': semFinalPunt==-1,'semcumplo': semFinalPunt==0,'semcumplg': semFinalPunt==1}">
+                            {{fInd.get('total').get('val_re').value  }}</td>
+                        <ng-container *ngIf="isSimulated">
+                            <td [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }" colspan="2"
+                                class="sticky-bottom total">SIMULADO</td>
+                            <td class="sticky-bottom total"
+                                [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }"
+                                [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                                {{fInd.get('total').get('pu_si_me').value  }}</td>
+                        </ng-container>
+                    </tr>
+                </tfoot>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>-->
+
+
+<!--<mat-tab-group>
+    <mat-tab label="Individual" *ngIf="isTipo==0 || isTipo==1"></mat-tab>
+    <mat-tab label="PDM" *ngIf="isTipo==0 || isTipo==2"> Content 2 </mat-tab>
+</mat-tab-group>-->
+
+<!--<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="100" class="">
+        <perfect-scrollbar *ngIf="type === 'component'" class="scroll-container" fxFlex="auto" [config]="config"
+            [scrollIndicators]="true" (psXReachEnd)="onScrollEvent($event)" (psYReachEnd)="onScrollEvent($event)"
+            (psXReachStart)="onScrollEvent($event)" (psYReachStart)="onScrollEvent($event)">
+            <div class="scrollable-content" [ngStyle.lt-sm]="'max-height:500px;'">
+                <table style="width: 100%" class="t-reva"
+                    [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <thead>
+                        <tr>
+                            <td rowspan="2" class="sticky-top-left var">
+                                <label fxHide fxShow.gt-xs>Variables / Valores</label>
+                                <label fxHide fxShow.xs>Var.</label>
+                            </td>
+                            <td colspan="7" class="sticky-top-1 var0">VALORES REALES</td>
+                            <td colspan="4" class="sticky-top-1 var0" *ngIf="isSimulated">
+                                VALORES SIMULADOS
+                                <button (click)="resetVal()">Reiniciar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sticky-top-2 var"></td>
+                            <td class="sticky-top-2 var">Valor</td>
+                            <td class="sticky-top-2 var">Meta</td>
+                            <td class="sticky-top-2 var">Cump.</td>
+                            <td class="sticky-top-2 var">Peso</td>
+                            <td class="sticky-top-2 var">PJ. Mes</td>
+                            <td class="sticky-top-2 var">PJ. Tri</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td class="sticky-top-2 var" colspan="2">Valor S.</td>
+                                <td class="sticky-top-2 var">PJ. Mes S.</td>
+                                <td class="sticky-top-2 var" style="width: 10%">PJ. Tri S.</td>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Saldo Capital</label>
+                                <label fxHide fxShow.xs>SC</label>
+                            </td>
+                            <td></td>
+                            <td>{{ fInd.get('sal_cap').get('val_re').value  }}</td>
+                            <td>{{ fInd.get('sal_cap').get('meta').value  }}</td>
+                            <td>{{ fInd.get('sal_cap').get('cump').value  }}</td>
+                            <td>{{ fInd.get('sal_cap').get('peso').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semSalCapPunt==-1,'semcumplo': semSalCapPunt==0,'semcumplg': semSalCapPunt==1}">
+                                {{ fInd.get('sal_cap').get('pu_re').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semSalCapPunt==-1,'semcumplo': semSalCapPunt==0,'semcumplg': semSalCapPunt==1}">
+                                {{ fInd.get('sal_cap').get('pu_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td></td>
+                                <td style="width: 100px;">
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.sal_cap.get('val_si')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                                <td
+                                    [ngClass]="{'semcumplr': semSalCapPuntSim==-1,'semcumplo': semSalCapPuntSim==0,'semcumplg': semSalCapPuntSim==1}">
+                                    {{ fInd.get('sal_cap').get('pu_si_me').value  }}</td>
+                                <td
+                                    [ngClass]="{'semcumplr': semSalCapPuntSim==-1,'semcumplo': semSalCapPuntSim==0,'semcumplg': semSalCapPuntSim==1}">
+                                    {{ fInd.get('sal_cap').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="4" class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Operaciones Desembolsadas</label>
+                                <label fxHide fxShow.xs>OD</label>
+                            </td>
+                            <td> S1</td>
+                            <td>{{ fInd.get('ope_desem').get('val_re').get('0').value  }}</td>
+                            <td rowspan="4">{{ fInd.get('ope_desem').get('meta').value  }}</td>
+                            <td rowspan="4">{{ fInd.get('ope_desem').get('cump').value  }}</td>
+                            <td rowspan="4">{{ fInd.get('ope_desem').get('peso').value  }}</td>
+                            <td rowspan="4"
+                                [ngClass]="{'semcumplr': semNumOpePunt==-1,'semcumplo': semNumOpePunt==0,'semcumplg': semNumOpePunt==1}">
+                                {{ fInd.get('ope_desem').get('pu_re').value  }}</td>
+                            <td rowspan="4"
+                                [ngClass]="{'semcumplr': semNumOpePunt==-1,'semcumplo': semNumOpePunt==0,'semcumplg': semNumOpePunt==1}">
+                                {{ fInd.get('ope_desem').get('pu_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td>S1</td>
+                                <td>
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('0')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                                <td rowspan="4"
+                                    [ngClass]="{'semcumplr': semNumOpePuntSim==-1,'semcumplo': semNumOpePuntSim==0,'semcumplg': semNumOpePuntSim==1}">
+                                    {{ fInd.get('ope_desem').get('pu_si_me').value  }}</td>
+                                <td rowspan="4"
+                                    [ngClass]="{'semcumplr': semNumOpePuntSim==-1,'semcumplo': semNumOpePuntSim==0,'semcumplg': semNumOpePuntSim==1}">
+                                    {{ fInd.get('ope_desem').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> S2</td>
+                            <td>{{ fInd.get('ope_desem').get('val_re').get('1').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td>S2</td>
+                                <td>
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('1')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> S3</td>
+                            <td>{{ fInd.get('ope_desem').get('val_re').get('2').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td>S3</td>
+                                <td>
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('2')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> S4</td>
+                            <td>{{ fInd.get('ope_desem').get('val_re').get('3').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td>S4</td>
+                                <td>
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.ope_desem.get('val_si').get('3')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Incremento de Clientes</label>
+                                <label fxHide fxShow.xs>IC</label>
+                            </td>
+                            <td> T-2</td>
+                            <td>{{ fInd.get('incre_cli').get('val_re').get('0').value  }}</td>
+                            <td>{{ fInd.get('incre_cli').get('meta').get('0').value  }}</td>
+                            <td rowspan="3">{{ fInd.get('incre_cli').get('cump').value  }}</td>
+                            <td rowspan="3">{{ fInd.get('incre_cli').get('peso').value  }}</td>
+                            <td rowspan="3"
+                                [ngClass]="{'semcumplr': semIncCliPromPunt==-1,'semcumplo': semIncCliPromPunt==0,'semcumplg': semIncCliPromPunt==1}">
+                                {{ fInd.get('incre_cli').get('pu_re').value  }}</td>
+                            <td rowspan="3"
+                                [ngClass]="{'semcumplr': semIncCliPromPunt==-1,'semcumplo': semIncCliPromPunt==0,'semcumplg': semIncCliPromPunt==1}">
+                                {{ fInd.get('incre_cli').get('pu_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td rowspan="3"></td>
+                                <td rowspan="3">
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.incre_cli.get('val_si')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                                <td rowspan="3"
+                                    [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                                    {{ fInd.get('incre_cli').get('pu_si_me').value  }}</td>
+                                <td rowspan="3"
+                                    [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                                    {{ fInd.get('incre_cli').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td> T-1</td>
+                            <td>{{ fInd.get('incre_cli').get('val_re').get('1').value  }}</td>
+                            <td>{{ fInd.get('incre_cli').get('meta').get('1').value  }}</td>
+                        </tr>
+                        <tr>
+                            <td> T</td>
+                            <td>{{ fInd.get('incre_cli').get('val_re').get('2').value  }}</td>
+                            <td>{{ fInd.get('incre_cli').get('meta').get('2').value  }}</td>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Efectividad -30-0</label>
+                                <label fxHide fxShow.xs>E -30-0</label>
+                            </td>
+                            <td></td>
+                            <td>{{fInd.get('efec_30_0').get('val_re').value  }}</td>
+                            <td>{{fInd.get('efec_30_0').get('meta').value  }}</td>
+                            <td>{{fInd.get('efec_30_0').get('cump').value  }}</td>
+                            <td>{{fInd.get('efec_30_0').get('peso').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semEfecN30T0Punt==-1,'semcumplo': semEfecN30T0Punt==0,'semcumplg': semEfecN30T0Punt==1}">
+                                {{fInd.get('efec_30_0').get('pu_re').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semEfecN30T0Punt==-1,'semcumplo': semEfecN30T0Punt==0,'semcumplg': semEfecN30T0Punt==1}">
+                                {{fInd.get('efec_30_0').get('pu_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td></td>
+                                <td>
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.efec_30_0.get('val_si')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                                <td
+                                    [ngClass]="{'semcumplr': semEfecN30T0PuntSim==-1,'semcumplo': semEfecN30T0PuntSim==0,'semcumplg': semEfecN30T0PuntSim==1}">
+                                    {{fInd.get('efec_30_0').get('pu_si_me').value  }}</td>
+                                <td
+                                    [ngClass]="{'semcumplr': semEfecN30T0PuntSim==-1,'semcumplo': semEfecN30T0PuntSim==0,'semcumplg': semEfecN30T0PuntSim==1}">
+                                    {{fInd.get('efec_30_0').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Efectividad 1-30</label>
+                                <label fxHide fxShow.xs>E 1-30</label>
+                            </td>
+                            <td></td>
+                            <td>{{fInd.get('efec_1_30').get('val_re').value  }}</td>
+                            <td>{{fInd.get('efec_1_30').get('meta').value  }}</td>
+                            <td>{{fInd.get('efec_1_30').get('cump').value  }}</td>
+                            <td>{{fInd.get('efec_1_30').get('peso').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semEfec1T30Punt==-1,'semcumplo': semEfec1T30Punt==0,'semcumplg': semEfec1T30Punt==1}">
+                                {{fInd.get('efec_1_30').get('pu_re').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semEfec1T30Punt==-1,'semcumplo': semEfec1T30Punt==0,'semcumplg': semEfec1T30Punt==1}">
+                                {{fInd.get('efec_1_30').get('pu_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td></td>
+                                <td>
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si"
+                                            [formControl]="fInd.controls.efec_1_30.get('val_si')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                                <td
+                                    [ngClass]="{'semcumplr': semEfec1T30PuntSim==-1,'semcumplo': semEfec1T30PuntSim==0,'semcumplg': semEfec1T30PuntSim==1}">
+                                    {{fInd.get('efec_1_30').get('pu_si_me').value  }}</td>
+                                <td
+                                    [ngClass]="{'semcumplr': semEfec1T30PuntSim==-1,'semcumplo': semEfec1T30PuntSim==0,'semcumplg': semEfec1T30PuntSim==1}">
+                                    {{fInd.get('efec_1_30').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Mora Contable Ajustada Castigos</label>
+                                <label fxHide fxShow.xs>MC</label>
+                            </td>
+                            <td></td>
+                            <td>{{fInd.get('mora').get('val_re').value  }}</td>
+                            <td>{{fInd.get('mora').get('meta').value  }}</td>
+                            <td>{{fInd.get('mora').get('cump').value  }}</td>
+                            <td>{{fInd.get('mora').get('peso').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                                {{fInd.get('mora').get('pu_re').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                                {{fInd.get('mora').get('pu_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td></td>
+                                <td>
+                                    <mat-form-field style="width:70px">
+                                        <input matInput name="val_si" [formControl]="fInd.controls.mora.get('val_si')"
+                                            placeholder="Valor Simulado">
+                                    </mat-form-field>
+                                </td>
+                                <td
+                                    [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                    {{fInd.get('mora').get('pu_si_me').value  }}</td>
+                                <td
+                                    [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                                    {{fInd.get('mora').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td class="sticky-left var">
+                                <label fxHide fxShow.gt-xs>Puntaje</label>
+                                <label fxHide fxShow.xs>PJ.</label>
+                            </td>
+                            <td colspan="5" class="h1valreal">REAL</td>
+                            <td
+                                [ngClass]="{'semcumplr': semFinalPunt==-1,'semcumplo': semFinalPunt==0,'semcumplg': semFinalPunt==1}">
+                                {{fInd.get('total').get('val_re').value  }}</td>
+                            <td
+                                [ngClass]="{'semcumplr': semFinalPunt==-1,'semcumplo': semFinalPunt==0,'semcumplg': semFinalPunt==1}">
+                                {{fInd.get('total').get('val_re_tri').value  }}</td>
+                            <ng-container *ngIf="isSimulated">
+                                <td colspan="2" class="h1valsim">SIMULADO</td>
+                                <td
+                                    [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                                    {{fInd.get('total').get('pu_si_me').value  }}</td>
+                                <td
+                                    [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                                    {{fInd.get('total').get('pu_si_tri').value  }}</td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </perfect-scrollbar>
+    </div>
+</div>-->
+
+<!--<mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+    <mat-card-title class="">
+        <div class="card-title-text">Saldo Capital</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="60" class="">
+                <mat-card class="p-0">
+                    <mat-card-title class="" *ngIf="isSimulated">
+                        <div class="card-title-text">Valores Reales</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="sal_cap">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Valor Actual</mat-label>
+                                            <input matInput name="val_re" formControlName="val_re"
+                                                placeholder="Valor Actual"
+                                                [value]="fInd.get('sal_cap').get('val_re').value | number:'1.0-0'">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="meta" formControlName="meta" placeholder="Meta"
+                                                [value]="fInd.get('sal_cap').get('meta').value | number:'1.0-0'">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="cump" formControlName="cump"
+                                                placeholder="Cumplimiento"
+                                                [value]="fInd.get('sal_cap').get('cump').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="peso" formControlName="peso" placeholder="Peso"
+                                                [value]="fInd.get('sal_cap').get('peso').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label style="color: tomato">Puntaje Real</mat-label>
+                                            <input matInput name="pu_re" formControlName="pu_re" style="color: tomato"
+                                                placeholder="Puntaje Real"
+                                                [value]="fInd.get('sal_cap').get('pu_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="40" class="" *ngIf="isSimulated">
+                <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-card-title class="">
+                        <div class="card-title-text">Valores Simulados</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="sal_cap">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="val_si" formControlName="val_si"
+                                                placeholder="Valor Simulado">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_me" formControlName="pu_si_me"
+                                                placeholder="Puntaje Mensual"
+                                                [value]="fInd.get('sal_cap').get('pu_si_me').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_tri" formControlName="pu_si_tri"
+                                                placeholder="Puntaje Trimestral"
+                                                [value]="fInd.get('sal_cap').get('pu_si_tri').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+    <mat-card-title class="">
+        <div class="card-title-text">Operaciones Desembolsadas</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="60" class="">
+                <mat-card class="p-0">
+                    <mat-card-title class="" *ngIf="isSimulated">
+                        <div class="card-title-text">Valores Reales</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="ope_desem">
+                                <div fxLayout="row wrap">
+                                    <div formArrayName="val_re"
+                                        *ngFor="let val_re of this.fInd.get('ope_desem').get('val_re').controls; let i=index"
+                                        fxFlex="100" fxFlex.gt-xs="25" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Valor Actual S-{{i+1}}</mat-label>
+                                            <input matInput [name]="i" [formControlName]="i"
+                                                [placeholder]="'Valor Actual S'+i">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="25" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="meta" formControlName="meta" placeholder="Meta"
+                                                [value]="fInd.get('ope_desem').get('meta').value | number:'1.0-0'">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="25" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="cump" formControlName="cump"
+                                                placeholder="Cumplimiento"
+                                                [value]="fInd.get('ope_desem').get('cump').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="25" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="peso" formControlName="peso" placeholder="Peso"
+                                                [value]="fInd.get('ope_desem').get('peso').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="25" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_re" formControlName="pu_re"
+                                                placeholder="Puntaje Real"
+                                                [value]="fInd.get('ope_desem').get('pu_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="40" class="" *ngIf="isSimulated">
+                <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-card-title class="">
+                        <div class="card-title-text">Valores Simulados</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="ope_desem">
+                                <div fxLayout="row wrap">
+                                    <div formArrayName="val_si"
+                                        *ngFor="let val_si of this.fInd.get('ope_desem').get('val_si').controls; let i=index"
+                                        fxFlex="100" fxFlex.gt-xs="25" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Valor Simulado S-{{i+1}}</mat-label>
+                                            <input matInput [name]="i" [formControlName]="i">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_me" formControlName="pu_si_me"
+                                                placeholder="Puntaje Mensual"
+                                                [value]="fInd.get('ope_desem').get('pu_si_me').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_tri" formControlName="pu_si_tri"
+                                                placeholder="Puntaje Trimestral"
+                                                [value]="fInd.get('ope_desem').get('pu_si_tri').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+    <mat-card-title class="">
+        <div class="card-title-text">Incremento de Clientes</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="60" class="">
+                <mat-card class="p-0">
+                    <mat-card-title class="" *ngIf="isSimulated">
+                        <div class="card-title-text">Valores Reales</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="incre_cli">
+                                <div fxLayout="row wrap">
+                                    <div formArrayName="val_re"
+                                        *ngFor="let val_re of this.fInd.get('incre_cli').get('val_re').controls; let i=index"
+                                        fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="33.33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Valor Actual S-{{i+1}}</mat-label>
+                                            <input matInput [name]="i" [formControlName]="i"
+                                                [placeholder]="'Valor Actual S'+i">
+                                        </mat-form-field>
+                                    </div>
+                                    <div formArrayName="meta"
+                                        *ngFor="let val_re of this.fInd.get('incre_cli').get('meta').controls; let i=index"
+                                        fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="33.33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Meta S-{{i+1}}</mat-label>
+                                            <input matInput [name]="i" [formControlName]="i"
+                                                [placeholder]="'Valor Actual S'+i">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="33.33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="cump" formControlName="cump"
+                                                placeholder="Cumplimiento"
+                                                [value]="fInd.get('incre_cli').get('cump').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="33.33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="peso" formControlName="peso" placeholder="Peso"
+                                                [value]="fInd.get('incre_cli').get('peso').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="33.33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_re" formControlName="pu_re"
+                                                placeholder="Puntaje Real"
+                                                [value]="fInd.get('incre_cli').get('pu_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="40" class="" *ngIf="isSimulated">
+                <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-card-title class="">
+                        <div class="card-title-text">Valores Simulados</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="incre_cli">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="val_si" formControlName="val_si"
+                                                placeholder="Valor Simulado">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_me" formControlName="pu_si_me"
+                                                placeholder="Puntaje Mensual"
+                                                [value]="fInd.get('incre_cli').get('pu_si_me').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_tri" formControlName="pu_si_tri"
+                                                placeholder="Puntaje Trimestral"
+                                                [value]="fInd.get('incre_cli').get('pu_si_tri').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+    <mat-card-title class="">
+        <div class="card-title-text">Efectividad -30-0</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="60" class="">
+                <mat-card class="p-0">
+                    <mat-card-title class="" *ngIf="isSimulated">
+                        <div class="card-title-text">Valores Reales</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="efec_30_0">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Valor Actual</mat-label>
+                                            <input matInput name="val_re" formControlName="val_re"
+                                                placeholder="Valor Actual"
+                                                [value]="fInd.get('efec_30_0').get('val_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="meta" formControlName="meta" placeholder="Meta"
+                                                [value]="fInd.get('efec_30_0').get('meta').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="cump" formControlName="cump"
+                                                placeholder="Cumplimiento"
+                                                [value]="fInd.get('efec_30_0').get('cump').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="peso" formControlName="peso" placeholder="Peso"
+                                                [value]="fInd.get('efec_30_0').get('peso').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_re" formControlName="pu_re"
+                                                placeholder="Puntaje Real"
+                                                [value]="fInd.get('efec_30_0').get('pu_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="40" class="" *ngIf="isSimulated">
+                <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-card-title class="">
+                        <div class="card-title-text">Valores Simulados</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="efec_30_0">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="val_si" formControlName="val_si"
+                                                placeholder="Valor Simulado">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_me" formControlName="pu_si_me"
+                                                placeholder="Puntaje Mensual"
+                                                [value]="fInd.get('efec_30_0').get('pu_si_me').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_tri" formControlName="pu_si_tri"
+                                                placeholder="Puntaje Trimestral"
+                                                [value]="fInd.get('efec_30_0').get('pu_si_tri').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+    <mat-card-title class="">
+        <div class="card-title-text">Efectividad 1-30</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="60" class="">
+                <mat-card class="p-0">
+                    <mat-card-title class="" *ngIf="isSimulated">
+                        <div class="card-title-text">Valores Reales</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="efec_1_30">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Valor Actual</mat-label>
+                                            <input matInput name="val_re" formControlName="val_re"
+                                                placeholder="Valor Actual"
+                                                [value]="fInd.get('efec_1_30').get('val_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="meta" formControlName="meta" placeholder="Meta"
+                                                [value]="fInd.get('efec_1_30').get('meta').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="cump" formControlName="cump"
+                                                placeholder="Cumplimiento"
+                                                [value]="fInd.get('efec_1_30').get('cump').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="peso" formControlName="peso" placeholder="Peso"
+                                                [value]="fInd.get('efec_1_30').get('peso').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_re" formControlName="pu_re"
+                                                placeholder="Puntaje Real"
+                                                [value]="fInd.get('efec_1_30').get('pu_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="40" class="" *ngIf="isSimulated">
+                <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-card-title class="">
+                        <div class="card-title-text">Valores Simulados</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="efec_1_30">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="val_si" formControlName="val_si"
+                                                placeholder="Valor Simulado">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_me" formControlName="pu_si_me"
+                                                placeholder="Puntaje Mensual"
+                                                [value]="fInd.get('efec_1_30').get('pu_si_me').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_tri" formControlName="pu_si_tri"
+                                                placeholder="Puntaje Trimestral"
+                                                [value]="fInd.get('efec_1_30').get('pu_si_tri').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+    <mat-card-title class="">
+        <div class="card-title-text">Mora Contable Ajustada Castigos</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="60" class="">
+                <mat-card class="p-0">
+                    <mat-card-title class="" *ngIf="isSimulated">
+                        <div class="card-title-text">Valores Reales</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="mora">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Valor Actual</mat-label>
+                                            <input matInput name="val_re" formControlName="val_re"
+                                                placeholder="Valor Actual"
+                                                [value]="fInd.get('mora').get('val_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="meta" formControlName="meta" placeholder="Meta"
+                                                [value]="fInd.get('mora').get('meta').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="cump" formControlName="cump"
+                                                placeholder="Cumplimiento"
+                                                [value]="fInd.get('mora').get('cump').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="peso" formControlName="peso" placeholder="Peso"
+                                                [value]="fInd.get('mora').get('peso').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_re" formControlName="pu_re"
+                                                placeholder="Puntaje Real"
+                                                [value]="fInd.get('mora').get('pu_re').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="40" class="" *ngIf="isSimulated">
+                <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+                    <mat-card-title class="">
+                        <div class="card-title-text">Valores Simulados</div>
+                        <mat-divider></mat-divider>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="fInd">
+                            <div formGroupName="mora">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="val_si" formControlName="val_si"
+                                                placeholder="Valor Simulado">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_me" formControlName="pu_si_me"
+                                                placeholder="Puntaje Mensual"
+                                                [value]="fInd.get('mora').get('pu_si_me').value ">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-xs="33" fxFlex.xs="50" class="pr-1">
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pu_si_tri" formControlName="pu_si_tri"
+                                                placeholder="Puntaje Trimestral"
+                                                [value]="fInd.get('mora').get('pu_si_tri').value ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="60" class="">
+        <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+            <mat-card-title class="">
+                <div class="card-title-text">Puntaje Total Real</div>
+                <mat-divider></mat-divider>
+            </mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="fInd">
+                    <div formGroupName="total">
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Puntaje Total</mat-label>
+                                    <input matInput name="val_re" formControlName="val_re" placeholder="Puntaje Total"
+                                        [value]="fInd.get('total').get('val_re').value | number:'1.1-3'">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="100" fxFlex.gt-xs="40" class="" *ngIf="isSimulated">
+        <mat-card class="p-0" [@animate]="{ value: '*', params: { x: '-50px', delay: '200ms' } }">
+            <mat-card-title class="">
+                <div class="card-title-text">Puntaje Total Simulado</div>
+                <mat-divider></mat-divider>
+            </mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="fInd">
+                    <div formGroupName="total">
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.xs="50" class="pr-1">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Simulado Mensual</mat-label>
+                                    <input matInput name="pu_si_me" formControlName="pu_si_me"
+                                        placeholder="Puntaje Simulado Mensual"
+                                        [value]="fInd.get('total').get('pu_si_me').value | number:'1.1-3'">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.xs="50" class="pr-1">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Simulado Trimestral</mat-label>
+                                    <input matInput name="pu_si_tri" formControlName="pu_si_tri"
+                                        placeholder="Puntaje Simulado Trimestral"
+                                        [value]="fInd.get('total').get('pu_si_tri').value | number:'1.1-3'">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>-->
+
+<!--<table>
+    <tbody>
+        <tr>
+            <td></td>
+            <td colspan="6" class="h1valreal">VALORES REALES</td>
+            <td colspan="3" class="h1valsim">VALORES SIMULADOS <button (click)="resetVal()">Reiniciar</button></td>
+        </tr>
+        <tr>
+            <td> Variable</td>
+            <td></td>
+            <td>Valor actual</td>
+            <td>Meta</td>
+            <td>Cumplimiento</td>
+            <td>Peso</td>
+            <td>Puntaje Real</td>
+            <td colspan="2" class="h2valsim">Valor Simulado</td>
+            <td class="h2puntsim">Puntaje Simulado</td>
+        </tr>
+        <tr>
+            <td class="var"> Saldo Capital</td>
+            <td></td>
+            <td>{{ salCapAct  }}</td>
+            <td>{{ salCapMeta  }}</td>
+            <td>{{ salCapCumpl  }}</td>
+            <td>{{ salCapPeso  }}</td>
+            <td
+                [ngClass]="{'semcumplr': semSalCapPunt==-1,'semcumplo': semSalCapPunt==0,'semcumplg': semSalCapPunt==1}">
+                {{ salCapPunt  }}</td>
+            <td></td>
+            <td><input [(ngModel)]="inSalCap" (keyup)="onKeySalCapValSim($event)">
+                <p>{{ inSalCap  }}</p>
+            </td>
+            <td
+                [ngClass]="{'semcumplr': semSalCapPuntSim==-1,'semcumplo': semSalCapPuntSim==0,'semcumplg': semSalCapPuntSim==1}">
+                {{ salCapPuntSim  }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="4" class="var"> Operaciones Desembolsadas</td>
+            <td> S1</td>
+            <td>{{ numOpeSem1  }}</td>
+            <td rowspan="4">{{ numOpeMeta  }}</td>
+            <td rowspan="4">{{ numOpeCumpl  }}</td>
+            <td rowspan="4">{{ opeDesemPeso  }}</td>
+            <td rowspan="4"
+                [ngClass]="{'semcumplr': semNumOpePunt==-1,'semcumplo': semNumOpePunt==0,'semcumplg': semNumOpePunt==1}">
+                {{ numOpePunt  }}</td>
+            <td>S1</td>
+            <td><input [(ngModel)]="inNumOpeSem1" (keyup)="onKeyNumOpeSem1ValSim($event)">
+            </td>
+            <td rowspan="4"
+                [ngClass]="{'semcumplr': semNumOpePuntSim==-1,'semcumplo': semNumOpePuntSim==0,'semcumplg': semNumOpePuntSim==1}">
+                {{ numOpePuntSim  }}</td>
+        </tr>
+        <tr>
+            <td> S2</td>
+            <td>{{ numOpeSem2  }}</td>
+            <td>S2</td>
+            <td><input [(ngModel)]="inNumOpeSem2" (keyup)="onKeyNumOpeSem2ValSim($event)">
+            </td>
+        </tr>
+        <tr>
+            <td> S3</td>
+            <td>{{ numOpeSem3  }}</td>
+            <td>S3</td>
+            <td><input [(ngModel)]="inNumOpeSem3" (keyup)="onKeyNumOpeSem3ValSim($event)">
+            </td>
+        </tr>
+        <tr>
+            <td> S4</td>
+            <td>{{ numOpeSem4  }}</td>
+            <td>S4</td>
+            <td><input [(ngModel)]="inNumOpeSem4" (keyup)="onKeyNumOpeSem4ValSim($event)">
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3" class="var"> Incremento de Clientes</td>
+            <td> T-2</td>
+            <td>{{ incCliT_2  }}</td>
+            <td>{{ incCliT_2Meta  }}</td>
+            <td rowspan="3"> {{ incCliPromCumpl  }}</td>
+            <td rowspan="3"> {{ incCliPeso  }}</td>
+            <td rowspan="3"
+                [ngClass]="{'semcumplr': semIncCliPromPunt==-1,'semcumplo': semIncCliPromPunt==0,'semcumplg': semIncCliPromPunt==1}">
+                {{ incCliPromPunt  }}</td>
+            <td rowspan="3"></td>
+            <td rowspan="3"><input [(ngModel)]="inIncCliProm" (keyup)="onKeyIncCliValSim($event)">
+            </td>
+            <td rowspan="3"
+                [ngClass]="{'semcumplr': semIncCliPromPuntSim==-1,'semcumplo': semIncCliPromPuntSim==0,'semcumplg': semIncCliPromPuntSim==1}">
+                {{ incCliPromPuntSim  }}</td>
+        </tr>
+        <tr>
+            <td> T-1</td>
+            <td>{{ incCliT_1  }}</td>
+            <td>{{ incCliT_1Meta  }}</td>
+        </tr>
+        <tr>
+            <td> T</td>
+            <td>{{ incCliT  }}</td>
+            <td>{{ incCliTMeta  }}</td>
+        </tr>
+        <tr>
+            <td class="var"> Efectividad -30-0</td>
+            <td></td>
+            <td>{{ efecN30T0  }}</td>
+            <td>{{ efecN30T0Meta  }}</td>
+            <td>{{ efecN30T0Cumpl  }}</td>
+            <td>{{ efecN30T0Peso  }}</td>
+            <td
+                [ngClass]="{'semcumplr': semEfecN30T0Punt==-1,'semcumplo': semEfecN30T0Punt==0,'semcumplg': semEfecN30T0Punt==1}">
+                {{ efecN30T0Punt  }}</td>
+            <td></td>
+            <td><input [(ngModel)]="inEfecN30T0" (keyup)="onKeyEfecN30T0ValSim($event)">
+                <p>{{ inEfecN30T0  }}</p>
+            </td>
+            <td
+                [ngClass]="{'semcumplr': semEfecN30T0PuntSim==-1,'semcumplo': semEfecN30T0PuntSim==0,'semcumplg': semEfecN30T0PuntSim==1}">
+                {{ efecN30T0PuntSim  }}</td>
+        </tr>
+        <tr>
+            <td class="var"> Efectividad 1-30</td>
+            <td></td>
+            <td>{{ efec1T30  }}</td>
+            <td>{{ efec1T30Meta  }}</td>
+            <td>{{ efec1T30Cumpl  }}</td>
+            <td>{{ efec1T30Peso  }}</td>
+            <td
+                [ngClass]="{'semcumplr': semEfec1T30Punt==-1,'semcumplo': semEfec1T30Punt==0,'semcumplg': semEfec1T30Punt==1}">
+                {{ efec1T30Punt  }}</td>
+            <td></td>
+            <td><input [(ngModel)]="inEfec1T30" (keyup)="onKeyEfec1T30ValSim($event)">
+                <p>{{ inEfec1T30  }}</p>
+            </td>
+            <td
+                [ngClass]="{'semcumplr': semEfec1T30PuntSim==-1,'semcumplo': semEfec1T30PuntSim==0,'semcumplg': semEfec1T30PuntSim==1}">
+                {{ efec1T30PuntSim  }}</td>
+        </tr>
+        <tr>
+            <td class="var"> Mora Contable Ajustada Castigos</td>
+            <td></td>
+            <td>{{ ratMoraAj  }}</td>
+            <td>{{ ratMoraAjMeta  }}</td>
+            <td>{{ ratMoraAjCumpl  }}</td>
+            <td>{{ ratMoraAjPeso  }}</td>
+            <td
+                [ngClass]="{'semcumplr': semRatMoraAjPunt==-1,'semcumplo': semRatMoraAjPunt==0,'semcumplg': semRatMoraAjPunt==1}">
+                {{ ratMoraAjPunt  }}</td>
+            <td></td>
+            <td><input [(ngModel)]="inRatMoraAj" (keyup)="onKeyMoraContAjValSim($event)">
+                <p>{{ inRatMoraAj  }}</p>
+            </td>
+            <td
+                [ngClass]="{'semcumplr': semRatMoraAjPuntSim==-1,'semcumplo': semRatMoraAjPuntSim==0,'semcumplg': semRatMoraAjPuntSim==1}">
+                {{ ratMoraAjPuntSim  }}</td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td colspan="2" class="h1valreal">PUNTAJE TOTAL</td>
+            <td [ngClass]="{'semcumplr': semFinalPunt==-1,'semcumplo': semFinalPunt==0,'semcumplg': semFinalPunt==1}">
+                {{ finalPunt  }}</td>
+            <td colspan="2" class="h1valsim">SIMULADO</td>
+            <td
+                [ngClass]="{'semcumplr': semFinalPuntSim==-1,'semcumplo': semFinalPuntSim==0,'semcumplg': semFinalPuntSim==1}">
+                {{ finalPuntSim  }}</td>
+        </tr>
+    </tbody>
+</table>-->

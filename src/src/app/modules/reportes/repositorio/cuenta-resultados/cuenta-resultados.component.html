@@ -1,0 +1,35 @@
+<div class="stg-window cuenta-resultados" fxFill fxLayout="column">
+    <stg-window-bar-m
+        [items]="periods"
+        [title]="'Cuenta de Resultados'"
+        [subtitle]="'PYG FC · Estado de ganancias y pérdidas'"
+        [dropdownChipText]="dropdownChipText"
+        [showTitle]="true"
+        [icon]="'date_range'"
+        [placeholder]="'Seleccionar período'"
+        [disabled]="!periods.length"
+        [config]="windowBarConfig"
+        [(ngModel)]="selectedPeriod"
+        (selectionChange)="onPeriodChange($event)">
+    </stg-window-bar-m>
+
+    <div class="report-content" fxFlex>
+        <hier-rem-selector
+            class="hierarchy-selector"
+            *ngIf="activeHierarchy"
+            [confHier]="confHier"
+            (onSelectHier)="selectHierarchy($event)">
+        </hier-rem-selector>
+
+        <section class="table-panel">
+            <div class="status" role="status" *ngIf="state === 'loading'">Cargando reporte...</div>
+            <div class="status" *ngIf="state === 'empty'">No se encontraron resultados para los filtros seleccionados.</div>
+            <div class="status error" role="alert" *ngIf="state === 'error'">{{ errorMessage }}</div>
+
+            <div class="table-container" fxFlex fxLayout="column" *ngIf="state === 'data' && rows.length">
+                <stg-table2 fxFlex [options]="options" [dataSource]="rows" [headers]="headers"></stg-table2>
+            </div>
+
+        </section>
+    </div>
+</div>

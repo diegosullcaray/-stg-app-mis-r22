@@ -1,0 +1,134 @@
+<div *ngIf="!loadingObs else loading ">
+    <!--mat-elevation-z4-->
+    <div class="stg-tbl-content">
+        <div class="table-container " [ngStyle]="getParTableStyle()">
+            <table mat-table [dataSource]="dataSource" [ngStyle]="getTableStyle()">
+                <ng-container *ngFor="let th of columnDefs">
+                    <ng-container [matColumnDef]="th.key" [sticky]="th.sticky">
+                        <th mat-header-cell *matHeaderCellDef="let cd"
+                            [attr.rowspan]="th.rowspan && th.rowspan>1?th.rowspan:null"
+                            [attr.colspan]="th.colspan && th.colspan>1?th.colspan:null"
+                            [ngStyle]="getHeaderStyle(th.style,th.key)">
+                            {{th.label}}
+                        </th>
+                        <ng-container *ngIf="th.isDataCol">
+                            <td mat-cell *matCellDef="let data;let ridx = index;"
+                                [ngStyle]="getTableCellStyle(data[th.key],th.key,data)">
+                                <div fxLayout="row" style="padding: 0px 5px;" fxLayoutAlign="end center">
+                                    <!--Values-->
+                                    <ng-container *ngIf="!th.iconizer">
+                                        <ng-container [ngSwitch]="th.type">
+                                            <span *ngSwitchCase="'custom_r'" fxFlex
+                                                style="text-align: right;">{{customValueFormatter(data[th.key],th.key,data)}}</span>
+                                            <span *ngSwitchCase="'number'" fxFlex
+                                                style="text-align: right;">{{data[th.key] | number:'.0-2'}}</span>
+                                            <span *ngSwitchCase="'number2d'" fxFlex
+                                                style="text-align: right;">{{data[th.key] | number:'.2-2'}}</span>
+                                            <span *ngSwitchCase="'numbersq'" fxFlex
+                                                style="text-align: right;">{{data[th.key] | number:'.0-0'}}</span>
+                                            <span *ngSwitchCase="'percent'" fxFlex
+                                                style="text-align: right;">{{data[th.key] | percent:'.2-2'}}</span>
+                                            <span *ngSwitchCase="'date'" fxFlex
+                                                style="text-align: right;">{{data[th.key] | date: 'yyyy/MM/dd'}}</span>
+                                            <div *ngSwitchCase="'input'" style="padding: 2px;width: 100%;">
+                                                <input matInput value="{{data[th.key]}}" class="stg-input"
+                                                    [ngStyle]="getComponentStyle('input',th.key)"
+                                                    (keyup)="onEditInput($event,data,th.key)" autocomplete="off">
+                                            </div>
+                                            <ng-container *ngSwitchCase="'comp_f'">
+                                                <ng-container
+                                                    [ngSwitch]="customComponentCell(data[th.key],th.key,data,metaSources)">
+                                                    <span *ngSwitchCase="'number'" fxFlex
+                                                        style="text-align: right;">{{data[th.key] |
+                                                        number:'.0-2'}}</span>
+                                                    <span *ngSwitchCase="'numbersq'" fxFlex
+                                                        style="text-align: right;">{{data[th.key] |
+                                                        number:'.0-0'}}</span>
+                                                    <span *ngSwitchCase="'percent'" fxFlex
+                                                        style="text-align: right;">{{data[th.key] |
+                                                        percent:'.2-2'}}</span>
+                                                    <span *ngSwitchCase="'date'" fxFlex
+                                                        style="text-align: right;">{{data[th.key] | date:
+                                                        'yyyy/MM/dd'}}</span>
+                                                    <div *ngSwitchCase="'input'" style="padding: 2px;width: 100%;">
+                                                        <input matInput value="{{data[th.key]}}" class="stg-input"
+                                                            [ngStyle]="getComponentStyle('input',th.key)"
+                                                            (keyup)="onEditInput($event,data,th.key)"
+                                                            autocomplete="off">
+                                                    </div>
+                                                    <span *ngSwitchDefault fxFlex>{{data[th.key]}}</span>
+                                                </ng-container>
+                                            </ng-container>
+                                            <span *ngSwitchDefault fxFlex>{{data[th.key]}}</span>
+                                        </ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="th.iconizer">
+                                        <div fxFill fxLayoutAlign="center center">
+                                            <span class="material-icons" [ngStyle]="iconizerStyle(data[th.key],th.iconizer)">
+                                                {{iconizerIcon(data[th.key],th.iconizer)}}
+                                            </span>
+                                        </div>
+                                    </ng-container>
+                                    <!--Actions-->
+                                    <ng-container *ngIf="th.actions && th.actions.length>0">
+                                        <div fxLayout="row" fxLayoutGap="5px" style="padding-left: 5px;">
+                                            <ng-container *ngFor="let act of th.actions">
+                                                <!--background: dodgerblue;-->
+                                                <button mat-raised-button color="primary" fxLayout="row"
+                                                    fxLayoutAlign="center center" (click)="runTrigger(th.key,data)"
+                                                    style="min-width: 10px; width: 24px; height: 24px;padding: 0px;">
+                                                    <span class="material-icons" style="font-size: 10px;">
+                                                        {{act.style.icon}}
+                                                    </span>
+                                                </button>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngFor="let tr of headerRowDefs">
+                    <tr mat-header-row *matHeaderRowDef="tr; sticky: true"></tr>
+                </ng-container>
+                <tr mat-row *matRowDef="let row; columns: rowDef;" (click)="selectRow(row)"
+                    [ngStyle]="getTableRowStyle()"
+                    [ngClass]="{'row-hovered': row.hovered, 'row-highlighted': selection.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #loading>
+    <div [ngStyle]="loadingStyle()" fxLayout="column">
+        <div fxLayout="column" fxFlex="20">
+            <div fxFlex fxLayout="row">
+                <div fxFlex="25" fxLayout="row">
+                    <div fxFlex [ngStyle]="loadingHeaderStyle()"></div>
+                    <div style="width: 1px;"></div>
+                </div>
+                <div fxFlex="25" fxLayout="row">
+                    <div style="width: 1px;"></div>
+                    <div fxFlex [ngStyle]="loadingHeaderStyle()"></div>
+                    <div style="width: 1px;"></div>
+                </div>
+                <div fxFlex="25" fxLayout="row">
+                    <div style="width: 1px;"></div>
+                    <div fxFlex [ngStyle]="loadingHeaderStyle()"></div>
+                    <div style="width: 1px;"></div>
+                </div>
+                <div fxFlex="25" fxLayout="row">
+                    <div style="width: 1px;"></div>
+                    <div fxFlex [ngStyle]="loadingHeaderStyle()"></div>
+                </div>
+            </div>
+            <div style="height:2px;"></div>
+        </div>
+
+        <div fxFlex fxLayoutAlign="center center" [ngStyle]="loadingBodyStyle()">
+            <stg-loading-1></stg-loading-1>
+        </div>
+    </div>
+</ng-template>

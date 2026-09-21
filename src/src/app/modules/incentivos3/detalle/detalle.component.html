@@ -1,0 +1,77 @@
+<div *ngIf="!config.loading" style="width:100%;height:100%" fxLayout="column" class="stg-window">
+    <stg-window-bar [title]="inc3.detalle.idx==91?item.title2:item.title" barIcon="info" titleAlign="start" closable=true (onClose)="navMain()"
+    [navigable]="isNav" (onNavigate)="navDiag($event)" [disableNavLeft]="disNavLeft" [disableNavRight]="disNavRight">
+    </stg-window-bar>
+    <div style="padding: 5px;" fxLayout="column" fxLayoutGap="5px">
+        <span>{{des_lab}}: {{des_rel}}</span>
+        <span>Fecha: {{card.f2}}</span>
+    </div>
+    <div *ngIf="showCards==1" fxLayout="row">
+        <div fxFlex="33.33" class="cc">
+            <div class="card cb1" fxLayout="column">
+                <div fxFlex class="b" fxLayout="column">
+                    <div fxFlex="40" class="t" fxLayoutAlign="start center">
+                        <span>{{item.cards[0]}}</span>
+                    </div>
+                    <div fxFlex class="v" fxLayoutAlign="start center">
+                        <span>{{getCardsCie()}}</span>
+                    </div>
+                    <div class="a"></div>
+                </div>
+                <div class="cf"></div>
+            </div>
+        </div>
+        <div fxFlex="33.33" class="cc">
+            <div class="card cb1" fxLayout="column">
+                <div fxFlex class="b" fxLayout="column">
+                    <div fxFlex="40" class="t" fxLayoutAlign="start center">
+                        <span>{{item.cards[1]}}</span>
+                    </div>
+                    <div fxFlex class="v" fxLayoutAlign="start center">
+                        <span>{{getCardsVar()}}</span>
+                    </div>
+                    <div class="a"></div>
+                </div>
+                <div class="cf"></div>
+            </div>
+        </div>
+        <div fxFlex="33.33" class="cc">
+            <div class="card cb2" fxLayout="column">
+                <div fxFlex class="b" fxLayout="column">
+                    <div fxFlex="40" class="t" fxLayoutAlign="start center">
+                        <span>{{item.cards[2]}}</span>
+                    </div>
+                    <div fxFlex class="v" fxLayoutAlign="start center">
+                        <span>{{getCardsMet()}}</span>
+                    </div>
+                    <div [class]="semfCls2()" fxLayoutAlign="end center">
+                        <span>({{card.avan*100| number:'.0-1'}}%)</span>
+                    </div>
+                </div>
+                <div class="cf" fxLayoutAlign="end center">
+                    <div [class]="semfCls()"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div *ngIf="tip_cod!=1" fxFlex style="padding-top: 10px;padding-left: 5px;padding-right: 5px;" fxLayoutGap="5px">
+            <stg-button icon="table_rows" color="primary" (click)="showTblVars()">Indicadores</stg-button>
+            <stg-button icon="fact_check" color="primary" (click)="showTblRank()">Ranking</stg-button>
+        </div>
+        <div></div>
+    </div>
+
+    <div fxFlex style="padding: 10px 5px;">
+        <stg-table2 *ngIf="showVars" [options]="config.opts" [dataSource]="vars" [headers]="head1"
+        (onClickCell)="ddEventV($event)">
+        </stg-table2>
+        <stg-table2 *ngIf="showRank" [options]="config.opts" [dataSource]="rank" [headers]="head2"
+        (onClickCell)="ddEvent($event)">
+        </stg-table2>
+    </div>
+    <div style="font-size: 10px;padding: 5px;">
+        <span>{{item.disc}}</span>
+    </div>
+
+</div>

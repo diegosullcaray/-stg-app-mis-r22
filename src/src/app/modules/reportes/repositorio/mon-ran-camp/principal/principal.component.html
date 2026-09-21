@@ -1,0 +1,32 @@
+<div class="stg-window" fxFill fxLayout="column" *ngIf="!config.loading">
+    <stg-window-bar title="Monitor Ranking Campañas"> </stg-window-bar>
+    <div class="body-container" fxLayout="column" fxFlex fxLayoutGap="10px">
+        <div fxFlex fxLayout="column" style="padding: 5px;background: white;">
+
+            <div class="tabs-header">
+                <ng-container *ngFor="let item of config.hierTabs;let idx = index">
+                    <div *ngIf="item.enabled" matRipple class="tab" [class.active]="item.active" fxLayoutAlign="start center"
+                        (click)="setActiveTab(idx)">
+                        <span>{{item.label}}</span>
+                    </div>
+                </ng-container>
+                <div fxFlex fxLayoutAlign="end center">
+                    <stg-menu-filter [config]="config.filters" (onAccept)="eventFilter($event)"></stg-menu-filter>
+                </div>
+            </div>
+            <div fxFlex class="tabs-content" fxLayout="column">
+                <ng-container *ngFor="let item of config.hierTabs;let idx = index">
+                    <div fxFlex *ngIf="item.active && item.enabled" class="panel-tbl" fxLayout="column"
+                        fxLayoutGap="5px">
+                        <stg-table2 fxFlex [dataSource]="item.data" [options]="tblOpts" [headers]="item.headers"
+                            (onClickCell)="ddEvent($event)">
+                        </stg-table2>
+                        <stg-paginator *ngIf="item.pagination " #paginator [totalLenght]="item.dataSourceLenght"
+                            [pageLenght]="item.pageLenght" (onChangePage)="changePage($event)">
+                        </stg-paginator>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

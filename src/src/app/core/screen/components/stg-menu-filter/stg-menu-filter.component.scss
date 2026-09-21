@@ -1,0 +1,81 @@
+/****************************************
+ * Botón principal
+ ****************************************/
+ .stg-menu-filter-btn {
+  background-color: #5c9ded;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  &:hover {
+    background-color: #4a8cdb;
+  }
+}
+
+/****************************************
+ * Botón secundario (Cancelar)
+ ****************************************/
+.stg-menu-filter-btn-secondary {
+  background-color: #eee;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ddd;
+  }
+}
+
+/****************************************
+ * Botón primario (Aceptar)
+ ****************************************/
+.stg-menu-filter-btn-primary {
+  background-color: #5c9ded;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    background-color: #4a8cdb;
+  }
+}
+
+/****************************************
+ * Label
+ ****************************************/
+.stg-menu-filter-label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+/****************************************
+ * Select
+ ****************************************/
+.stg-menu-filter-select {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 1rem;
+  &:focus {
+    border-color: #5c9ded;
+  }
+}
+
+/****************************************
+ * Personalización del menú Material
+ ****************************************/
+.my-custom-menu {
+  padding: 0 !important; // elimina padding extra de .mat-menu-panel
+}

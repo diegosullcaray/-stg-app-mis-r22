@@ -1,0 +1,118 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+<div class="stg-window" fxFill fxLayout="column">
+    
+    <div class="header-area">
+        <div class="container" style="padding-top: 16px; padding-bottom: 4px;">
+            <h1 class="page-title">Monitor de Inteligencia de Negocios</h1>
+        </div>
+    </div>
+    
+    <div class="stg-panel" fxLayout="column" fxFlex style="min-height: 0; min-width: 0;">
+        
+        <div [fxHide]="true" fxLayout="row" class="container" style="padding-top: 4px; padding-bottom: 12px;">
+            <ng-container *ngIf="activeHier">
+                <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+        </div>
+          
+        <main class="container" fxFlex style="padding-top: 0; min-height: 0; min-width: 0; display: flex; flex-direction: column;">
+            
+            <div class="hier-cont" fxLayout="row" fxLayoutAlign="start center">
+                <ng-container *ngFor="let item of hierBuffer; index as idx">
+                    <div class="breadcrumb-item" (click)="changeHier(item)" 
+                         [ngClass]="{'active': idx === hierBuffer.length - 1, 'clickable': idx < hierBuffer.length - 1}">
+                        <span class="hover-text">{{item.des_rel}}</span>
+                        <span class="material-symbols-outlined separator" *ngIf="idx < hierBuffer.length - 1">
+                            chevron_right
+                        </span>
+                    </div>
+                </ng-container>
+            </div>
+            
+            <div class="dashboard-grid">
+                
+                <div class="column" *ngFor="let col of dashboardData" [ngClass]="{'columna-principal': col.style == 1}">
+                    
+                    <div class="col-header col-header-{{ col.estilo }}">
+                        <div class="header-title" (click)="clickTitulo(col)" style="cursor: pointer;">
+                            <span class="dot-indicator"></span> 
+                            {{ col.titulo }}
+                        </div>
+                        <span class="material-symbols-outlined icon-arrow" *ngIf="col.estilo !== 'met'">arrow_forward</span>
+                    </div>
+
+                    <div class="cards-scroll-container">
+                        <ng-container *ngFor="let card of col.tarjetas; let i = index">
+
+                            <div class="card" 
+                                 *ngIf="card.tipo === 'estandar'"
+                                 [ngClass]="i === 0 ? 'card-top card-top-' + col.estilo : ''">
+                                
+                                <div class="card-label">{{ card.label }}</div>
+                                <div class="card-value">{{ card.valor }}</div>
+                                
+                                <div class="variation-row" *ngIf="card.tendencias && card.tendencias.length > 1">
+                                    <div class="var-item" *ngFor="let tend of card.tendencias">
+                                        <span class="material-symbols-outlined var-icon" [ngClass]="tend.esPositivo ? 'up' : 'down'">
+                                            {{ tend.esPositivo ? 'trending_up' : 'trending_down' }}
+                                        </span>
+                                        <span class="var-number">{{ tend.valor }}</span>
+                                        <span class="var-label">{{ tend.subLabel }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="trend" *ngIf="card.tendencias && card.tendencias.length === 1">
+                                    <span class="material-symbols-outlined trend-icon" 
+                                          [ngClass]="card.tendencias[0].esPositivo ? 'trend-up' : 'trend-down'">
+                                        {{ card.tendencias[0].esPositivo ? 'trending_up' : 'trending_down' }}
+                                    </span>
+                                    <span [ngClass]="card.tendencias[0].esPositivo ? 'trend-up' : 'trend-down'">
+                                        {{ card.tendencias[0].valor }}
+                                    </span>
+                                    <span class="trend-text">{{ card.tendencias[0].subLabel }}</span>
+                                </div>
+
+                                <div class="goal-section" *ngIf="card.meta">
+                                    <div class="goal-header">
+                                        <span class="goal-title">{{ card.meta.label }}</span>
+                                        <span class="goal-percentage">{{ card.meta.porcentaje }}</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" [style.width]="card.meta.porcentaje"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="card" *ngIf="card.tipo === 'tapp'">
+                                <div class="card-label">{{ card.label }}</div>
+                                
+                                <div class="split-metrics">
+                                    <div class="metric-col">
+                                        <span class="sub-label">{{ card.items[0].label }}</span>
+                                        <span class="metric-val">{{ card.items[0].valor }}</span>
+                                        <span class="metric-var" [ngClass]="card.items[0].esPositivo ? 'var-up' : 'var-down'">
+                                            {{ card.items[0].tendencia }}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="divider"></div>
+                                    
+                                    <div class="metric-col">
+                                        <span class="sub-label">{{ card.items[1].label }}</span>
+                                        <span class="metric-val">{{ card.items[1].valor }}</span>
+                                        <span class="metric-var" [ngClass]="card.items[1].esPositivo ? 'var-up' : 'var-down'">
+                                            {{ card.items[1].tendencia }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ng-container>
+                    </div> </div>
+                
+            </div>
+        </main>
+    </div>
+</div>

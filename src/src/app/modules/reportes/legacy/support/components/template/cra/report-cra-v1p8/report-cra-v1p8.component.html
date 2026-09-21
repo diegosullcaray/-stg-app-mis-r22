@@ -1,0 +1,23 @@
+<!--
+
+<app-select-group [config_select_group]='config_select_group' (refresh)="load($event)"></app-select-group>
+
+-->
+<div fxLayout="column">
+      <!-- <ng-container *ngIf="activeHier">
+        <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>   -->
+    <ng-container *ngIf="activeFilters">
+        <app-select-multiple [config_select_multiple]='configFilters' (refresh)="loadFilter($event)"></app-select-multiple>
+    </ng-container>
+    <!-- <div>
+        <button  mat-button color="primary" class="bus-bot" (click)="openSearch()">
+            <span class="material-icons" style="font-size: 36px;">
+                switch_account
+            </span>
+        </button>
+    </div> -->
+    
+    <app-table-multiheader *ngFor='let c of configT;let i=index' [config_table]='config_table[i]'></app-table-multiheader>
+    <app-graphic-basic [config_graphic]='config_graphic'></app-graphic-basic>
+</div>

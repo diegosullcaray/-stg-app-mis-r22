@@ -1,0 +1,65 @@
+<div *ngIf="!config.loading" fxFill fxLayout="column">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5px">
+        <div fxFlex="60" fxLayout="row" fxLayoutGap="5px">
+            <div fxLayoutAlign="center center" style="width: 85px;">
+                <div class="portrait">
+                    <img class="p" src="{{config.usu.img_url}}" alt="" referrerpolicy="no-referrer">
+                </div>    
+            </div>
+            <div fxFlex fxLayout="column" class="usu">
+                <div fxFlex>
+                    <div fxFlex fxLayout="column">
+                        <span class="t">{{config.usu.nom}}</span>
+                        <span class="n">{{config.usu.niv}}: {{config.usu.des_niv}}</span>
+                    </div>
+                    <div fxFlex="20" *ngIf="config.change_btn" fxLayoutAlign="start center">
+                        <stg-button color="primary" icon="person_search" (click)="chooser()"></stg-button>
+                    </div>
+                </div>
+                <div fxFlex="50" class="var-icon" fxLayout="row" fxLayoutAlign="space-around center">
+                    <ng-container *ngFor="let item of config.sem;let i = index;let c = count;">
+                        <ng-container *ngIf="item.show">
+                            <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center" style="padding: 0px 3px;">
+                                <span [class]="getIconCls(item.val)">{{item.icon}}</span>
+                                <span fxHide.lt-md [class]="getDesCls(item.val)">{{item.des}}</span>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <app-monetizado-incentivos3 fxFlex></app-monetizado-incentivos3>
+    
+        <!-- <div fxFlex fxFlex.lt-md="25" fxLayout="row" fxLayoutGap="5px">
+            <div fxFlex fxLayoutAlign="center center">
+                <div class="portrait">
+                    <img class="p" src="{{config.usu.img_url}}" alt="" referrerpolicy="no-referrer">
+                </div>
+            </div>
+            <div fxFlex="50" fxHide.lt-md fxLayout="column" class="comi" fxLayoutGap="5px">
+                <div fxFlex fxLayout="column">
+                    <span class="t">Comisión:</span>
+                    <span class="c">S/. {{config.comi.val | number:'.0-2'}}</span>
+                </div>
+                <div fxFlex="50" fxLayout="column">
+                    <span class="t">Situación:</span>
+                    <span class="s">{{config.comi.sit}}</span>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="40" fxFlex.lt-md fxLayout="row" class="usu">
+            <div fxFlex fxLayout="column">
+                <span class="t">{{config.usu.nom}}</span>
+                <span class="n">{{config.usu.niv}}: {{config.usu.des_niv}}</span>
+            </div>
+            <div fxFlex="20" *ngIf="config.change_btn" fxLayoutAlign="start center">
+                <stg-button color="primary" icon="change_circle" (click)="chooser()"></stg-button>
+            </div>
+        </div> -->
+    </div>
+    <div style="font-size: 8px;padding-top: 3px;">
+        <span *ngIf="!layout.isMobile">*Los cálculos son referenciales y están sujetos a variaciones al final de mes y ajustes particulares de la normativa.</span>
+        <span *ngIf="layout.isMobile">*Los cálculos son referenciales y están sujetos a variaciones.</span>
+    </div>
+</div>
+<blank-loader *ngIf="config.loading"></blank-loader>

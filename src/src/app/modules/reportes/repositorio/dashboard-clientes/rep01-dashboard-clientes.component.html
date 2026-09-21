@@ -1,0 +1,53 @@
+<div class="stg-window">
+    <stg-window-bar [title]="mainTitle"></stg-window-bar>
+    <div class="stg-panel" fxLayout="column">
+        <div fxLayout="row" >
+            <div style="padding: 10px;">
+                <div class="stg-simple-card" >
+                    <sing-loc-selector label="UNIDAD" [data]="selUniData" selectedIndex="0" (onSelectItem)="selectUni($event)"></sing-loc-selector>
+                </div>
+            </div>
+            
+            <!--<ng-container *ngIf="activeHier[0] && showHier[0]">
+                <hier-rem-selector fxFlex [confHier]="confHier0" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>-->
+            <ng-container *ngIf="activeHier[1] && showHier[1]">
+                <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+            <!--<ng-container *ngIf="activeHier[2] && showHier[2]">
+                <hier-rem-selector fxFlex [confHier]="confHier2" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+            <ng-container *ngIf="activeHier[3] && showHier[3]">
+                <hier-rem-selector fxFlex [confHier]="confHier3" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>-->
+        </div>
+        <div style="padding: 10px;" fxLayout="row" fxLayoutGap="10px">
+            <div class="stg-simple-card" fxLayout="row" fxLayoutGap="10px" fxFlex> 
+                <sing-loc-selector label="GENERO" [data]="selGenData" selectedIndex="0" (onSelectItem)="selectGen($event)"></sing-loc-selector>
+                <sing-loc-selector label="PAIS" [data]="selPaisData" selectedIndex="0" (onSelectItem)="selectPais($event)"></sing-loc-selector>
+                <sing-loc-selector label="EDAD" [data]="selEdadData" selectedIndex="0" (onSelectItem)="selectEdad($event)"></sing-loc-selector>
+                <sing-loc-selector label="ENTORNO" [data]="selEntData" selectedIndex="0" (onSelectItem)="selectEnt($event)"></sing-loc-selector>
+            </div>
+            <div class="stg-simple-card" fxLayoutAlign="start center">
+                <button mat-raised-button (click)="filter()" color="primary">
+                    Filtrar <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div>
+                
+            <div style="height: 15px;"></div>
+            <stg-table *ngIf="showTable" [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs"
+                [dataSource]="dataSource" [loadingObs]="loadingObs" [customValueFormatter]="customFormatter" [customCellStyler]="customStyler">
+                <!--[actionTrigger]="action" [iconizerMap]="iconColMap"
+                [metaSources]="extraSources" >-->
+            </stg-table>
+            <div *ngIf="!showTable" style="padding: 10px;" fxLayoutAlign="center center">
+                <span>
+                    Por favor configure los filtros y ejecute el boton "Filtrar".
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

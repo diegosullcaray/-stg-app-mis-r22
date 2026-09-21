@@ -1,0 +1,19 @@
+<div class="base" [style]="getStyle()" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
+    <div fxFlex fxFlex.lt-md="38" fxLayout="column" fxLayoutGap="15px">
+        <div fxFlex class="base-card" fxLayout="column">
+            <app-perfil-incentivos3 ></app-perfil-incentivos3>
+        </div>
+        <div fxFlex.gt-sm="60" fxHide.lt-md class="base-card"> 
+            <app-tabla-incentivos3></app-tabla-incentivos3>
+        </div>
+    </div>
+    <div fxFlex fxFlex.gt-sm="27" fxLayout="column" fxLayoutGap="15px">
+        <div fxFlex class="base-card">
+            <app-avances-incentivos3></app-avances-incentivos3>
+        </div>
+        <div fxFlex="30" fxFlex.lt-md="35" class="base-card"> 
+            <app-super-plus-incentivos3></app-super-plus-incentivos3>
+        </div>
+    </div>
+
+</div>

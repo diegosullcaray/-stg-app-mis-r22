@@ -1,0 +1,70 @@
+@import "/src/assets/styles/scss/colors";
+
+.desem-comp{
+    background-color: #E0E0E0;
+    box-shadow: 0 8px 12px rgb(47 60 74 / 27%), 0 2px 6px rgb(47 60 74 / 27%) !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    min-height: 100%;
+    height: 100%;
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+.desem-cab-tag{
+    color: white;
+    //background: $blue-base;
+    background: #2196f3;
+    padding: 5px;
+    font-weight: bold;
+    border-bottom-right-radius: 4px;
+}
+
+.desem-cuer{
+    padding-left: 19px;
+    padding-top: 10px;
+    height: 100%;
+    font-size: 11px;
+    color: $blue-base;
+}
+
+.desem-bloq-tab{
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-color: $blue-base;
+    background: green;
+
+}
+
+.desem-bloq-cab{
+    font-weight: bold;
+}
+
+.desem-bloq-bot{
+    min-width: 15px;
+    width: 15px;
+    padding: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.desem-cand-cab{
+    background: #42A5F5;
+    color: white;
+    font-size: 8px;
+    min-width: 48px;
+    padding: 1px;
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    border-color: $blue-base;
+}
+
+.desem-cand-item{
+    color: $blue-base;
+    font-size: 8px;
+    padding: 1px;
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    border-color: $blue-base;
+    background: #f4fafe;
+}

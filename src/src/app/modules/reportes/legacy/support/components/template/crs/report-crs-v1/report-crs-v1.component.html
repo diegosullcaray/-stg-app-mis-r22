@@ -1,0 +1,4 @@
+<h2 class="title-module">{{title_module}}</h2>
+<app-auto-complete-sec (refresh)="load($event)"></app-auto-complete-sec>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple>
+<app-table-multiheader *ngFor='let c of config;let i=index'[config_table]='config_table[i]'></app-table-multiheader>

@@ -1,0 +1,46 @@
+@import "/src/assets/styles/scss/colors";
+
+.signin-wrap {
+    background-color: $blue-base;
+  }
+  .signin-container {
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+  }
+  
+  .signin-header {
+      position: relative;
+      padding: 35px;
+  
+      & > div {
+          z-index: 2;
+      }
+  }
+  
+  .signin-header::before{
+      // background-color: rgba(3, 143, 222, 0.7);
+      content: '';
+      top: 0;
+      left: 0;
+      display: block;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+  
+  .signin-small-image {
+      height: 24px;
+  }
+  .signin-form {
+      padding: 35px;
+  }
+  
+  .signin-button {
+      text-align: center;
+      .mat-raised-button {
+          border-radius: 18px;
+      }
+  }
+
+//  @import "src/"

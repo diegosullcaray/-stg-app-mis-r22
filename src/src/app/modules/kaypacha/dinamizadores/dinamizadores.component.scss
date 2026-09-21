@@ -1,0 +1,51 @@
+@import "/src/assets/styles/scss/colors";
+
+.dina-comp{
+    background-color: #E0E0E0;
+    box-shadow: 0 8px 12px rgb(47 60 74 / 27%), 0 2px 6px rgb(47 60 74 / 27%) !important;
+    //margin-top: 0 !important;
+    //min-height: 100%;
+    //height: 100%;
+    //padding-left: 0px;
+    padding-top: 0px;
+}
+
+.dina-cab-tag{
+    color: white;
+    //background: $blue-base;
+    background: #fbc02d;
+    padding: 5px;
+    font-weight: bold;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.dina-cuer{
+    padding-top: 10px;
+    height: 100%;
+    font-size: 11px;
+    color: $blue-base;
+}
+
+.dina-bloq-bot{
+    min-width: 15px;
+    width: 15px;
+    padding: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.dina-bloq-cab{
+    font-weight: bold;
+}
+
+.dina-bloq-cont{
+    float: left;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.dina-chart{
+    width:100%;max-height: 193px;height: 100%;position:absolute;
+}

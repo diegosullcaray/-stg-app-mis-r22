@@ -1,0 +1,79 @@
+.portrait {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #045394;
+  padding: 3px;
+
+  border: 1px solid #fff;
+  box-shadow: 0 0 10px rgba(212, 214, 214, 0.5);
+
+  transition: all 0.3s ease;
+
+  .p {
+    border-radius: 50%;
+  }
+
+  &:hover {
+    filter: brightness(1.1);
+    transform: scale(1.1);
+  }
+
+  @media only screen and (max-width: 959px) {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.usu {
+  .t {
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .n {
+    font-size: 10px;
+
+    @media only screen and (max-width: 959px) {
+      font-size: 8px;
+    }
+  }
+}
+
+.comi {
+  .t {
+    font-size: 12px;
+  }
+
+  .c {
+    font-weight: bold;
+  }
+}
+
+.var-icon {
+
+  .is {
+    font-size: 32px;
+
+    @media only screen and (max-width: 959px) {
+      font-size: 24px;
+    }
+  }
+
+  .ds {
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .nm {
+    color: #d3d3d3 !important;
+  }
+
+  .dm {
+    color: #e91e2f !important;
+  }
+
+  .am {
+    color: #3bd136 !important;
+  }
+}

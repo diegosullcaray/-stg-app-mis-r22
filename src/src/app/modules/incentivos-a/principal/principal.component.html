@@ -1,0 +1,10 @@
+<div fxFill fxLayout="column" class="base">
+    <app-cabecera-incentivos-a [config]="cabeceraCfg" style="z-index: 1000;"></app-cabecera-incentivos-a>
+    <div style="overflow-y: auto;height: 100%;" fxLayout="column">
+        <ng-scrollbar>
+            <app-monetizacion-incentivos-a [config]="monetizacionCfg" ></app-monetizacion-incentivos-a>
+            <app-cobertura-incentivos-a ></app-cobertura-incentivos-a>
+            <app-composicion-incentivos-a ></app-composicion-incentivos-a>
+        </ng-scrollbar>
+    </div>
+</div>

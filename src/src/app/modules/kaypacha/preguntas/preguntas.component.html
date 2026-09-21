@@ -1,0 +1,39 @@
+<mat-card class="preg-card" fxLayout="column">
+    <div fxFlex="12" fxLayout="column" >
+        <div fxLayout="row" class="preg-item preg-prin"
+            [ngClass]="isRankeable()? 'preg-item1' : 'preg-item2'">
+            <div fxFlex="80" fxLayoutAlign="start center"><span>¿Estas habilitado?</span>
+            </div>
+            <div fxFlex fxLayoutAlign="center center"><span>{{config.p1.val|titlecase}}</span></div>
+        </div>
+    </div>
+    <!--362.5-->
+    <div fxFlex fxLayout="column" fxLayoutGap="5px">
+        <ng-container *ngIf="showBlockN()">
+            <div fxFlex="14.285" fxLayout="row" fxLayoutAlign="start center" class="preg-seg">
+                <span>¿Qué requisitos no cumples? :</span>
+            </div>
+            <ng-container *ngFor="let item of block_n">
+                <div fxFlex="14.285" fxLayout="row" class="preg-item" [ngClass]="item.c">
+                    <div fxFlex="80" fxLayoutAlign="start center"><span>{{item.q}}</span>
+                    </div>
+                    <div fxFlex fxLayoutAlign="center center"><span>{{item.a|titlecase}}</span></div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="showBlockY()">
+            <div fxFlex="14.285" fxLayout="row" fxLayoutAlign="start center" class="preg-seg">
+                <span>¿Qué requisitos si cumples? :</span>
+            </div>
+            <ng-container *ngFor="let item of block_y">
+                <div fxFlex="14.285" fxLayout="row" class="preg-item" [ngClass]="item.c">
+                    <div fxFlex="80" fxLayoutAlign="start center"><span>{{item.q}}</span>
+                    </div>
+                    <div fxFlex fxLayoutAlign="center center"><span>{{item.a|titlecase}}</span></div>
+                </div>
+            </ng-container>
+        </ng-container>
+
+        
+    </div>
+</mat-card>

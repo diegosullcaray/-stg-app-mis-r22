@@ -1,0 +1,167 @@
+<div class="header-topnav mat-elevation-z2">
+  <div class="container">
+    <div class="topnav">
+      <!-- App Logo 
+      <div class="topbar-branding">
+        <img src="assets/images/fc/inicio.png" alt="" class="app-logo">
+      </div>-->
+
+      <!-- Start Button -->
+      <div class="topbar-branding">
+        <button class="btn-start-adj btn-start-mob" mat-icon-button (click)="toggleSidenav()"
+          *ngIf="layoutConf.isMobile">
+          <img style="width: 36px;height: 24px;" src="assets/images/fc/mis_white.png" alt="" class="app-logo">
+        </button>
+        <button mat-icon-button id="schemeToggle" [style.overflow]="'visible'" matTooltip="Inicio"
+          [matMenuTriggerFor]="startMenu" class="btn-start-adj" *ngIf="!layoutConf.isMobile">
+          <img style="width: 36px;height: 24px;" src="assets/images/fc/mis_white.png" alt="" class="app-logo">
+          Inicio
+        </button>
+      </div>
+      <div style="padding-left: 5px;padding-top: 5px;font-size: 10px;">
+        <!--<fa-icon [icon]="fa.repo.ellipsisV"></fa-icon>-->
+      </div>
+      <div style="padding-left: 5px;padding-top: 5px;">
+        <button mat-icon-button (click)="showDesktop()">
+          <mat-icon>desktop_windows</mat-icon>
+        </button>
+      </div>
+
+      <mat-menu class="full" #startMenu="matMenu">
+        <!--<mat-grid-list class="theme-list" cols="2" rowHeight="48px">
+            <mat-grid-tile *ngFor="let theme of egretThemes" (click)="changeTheme(theme)">
+              <div mat-menu-item [title]="theme.name">
+                <div [style.background]="theme.baseColor" class="egret-swatch"></div>
+                <mat-icon class="active-icon" *ngIf="theme.isActive">check</mat-icon>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>-->
+        <app-start-menu></app-start-menu>
+      </mat-menu>
+
+
+
+      <!--<ul class="menu" *ngIf="!layoutConf.isMobile">
+        <li *ngFor="let item of menuItems; let i = index;">
+          <div *ngIf="item.type !== 'separator'" routerLinkActive="open">
+            <a matRipple routerLink="/{{item.state}}" *ngIf="item.type === 'link'">
+              <mat-icon>{{item.icon}}</mat-icon>
+              {{item.name | translate}}
+            </a>
+            <div *ngIf="item.type === 'dropDown'">
+              <label matRipple for="drop-{{i}}" class="toggle">
+                <mat-icon>{{item.icon}}</mat-icon> {{item.name}}
+              </label>
+              <a matRipple>
+                <mat-icon>{{item.icon}}</mat-icon> {{item.name}}
+              </a>
+              <input type="checkbox" id="drop-{{i}}" />
+              <ul>
+                <li *ngFor="let itemLvL2 of item.sub; let j = index;" routerLinkActive="open">
+                  <a matRipple routerLink="{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}"
+                    *ngIf="itemLvL2.type !== 'dropDown'">
+                    <mat-icon *ngIf="itemLvL2.icon">{{itemLvL2.icon}}</mat-icon>
+                    {{itemLvL2.name}}
+                  </a>
+
+                  <div *ngIf="itemLvL2.type === 'dropDown'">
+                    <label matRipple for="drop-{{i}}{{j}}" class="toggle">{{itemLvL2.name}}</label>
+                    <a matRipple>
+                      <mat-icon *ngIf="itemLvL2.icon">{{itemLvL2.icon}}</mat-icon> {{itemLvL2.name}}
+                    </a>
+                    <input type="checkbox" id="drop-{{i}}{{j}}" />
+                    //----- Level 3 ---//
+                    <ul>
+                      <li *ngFor="let itemLvL3 of itemLvL2.sub" routerLinkActive="open">
+                        <a matRipple
+                          routerLink="{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}">
+                          <mat-icon *ngIf="itemLvL3.icon">{{itemLvL3.icon}}</mat-icon>
+                          {{itemLvL3.name}}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <span fxFlex></span>
+       End Navigation -->
+      <span fxFlex></span>
+      <!-- Language Switcher 
+      <mat-select *ngIf="!layoutConf.isMobile" placeholder="" id="langToggle" [style.width]="'auto'" name="currentLang"
+        [(ngModel)]="currentLang" (selectionChange)="setLang()" class="topbar-button-right">
+        <mat-option *ngFor="let lang of availableLangs" [value]="lang.code" ngDefaultControl>{{ lang.name }}
+        </mat-option>
+      </mat-select>-->
+      <!-- Theme Switcher 
+      <button mat-icon-button id="schemeToggle" [style.overflow]="'visible'" matTooltip="Color Schemes"
+        [matMenuTriggerFor]="themeMenu" class="topbar-button-right">
+        <mat-icon>format_color_fill</mat-icon>
+      </button>
+      <mat-menu #themeMenu="matMenu">
+        <mat-grid-list class="theme-list" cols="2" rowHeight="48px">
+          <mat-grid-tile *ngFor="let theme of egretThemes" (click)="changeTheme(theme)">
+            <div mat-menu-item [title]="theme.name">
+              <div [style.background]="theme.baseColor" class="egret-swatch"></div>
+              <mat-icon class="active-icon" *ngIf="theme.isActive">check</mat-icon>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-menu>-->
+      <!-- Notification toggle button -->
+      <span *ngIf="user.isDev && !layout.isMobile" style="font-weight:500;">[{{user.email}}]</span>
+      <button mat-icon-button matTooltip="Notifications" (click)="toggleNotific()" [style.overflow]="'visible'"
+        class="topbar-button-right">
+        <mat-icon>notifications</mat-icon>
+        <!--<span class="notification-number mat-bg-warn">3</span>-->
+      </button>
+      <!-- Top left user menu -->
+      <button *ngIf="!layoutConf.isMobile" mat-icon-button class="topbar-button-right mr-16 img-button">
+        <img *ngIf="!user.isAlt" src="{{user.pictureURL}}" alt="" referrerpolicy="no-referrer">
+        <mat-icon class="material-icons-outlined" *ngIf="user.isAlt">supervised_user_circle</mat-icon>
+      </button>
+      <ng-container *ngIf="layoutConf.isMobile">
+        <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="topbar-button-right mr-16 img-button">
+          <img *ngIf="!user.isAlt" src="{{user.pictureURL}}" alt="" referrerpolicy="no-referrer">
+          <mat-icon class="material-icons-outlined" *ngIf="user.isAlt">supervised_user_circle</mat-icon>
+        </button>
+        <mat-menu #accountMenu="matMenu">
+          <button mat-menu-item [disabled]="admin.disableAltUserBtn()" fxLayoutAlign="start center" *ngIf="!user.isAlt"
+            (click)="admin.openAltUserDialog()">
+            <mat-icon>people_alt</mat-icon>
+            <span>Cambiar de Usuario</span>
+          </button>
+          <button mat-menu-item *ngIf="user.isAlt" fxLayoutAlign="start center" (click)="login.onOriLogin()">
+            <mat-icon>person</mat-icon>
+            <span>Mi Usuario</span>
+          </button>
+          <mat-divider></mat-divider>
+          <!--<button mat-menu-item [routerLink]="['/profile/settings']">
+            <mat-icon>settings</mat-icon>
+            <span>Account Settings</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>-->
+          <!--<button mat-menu-item (click)="jwtAuth.signout()">-->
+          <button mat-menu-item (click)="auth.logout()">
+            <mat-icon style="font-size: 18px;">
+              logout
+            </mat-icon>
+            <span>Cerrar Sesion</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+
+      <!-- Mobile screen menu toggle 
+      <button mat-icon-button class="mr-16" (click)="toggleSidenav()" *ngIf="layoutConf.isMobile">
+        <mat-icon>menu</mat-icon>
+      </button>-->
+
+    </div>
+  </div>
+</div>

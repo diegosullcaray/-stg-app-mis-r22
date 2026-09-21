@@ -1,0 +1,58 @@
+<div fxFill class="stg-mod-base" fxLayoutAlign="center center">
+    <div fxFill fxLayout="column" class="stg-window base mod-body">
+        <div fxFlex="10" fxLayout="row" class="mod-bar">
+            <div fxFlex="70" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                <div fxLayoutAlign="center center">
+                    <span class="material-icons" style="font-size: 48px;">
+                        home_filled
+                    </span>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <span style="font-size: 32px;">Sistemática Comercial</span>
+                </div>
+            </div>
+            <div fxFlex fxLayout="row" fxLayoutAlign="center">
+                <img style="filter: invert(100%);" src="assets/images/fc/fc_blank.png" alt=""
+                    referrerpolicy="no-referrer">
+            </div>
+        </div>
+        <div fxFlex style="padding: 10px;" fxLayout="column" fxLayoutGap="10">
+            <div fxFlex="45" fxLayoutGap="10">
+                <div fxFlex="25" *ngFor="let item of dsMainCards" class="card-base" fxLayout="column">
+                    <div fxLayoutAlign="center center" fxLayoutGap="5" class="lab">
+                        <div fxFlex fxLayoutAlign="end center"><span class="material-icons">{{item.ico}}</span></div>
+                        <div fxLayoutAlign="center"><span>{{item.des}}</span></div>
+                        <div fxFlex></div>
+                    </div>
+                    <div fxFlex fxLayoutAlign="center center">
+                        <div fxLayout="column" fxLayoutGap="20px">
+                            <div class="main-val" fxLayout="row" fxLayoutAlign="center start">
+                                <div fxFlex class="pre" fxLayoutAlign="end start"><span>{{item.pre_v}}</span></div>
+                                <div class="val" fxLayoutAlign="center start"><span>{{item.val | dynamicFormatPipe:item.format}}</span></div>
+                                <div fxFlex class="post" fxLayoutAlign="start start"><span>{{item.post_v}}</span></div>
+                            </div>
+                            <div>
+                                <div fxFlex="50"><span>Meta:</span></div>
+                                <div fxFlex="50"><span>{{item.meta | dynamicFormatPipe:item.format}}</span></div>
+                            </div>
+                            <div> 
+                                <div fxFlex="50"><span>Avance:</span></div>
+                                <div fxFlex="50"><span>{{item.avan | dynamicFormatPipe:item.format}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex fxLayoutGap="10">
+                <div fxFlex="50" class="card-base">
+                    <div><span>Monitor de Desembolsos</span></div>
+                    <div fxFlex></div>
+                </div>
+                <div fxFlex="50" class="card-base">
+                    <div><span>Monitor de Recuperaciones</span></div>
+                    <div fxFlex></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

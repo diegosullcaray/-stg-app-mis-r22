@@ -1,0 +1,36 @@
+@import "../incentivos2-colors.component.scss";
+
+.btn-long{
+    min-width: 60px;
+    width: 60px;
+    //border: 1px solid rgba(0, 0, 0, 0.45);
+    padding: 0px;
+    .icon{
+        font-size: 52px !important;
+    }
+}
+
+
+.text-disc{
+    font-size: 10px;
+    @media only screen and (max-width: 959px) {
+        font-size: 9px;
+    }
+}
+
+.text-1{
+    color: $color-2;
+}
+
+.text-nd{
+    font-size: 9px;
+}
+
+.text-2{
+    color: $color-1;
+    font-size: 36px;
+    font-weight: bold;
+    @media only screen and (max-width: 959px) {
+        font-size: 26px;
+    }
+}

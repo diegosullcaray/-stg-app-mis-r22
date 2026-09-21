@@ -1,0 +1,453 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f8fa;
+    color: #333;
+  }
+  
+  .header {
+    background-color: #004481;
+    color: #fff;
+    padding: 15px 15px 100px 0px;
+    text-align: left;
+    display: flex;
+    align-items: flex-start; 
+  }
+ 
+:host::ng-deep .stg-table2 .cell-content .number2 {
+    text-align: right!important;
+    flex: 1!important;
+}
+  .dashboard-container {
+    padding: 20px;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .card {
+    width: 260px;
+    background-color: #f7f7f7
+    ;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    border-color: #ffff;
+    text-align: center;
+    flex: 1;
+    box-shadow: 6px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: -80px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .card:hover {
+   // background-color: #B6E2FF;
+   background: #DCEAFD;
+    transform: scale(1.05);
+  }
+  .t {
+    text-decoration: underline;
+
+}
+  
+  .card h3 {
+    margin: 0;
+    color: #004481;
+    font-size: 18px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table th, .table td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #fff;
+    color: #004481;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .table th:hover {
+    background-color: #d9e6f2;
+    transform: scale(1.05);
+  }
+  
+  .table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .status {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  
+  .btn {
+    background-color: #004481;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background-color: #003366;
+  }
+  
+  .table .task-title {
+    color: #004481;
+    font-size: 16px;
+   // font-weight: bold;
+  }
+  
+  .table .task-title a {
+    color: #164D90;
+    text-decoration: none;
+    //font-weight: bold;
+  }
+  
+  .table .task-title a:hover {
+    text-decoration: underline; 
+  }
+  
+  
+  
+::ng-deep .stg-table2 table {
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 100% !important;
+}
+.stg-window {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+::ng-deep .stg-table2 .mat-table {
+  width: 100% !important;
+  min-width: 100% !important; 
+}
+::ng-deep .stg-table2 td {
+  vertical-align: middle !important;
+  
+}
+/* Alineación específica para columnas META, TMM, TAM, Distancia Meta */
+::ng-deep .stg-table2 td:nth-child(7),  /* META */
+::ng-deep .stg-table2 td:nth-child(8),  /* TMM */
+::ng-deep .stg-table2 td:nth-child(9),  /* TAM */
+::ng-deep .stg-table2 td:nth-child(10)  /* Distancia Meta */
+{
+  text-align: right !important;
+  //padding-right: 16px !important;
+}
+ 
+::ng-deep .stg-table2 .cell-content {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important; 
+  gap: 8px !important;
+  white-space: nowrap !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+ 
+::ng-deep .stg-table2 .cell-content .number {
+  font-size: 14px !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+  color: #333 !important;
+  text-align: right !important;
+  flex: 1 !important;
+}
+::ng-deep .stg-table2 .material-icons {
+  font-size: 16px !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
+}
+ 
+::ng-deep .stg-table2 .number {
+  font-size: 14px !important;
+  //font-weight: bold !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
+  margin-left: 0 !important;
+  color: #333 !important; 
+  justify-content: flex-end;
+}
+ 
+::ng-deep .stg-table2 .green-icon {
+  color: #4caf50 !important;
+}
+
+::ng-deep .stg-table2 .orange-icon {
+  color: #ff9800 !important;
+}
+
+::ng-deep .stg-table2 .red-icon {
+  color: #f44336 !important;
+}
+::ng-deep .stg-table2 td:nth-child(7)  {
+  text-align: right !important;
+}
+::ng-deep .stg-table2 td:nth-child(8),  
+::ng-deep .stg-table2 td:nth-child(9)    {
+  text-align: right !important;
+  //padding-left: 16px !important;
+  font-size: 14px !important;
+  justify-content: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+ 
+::ng-deep .stg-table2 .tmm-column,
+::ng-deep .stg-table2 .tam-column {
+  text-align: left !important;
+  font-size: 11px !important;
+  padding-left: 11px !important;
+}
+ 
+::ng-deep .stg-table2 .cell-content * {
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+ 
+::ng-deep .stg-table2 td .icon-number-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 18px !important;
+  width: 100% !important;
+  white-space: nowrap !important;
+}
+ 
+::ng-deep .stg-table2 td .icon-number-wrapper .material-icons,
+::ng-deep .stg-table2 td .icon-number-wrapper .number {
+  margin: 0 !important;
+  padding: 0 !important;
+} 
+
+
+.icon-example {
+  font-size: 48px;
+  padding: 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+@media (min-width: 1200px) {
+  .card {
+    padding: 16px;
+    min-width: 250px;
+    max-width: 330px;//ancho card
+  }
+  
+  .main-value {
+    font-size: 18px;
+  }
+  
+  .sub-value {
+    font-size: 12px;
+  }
+  
+  .label {
+    font-size: 14px;
+  }
+  
+  .progress-circle {
+    width: 75px;
+    height: 75px;
+  }
+  
+  .trend-icon {
+    width: 45px;
+    height: 40px;
+    margin-right: 16px;  
+  }
+}
+ 
+@media (max-width: 1199px) and (min-width: 769px) {
+  .card {
+    padding: 14px;
+    min-width: 170px;
+    max-width: 220px;
+  }
+  
+  .cards-container {
+    gap: 10px;
+  }
+  
+  .main-value {
+    font-size: 16px;
+    max-width: 90px;
+  }
+  
+  .sub-value {
+    font-size: 11px;
+    max-width: 90px;
+  }
+  
+  .label {
+    font-size: 11px;
+    max-width: 110px;
+  }
+  
+  .progress-circle {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .trend-icon {
+    width: 40px;
+    height: 35px;
+    margin-right: 10px;
+  }
+}
+ 
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: -30px;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  .card {
+    padding: 12px;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 80px;
+  }
+  
+  .main-value {
+    font-size: 14px;
+    max-width: 80px;
+  }
+  
+  .sub-value {
+    font-size: 10px;
+    max-width: 80px;
+  }
+  
+  .label {
+    font-size: 10px;
+    max-width: 100px;
+  }
+  
+  .progress-circle {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .trend-icon {
+    width: 35px;
+    height: 30px;
+    margin-right: 8px;
+  }
+  
+  .trend-chip {
+    min-width: 60px;
+    max-width: 80px;
+    padding: 3px 8px;
+  }
+  
+  .headerC {
+    min-height: 200px;
+  }
+  
+  .bodyC {
+    padding-top: 20px;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .card {
+    padding: 10px;
+    min-height: 75px;
+  }
+  
+  .card-content {
+    gap: 6px;
+  }
+  
+  .main-value {
+    font-size: 12px;
+    max-width: 70px;
+  }
+  
+  .sub-value {
+    font-size: 9px;
+    max-width: 70px;
+  }
+  
+  .label {
+    font-size: 9px;
+    max-width: 90px;
+  }
+  
+  .progress-circle {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .trend-icon {
+    width: 30px;
+    height: 25px;
+    margin-right: 6px;
+  }
+  
+  .trend-chip {
+    min-width: 50px;
+    max-width: 70px;
+    padding: 2px 6px;
+    font-size: 9px;
+  }
+} 
+.card-text-container {
+  flex: 1;
+  min-width: 0;  
+  overflow: hidden;
+}
+
+.card-text-container > * {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+.card-content > div:first-child {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.card-content > div:last-child {
+  flex-shrink: 0;
+}
+::ng-deep .stg-table2 td:nth-child(8){
+  text-align: right !important;
+    //padding-left: 16px !important;
+    font-size: 14px !important; 
+}

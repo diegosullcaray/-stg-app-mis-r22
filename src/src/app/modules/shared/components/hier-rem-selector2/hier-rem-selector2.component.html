@@ -1,0 +1,10 @@
+<div fxFlexLayout="row" class="stg-simple-card" fxLayoutGap="10px">
+   
+    <div fxFlex fxLayout="row">
+        <ng-container *ngFor='let val of selectedValues;let i = index'>
+            <div class="itemh-card" fxLayoutAlign="start center">
+                <span>{{val.des_rel}}</span>
+            </div>
+        </ng-container>
+    </div>
+</div>

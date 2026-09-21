@@ -1,0 +1,10 @@
+<mat-card class="mat-elevation-z">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="200px">
+            <div class="m-033">
+                <app-select-basic  (refresh)="load($event)"  [config_select]='config_select'></app-select-basic>
+            </div>
+        </div>
+    </div>
+</mat-card>
+<app-table-multiheader *ngFor='let c of config;let i=index'[config_table]='config_table[i]'></app-table-multiheader>

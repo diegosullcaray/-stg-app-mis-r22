@@ -1,0 +1,38 @@
+@import "/src/assets/styles/scss/colors";
+
+.preg-card{
+    box-shadow: 0 8px 12px rgb(47 60 74 / 27%), 0 2px 6px rgb(47 60 74 / 27%) !important;
+    margin-top: 0 !important;
+    min-height: 100%;
+    height: 100%;
+    min-width: 333px;
+}
+
+.preg-prin{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.preg-seg{
+    padding-left: 10px;
+    color: $blue-base;
+    font-weight: bold;
+}
+
+.preg-item{
+    border: 2px solid;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+.preg-item1{
+    border-color: #42A5F5 !important;
+    background-color: #cae6fc;
+    color: $blue-base;
+}
+
+.preg-item2{
+    border-color: #f54242 !important;
+    background-color: #fccaca;
+    color: $blue-base;
+}

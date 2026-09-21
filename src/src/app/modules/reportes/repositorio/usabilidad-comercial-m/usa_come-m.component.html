@@ -1,0 +1,59 @@
+<div class="stg-window" fxFill fxLayout="column">
+    <!-- <stg-window-bar title="Tablero Digital Comercial"> </stg-window-bar> -->
+    <!-- <div class="header-with-date">
+        <div class="header-title">Tablero Digital Comercial</div>
+        <div style="padding-right: 10px; padding-left: 10px;">
+            <div class="date-selector-header" fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayoutGap="10">
+                    <div class="custom-select-container" #dropdownContainer>
+                        <div class="date-trigger" [class.open]="isDropdownOpen" (click)="toggleDropdown($event)">
+                            <span class="select-icon">
+                                <i class="material-icons" style="color: white;">date_range</i>
+                            </span>
+                            <div class="select-content"> 
+                                <span class="select-value">{{ fechaMensual?.label || 'Seleccionar' }}</span>
+                            </div>
+                            <span class="select-arrow">▼</span>
+                        </div>
+                        
+                        <div class="custom-select-dropdown" [class.open]="isDropdownOpen"> 
+                            <div class="select-options">
+                                <div class="select-option" 
+                                     *ngFor="let item of filter1"
+                                     [class.selected]="fechaMensual?.val === item.val"
+                                     (click)="selectItem(item, $event)">
+                                    <span class="select-icon">
+                                        <i class="material-icons">date_range</i>
+                                    </span>
+                                    <span class="option-text">{{item.label}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <stg-window-bar-m
+  [items]="filter1"
+  [title]="'Tablero Digital Comercial'"
+  [showTitle]="true"
+  [icon]="'date_range'"
+  [placeholder]="'Seleccionar fecha'"
+  [(ngModel)]="fechaMensual"
+  (selectionChange)="onFechaChange($event)">
+</stg-window-bar-m>
+
+    <div class="stg-panel" fxLayout="column" fxFlex>
+        <div fxLayout="row">
+            <ng-container *ngIf="activeHier">
+                <hier-rem-selector fxFlex [confHier]="confHier1"
+                    (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+        </div>
+          
+        <stg-table2 fxFlex [dataSource]="dataSource" [headers]="headerDefs" [options]="Opts" (onClickCell)="ddEventV($event)">
+        </stg-table2>
+  
+    </div>
+</div>

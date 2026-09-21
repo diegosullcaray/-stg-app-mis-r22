@@ -1,0 +1,48 @@
+<div>
+  <div style="height: 10px;"></div>
+  <div class="stg-panel">
+    <div class="stg-window">
+      <div style="padding: 0.5rem;">
+        <div style="position: relative;">
+          <input type=text class="stg-input" placeholder="Buscar Asesor" (keyup)="filter($event)">
+        </div>
+      </div>
+      <!-- <div class="demo-button-container">
+          <button mat-raised-button  class="demo-button">
+            Add data
+          </button>
+          
+        </div> -->
+      <div style="padding: 0px 10px;"> 
+          
+        <mat-tab-group fxFlex style="overflow-y: auto;">
+          
+          <mat-tab label="Desembolsos del mes anterior">
+            
+            <ng-template matTabContent>
+              <div style="height: 15px;"></div>
+              <stg-table [tableStyleConfig]="tableCfgStyle" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs"
+                [dataSource]="dataSource" [loadingObs]="loadingObs" [customComponentCell]="customComponent"
+                [customComponentStyler]="inputStyler" [metaSources]="tableMeta"
+                [actionTrigger]="action" [iconizerMap]="iconColMap">
+              </stg-table>
+              <ng-container *ngIf="showPaginator">
+                <stg-paginator #paginator [totalLenght]="dataSourceLenght" pageLenght="15"
+                  (onChangePage)="changePage($event)">
+                </stg-paginator>
+              </ng-container>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+        
+      </div>
+      <div style="height: 10px;"></div>
+      <div style="height: 50px;padding-left: 10px;padding-top: 15px;font-size: 12px;">
+        <p>1. Crédito mayor o igual a S/ 30,000<br>2. Créditos Agrícolas a una sola cuota mayor o igual a S/.20,000.
+          <br> 3. Todos los productos construyendo confianza mayor igual a S/10,000.<br> 4. No aplica a Créditos destinados a Compra de Deuda o
+          Créditos Grupales
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

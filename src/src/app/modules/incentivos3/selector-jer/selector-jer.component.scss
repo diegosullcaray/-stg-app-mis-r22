@@ -1,0 +1,18 @@
+.sp-box {
+    border-radius: 0.5rem;
+    border: 1px solid lightgrey;
+    padding: 5px;
+    color: white;
+    background: #009fe3;
+
+    .v{
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background: #6BCFE6;
+        //text-decoration: underline;
+    }
+}

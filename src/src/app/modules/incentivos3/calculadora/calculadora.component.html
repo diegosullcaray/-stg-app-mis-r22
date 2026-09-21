@@ -1,0 +1,182 @@
+<div fxFill fxLayout="column" [formGroup]="simForm">
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar title="Calculadora" barIcon="calculate" titleAlign="start" closable=true (onClose)="navMain()">
+        </stg-window-bar>
+        <div fxLayoutGap="15px" class="bon">
+            <div fxFlex fxLayout="column">
+                <div fxLayout="row" fxLayoutGap="10px" style="font-weight: bold;">
+                    <div fxFlex style="padding: 0px 5px;" fxLayoutAlign="start center">
+                        <span class="t1">Comisión Total:</span>
+                    </div>
+                    <div fxFlex="33.33" style="padding: 0px 5px;">
+                        <div fxFlex [style]="getComCls()" fxLayoutAlign="start center">
+                            <span>{{getCom()}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="33.33" style="padding: 0px 5px;">
+                        <div fxFlex class="chip">
+                            <span>S/. {{config.bot | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size: 12px;padding-top: 5px;" fxLayoutAlign="start center">
+                    <div fxFlex="33.33" fxLayoutGap="5px" style="padding: 5px;" fxLayout="column">
+                        <div fxLayoutAlign="start center">
+                            <span>Base:</span>
+                        </div>
+                        <div class="chip">
+                            <span>S/. {{config.bob | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayoutGap="5px" style="padding: 5px;" fxLayout="column">
+                        <div fxLayoutAlign="start center">
+                            <span>Plus:</span>
+                        </div>
+                        <div class="chip">
+                            <span>S/. {{config.bop | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="33.33" fxLayoutGap="5px" style="padding: 5px;" fxLayout="column">
+                        <div fxLayoutAlign="start center">
+                            <span>Super Plus:</span>
+                        </div>
+                        <div class="chip">
+                            <span>S/. {{config.bos | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <ng-scrollbar track="all">
+            <div fxLayout="row wrap">
+                <ng-container *ngFor="let item of config.vars;let i = index;">
+                    <ng-container *ngIf="item.show">
+                        <div [fxFlex]="getBoxFlex(item)" style="padding: 5px;">
+                            <div fxLayout="column" class="cont">
+                                <div class="des-box" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                                    <div fxLayoutAlign="center center">
+                                        <span class="material-icons i">{{item.icon}}</span>
+                                    </div>
+                                    <div class="n" fxLayoutAlign="center center">
+                                        <span>{{item.des}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex fxLayout="row wrap">
+                                    <div [fxFlex]="getInputFlex(item)" fxLayout="column">
+                                        <div class="t"><span>Cierre:</span></div>
+                                        <div class="e">
+                                            <stg-ninput *ngIf="item.format=='number'"
+                                                styleCfg="font-size: 12px;padding: 3px;"
+                                                [formControlName]="item.key"></stg-ninput>
+                                            <stg-pinput *ngIf="item.format=='percent'"
+                                                styleCfg="font-size: 12px;padding: 3px;"
+                                                [formControlName]="item.key"></stg-pinput>
+                                        </div>
+                                    </div>
+                                    <div [fxFlex]="getInputFlex(item)" fxLayout="column">
+                                        <div class="t"><span>Meta:</span></div>
+                                        <div class="e" fxFlex fxAlign="start center">
+                                            <span>{{getForm1(item.met,item.format)}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="item.key=='v_efec1'" [fxFlex]="getInputFlex(item)" fxLayout="column">
+                                        <div class="t"><span>Pago Puntual:</span></div>
+                                        <div class="e" fxFlex fxAlign="start center">
+                                            <stg-pinput [error]="compoError" styleCfg="font-size: 12px;padding: 3px;"
+                                                formControlName="tp1"></stg-pinput>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="item.key=='v_efec1'" [fxFlex]="getInputFlex(item)" fxLayout="column">
+                                        <div class="t"><span>1 a 8 días:</span></div>
+                                        <div class="e" fxFlex fxAlign="start center">
+                                            <stg-pinput [error]="compoError" styleCfg="font-size: 12px;padding: 3px;"
+                                                formControlName="tp2"></stg-pinput>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="item.key=='v_efec1'" [fxFlex]="getInputFlex(item)" fxLayout="column">
+                                        <div class="t"><span>9 a más días:</span></div>
+                                        <div class="e" fxFlex fxAlign="start center">
+                                            <stg-pinput [error]="compoError" styleCfg="font-size: 12px;padding: 3px;"
+                                                formControlName="tp3"></stg-pinput>
+                                        </div>
+                                    </div>
+
+                                    <div fxFlex="50" fxLayout="column">
+                                        <div class="t2"><span>Bono Base:</span></div>
+                                        <div class="e2"><span>{{getForm1(item.bob,'pen')}}</span></div>
+                                    </div>
+                                    <div fxFlex="50" fxLayout="column">
+                                        <div class="t2"><span>Bono Plus:</span></div>
+                                        <div class="e2"><span>{{getForm1(item.bop,'pen')}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+            <div fxLayout="row wrap">
+                <ng-container *ngFor="let item of config.plus;let i = index;">
+                    <ng-container *ngIf="item.show">
+                        <div fxFlex="50" style="padding: 5px;">
+                            <div fxLayout="column" class="cont plus">
+                                <div class="des-box" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                                    <div fxLayoutAlign="center center">
+                                        <span class="material-icons i">{{item.icon}}</span>
+                                    </div>
+                                    <div class="n" fxLayoutAlign="center center">
+                                        <span>{{item.des}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex fxLayout="row wrap">
+                                    <div fxFlex="50" fxLayout="column">
+                                        <div class="t"><span>{{getT1(item.id)}}</span></div>
+                                        <div class="e">
+                                            <stg-ninput
+                                                *ngIf="!['clib','sis'].includes(item.id) && item.format=='number'"
+                                                styleCfg="font-size: 12px;padding: 3px;"
+                                                [formControlName]="item.key"></stg-ninput>
+                                            <stg-pinput
+                                                *ngIf="!['clib','sis'].includes(item.id) && item.format=='percent'"
+                                                styleCfg="font-size: 12px;padding: 3px;"
+                                                [formControlName]="item.key"></stg-pinput>
+                                            <span *ngIf="item.id=='clib'">{{getForm1(item.val,'number')}}</span>
+                                            <select *ngIf="item.id=='sis'" name="select" class="stg-input b"
+                                                [formControlName]="item.key">
+                                                <option value="2" selected>No Aplica</option>
+                                                <option value="1">Si Cumple</option>
+                                                <option value="0">No Comple</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" fxLayout="column">
+                                        <div class="t"><span>{{getT2(item.id)}}</span></div>
+                                        <div class="e" fxFlex fxAlign="start center">
+                                            <span *ngIf="item.id=='prod'">{{getForm1(item.met,'number')}}</span>
+                                            <stg-pinput *ngIf="item.id=='tas'" styleCfg="font-size: 12px;padding: 3px;"
+                                                formControlName="p_tas2"></stg-pinput>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" fxLayout="column">
+                                        <div [class]="getT2Cls(item)"><span>Bono Super Plus:</span></div>
+                                        <div [class]="getE2Cls(item)"><span>{{getForm1(item.bos,'pen')}}</span></div>
+                                    </div>
+                                    <div *ngIf="item.id=='tas'" fxFlex="50" fxLayout="column">
+                                        <div class="t2"><span>Dif. Tasa:</span></div>
+                                        <div class="e2"><span>{{diffTasa}} pbs</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-scrollbar>
+    </div>
+    <div fxLayoutAlign="end center" style="padding-top: 5px;" fxLayoutGap="10px">
+        <stg-button color="primary" (click)="calc()">Simular</stg-button>
+        <!-- <stg-button (click)="rest()">Restaurar</stg-button> -->
+    </div>
+</div>

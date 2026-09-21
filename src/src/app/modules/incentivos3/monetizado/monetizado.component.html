@@ -1,0 +1,66 @@
+<div *ngIf="!config.loading" fxFill fxLayout="column" class="base">
+    <div fxFlex fxLayout="column">
+        <div fxFlex fxLayout="row wrap">
+            <div fxFlex="50" fxLayout="column" fxLayout.lt-md="row" fxLayoutGap.lt-md="5px" class="c">
+                <div>
+                    <span class="d">Bono Base:</span>
+                </div>
+                <div fxFlex fxLayoutAlign.lt-md="end start">
+                    <span class="m">S/. {{config.bob | number:'.0-2'}}</span>
+                </div>
+            </div>
+            <siv fxFlex="50" fxLayout="column" fxLayout.lt-md="row" fxLayoutGap.lt-md="5px" class="c">
+                <div>
+                    <span class="d">Bono Plus:</span>
+                </div>
+                <div fxFlex fxLayoutAlign.lt-md="end start">
+                    <span class="m">S/. {{config.bop | number:'.0-2'}}</span>
+                </div>
+            </siv>
+            <div fxFlex="50" fxLayout="column" fxLayout.lt-md="row" fxLayoutGap.lt-md="5px" class="c">
+                <div>
+                    <span class="d">Bono Super Plus:</span>
+                </div>
+                <div fxFlex fxLayoutAlign.lt-md="end start">
+                    <span [class]="getBosClass()">S/. {{config.bos | number:'.0-2'}}</span>
+                </div>
+            </div>
+            <div fxFlex="50" fxLayout="column" fxLayout.lt-md="row" fxLayoutGap.lt-md="5px" class="c">
+                <div>
+                    <span class="d">Total Monetizado:</span>
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutAlign.lt-md="start end">
+                    <span *ngIf="config.cod_sit==1" class="mt">S/. {{config.bot | number:'.0-2'}}</span>
+                    <span *ngIf="config.cod_sit==0" class="mt">S/. 0</span>
+                    <span *ngIf="config.cod_sit==0" class="ms">(S/. {{config.bot | number:'.0-2'}})</span>
+                </div>
+            </div>
+        </div>
+        <div class="s">
+            <span>Comisión:</span>
+            <span [class]="getActClass()">{{config.des_sit}}</span>
+        </div>
+        
+    </div>
+    <div fxLayoutAlign="end center" style="padding-top: 5px;" fxLayoutGap="5px">
+        <ng-container *ngIf="show_cm">
+            <div style="font-size: 16px;color: orangered;font-weight: bold;" fxLayoutAlign.gt-sm="center center">
+                <span>Modelo:</span>
+                <span style="padding-right: 5px;">{{config.model_des}}</span>
+            </div>
+            <!--<stg-button icon="currency_exchange" (click)="changeModel()"></stg-button>-->
+        </ng-container>
+        <stg-button *ngIf="config.can_sim" icon="calculate" (click)="showCalculator()"></stg-button>
+        <stg-button icon="date_range" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="dateMenu"></stg-button>
+        <div style="border: 1px solid #ced4da;padding: 5px;border-radius: 4px;font-size: 12px;"><span>{{date |
+                date:'YYYY-MM-dd'}}</span></div>
+    </div>
+</div>
+<blank-loader *ngIf="config.loading"></blank-loader>
+<mat-menu #dateMenu="matMenu">
+    <div (click)="$event.stopPropagation();">
+        <mat-calendar style="width:15rem" #calendar [selected]="date" [minDate]="date_a" [maxDate]="date_c"
+            [dateFilter]="filterDates" (selectedChange)="changeDate($event)">
+        </mat-calendar>
+    </div>
+</mat-menu>

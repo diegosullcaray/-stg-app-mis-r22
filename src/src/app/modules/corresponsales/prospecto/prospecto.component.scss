@@ -1,0 +1,424 @@
+.fondoblanco { 
+  background-color: white !important;
+}
+* {
+  background: white !important;
+ background-color: white !important;
+} 
+body {
+  background-color: white !important;
+} 
+
+.containers__item--sidebar {
+  background-color: #0080d4;
+  
+}
+#rightside-content-hold {
+  background-color: white;
+}
+.container-dynamic {
+  background-color: white;
+}
+.containers__item--content {
+
+  background-color: blue;
+}
+.containers__item--sidebar,
+.containers__item--content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .contenido{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2px;
+} 
+
+@media screen and (max-width: 480px) {
+  .contenido{
+    grid-template-columns: 1fr;
+    color: red;
+  }
+}
+
+:host ::ng-deep .ng-tns-c9-1 {
+  flex: 1 1 100%; box-sizing: border-box; max-width: 100%;
+}
+
+
+:host ::ng-deep  .ng-tns-c13-2 { 
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+}
+:host  .ng-tns-c13-2 .mat-icon-button .mat-button-base .mat-primary{
+ display: none;
+}
+
+:host ::ng-deep .ng-tns-c13-2 .ng-star-inserted{
+  flex: 1 1 100%; box-sizing: border-box; max-width: 100%;
+}
+
+:host ::ng-deep  .ng-tns-c13-3 { 
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+}
+:host  .ng-tns-c13-3 .mat-icon-button .mat-button-base .mat-primary{
+  display: none;
+ }
+:host ::ng-deep .ng-tns-c13-3 .ng-star-inserted{
+  flex: 1 1 100%; box-sizing: border-box; max-width: 100%;
+}
+
+:host ::ng-deep  .ng-tns-c13-4 { 
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+  
+}
+
+:host ::ng-deep .ng-tns-c13-4 .ng-star-inserted{
+  flex: 1 1 100%; box-sizing: border-box; max-width: 100%;
+}
+// :host ::ng-deep .table-container{
+//   width: 100%; 
+//   position: relative;
+//   height: 200px;
+// }
+
+
+:host ::ng-deep .highcharts-subtitle{
+  position: absolute;font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;font-size: 12px;white-space: nowrap;margin-left: 0px;margin-top: 0px;left: 628px;top: 12px;color: green;display: none;
+}
+
+:host ::ng-deep  .ng-tns-c13-5 {
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+}
+:host ::ng-deep .ng-tns-c13-5 .mat-icon-button{
+  padding: 0;
+    min-width: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    line-height: 40px;
+    border-radius: 50%;
+    display: none;
+} 
+
+:host ::ng-deep .ng-tns-c13-4 .mat-icon-button{
+  padding: 0;
+    min-width: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    line-height: 40px;
+    border-radius: 50%;
+    display: none;
+}
+
+:host ::ng-deep .ng-tns-c13-3 .mat-icon-button{
+  padding: 0;
+    min-width: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    line-height: 40px;
+    border-radius: 50%;
+    display: none;
+}
+
+:host ::ng-deep .ng-tns-c13-2 .mat-icon-button{
+  padding: 0;
+    min-width: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0; 
+    line-height: 40px;
+    border-radius: 50%;
+    display: none;
+}
+
+
+:host  ::ng-deep .ng-tns-c13-5 .ng-star-inserted .m-033 .ng-tns-c13-5 {
+  width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+  max-width: 100%!important;
+}
+
+:host ::ng-deep .ng-tns-c13-5  .ng-tns-c13-5 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%!important;
+}
+
+:host ::ng-deep .ng-tns-c13-5 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%  !important;
+  width: 100% !important;
+}
+:host ::ng-deep .m-033 .ng-tns-c13-5{
+  margin: .333333rem !important;
+  max-width: 100%  !important;
+  width: 100% !important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+}
+:host ::ng-deep .m-033 .ng-tns-c13-5 .highcharts-container{
+  position: relative; overflow: hidden; 
+  width: 100%  !important; height: 400px; text-align: left; 
+  line-height: normal; z-index: 0; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  user-select: none;
+}
+
+
+:host  ::ng-deep .ng-tns-c13-2 .ng-star-inserted .m-033 .ng-tns-c13-2 {
+  width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+  max-width: 100%!important;
+}
+:host ::ng-deep .ng-tns-c13-2  .ng-tns-c13-2 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%!important;
+}
+
+:host ::ng-deep .ng-tns-c13-2 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%  !important;
+  width: 100% !important;
+}
+
+
+:host ::ng-deep .m-033 .ng-tns-c13-2{
+  margin: .333333rem !important;
+  max-width: 100%  !important;
+  width: 100% !important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+}
+:host ::ng-deep .m-033 .ng-tns-c13-2 .highcharts-container{
+  position: relative; overflow: hidden; 
+  width: 100%  !important; height: 400px; text-align: left; 
+  line-height: normal; z-index: 0; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  user-select: none;
+}
+
+
+
+:host  ::ng-deep .ng-tns-c13-3 .ng-star-inserted .m-033 .ng-tns-c13-3 {
+  width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+  max-width: 100%!important;
+}
+
+:host ::ng-deep .ng-tns-c13-3  .ng-tns-c13-3 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%!important;
+}
+
+:host ::ng-deep .ng-tns-c13-3 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%  !important;
+  width: 100% !important;
+}
+:host ::ng-deep .m-033 .ng-tns-c13-3{
+  margin: .333333rem !important;
+  max-width: 100%  !important;
+  width: 100% !important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+}
+:host ::ng-deep .m-033 .ng-tns-c13-3 .highcharts-container{
+  position: relative; overflow: hidden; 
+  width: 100%  !important; height: 400px; text-align: left; 
+  line-height: normal; z-index: 0; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  user-select: none;
+}
+
+
+:host  ::ng-deep .ng-tns-c13-4 .ng-star-inserted .m-033 .ng-tns-c13-4 {
+  width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+  max-width: 100%!important;
+}
+
+:host ::ng-deep .ng-tns-c13-4  .ng-tns-c13-4 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%!important;
+}
+
+:host ::ng-deep .ng-tns-c13-4 .ng-star-inserted{
+  flex: 1 1 100% !important; box-sizing: border-box; max-width: 100%  !important;
+  width: 100% !important;
+}
+:host ::ng-deep .m-033 .ng-tns-c13-4{
+  margin: .333333rem !important;
+  max-width: 100%  !important;
+  width: 100% !important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+}
+:host ::ng-deep .m-033 .ng-tns-c13-4 .highcharts-container{
+  position: relative; overflow: hidden; 
+  width: 100%  !important; height: 400px; text-align: left; 
+  line-height: normal; z-index: 0; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  user-select: none;
+}
+
+  :host ::ng-deep  .graf4 {
+    flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+    max-width: 100%!important;
+
+  }
+
+   :host ::ng-deep .graf4  [class*="ng-tns-c"] {
+    flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+    max-width: 100%!important;
+  }
+
+  :host ::ng-deep  .graf4 .ng-star-inserted  {
+       width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+       max-width: 100%!important;
+    
+  }
+
+  :host ::ng-deep  .graf4 .highcharts-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative; overflow: hidden; 
+    width: 1422px; height: 400px; text-align: left; 
+    line-height: normal; z-index: 0; 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none;
+  }
+  
+   :host  ::ng-deep  .graf4 .highcharts-container {
+   width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+   max-width: 100%!important;
+   
+ }
+
+  :host ::ng-deep .graf4  [class*="ng-tns-c"]  .mat-icon-button{
+   padding: 0;
+     min-width: 0;
+     width: 40px;
+     height: 40px;
+     flex-shrink: 0;
+     line-height: 40px;
+     border-radius: 50%;
+     display: none;
+ }
+  ////////////////////////////////
+ :host ::ng-deep  .graf3 {
+  //flex-flow: row wrap; box-sizing: border-box; display: flex;
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+
+}
+
+ :host ::ng-deep .graf3  [class*="ng-tns-c"] {
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+}
+
+:host ::ng-deep  .graf3 .ng-star-inserted  {
+     width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+     max-width: 100%!important;
+  
+}
+
+:host ::ng-deep  .graf3 .highcharts-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative; overflow: hidden; 
+  width: 1422px; height: 400px; text-align: left; 
+  line-height: normal; z-index: 0; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none;
+}
+
+ :host  ::ng-deep  .graf3 .highcharts-container {
+ width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+ max-width: 100%!important;
+ 
+}
+
+:host ::ng-deep .graf3  [class*="ng-tns-c"]  .mat-icon-button{
+ padding: 0;
+   min-width: 0;
+   width: 40px;
+   height: 40px;
+   flex-shrink: 0;
+   line-height: 40px;
+   border-radius: 50%;
+   display: none;
+} 
+
+:host ::ng-deep  .graf2 {
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+
+}
+
+ :host ::ng-deep .graf2  [class*="ng-tns-c"] {
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+}
+
+:host ::ng-deep  .graf2 .ng-star-inserted  {
+     width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+     max-width: 100%!important;
+  
+}
+
+:host ::ng-deep  .graf2 .highcharts-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative; overflow: hidden; 
+  width: 1422px; height: 400px; text-align: left; 
+  line-height: normal; z-index: 0; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none;
+}
+
+ :host  ::ng-deep  .graf2 .highcharts-container {
+ width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+ max-width: 100%!important;
+ 
+}
+
+:host ::ng-deep .graf2  [class*="ng-tns-c"]  .mat-icon-button{
+ padding: 0;
+   min-width: 0;
+   width: 40px;
+   height: 40px;
+   flex-shrink: 0;
+   line-height: 40px;
+   border-radius: 50%;
+   display: none;
+} 
+
+:host ::ng-deep  .graf1 { 
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+
+}
+
+ :host ::ng-deep .graf1  [class*="ng-tns-c"] {
+  flex-flow: row wrap; box-sizing: border-box;width: 100%!important;
+  max-width: 100%!important;
+}
+
+:host ::ng-deep  .graf1 .ng-star-inserted  {
+     width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+     max-width: 100%!important;
+  
+}
+
+:host ::ng-deep  .graf1 .highcharts-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative; overflow: hidden; 
+  width: 1422px; height: 400px; text-align: left; 
+  line-height: normal; z-index: 0; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none;
+}
+
+ :host  ::ng-deep  .graf1 .highcharts-container {
+ width: 100%!important; height: 400px; max-height: 80vh; display: block; overflow: hidden;
+ max-width: 100%!important;
+ 
+}
+
+:host ::ng-deep .graf1  [class*="ng-tns-c"]  .mat-icon-button{
+ padding: 0;
+   min-width: 0;
+   width: 40px;
+   height: 40px;
+   flex-shrink: 0;
+   line-height: 40px;
+   border-radius: 50%;
+   display: none;
+}
+

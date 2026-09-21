@@ -1,0 +1,114 @@
+.cob-block{
+    height: 100px;
+    padding: 10px;
+}
+
+.main-block{
+    //padding: 15px 0px;
+    @media only screen and (max-width: 959px) {
+        //padding-right: 15px;
+        padding-bottom: 0px;
+        //height: 580px;
+    }
+}
+
+.var-block{
+    height: 180px;
+    .d{
+        padding: 10px;
+    }
+    .s{
+        font-size: 12px;
+        color: #2196f3;
+    }
+    .t{
+        padding-bottom: 10px;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        color: #1976d2;
+    }
+    .v{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .is{
+        font-size: 16px;
+    }
+}
+
+.mon-block{
+    height: 180px;
+    padding: 10px;
+}
+
+.smf-block{
+    //height: 80px;
+    padding-bottom: 10px;
+    .t{
+        padding: 5px;
+        font-weight: bold;
+        //font-size: ;
+        @media only screen and (max-width: 959px) {
+            font-size: 12px;
+        }
+        .a {
+            font-size: 16px;
+            @media only screen and (max-width: 959px) {
+                font-size: 14px;
+            }
+        }
+    }
+    .bi{
+        text-align: center;
+        .t{
+            font-size: 12px;
+            @media only screen and (max-width: 959px) {
+                font-size: 8px;
+            }
+        }
+        .i{
+            //font-size: 24px;
+            @media only screen and (max-width: 959px) {
+                font-size: 20px !important;
+            }
+        }
+    }
+}
+
+.tbl-block{
+    padding: 10px 30px;
+    @media only screen and (max-width: 959px) {
+        font-size: 20px !important;
+        padding: 10px;
+    }
+}
+
+.tbl{
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    @media only screen and (max-width: 959px) {
+        font-size: 11px;
+    }
+    .n{
+        font-size: 14px;
+        font-weight: bold;
+        padding: 5px;
+        @media only screen and (max-width: 959px) {
+            font-size: 11px;
+            //padding: 5px 10px;
+        }
+    }
+    .h{
+        color: #2196f3;
+        .e{
+            width: 160px;
+        }
+        .vn{
+            width: 200px;
+            @media only screen and (max-width: 959px) {
+                width: 140px;
+            }
+        }
+    }
+}

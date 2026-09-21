@@ -1,0 +1,28 @@
+.stg-tbl-content {
+    position: relative;
+    min-height: 60px;
+    .table-container {
+        position: relative;
+     
+        //min-height: 25vh;
+        //max-height: 70vh;
+        overflow: auto;
+        z-index: 0;
+        .mat-row.hovered {
+            background: #eee;
+        }
+    }
+}
+
+.row-hovered {
+    //background: #eee;
+    background: #f4f0ec;
+}
+
+.row-highlighted {
+    //background: #999;
+    background: #0081ff;
+    div span{
+        color: white ;
+    }
+}

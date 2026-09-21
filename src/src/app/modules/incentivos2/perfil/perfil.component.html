@@ -1,0 +1,117 @@
+<div fxFill fxLayout="column">
+    <div fxFlex="60" fxLayout="column">
+        <div fxLayout="row">
+            <div fxFlex.gt-sm="35" fxFlex="30" fxLayout="column" fxLayoutAlign="start center">
+                <div class="pic-box" fxLayoutAlign="center center">
+                    <img *ngIf="showPic" src="{{user.pictureURL}}" alt="" referrerpolicy="no-referrer">
+                    <span *ngIf="!showPic" class="material-icons icon">
+                        person
+                    </span>
+                </div>
+            </div>
+            <div fxFlex fxLayout="column">
+                <div fxFlex.gt-sm="40" fxFlex="35" fxLayout="column">
+                    <div [class]="{'text-name':!layout.isMobile,'text-name-short':layout.isMobile}">
+                        <span>{{config.name}}</span>
+                    </div>
+                    <div [class]="{'text-pos':!layout.isMobile,'text-pos-short':layout.isMobile}">
+                        <span>{{config.position}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxFlex fxLayout="column" [class]="{'text-hier':!layout.isMobile,'text-hier-short':layout.isMobile}">
+            <div fxFlex="50" fxLayout="row">
+                <div fxFlex="50" fxLayout="row">
+                    <div fxFlex="25" fxLayoutAlign="start center"
+                        [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                        <span>Unidad:</span>
+                    </div>
+                    <div fxFlex fxLayoutAlign="start center">
+                        <span>{{config.hier1}}</span>
+                    </div>
+                </div>
+                <div fxFlex fxLayout="row">
+                    <div fxFlex="25" fxLayoutAlign="start center"
+                        [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                        <span>Corredor:</span>
+                    </div>
+                    <div fxFlex fxLayoutAlign="start center">
+                        <span>{{config.hier2}}</span>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="50" fxLayout="row">
+                <div fxFlex="50" fxLayout="row">
+                    <div fxFlex="25" fxLayoutAlign="start center"
+                        [class]="{'text-hier-lbl':!layout.isMobile,'text-hier-lbl-short':layout.isMobile}">
+                        <span>Territorio:</span>
+                    </div>
+                    <div fxFlex fxLayoutAlign="start center">
+                        <span>{{config.hier3}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxFlex="35" [class]="{'text-bonus-alert':true,'text-bonus-alert-short':layout.isMobile}" fxLayout="row"
+             fxLayoutAlign="center end">
+            <div *ngIf="config.state==1" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center end">
+                <span style="font-weight: bold;">!Felcitaciones! Tu comisión esta</span>
+                <span class="state-1 m">!Activada!</span>
+            </div>
+            <div *ngIf="config.state==0" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center end">
+                <span style="font-weight: bold;">Aun te falta</span>
+                <span *ngIf="config.vars_f1" class="state-2 m">{{config.vars_s1}} (C)</span>
+                <span *ngIf="config.vars_f1 && config.vars_f2" style="font-weight: bold;"> y </span>
+                <span *ngIf="config.vars_f2" class="state-2 m">{{config.vars_s2}} (M)</span>
+                <span style="font-weight: bold;">variable(s) para activar tu comisión.</span>
+            </div>
+            <div *ngIf="config.state==2" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center end">
+                <span style="font-weight: bold;">Por el momento no tienes metas asignadas.</span>
+            </div>
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap.gt-sm="15px" fxLayoutGap="5px"
+            [class]="{'var-icon':!layout.isMobile,'var-icon-short':layout.isMobile}">
+            <div fxFlex.lt-md="25" fxLayout="column" [class]="clsVarIcon(0)" matRipple
+                [matRippleDisabled]="!layout.isMobile" [matRippleColor]="ripColor(0)" (click)="showVarCard(0)">
+                <div fxFlex="25" fxLayoutAlign="center center">
+                    <span>{{config.vars_n[0]}}</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center">
+                    <span class="material-icons s">{{config.vars_i[0]}}</span>
+                </div>
+            </div>
+            <div fxFlex.lt-md="25" fxLayout="column" [class]="clsVarIcon(1)" matRipple
+                [matRippleDisabled]="!layout.isMobile" [matRippleColor]="ripColor(1)" (click)="showVarCard(1)">
+                <div fxFlex="25" fxLayoutAlign="center center">
+                    <span>{{config.vars_n[1]}}</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center">
+                    <span class="material-icons s">{{config.vars_i[1]}}</span>
+                </div>
+            </div>
+            <div fxFlex.lt-md="25" fxLayout="column" [class]="clsVarIcon(2)" matRipple
+                [matRippleDisabled]="!layout.isMobile" [matRippleColor]="ripColor(2)" (click)="showVarCard(2)">
+                <div fxFlex="25" fxLayoutAlign="center center">
+                    <span *ngIf="!layout.isMobile">{{config.vars_n[2]}}</span>
+                    <span *ngIf="layout.isMobile">{{config.vars_nm[2]}}</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center">
+                    <span class="material-icons s">{{config.vars_i[2]}}</span>
+                </div>
+            </div>
+            <div fxFlex.lt-md="25" fxLayout="column" [class]="clsVarIcon(3)" matRipple
+                [matRippleDisabled]="!layout.isMobile" [matRippleColor]="ripColor(3)" (click)="showVarCard(3)">
+                <div fxFlex="25" fxLayoutAlign="center center">
+                    <span *ngIf="!layout.isMobile">{{config.vars_n[3]}}</span>
+                    <span *ngIf="layout.isMobile">{{config.vars_nm[3]}}</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center">
+                    <span class="material-icons s">{{config.vars_i[3]}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

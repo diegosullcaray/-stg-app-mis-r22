@@ -1,0 +1,104 @@
+<mat-card class="desem-comp" fxLayout="column">
+    <div fxLayout="row">
+        <div class="desem-cab-tag">
+            <span>01 Desempeño</span>
+        </div>
+    </div>
+    <div class="desem-cuer" >
+        <div fxLayout="row" fxFill >
+            <div fxFlex="85" fxLayout="row">
+                <div *ngIf="enableNavigators" style="width: 19px;padding-left: 2px;padding-top: 22px;padding-bottom: 6px;">
+                    <button mat-raised-button color="primary" class="desem-bloq-bot" (click)="eventLeft()">
+                        <span class="material-icons" style="font-size: 12px;">
+                            arrow_back_ios
+                        </span>
+                    </button>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutGap="19px">
+                    <div fxFlex="50" style="height: 100%;" fxLayout="column">
+                        <div fxLayoutAlign="center center" class="desem-bloq-cab">
+                            <span>{{chart1.title}}</span>
+                        </div>
+                        <div fxLayoutAlign="center center" style="float: left;position: relative;width: 100%;height: 100%;">
+                            <highcharts-chart *ngIf="!loading" style="width:100%;max-height: 193px;height: 100%;position:absolute;display: inline;" 
+                            [Highcharts]="Highcharts" [options]="chart1.options"></highcharts-chart>
+                        </div>
+                    </div>
+                    <div fxFlex="50" style="height: 100%;" fxLayout="column">
+                        <div fxLayoutAlign="center center" class="desem-bloq-cab">
+                            <span>{{chart2.title}}</span>
+                        </div>
+                        <div fxLayoutAlign="center center" style="float: left;position: relative;width: 100%;height: 100%;">
+                            <highcharts-chart *ngIf="!loading" style="width:100%;max-height: 193px;height: 100%;position:absolute;display: inline;" 
+                            [Highcharts]="Highcharts" [options]="chart2.options" ></highcharts-chart>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="enableNavigators" style="width: 19px;padding-left: 2px;padding-top: 16px">
+                    <button mat-raised-button color="primary" class="desem-bloq-bot">
+                        <span class="material-icons" style="font-size: 12px;">
+                            arrow_forward_ios
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div fxFlex fxLayout="column" style="padding-right: 15px;">
+                <div fxLayoutAlign="center center" class="desem-bloq-cab">
+                    <span>{{candado.title}}</span>
+                </div>
+                <div fxFlex fxLayout="column" class="desem-bloq-tab">
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Ene-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d1}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Feb-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d2}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Mar-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d3}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Abr-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d4}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>May-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d5}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Jun-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d6}}</span></div>
+                    </div>
+                    <div fxFlex="8.3" fxLayout="row">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Jul-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d7}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Ago-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d8}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Sep-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d9}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Oct-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d10}}</span></div>
+                    </div>
+                    <div fxFlex="8.3">
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Nov-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d11}}</span></div>
+                    </div>
+                    <div fxFlex>
+                        <div fxLayoutAlign="center center" fxFlex="50" class="desem-cand-cab"><span>Dic-22</span></div>
+                        <div fxLayoutAlign="center center" fxFlex class="desem-cand-item"><span>{{candado.d12}}</span></div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>

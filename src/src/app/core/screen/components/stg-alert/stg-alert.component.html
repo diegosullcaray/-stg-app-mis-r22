@@ -1,0 +1,16 @@
+<div >
+    <div class="stg-window" style="min-width: 250px;">
+        <stg-window-bar [title]="title" ></stg-window-bar>
+        <div fxLayout="column" style="padding: 10px;">
+            <div style="height: 150px;" class="text-justify">
+                <span>{{message}}</span>
+            </div>
+        </div>
+    </div>
+    <div style="height: 10px;"></div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button  color="primary" mat-dialog-close>
+            Aceptar
+        </button>
+    </div>
+</div>

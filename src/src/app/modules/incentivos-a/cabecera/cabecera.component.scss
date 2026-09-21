@@ -1,0 +1,62 @@
+@import "../compartido/estilos/colores.scss";
+
+.pic-box{
+    border-radius: 7px;
+    background: $base-color;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    padding: 5px; 
+    width: 64px;
+    height: 64px;
+    .icon{
+        font-size: 48px;
+    }
+}
+
+.base{
+    box-shadow: 0 2px 4px 0 rgb(43 43 43 / 10%);
+    height: 84px;
+    background: white;
+    @media only screen and (max-width: 959px) {
+        
+        height: 125px;
+    }
+}
+
+.btn-block{
+    @media only screen and (max-width: 959px) {
+        border-top: 1px solid rgba(0,0,0,.125);
+        padding-left: 15px;
+    }
+    padding-right: 15px;
+}
+
+
+.text-name{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.text-name-short{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.text-pos{
+    font-size: 11px;
+    color: $color-1;
+}
+
+.text-pos-short{
+    font-size: 10px;
+    color: $color-1;
+}
+
+// .btn-long{
+//     min-width: 60px;
+//     width: 60px;
+//     //border: 1px solid rgba(0, 0, 0, 0.45);
+//     padding: 0px;
+//     .icon{
+//         font-size: 52px !important;
+//     }
+// }

@@ -1,0 +1,67 @@
+<div #popupContainer fxLayout="column"  style="width:100%;height:100%"  class="elegant-animate stg-window">
+    <stg-window-bar 
+      title="Detalle Clientes" 
+      barIcon="info" 
+      titleAlign="start" 
+      closable="true" 
+      (onClose)="navMain()">
+    </stg-window-bar>
+  
+    <div class="popup-body" fxLayout="column" fxFlex>
+  
+      <!-- Header --> 
+      <div class="popup-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+        <span class="label">Asesor:</span>
+        <span class="value">{{ name }}</span>
+      </div>
+  
+      <!-- Cards en línea -->
+      <div class="card-summary" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="summary-card animate-card">
+          <div class="icon-wrapper"><mat-icon>account_balance_wallet</mat-icon></div>
+          <div>
+            <div class="card-title">Cartera</div>
+            <div class="card-value">{{cartera | number:'1.0-0' }}</div>
+          </div>
+        </div>
+  
+        <div class="summary-card animate-card">
+          <div class="icon-wrapper"><mat-icon>person_add</mat-icon></div>
+          <div>
+            <div class="card-title">Enrolado</div>
+            <div class="card-value">{{enrolado | number:'1.0-0' }}</div>
+          </div>
+        </div>
+  
+        <div class="summary-card animate-card">
+          <div class="icon-wrapper"><mat-icon>insights</mat-icon></div>
+          <div>
+            <div class="card-title">Usabilidad</div>
+            <div class="card-value">{{usabilidad | number:'1.0-0' }}</div>
+          </div>
+        </div>
+      </div>
+  
+     <!-- Tabla visible -->
+<div class="table-wrapper" fxFlex>
+    <stg-table2 
+      fxFlex 
+      [dataSource]="dataSource" 
+      [headers]="headerDefs" 
+      [options]="Opts">
+    </stg-table2>
+  </div>
+  
+  <!-- Paginador debajo -->
+  <div class="paginator-wrapper" *ngIf="showPaginator">
+    <stg-paginator 
+      #paginator 
+      [totalLenght]="dataSource3Length" 
+      pageLenght="10"
+      (onChangePage)="eventChangePage($event)">
+    </stg-paginator>
+  </div>
+  
+    </div>
+  </div>
+  

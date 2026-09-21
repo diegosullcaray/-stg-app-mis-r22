@@ -1,0 +1,53 @@
+<div fxFill class="stg-mod-base">
+    <ng-scrollbar track="all">
+        <div class="stg-window base" fxLayout="column">
+            <stg-window-bar title="Prospección de Corresponsales" titleAlign="start" fontSize="20px"></stg-window-bar>
+            <div fxFlex fxLayout="column">
+                <stg-toolbar>
+                    <div fxLayout="row" fxFlex style="padding: 10px;">
+                        <div fxFlex fxLayoutGap="10px">
+                            <stg-button *ngIf="canEdit || isAdmin" [disabled]="disableEditMet" icon="edit_note" hideTextOnMobil=true
+                            (click)="showEdit()" ><span>Editar</span>
+                            </stg-button>
+                            <stg-button   [disabled]="disableDetMet" icon="table_view" hideTextOnMobil=true
+                                (click)="showView()">
+                                <span>Detalles</span>
+                            </stg-button>
+                            <stg-button icon="note_add" hideTextOnMobil=true
+                            (click)="showAdd()" ><span>Agregar</span>
+                            </stg-button>
+                        </div> 
+                    </div>
+                </stg-toolbar>
+                <div style="padding: 10px;" fxFlex>
+                    <mat-tab-group style="height: 100%;" class="mat-tab-fill-height"> 
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Prospectos</span>
+                            </ng-template>
+                           
+                            <ng-template matTabContent>
+                                <div style="padding: 0.5rem;">
+                                    <div style="position: relative;">
+                                        <input type=text class="stg-input" placeholder="Buscar" (keyup)="filter($event)">
+                                    </div>
+                                </div>
+                                <div style="height: 63%;padding: 10px;">
+                                    <stg-table2 [options]="tableOpts" [headers]="headersOpts"
+                                        [dataSource]="dataSources"  (onSelectRow)="setSelectedRow($event)" >
+                                    </stg-table2>
+                                </div> 
+                                    <ng-container *ngIf="showPaginator">
+                                        <stg-paginator #paginator [totalLenght]="dataSourceLenght" pageLenght="10"
+                                            (onChangePage)="changePage($event)">
+                                        </stg-paginator>
+                                    </ng-container> 
+                            </ng-template>
+                        </mat-tab> 
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </ng-scrollbar>
+
+</div>

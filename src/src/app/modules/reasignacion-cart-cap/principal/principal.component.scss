@@ -1,0 +1,25 @@
+.img-portada {
+    mask-image: linear-gradient(to right bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0) 90%);
+ 
+}
+
+
+.base{
+    height: calc(100vh - 71px) !important
+}
+
+.img-back{
+    background-image: url('/assets/images/fc/modules/esg/portada.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    
+}
+
+.img-fade{
+    background: linear-gradient(to left top, rgba(0,133,132,1) 0%, rgba(0,133,132,0.35) 45%, rgba(0,133,132,0.2) 100%);
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}

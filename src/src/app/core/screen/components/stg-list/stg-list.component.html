@@ -1,0 +1,34 @@
+<ng-scrollbar track="all" class="stg-list" [style]=globalStyle()>
+    <table style="width: 100%;" [ngStyle]="config.style">
+        <tbody [ngStyle]="config.body.style">
+            <ng-container *ngIf="isVoidDataSource() && isLoadingEnabled()">
+                <ng-container *ngFor="let number of numberLoadingRows()">
+                    <tr>
+                        <ng-container *ngFor="let td of rowDef;">
+                            <td class="stg-list-item-loading"><span></span></td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!isVoidDataSource()">
+                <ng-container *ngFor="let tr of dataSource;let tri = index;let trl = count;">
+                    <tr [style]="getBodyItemStyle(tr,tri,trl)" (click)="selectItem(tr)"
+                        [ngClass]="{'stg-list-item': !selection.isSelected(tr) && config.body.hover.enabled, 'stg-list-item-highlighted': selection.isSelected(tr)}">
+                        <td>
+                            <div [innerHTML]="tr[labelKey] | dynamicFormatPipe: config.item.format:tr">
+                            </div>
+                        </td>
+
+                        <!--<ng-container *ngFor="let td of rowDef;let tdi = index;let tdl = count;">
+                            <td [ngStyle]="getBodyCellStyle(td,tr,tri,tdi,trl,tdl)">
+                                <div [innerHTML]="tr[td.key] | dynamicFormatPipe: td.format:tr"
+                                    (click)="clickCell(tr[td.key],td.key,tr)">
+                                </div>
+                            </td>
+                        </ng-container> -->
+                    </tr>
+                </ng-container>
+            </ng-container>
+        </tbody>
+    </table>
+</ng-scrollbar>

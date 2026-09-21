@@ -1,0 +1,40 @@
+<div fxFill fxLayout="column" [formGroup]="editForm">
+    <div fxFlex fxLayout="column" class="stg-window">
+        <stg-window-bar title="Usuario" barIcon="settings" titleAlign="start" closable=true
+            (onClose)="navMain()">
+        </stg-window-bar>
+        <ng-scrollbar track="all">
+            <div *ngIf="show" fxFlex fxLayout="column" style="padding: 10px;" fxLayoutGap="10px">
+                <div fxLayout="column" fxLayoutGap="5px" style="padding-right: 10px;">
+                    <div class="cab"><span>Codigo BT:</span></div>
+                    <div fxLayout="row">
+                        <input matInput formControlName="cod_bt" class="stg-input">
+                        <stg-button>Verificar</stg-button>
+                    </div>
+                    <div class="cab"><span>Nombre:</span></div>
+                    <div><input matInput formControlName="nom" class="stg-input"></div>
+                    <div class="cab"><span>Correo:</span></div>
+                    <div><input matInput formControlName="email" class="stg-input"></div>
+                    <div class=cab><span>Grupo:</span></div>
+                    <div>
+                        <mat-select formControlName="cod_niv" class="stg-input" [(value)]="administracion.selectedRow.cod_niv">
+                            <ng-container *ngFor="let item of administracion.configs.niv_usu">
+                                <mat-option [value]="item.cod">{{item.des}}</mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </div>
+                    <div>
+                        <stg-finput formControlName="file_id" [fileName]="dataSource.file_des" disableDownload=false></stg-finput>
+                    </div>
+                    <div>
+                        <stg-finput formControlName="file_id2" [fileName]="dataSource.file_des2" disableDownload=true></stg-finput>
+                    </div>
+                </div>
+
+            </div>
+        </ng-scrollbar>
+        <div fxLayoutAlign="end center" style="padding: 10px 0px;">
+            <stg-button color="primary" (click)="submitForm()">Guardar</stg-button>
+        </div>
+    </div>
+</div>

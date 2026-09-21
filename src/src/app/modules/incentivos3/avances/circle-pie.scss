@@ -1,0 +1,50 @@
+/********* Circle Pie ***********/
+$circle-diameter: 78px;
+$circle-diameter-short: 60px;
+$circle-border-color-remaining: #ccc;
+//$circle-border-color-elapsed: #2196f3;
+
+.pie {
+  width: $circle-diameter;
+  height: $circle-diameter;
+  @media only screen and (max-width: 959px) {
+    width: $circle-diameter-short;
+    height: $circle-diameter-short;
+  }
+  display: block;
+  border-radius: 50%;
+  background-color: var(--pie-color);
+  position: relative;
+  border: none;
+  margin: 0 auto;
+
+
+ // loop to rotate first 50 percent
+ @for $j from 0 through 50 {
+  &.p#{$j} {
+    background-image:
+      /* 10% = 126deg = 90 + ( 360 * .1 ) */
+      linear-gradient(90deg+(360*0.01*$j), transparent 50%, $circle-border-color-remaining 50%),
+      linear-gradient(90deg, $circle-border-color-remaining 50%, transparent 50%); // remove highlight at the bottom half of the border/circle
+
+    /*&:after {
+      content: "#{$j}%";
+    }*/
+  }
+}
+// loop to rotate last 50 percent
+@for $j from 51 through 100 {
+  &.p#{$j} {
+    background-image:
+      linear-gradient(90deg, transparent 50%, var(--pie-color) 50%), // highlight the right half of the border/circle
+      /* 90% = 54deg = -90 + (360*0.01*($j - 50) */
+      linear-gradient(-90deg+(360*0.01*($j - 50)), transparent 50%, $circle-border-color-remaining 50%);
+
+    /*&:after {
+      content: "#{$j}%";
+    }*/
+  }
+}
+  
+}
+/********* End Circle Pie ***********/

@@ -1,0 +1,52 @@
+<ng-scrollbar track="all" class="stg-table2 stg-table2-traffic" [style]=globalStyle()>
+    <table  
+style="width: 100%;" [ngStyle]="config.style"   >
+        <thead [ngStyle]="config.header.style">
+            <ng-container *ngFor="let tr of headerDef;let tri = index">
+                <tr>
+                    <ng-container *ngFor="let th of tr;let thi = index;let thl = count;"  >
+                         <th [attr.rowspan]="th.rowspan" [attr.colspan]="th.colspan"  
+                            [ngStyle]="getHeaderCellStyle(th,tri,thi,thl)" [innerHTML]="byPassHeaderLabel(th.label)" 
+                           >  
+                        </th> 
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </thead>
+        <tbody [ngStyle]="config.body.style">
+            <ng-container *ngIf="isVoidDataSource() && isLoadingEnabled()">
+                <ng-container *ngFor="let number of numberLoadingRows()">
+                    <tr>
+                        <ng-container *ngFor="let td of rowDef;">
+                            <td class="stg-table2-cell-loading"><span></span></td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!isVoidDataSource()">
+                <ng-container *ngFor="let tr of dataSourceTable.data;let tri = index;let trl = count;">
+                    <tr [style]="getBodyRowStyle(tr)" (click)="selectRow(tr)"
+                        [ngClass]="{'stg-table2-row': !selection.isSelected(tr) && config.body.hover.enabled, 'stg-table2-row-highlighted': selection.isSelected(tr) }">
+                        <ng-container *ngFor="let td of rowDef;let tdi = index;let tdl = count;">
+                            <td [ngStyle]="getBodyCellStyle(td,tr,tri,tdi,trl,tdl)">
+                                <div [innerHTML]="tr[td.key] | dynamicFormatPipe: td.format:tr:td.key"
+                                    (click)="clickCell(tr[td.key],td.key,tr)">
+                                </div>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-container>
+        </tbody>
+        <!-- <ng-container *ngFor="let col of rowDef" [matColumnDef]="col.key">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ col.label }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div [innerHTML]="element[col.key] | dynamicFormatPipe: col.format : element : col.key"></div>
+            </td>
+          </ng-container> -->
+
+    </table>
+
+</ng-scrollbar>

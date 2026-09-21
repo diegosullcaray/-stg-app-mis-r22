@@ -1,0 +1,21 @@
+@import "/src/assets/styles/scss/colors";
+
+@mixin header-top($theme) {
+  $color: map-get($theme, color);
+  $text-color: map-get(map-get($color, foreground), text);
+  $background: map-get($color, background);
+  $background-card: map-get($background, card);
+  $background-default: map-get($background, background);
+
+  .header-topnav, .topnav ul ul {
+    //background-color: $background-card;
+    background-color: $blue-base;
+    color: white;
+  }
+  .topnav ul li ul li:hover, .topnav ul li ul li.open {
+    background: $background-default;
+  }
+  .header-topnav a {
+    color: $text-color;
+  }
+}

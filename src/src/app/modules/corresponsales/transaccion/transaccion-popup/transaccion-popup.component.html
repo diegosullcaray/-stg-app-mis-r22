@@ -1,0 +1,99 @@
+
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="nom_cli" [formControl]="$any(itemForm).controls['nom_cli']" placeholder="Cliente">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="dni" [formControl]="$any(itemForm).controls['dni']" placeholder="DNI">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="ruc" [formControl]="$any(itemForm).controls['ruc']" placeholder="Ruc">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="direc" [formControl]="$any(itemForm).controls['direc']" placeholder="Dirección">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="agencia" [formControl]="$any(itemForm).controls['agencia']" placeholder="Agencia">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="lat" [formControl]="$any(itemForm).controls['lat']" placeholder="Latitud">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="log" [formControl]="$any(itemForm).controls['log']" placeholder="Longitud">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field fxFlex>
+            <mat-label>{{HINSTALAD.label}}</mat-label>
+            <mat-select formControlName="HINSTALAD">
+                <mat-option  *ngFor="let r of HINSTALAD.data" [value]="r.id" >{{r.desc}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="itemForm.get('HINSTALAD').hasError('required')">
+                Ingrese si fue instalado
+              </mat-error>
+        </mat-form-field>
+      <!-- <mat-form-field class="full-width">
+        <input matInput name="instalado" [formControl]="$any(itemForm).controls['instalado']" placeholder="Instalado">
+      </mat-form-field> -->
+    </div>
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field fxFlex>
+            <mat-label>{{HAPERTCTA.label}}</mat-label>
+            <mat-select formControlName="HAPERTCTA">
+                <mat-option  *ngFor="let r of HAPERTCTA.data" [value]="r.id" >{{r.desc}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="itemForm.get('HAPERTCTA').hasError('required')">
+                Ingrese la apertura de Cta
+              </mat-error>
+        </mat-form-field>
+      <!-- <mat-form-field class="full-width">
+        <input matInput name="apercta" [formControl]="$any(itemForm).controls['apercta']" placeholder="Apertura de Cta">
+      </mat-form-field> -->
+    </div>
+    <div fxFlex="50" class="pr-16">
+        <mat-form-field fxFlex>
+            <mat-label>{{HPROSPEC.label}}</mat-label>
+            <mat-select formControlName="HPROSPEC">
+                <mat-option  *ngFor="let r of HPROSPEC.data" [value]="r.id" >{{r.desc}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="itemForm.get('HPROSPEC').hasError('required')">
+                Ingrese el Prospecto
+              </mat-error>
+        </mat-form-field>
+      <!-- <mat-form-field class="full-width">
+        <input matInput name="prospecto" [formControl]="$any(itemForm).controls['prospecto']" placeholder="Prospecto">
+      </mat-form-field> -->
+    </div>
+    <!-- <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput name="instalado" [matDatepicker]="picker1" [formControl]="$any(itemForm).controls['instalado']"
+          placeholder="Fecha de Visita">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div> -->
+    <!-- <div fxFlex="50" class="pr-16">
+      <mat-slide-toggle [formControl]="$any(itemForm).controls['is_valid']">Cumple Destino Crédito</mat-slide-toggle>
+    </div> -->
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" [disabled]="!itemForm.valid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

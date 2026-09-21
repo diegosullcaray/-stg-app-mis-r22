@@ -1,0 +1,80 @@
+<div style="padding: 0px 10px;">
+    <div style="padding-top: 5px;">
+        <span style="color: dodgerblue;font-size: 20px;font-weight: bold;">CALCULADORA DE INCENTIVOS</span>
+        <div [ngStyle]="layout.isMobile?{'font-size':'11px',padding:'5px 0px'}:{padding:'5px 0px'}">
+            <span style="color: coral;">Instrucciones: Para realizar el cálculo, debes ingresar datos en las celdas
+                de</span>
+            <span style="white-space:pre;color: dodgerblue;font-weight: bold;"> color celeste</span>
+        </div>
+    </div>
+    <div *ngIf="!loadingObs" fxLayout="column" style="width: 100%;">
+        <div fxLayout="row" style="height: 40px;">
+            <div style="min-width: 150px;width: 24.5%;" fxLayout.gt-sm="row" fxLayout="column"
+                fxLayoutAlign.gt-sm="start center" fxLayoutAlign="center start">
+                <span>{{extVar1.label}}</span>
+                <span style="white-space:pre;">{{extVar1.uni}}</span>
+            </div>
+            <div style="width: 18.6%;min-width: 115px;padding-right: 5px;"
+                fxLayoutAlign="end center">
+                <!--<span *ngIf="cards">{{cards.saldo | number:'.0-2'}}</span>-->
+                <input matInput value="{{extVar1.val}}" class="stg-input" style="background: 'rgb(220, 230, 241)'"
+                    (keyup)="parametros($event,1)">
+            </div>
+        </div>
+        <div fxLayout="row" style="height: 40px;">
+            <div style="min-width: 150px;width: 24.5%;" fxLayout.gt-sm="row" fxLayout="column"
+                fxLayoutAlign.gt-sm="start center" fxLayoutAlign="center start">
+                <span>{{extVar2.label}}</span>
+                <span style="white-space:pre;">{{extVar2.uni}}</span>
+            </div>
+            <div style="width: 18.6%;min-width: 115px;padding-right: 5px;"
+                fxLayoutAlign="end center">
+                <input matInput value="{{extVar2.val}}" class="stg-input" style="background: 'rgb(220, 230, 241)'"
+                    (keyup)="parametros($event,2)">
+            </div>
+        </div>
+    </div>
+    <div style="height: 5px;"></div>
+    <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs"
+        [dataSource]="dataSourcePub" [customValueFormatter]="customFormatter" [customComponentStyler]="inputStyler" [loadingObs]="loadingObs" >
+    </stg-table>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" fxHide fxShow.gt-sm>
+        <button mat-flat-button mat-sm-button color="primary" (click)="calcular()">
+            Calcular
+        </button>
+        <button mat-flat-button mat-sm-button color="primary" (click)="reiniciar()">
+            Reiniciar
+        </button>
+        <div style="margin: 0px;border: 0px;" fxLayoutAlign="center center">
+            <span style="size: 1.2em;font-weight: bold">Total Comisión**</span>
+        </div>
+        <div fxLayoutAlign="center center" class="monetizacion">
+            <span *ngIf="cardsPub">{{cardsPub.mon_prelim | number: '.0-2'}}</span>
+        </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="10px" fxHide.gt-sm fxShow>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div style="margin: 0px;border: 0px;" fxLayoutAlign="center center">
+                <span style="size: 1.2em;font-weight: bold">Total Comisión**</span>
+            </div>
+            <div fxLayoutAlign="center center" class="monetizacion">
+                <span *ngIf="cardsPub">{{cardsPub.mon_prelim | number: '.0-2'}}</span>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <button mat-flat-button mat-sm-button color="primary" (click)="calcular()">
+                Calcular
+            </button>
+            <button mat-flat-button mat-sm-button color="primary" (click)="reiniciar()">
+                Reiniciar
+            </button>
+        </div>
+    </div>
+
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+            <span>** Cifras referenciales</span>
+        </div>
+    </div>
+</div>

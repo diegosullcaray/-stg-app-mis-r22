@@ -1,0 +1,76 @@
+<div class="header-with-date" [ngClass]="responsiveClass" [ngStyle]="headerStyle" *ngIf="showTitle && title">
+    <div class="header-title" [ngStyle]="titleStyle">
+        <div>{{ title }}</div>
+        <div class="header-subtitle" [ngStyle]="subtitleStyle" *ngIf="subtitle">{{ subtitle }}</div>
+    </div>
+    <div class="header-actions">
+        <span class="dropdown-chip" [ngStyle]="dropdownChipStyle" *ngIf="dropdownChipText">{{ dropdownChipText }}</span>
+        <div class="date-selector-wrap" style="padding-right: 10px; padding-left: 10px;">
+            <div class="date-selector-header" fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayoutGap="10">
+                    <div class="custom-select-container" [ngStyle]="selectContainerStyle" #dropdownContainer>
+            <div class="date-trigger"
+                 [ngStyle]="selectTriggerStyle"
+                 [class.open]="isDropdownOpen"
+                 [class.disabled]="disabled"
+                 (click)="toggleDropdown($event)">
+                <span class="select-icon" *ngIf="showTriggerIcon">
+                    <i class="material-icons">{{ icon }}</i>
+                </span>
+                <div class="select-content">
+                    <span class="select-value">{{ selectedItem?.label || placeholder }}</span>
+                </div>
+                <span class="select-arrow">▼</span>
+            </div>
+
+            <div class="custom-select-dropdown" [class.open]="isDropdownOpen" [ngStyle]="selectDropdownStyle">
+                <div class="select-options">
+                    <div class="select-option"
+                         *ngFor="let item of items"
+                         [class.selected]="selectedItem?.val === item.val"
+                         [ngStyle]="selectedItem?.val === item.val ? selectedOptionStyle : selectOptionStyle"
+                         (click)="selectItem(item, $event)">
+                        <span class="select-icon" *ngIf="showOptionIcons">
+                            <i class="material-icons">{{ icon }}</i>
+                        </span>
+                        <span class="option-text">{{ item.label }}</span>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-select-container" [ngStyle]="selectContainerStyle" #dropdownContainer *ngIf="!showTitle || !title">
+    <div class="date-trigger"
+         [ngStyle]="selectTriggerStyle"
+         [class.open]="isDropdownOpen"
+         [class.disabled]="disabled"
+         (click)="toggleDropdown($event)">
+        <span class="select-icon" *ngIf="showTriggerIcon">
+            <i class="material-icons">{{ icon }}</i>
+        </span>
+        <div class="select-content">
+            <span class="select-value">{{ selectedItem?.label || placeholder }}</span>
+        </div>
+        <span class="select-arrow">▼</span>
+    </div>
+
+    <div class="custom-select-dropdown" [class.open]="isDropdownOpen" [ngStyle]="selectDropdownStyle">
+        <div class="select-options">
+            <div class="select-option"
+                 *ngFor="let item of items"
+                 [class.selected]="selectedItem?.val === item.val"
+                 [ngStyle]="selectedItem?.val === item.val ? selectedOptionStyle : selectOptionStyle"
+                 (click)="selectItem(item, $event)">
+                <span class="select-icon" *ngIf="showOptionIcons">
+                    <i class="material-icons">{{ icon }}</i>
+                </span>
+                <span class="option-text">{{ item.label }}</span>
+            </div>
+        </div>
+    </div>
+</div>

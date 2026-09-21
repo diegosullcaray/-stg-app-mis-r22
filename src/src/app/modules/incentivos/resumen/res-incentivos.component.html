@@ -1,0 +1,51 @@
+<div style="padding: 0px 10px;" >
+    <div style="height: 10px;"></div>
+    <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs"
+        [dataSource]="dataSource" [actionTrigger]="action" [iconizerMap]="iconColMap" [loadingObs]="loadingObs" 
+        [metaSources]="extraSources" [customValueFormatter]="customFormatter">
+    </stg-table>
+    <div style="height: 30px;"></div>
+    <div *ngIf="!loadingObs" fxLayout="column" fxLayout.gt-sm="row">
+        <div fxFlex="50" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="50" fxLayout="column">
+                <div fxLayoutAlign="center center" [ngStyle]="cardTitleStyle()">
+                    <span style="text-align: center;">MONETIZACIÓN PRELIMINAR</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center">
+                    <mat-card class="res-card-content">{{cardsSource.mon_prelim | number:'.0-2'}}</mat-card>
+                </div>
+            </div>
+            <div fxFlex="50" fxLayout="column">
+                <div fxLayoutAlign="center center" [ngStyle]="cardTitleStyle()">
+                    <span style="text-align: center;">LLAVES RESTANTES PARA MONETIZAR</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center" >
+                    <mat-card class="res-card-content">{{cardsSource.llaves_rest}}</mat-card>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="50" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="50" fxLayout="column">
+                <div fxLayoutAlign="center center" [ngStyle]="cardTitleStyle()">
+                    <span style="text-align: center;">CANDADOS RESTANTES PARA MONETIZAR AL 100%</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center" class="cont-card-title">
+                    <mat-card class="res-card-content">{{cardsSource.candados_rest}}</mat-card>
+                </div>
+            </div>
+            <div fxFlex="50" fxLayout="column">
+                <div fxLayoutAlign="center center" [ngStyle]="cardTitleStyle()">
+                    <span style="text-align: center;">TOTAL PARA MONETIZAR FINAL*</span>
+                </div>
+                <div fxFlex fxLayoutAlign="center center" class="cont-card-title">
+                    <mat-card class="res-card-content">{{cardsSource.mon_final | number:'.0-2'}}</mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 70px;padding-left: 10px;padding-top: 15px;font-size: 20px;color: red">
+        <span>*Los montos son referenciales y están sujetos a variaciones</span>
+        <br>
+        <span>**Los datos no incluyen operaciones de los productos Garantía Liquida y Trabajadores FC</span>
+    </div>
+</div>

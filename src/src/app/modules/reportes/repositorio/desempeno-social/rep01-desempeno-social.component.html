@@ -1,0 +1,35 @@
+<div class="stg-window">
+    <stg-window-bar [title]="mainTitle" ></stg-window-bar>
+    <div class="stg-panel" fxLayout="column">
+        <div fxLayout="row" >
+            <ng-container *ngIf="activeHier">
+                <hier-rem-selector fxFlex [confHier]="confHier1" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+            </ng-container>
+         </div>
+       
+
+        <div>
+                
+            <div style="height: 15px;"></div>
+                <stg-table *ngIf="showTable" [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf" [headersDef]="headerDefs"
+                    [dataSource]="dataSource" [loadingObs]="loadingObs"  [customValueFormatter]="customFormatter" [customCellStyler]="customStyler">
+                    
+                </stg-table>
+            <div *ngIf="!showTable" style="padding: 10px;" fxLayoutAlign="center center">
+                <span>
+                    <!--Un momento por favor.-->
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div  *ngIf="showTable" style="height: 20px;padding-left: 10px;padding-top: 15px;font-size: 15px;color: green  ">
+        <br>
+        <span><b>A partir del día 15 calendario se comparan días hábiles faltantes para el cierre.</b></span>
+        <br>
+        <span><b>TMM - Tasa Mensual Móvil </b>→ Var. fecha actual vs. mismo día del mes anterior.</span>
+        <br>
+        <span><b>TAM - Tasa Anual Móvil </b>→ Var. fecha actual vs. mismo día del año anterior.</span>
+    </div>
+
+</div>

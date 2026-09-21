@@ -1,0 +1,26 @@
+<div class="content" fxLayout="row wrap" fxLayoutGap="1rem" fxLayoutAlign="space-around center">
+    <ng-container *ngFor="let item of config.cards">
+        <div *ngIf="item.show" class="card" fxLayout="column" [style]="cardSize">
+            <div fxFlex="40" fxLayoutGap="5px" class="lbl-icon" fxLayoutAlign="center center">
+                <div><span class="lbl">{{item.lbl}}</span></div>
+                <div fxLayoutAlign="center center"><span [class]="getIconCls(item.val)">{{item.icon}}</span></div>
+            </div>
+            <div fxFlex class="mone" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center">
+                <div fxLayoutGap="15px" class="bon">
+                    <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="5px">
+                        <span>Base:</span>
+                        <span>S./{{item.bon_bas | dynamicFormatPipe:{type:'decimal'} }}</span>
+                    </div>
+                    <div fxFlex fxLayoutAlign="start center" fxLayoutGap="5px">
+                        <span>Plus:</span>
+                        <span>S./{{item.bon_plus | dynamicFormatPipe:{type:'decimal'} }}</span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="center center" fxLayoutGap="5px" class="tot">
+                    <span>Total:</span>
+                    <span>S./{{item.tot_m | dynamicFormatPipe:{type:'decimal'} }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

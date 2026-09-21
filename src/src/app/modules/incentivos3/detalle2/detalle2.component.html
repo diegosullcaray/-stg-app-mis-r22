@@ -1,0 +1,59 @@
+<div *ngIf="!config.loading" style="width:100%;height:100%" fxLayout="column" class="stg-window">
+    <stg-window-bar [title]="item.title" barIcon="info" titleAlign="start" closable=true (onClose)="navMain()">
+    </stg-window-bar>
+    <!-- <div style="padding: 5px;" fxLayout="column" fxLayoutGap="5px">
+        <span>Fecha: {{card.f2}}</span>
+    </div> -->
+    <div fxFlex style="padding: 5px;" fxLayout="column" class="base">
+        <div fxFlex style="margin-top: 10px;overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="nh">Nombre</th>
+                        <th class="w">Mujer</th>
+                        <th class="w">Rural</th>
+                        <th class="w">Migrante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let it of dataSource;let i = index">
+                        <tr [class]="trCls(it.tf)">
+                            <td class="n">{{it.nom}}</td>
+                            <td style="text-align: center;"><span [class]="iconCls(it.gen)">circle</span></td>
+                            <td style="text-align: center;"><span [class]="iconCls(it.rur)">circle</span></td>
+                            <td style="text-align: center;"><span [class]="iconCls(it.mig)">circle</span></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="fh">Parciales:</td>
+                        <td style="text-align: center;">{{totSource.gen_c}}</td>
+                        <td style="text-align: center;">{{totSource.rur_c}}</td>
+                        <td style="text-align: center;">{{totSource.mig_c}}</td>
+                    </tr>
+                    <tr>
+                        <td class="fh">Total:</td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center;">{{totSource.tot_c}}</td>
+                    </tr>
+                    <tr>
+                        <td class="fh">Monetización:</td>
+                        <td></td>
+                        <td></td>
+                        <td>S/. {{totSource.tot_m}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div fxFlex="12" fxLayout="column" fxLayoutAlign="center start">
+            <div fxLayoutGap="10px" fxLayoutAlign="start center"><span class="l">Trasladado (Si contabiliza)</span><span class="material-icons lt">square</span></div>
+            <div fxLayoutGap="10px" fxLayoutAlign="start center"><span class="l">Heredado (No contabiliza)</span><span class="material-icons lh">square</span></div>
+        </div>
+    </div>
+    <div style="font-size: 10px;padding: 5px;">
+        <span>{{item.disc}}</span>
+    </div>
+
+</div>

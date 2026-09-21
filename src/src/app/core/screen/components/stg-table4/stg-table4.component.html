@@ -1,0 +1,50 @@
+<ng-scrollbar track="all" class="stg-table4 stg-table4-traffic" [style]="globalStyle()">
+    <table style="width: 100%;" [ngStyle]="config.style">
+        <thead [ngStyle]="config.header.style">
+            <ng-container *ngFor="let tr of headerDef; let tri = index">
+                <tr>
+                    <ng-container *ngFor="let th of tr; let thi = index; let thl = count;">
+                        <th [attr.rowspan]="th.rowspan" [attr.colspan]="th.colspan"
+                            [ngStyle]="getHeaderCellStyle(th,tri,thi,thl)"
+                            [style.cursor]="(th.key && enableSort === 1) ? 'pointer' : 'default'"
+                            (click)="onHeaderClick(th)">
+                            
+                            <span [innerHTML]="byPassHeaderLabel(th.label)"></span>
+
+                            <ng-container *ngIf="th.key && enableSort === 1 && currentSortColumn === th.key">
+                                <span *ngIf="currentSortDirection === 'asc'" style="margin-left: 5px; font-size: 0.8em;">&#9650;</span>
+                                <span *ngIf="currentSortDirection === 'desc'" style="margin-left: 5px; font-size: 0.8em;">&#9660;</span>
+                            </ng-container>
+
+                        </th>
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </thead>
+        <tbody [ngStyle]="config.body.style">
+            <ng-container *ngIf="isVoidDataSource() && isLoadingEnabled()">
+                <ng-container *ngFor="let number of numberLoadingRows()">
+                    <tr>
+                        <ng-container *ngFor="let td of rowDef;">
+                            <td class="stg-table4-cell-loading"><span></span></td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!isVoidDataSource()">
+                <ng-container *ngFor="let tr of dataSourceTable.data; let tri = index; let trl = count;">
+                    <tr [style]="getBodyRowStyle(tr)" (click)="selectRow(tr)"
+                        [ngClass]="{'stg-table4-row': !selection.isSelected(tr) && config.body.hover.enabled, 'stg-table4-row-highlighted': selection.isSelected(tr) }">
+                        <ng-container *ngFor="let td of rowDef; let tdi = index; let tdl = count;">
+                            <td [ngStyle]="getBodyCellStyle(td,tr,tri,tdi,trl,tdl)">
+                                <div [innerHTML]="tr[td.key] | dynamicFormatPipe: td.format:tr:td.key"
+                                    (click)="clickCell(tr[td.key],td.key,tr)">
+                                </div>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-container>
+        </tbody>
+    </table>
+</ng-scrollbar>

@@ -1,0 +1,37 @@
+@import "../compartido/estilos/colores.scss";
+
+
+.base{
+    //background-image: url('../../../../assets/images/fc/kaypacha24.png');
+    background-color: #fff;
+    cursor: pointer; 
+    padding: 4em;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+    background-color: $base-color; 
+    padding: 10px;
+}
+
+.title-box{
+    //height: 30px;
+    padding: 10px 0px;
+    .icon{
+        font-size: 48px;
+    }
+    .name{
+        font-size: 28px;
+        font-weight: bold;
+    }
+}
+
+.filters-box{
+    padding: 10px 0px;
+
+    .search{
+        @media only screen and (max-width: 959px) {
+            width: 130px;
+        }
+        width: 200px;
+    }
+}

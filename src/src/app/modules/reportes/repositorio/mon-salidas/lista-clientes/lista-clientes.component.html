@@ -1,0 +1,39 @@
+<div fxFill *ngIf="!config.firstLoad" fxLayout="column">
+    <div style="padding: 5px;" fxLayout="column" fxLayoutGap="5px">
+        <div fxLayoutGap="5px">
+            <span class="lbl">{{curr_hier.des_lab}}:</span><span class="val">{{curr_hier.des_rel}}</span>
+        </div>
+        <div fxLayoutGap="5px">
+            <span class="lbl">Fecha:</span><span class="val">{{curr_fec}}</span>
+        </div>
+    </div>
+    <div style="padding: 10px 5px;margin-top: -20px;" fxLayout="column">
+        <div *ngIf="max_len>10" fxLayoutAlign="start center"
+            style="left: 10px;position: relative;transform: translateY(50%);">
+            <div fxLayoutAlign="start center" class="lbl-chips">
+                <span>Top</span>
+            </div>
+        </div>
+        <div *ngIf="max_len>10" fxLayoutAlign="start center" class="chips" fxLayoutGap="5px">
+            <div fxLayoutAlign="center center" matRipple (click)="changeTop(10,0)" [style]="getChipStyle(0)">
+                <span>10</span>
+            </div>
+            <div *ngIf="max_len>=20" fxLayoutAlign="center center" matRipple (click)="changeTop(20,1)"
+                [style]="getChipStyle(1)">
+                <span>20</span>
+            </div>
+            <div *ngIf="max_len>=50" fxLayoutAlign="center center" matRipple (click)="changeTop(50,2)"
+                [style]="getChipStyle(2)">
+                <span>50</span>
+            </div>
+            <div *ngIf="max_len>=100" fxLayoutAlign="center center" matRipple (click)="changeTop(100,3)"
+                [style]="getChipStyle(3)">
+                <span>100</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="show_tbl" fxFlex style="padding: 10px 5px;">
+        <stg-table2 [options]="tableOpts" [dataSource]="dataSource" [headers]="headers" (onClickCell)="ddEvent($event)">
+        </stg-table2>
+    </div>
+</div>

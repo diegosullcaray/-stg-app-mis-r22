@@ -1,0 +1,159 @@
+<div *ngIf="!showD" fxFill style="background: whitesmoke;"></div>
+<div *ngIf="showD" fxFill class="stg-mod-base" fxLayoutAlign="center center">
+    <div fxFill fxLayout="column" class="stg-window base">
+        <div fxFlex="28" fxLayout="column" class="stg-window-bar mod-bar">
+            <div fxFlex="40" fxLayout="row">
+                <img src="assets/images/fc/fc_blank.png" alt="" referrerpolicy="no-referrer">
+            </div>
+            <div fxFlex fxLayout="row">
+                <div fxFlex="7" fxLayoutAlign="center center">
+                    <div class="pic-box" fxLayoutAlign="center center">
+                        <!-- <img *ngIf="showPic" src="{{user.pictureURL}}" alt="" referrerpolicy="no-referrer"> -->
+                        <span class="material-icons icon">
+                            person
+                        </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start center" fxFlex="30">
+                    <div fxLayout="column" class="name-box">
+                        <div class="n">
+                            <span>{{analista.data_info.nom}}</span>
+                        </div>
+                        <div fxLayout="row" class="s">
+                            <span fxFlex="20">Codigo:</span><span fxFlex>{{analista.data_info.cod_bt}}</span>
+                        </div>
+                        <div fxLayout="row" class="s">
+                            <span fxFlex="20">Cargo:</span><span fxFlex>A{{analista.data_info.car}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxFlex class="numbers-box" fxLayout="row" fxLayoutGap="10">
+                    <div fxFlex="25" fxLayout="column" fxLayoutAlign="start center">
+                        <span>Saldo Cartera (Miles)</span>
+                        <div fxFlex fxLayoutAlign="center center">
+                            <span style="font-size: 28px;">{{analista.data_info.sal_cap | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="25" fxLayout="column" fxLayoutAlign="start center">
+                        <span>Monto Desem. (Miles)</span>
+                        <div fxFlex fxLayoutAlign="center center">
+                            <span style="font-size: 28px;">{{analista.data_info.mon_des | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="25" fxLayout="column" fxLayoutAlign="start center">
+                        <span>Mora >= 1 día (Miles)</span>
+                        <div fxFlex fxLayoutAlign="center center">
+                            <span style="font-size: 28px;">{{analista.data_info.mor_1 | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="25" fxLayout="column" fxLayoutAlign="start center">
+                        <span>Mora > 30 días (Miles)</span>
+                        <div fxFlex fxLayoutAlign="center center">
+                            <span style="font-size: 28px;">{{analista.data_info.mor_30 | number:'.0-2'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background: whitesmoke;padding: 10px 10px 0px 10px;" fxLayout="row">
+            <div fxFlex fxLayoutAlign="start center">
+                <span>Actualizado al: {{analista.data_info.f4}}</span>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10">
+                <stg-button color="primary" icon="list" (click)="moveListas()">Listas</stg-button>
+                <!-- <stg-button color="primary" icon="feed">Formularios</stg-button> -->
+                <div fxFlex fxLayoutAlign="end center" *ngIf="analista.tip_use!=1">
+                    <stg-button icon="person" color="primary" (click)="openSecPicker()"></stg-button>
+                </div>
+            </div>
+        </div>
+        <div fxFlex style="background: whitesmoke;" fxLayout="row">
+            <div fxLayout="column" fxFlex="30">
+                <div fxFill style="padding: 10px;" fxLayout="column" fxLayoutGap="10">
+                    <div fxFlex="47" class="card-base">
+                        <ng-scrollbar>
+                            <table *ngIf="!loading" style="width: 100%;border-collapse: collapse;font-size: 13px;">
+                                <tbody>
+                                    <ng-container
+                                        *ngFor="let tr of analista.prof_info;let tri = index;let trl = count;">
+                                        <tr class="tbl-div">
+                                            <td><span style="font-weight: bold;">{{tr.lab}}</span></td>
+                                            <td><span>{{tr.val}}</span></td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </ng-scrollbar>
+                    </div>
+                    <div fxFlex class="card-base">
+                        <div *ngIf="!loading" style="float: left;position: relative;width: 100%;height: 100%;">
+                            <highcharts-chart style="width: 100%;height: 100%;min-height: 80px;position:absolute;"
+                                [Highcharts]="Highcharts" [options]="analista.graph2_opts">
+                                <!--style="width:100%;height: 100%;min-height: 200px;position:absolute;display: inline;"-->
+                            </highcharts-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div fxLayout="column" fxFlex>
+                <div fxFlex="47" style="padding: 10px 10px 0px 0px;" fxLayout="row" fxLayoutGap="10">
+                    <div fxFlex=50 class="card-base" fxLayout="column">
+                        <div *ngIf="!loading" fxLayoutAlign="end center">
+                            <div fxFlex="40">
+                                <mat-select class="stg-input" [(value)]="analista.hist_cods[0].cod"
+                                    (selectionChange)="changeG1($event)">
+                                    <ng-container *ngFor="let item of analista.hist_cods">
+                                        <mat-option [value]="item.cod">{{item.des}}</mat-option>
+                                    </ng-container>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div *ngIf="!loading && !loadingG1" fxFlex>
+                            <div style="float: left;position: relative;width: 100%;height: 100%;">
+                                <highcharts-chart style="width: 100%;height: 100%;min-height: 80px;position:absolute;"
+                                    [Highcharts]="Highcharts" [options]="analista.graph1_opts">
+                                    <!--style="width:100%;height: 100%;min-height: 200px;position:absolute;display: inline;"-->
+                                </highcharts-chart>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex class="card-base">
+                        <div *ngIf="!loading" style="float: left;position: relative;width: 100%;height: 100%;">
+                            <highcharts-chart style="width: 100%;height: 100%;min-height: 80px;position:absolute;"
+                                [Highcharts]="Highcharts" [options]="analista.graph3_opts">
+                                <!--style="width:100%;height: 100%;min-height: 200px;position:absolute;display: inline;"-->
+                            </highcharts-chart>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex style="padding: 10px 10px 10px 0px;">
+                    <div fxFlex class="card-base" fxLayout="column">
+                        <div fxLayoutAlign="center center">
+                            <span style="font-size: 12px;">Clientes</span>
+                        </div>
+                        <mat-tab-group style="height: 100%;" class="mat-tab-fill-height">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <span style="font-size: 10px;">Créditos</span>
+                                </ng-template>
+                                <ng-template matTabContent>
+                                    <div style="height: 100%;padding: 10px;">
+                                        <stg-table2 fxFlex [dataSource]="analista.tbl_01_ds"
+                                            [headers]="analista.tbl_01_h" [options]="analista.tbl_opts"
+                                            (onClickCell)="actionLink($event)">
+                                        </stg-table2>
+                                    </div>
+                                </ng-template>
+                            </mat-tab>
+                        </mat-tab-group>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div>
+</div>

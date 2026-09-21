@@ -1,0 +1,38 @@
+<div>
+    <ng-container *ngIf="activeHier">
+        <hier-rem-selector [confHier]="confHier" (onSelectHier)="selectHier($event)"></hier-rem-selector>
+    </ng-container>
+    <div>
+        <mat-form-field style="width: 150px;">
+            <mat-label>Producto</mat-label>
+            <mat-select [(value)]="currLvl">
+                <!---->
+                <mat-option idProp="A" *ngFor="let val of dataLvls" [value]="val" (onSelectionChange)="onSelectItem($event)">
+                    {{val.des_lvl}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div style="padding: 10px;">
+        <div class="stg-window">
+            
+            <!-- <mat-select class="combo" [formControlName]="reaccion.variable">
+                <mat-option *ngFor="let r of reaccion.data" [value]="r.id">{{r.desc}}
+                </mat-option> 
+            </mat-select> -->
+            <stg-window-bar [title]="mainTitle"></stg-window-bar> 
+            <div class="stg-panel">
+                <!-- [customCellStyler]="customStyler"-->
+                <stg-table [tableStyleConfig]="tableConf" [loadingStyleConfig]="loadingConf"
+                                        [headersDef]="headerDefs" [dataSource]="dataSource" [loadingObs]="loadingObs"
+                                        [customCellStyler]="customStyler">
+                                    </stg-table>
+                <ng-container *ngIf="showPaginator">
+                    <stg-paginator #paginator [totalLenght]="dataSourceLenght" [pageLenght]="pageSize"
+                        (onChangePage)="changePage($event)">
+                    </stg-paginator>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

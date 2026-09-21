@@ -1,0 +1,21 @@
+<div class="stg-window" style="width: 100%;min-height: 300px;">
+    <stg-window-bar title="Escoge Usuario"></stg-window-bar>
+    <mat-selection-list>
+        <mat-list-item *ngFor="let item of altData" style="min-height: 80px;" (mouseover)="item.hovered = true"
+            (mouseout)="item.hovered = false" [ngClass]="{'item-hovered': item.hovered, 'item-highlighted': selection.isSelected(item)}">
+            <div fxLayout="row" (click)="selectItem(item)" style="margin-top: 16px;">
+                <mat-icon mat-list-icon>folder</mat-icon>
+                <div fxLayout="column">
+                    <div>{{item.nombre_alt}}</div>
+                    <div style="font-size: 8px;"> {{item.cargo_alt}} </div>
+                </div>
+            </div>
+        </mat-list-item>
+    </mat-selection-list>
+</div>
+<div style="padding-top: 10px;" fxLayout="row" fxLayoutAlign.gt-sm="end center" fxLayoutAlign="center center"
+    fxLayoutGap="10px">
+    <!--cdkFocusInitial-->
+    <button mat-raised-button color="primary" [disabled]="selection.isEmpty()" (click)="actionPerformed()">Seleccionar</button>
+    <button mat-raised-button mat-dialog-close style="width: 105px;">Cerrar</button>
+</div>

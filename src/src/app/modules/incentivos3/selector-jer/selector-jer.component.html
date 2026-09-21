@@ -1,0 +1,24 @@
+<div class="stg-window" style="width:100%;height:100%" fxLayout="column">
+    <stg-window-bar title="Selecciona Nivel" [closable]="closable" (onClose)="close()"></stg-window-bar>
+    <div fxFlex style="padding: 25px;" fxLayout="column" fxLayoutGap="10px">
+        <div class="sp-box" fxLayoutAlign="center center" (click)="openAse()">
+            <span class="v">Asesores</span>
+        </div>
+        <ng-container *ngIf="lvl_hier>1">
+            <ng-container *ngFor="let item of btns;let idx = index">
+                <div *ngIf="idx+1<lvl_hier" class="sp-box" fxLayoutAlign="center center" (click)="openFromHier(item.tcl)">
+                    <span class="v">{{item.lbl}}</span>
+                </div>
+            </ng-container>
+        </ng-container>
+        <div *ngIf="lvl_hier==4" class="sp-box" fxLayoutAlign="center center" (click)="openFinan1()">
+            <span class="v">FC Individual</span>
+        </div>
+        <div *ngIf="lvl_hier==4" class="sp-box" fxLayoutAlign="center center" (click)="openFinan2()">
+            <span class="v">FC Grupal</span>
+        </div>
+        <div *ngIf="show_me" class="sp-box" fxLayoutAlign="center center" (click)="changeToMe()">
+            <span class="v">Mi Perfil</span>
+        </div>
+    </div>
+</div>

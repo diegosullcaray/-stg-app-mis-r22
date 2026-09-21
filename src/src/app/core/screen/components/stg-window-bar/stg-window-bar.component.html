@@ -1,0 +1,19 @@
+<div class="stg-window-bar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" [ngStyle]="titleStyle">
+    <div *ngIf="barIcon" fxLayoutAlign="start center" [ngStyle]="iconStyle" [innerHTML]=getIcon()></div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="getTitleAlign()" fxFlex>
+        <div>{{title}}</div>
+    </div>
+    <div *ngIf="navigable" fxLayoutAlign="start center" [ngStyle]="navStyle">
+        <button mat-button [disabled]="disableNavLeft" class="close-btn" (click)="navLeft()">
+            <span class="material-icons">{{navLeftIcon}}</span>
+        </button>
+        <button mat-button [disabled]="disableNavRight" class="close-btn" (click)="navRight()">
+            <span class="material-icons">{{navRightIcon}}</span>
+        </button>
+    </div>
+    <div *ngIf="closable" fxLayoutAlign="start center" [ngStyle]="closeStyle">
+        <button mat-button class="close-btn" (click)="close()">
+            <span class="material-icons">{{closeIcon}}</span>
+        </button>
+    </div>
+</div>

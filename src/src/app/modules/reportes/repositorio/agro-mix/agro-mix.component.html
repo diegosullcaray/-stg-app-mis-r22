@@ -1,0 +1,293 @@
+<div fxFill fxLayout="column" class="container">
+  <!-- Header -->
+  <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center" class="header-with-logo-external">
+    <header fxFlex class="dashboard-header">
+      <div fxLayout="column" class="header-top">
+        <div fxLayout="row" 
+             fxLayout.lt-md="column" 
+             fxLayoutAlign="space-between center"
+             fxLayoutAlign.lt-md="start start"
+             fxLayoutGap.lt-md="4px">
+          <div class="title-section">
+            <h1>Gestión Comercial - Portafolio Agrícola</h1>
+            <p>Información por cultivos</p>
+          </div>
+            <!-- <button class="date-selector">Agosto 2025</button>   -->
+          <div class="date-selector" fxLayout="row" fxLayoutAlign="start center">
+            <div fxLayoutGap="10">
+                <div class="custom-select-container" #dropdownContainer>
+                    <div class="date-trigger" [class.open]="isDropdownOpen" (click)="toggleDropdown($event)">
+                        <span class="select-icon">
+                            <i class="material-icons" style="color: white;">date_range</i>
+                        </span>
+                        <div class="select-content"> 
+                            <span class="select-value">{{ selector1?.label || 'Seleccionar' }}</span>
+                        </div>
+                        <span class="select-arrow">▼</span>
+                    </div>
+                    
+                    <div class="custom-select-dropdown" [class.open]="isDropdownOpen"> 
+                        <div class="select-options">
+                            <div class="select-option" 
+                                 *ngFor="let item of filter1"
+                                 [class.selected]="selector1?.val === item.val"
+                                 (click)="selectItem(item, $event)">
+                                <span class="select-icon">
+                                    <i class="material-icons">date_range</i>
+                                </span>
+                                <span class="option-text">{{item.label}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </header>
+    <!-- <img src="assets/images/fc/fc_color.png" alt="Logo de la empresa" class="external-logo"> -->
+  </div>
+
+  <!-- Vista Normal: Cards + Jerarquía + Tabla -->
+  <ng-container *ngIf="!showChart">
+    <!-- Summary Cards  style="flex-direction: row;box-sizing: border-box;display: flex;flex: 0 0 auto;height: 141px;margin-top: 10px;"-->
+    <section fxFlex="none" 
+             fxLayout="row" 
+             fxLayout.lt-lg="row wrap"
+             fxLayout.lt-md="column"
+             fxLayoutGap="10px" 
+             fxLayoutGap.lt-md="2px"
+             class="summary-cards" 
+            
+             >
+      
+      <!-- Card 1 -->
+      <div fxFlex="25" 
+           fxFlex.lt-lg="calc(50% - 16px)"
+           fxFlex.lt-md="100" 
+           fxLayout="column" 
+           class="card">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="card-header">
+          <p class="card-value">{{TsaldoCapital | number:'1.0-0'}}</p>
+          <span class="indicator"
+            [ngClass]="{ 
+              'positive': saldoCapitalDiff >= 0, 
+              'negative': saldoCapitalDiff < 0 
+            }">
+            <span class="arrow">{{ saldoCapitalDiff >= 0 ? '↑' : '↓' }}</span>
+        {{ saldoCapitalDiff | number:'1.0-0' }}
+          </span>
+          <!-- <span class="indicator negative">
+            <span class="arrow">↓</span>{{ TsaldoCapital - saldoCarteraMA | number:'1.0-0' }}
+          </span> -->
+        </div>
+        <p class="card-meta">Mes anterior: {{saldoCarteraMA | number:'1.0-0' }}</p>
+        <p class="card-label">Saldo Capital (miles PEN)</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div fxFlex="25" 
+           fxFlex.lt-lg="calc(50% - 16px)"
+           fxFlex.lt-md="100" 
+           fxLayout="column" 
+           class="card">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="card-header">
+          <p class="card-value">{{TsaldoVencido | number:'1.0-0'}}</p>
+          <span class="indicator"
+          [ngClass]="{ 
+            'positive': saldoVencidoDiff >= 0, 
+            'negative': saldoVencidoDiff < 0 
+          }">
+          <span class="arrow">{{ saldoVencidoDiff >= 0 ? '↑' : '↓' }}</span>
+      {{ saldoVencidoDiff | number:'1.0-0' }}
+        </span>
+          <!-- <span class="indicator negative">
+            <span class="arrow">↓</span> {{TsaldoVencido - saldoVencidoMA | number:'1.0-0'}}
+          </span> -->
+        </div>
+        <p class="card-meta">Mes anterior: {{ saldoVencidoMA | number:'1.0-0' }}</p>
+        <p class="card-label">Saldo Vencido (miles PEN)</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div fxFlex="25" 
+           fxFlex.lt-lg="calc(50% - 16px)"
+           fxFlex.lt-md="100" 
+           fxLayout="column" 
+           class="card">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="card-header">
+          <p class="card-value">{{TNumCliente | number:'1.0-0'}}</p>
+          <!-- <span class="indicator negative">
+            <span class="arrow">↓</span> {{ TNumCliente - numcliMA | number:'1.0-0'}}
+          </span> -->
+          <span class="indicator"
+          [ngClass]="{ 
+            'positive': numClienteDiff >= 0, 
+            'negative': numClienteDiff < 0 
+          }">
+          <span class="arrow">{{ numClienteDiff >= 0 ? '↑' : '↓' }}</span>
+      {{ numClienteDiff | number:'1.0-0' }}
+        </span>
+        </div>
+        <p class="card-meta">Mes anterior: {{numcliMA  | number:'1.0-0'}}</p>
+        <p class="card-label">Nro Clientes</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div fxFlex="25" 
+           fxFlex.lt-lg="calc(50% - 16px)"
+           fxFlex.lt-md="100" 
+           fxLayout="column" 
+           class="card">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="card-header">
+          <p class="card-value">{{Textension | number:'1.0-0'}}</p>
+          <!-- <span class="indicator negative">
+            <span class="arrow">↓</span>{{Textension - extMA | number:'1.0-0' }}
+          </span> -->
+          <span class="indicator"
+          [ngClass]="{ 
+            'positive': extensionDiff >= 0, 
+            'negative': extensionDiff < 0 
+          }">
+          <span class="arrow">{{ extensionDiff >= 0 ? '↑' : '↓' }}</span>
+      {{ extensionDiff | number:'1.0-0' }}
+        </span>
+        </div>
+        <p class="card-meta">Mes anterior: {{extMA | number:'1.0-0'}}</p>
+        <p class="card-label">Extensión</p>
+      </div>
+    </section>
+
+    <!-- Jerarquía y Tabla -->
+    <div fxFlex 
+         fxLayout="column" 
+         fxLayoutGap="2px" 
+         class="main" 
+         *ngIf="tip_cod !== 1">
+
+      <!-- Jerarquía (altura fija) -->
+      <div fxFlex="none" class="hier" fxLayout="row" fxLayoutAlign="center center">
+        <ng-scrollbar track="all" fxFlex>
+          <div fxFlex 
+               class="hier-cont" 
+               fxLayout="row" 
+               fxLayoutAlign="start center" 
+               fxLayoutGap="5px">
+            <ng-container *ngFor="let item of principal.hierBuffer; index as idx">
+              <div (click)="changeHier(item)"><span>{{item.des_rel}}</span></div>
+            </ng-container>
+          </div> 
+        </ng-scrollbar>
+      </div>
+
+      <!-- Tabla (toma el espacio restante) -->
+      <div fxFlex 
+           fxFlex.lt-md="400px"
+           class="table-container">
+        <stg-table2 [dataSource]="dataSource" 
+                    [headers]="headerDefs" 
+                    [options]="Opts"
+                    (onClickCell)="ddHier($event)">
+        </stg-table2>
+      </div>
+    </div>
+  </ng-container>
+  
+  <!-- Vista de Gráfico -->
+  <ng-container *ngIf="showChart">
+    <div fxFlex fxLayout="column" class="chart-view">
+      <div fxFlex="none" class="chart-header">
+        <button class="back-button" (click)="backToTable()">
+          <span class="back-icon">←</span> Volver
+        </button>
+        <h2 class="chart-title">{{selectedRow?.DESCRIPCION || 'Detalle por Cultivo - '}} {{nivel}}</h2>
+      </div>
+  
+      <div *ngIf="isChartReady" fxFlex fxLayout="column" fxLayoutGap="20px" class="charts-grid">
+        
+        <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" class="charts-row">
+          
+          <div fxFlex="50" fxFlex.lt-md="100" class="chart-item">
+            <h3 class="chart-item-title">Distribución Saldo por Cultivo</h3>
+            <div class="chart-container">
+              <highcharts-chart 
+                [Highcharts]="Highcharts"
+                [options]="saldoPorCultivoOptions">
+              </highcharts-chart>
+            </div>
+          </div>
+  
+          <div fxFlex="50" fxFlex.lt-md="100" class="chart-item">
+            <h3 class="chart-item-title">Distribución Saldo Vencido por Cultivo</h3>
+            <div class="chart-container">
+              <highcharts-chart 
+                [Highcharts]="Highcharts"
+                [options]="saldoVencidoPorCultivoOptions">
+              </highcharts-chart> 
+            </div>
+          </div>
+        </div>
+  
+        <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" class="charts-row">
+          
+          <div fxFlex="50" fxFlex.lt-md="100" class="chart-item">
+            <h3 class="chart-item-title">Distribución de Clientes por Cultivo</h3>
+            <div class="chart-container">
+              <highcharts-chart 
+                [Highcharts]="Highcharts"
+                [options]="clientesPorCultivoOptions">
+              </highcharts-chart>
+            </div>
+          </div>
+  
+          <div fxFlex="50" fxFlex.lt-md="100" class="chart-item">
+            <h3 class="chart-item-title">Resumen General</h3>
+            <div class="chart-container">
+              <highcharts-chart 
+                [Highcharts]="Highcharts"
+                [options]="resumenGeneralOptions">
+              </highcharts-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </ng-container>
+  <!-- <div *ngIf="showModal" class="modal-overlay">
+    <div #popupContainer fxLayout="column"  class="elegant-animate stg-window">
+      <stg-window-bar 
+      title="Detalle Producto" 
+      barIcon="info" 
+      titleAlign="start" 
+      closable="true" 
+      (onClose)="closeModal()"
+      >
+    </stg-window-bar>
+    <div class="popup-body" fxLayout="column" fxFlex>
+      <div class="popup-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+        <span class="label">Producto:</span>
+        <span class="value">{{ modalTitle }}</span>
+      </div>
+      <div class="table-wrapper" fxFlex>
+        <stg-table2 
+          fxFlex 
+          [dataSource]="modalData" 
+          [headers]="headerDefsModal" 
+          [options]="Opts">
+        </stg-table2>
+      </div>
+      <div class="paginator-wrapper" *ngIf="showPaginator">
+        <stg-paginator 
+          #paginator 
+          [totalLenght]="dataSource3Length" 
+          pageLenght="10"
+          (onChangePage)="eventChangePage($event)">
+        </stg-paginator>
+      </div>
+    </div>
+    </div>
+    
+  </div> -->
+ 
+</div>

@@ -1,0 +1,339 @@
+<div fxFill fxLayout="column" class="container" style="overflow-y: auto;">
+  
+  <div class="header-top" 
+  fxLayout="row" 
+  fxLayout.lt-md="column" 
+  fxLayoutAlign="space-between center" 
+  fxLayoutAlign.lt-md="start stretch"
+  fxLayoutGap="15px"
+  fxLayoutGap.lt-md="10px">
+  
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+ <div class="header-title">Avance Comercial</div>
+ <div class="header-subtitle">Banca Individual</div>
+</div>
+
+<stg-window-bar-m
+ [items]="filter1"
+ [title]="'PERIODO'"
+ [showTitle]="false"
+ [icon]="'date_range'"
+ [placeholder]="'Seleccionar fecha'"
+ [(ngModel)]="selector1"
+ (selectionChange)="onFechaChange($event)">
+</stg-window-bar-m>
+</div>
+
+  <div class="kpi-card" fxFlex="none">
+    
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px" fxLayoutGap.lt-md="10px">
+      <div fxFlex="25" class="kpi-item">
+        <div class="kpi-label">PRODUCTIVIDAD</div>
+        <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+          <span class="kpi-value">{{ kpi_prod_ind | number:'1.2-2' }}</span>
+          <div class="kpi-subtext">
+            <div>TMM <span [ngClass]="{'text-green': kpi_tmm_prod >= 0, 'text-red': kpi_tmm_prod < 0}">{{ kpi_tmm_prod | number:'1.2-2' }}</span></div>
+            <div>%Cumpl. <span  [ngClass]="obtenerClaseColor(kpi_perc_cumpl)">{{ kpi_perc_cumpl | number:'1.0-0' }}%</span></div>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div >{{ kpi_perc_avance | number:'1.1-1' }}%</div>
+          <div class="progress-track"><div class="progress-fill" [style.width.%]="kpi_perc_avance"></div></div>
+          <div class="progress-footer"><span>{{ meta_productividad | number:'1.1-1' }}</span></div>
+        </div>
+      </div>
+      <div fxFlex="25" class="kpi-item">
+        <div class="kpi-label">TICKET PROM.</div>
+        <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+          <span class="kpi-value">{{ (kpi_tick_prom / 1000) | number:'1.2-2' }} <span class="unit">mil</span></span>
+          <div class="kpi-subtext">
+            <div>TMM</div>
+            <div [ngClass]="kpi_tmm_tick >= 0 ? 'text-green' : 'text-red'">{{ kpi_tmm_tick | number:'1.2-2' }}</div>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div >{{ kpi_perc_ticket | number:'1.1-2' }}%</div>
+          <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="kpi_perc_ticket"></div>
+          </div>
+          <div class="progress-footer"><span>{{ (meta_ticket / 1000) | number:'1.2-2'}}</span></div>
+        </div>
+      </div>
+      <div fxFlex="25" class="kpi-item">
+        <div class="kpi-label">DESEMBOLSOS</div>
+        <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+          <span class="kpi-value">{{ (kpi_mont_dese / 1000000) | number:'1.1-2' }}<span class="unit">M</span></span>
+          <div class="kpi-subtext">
+            <div>TMM <span [ngClass]="kpi_tmm_desemb >= 0 ? 'text-green' : 'text-red'">{{ (kpi_tmm_desemb / 1000000) | number:'1.1-2' }} M</span></div>
+            <div>%Cumpl. <span    [ngClass]="obtenerClaseColor(cumpldesembolsometadi)" >{{(cumpldesembolsometadi * 100) | number:'1.1-2' }}%</span></div>
+          
+          </div>
+        </div>
+        <div class="progress-container">
+          <div >{{ kpi_perc_montode | number:'1.1-2' }}%</div>
+          <div class="progress-track"><div class="progress-fill" [style.width.%]="kpi_perc_montode"></div></div>
+          <div class="progress-footer"><span>{{ (meta_desem / 1000000) | number:'1.2-2'}}</span></div>
+        </div>
+      </div>
+      <div fxFlex="25" class="kpi-item">
+        <div class="kpi-label">CANCELACIÓN VIG.</div>
+        <div fxLayout="row" fxLayoutAlign="start baseline">
+          <span class="kpi-value">{{ (kpi_resultado_operativo / 1000) | number:'1.0-1' }} <span class="unit"></span></span>
+        </div>
+        <div class="progress-container">
+          <div >{{ kpi_percent_cancelado  | number:'1.1-2'}}%</div>
+          <div class="progress-track"><div class="progress-fill" [style.width.%]="kpi_percent_cancelado"></div></div>
+          <div class="progress-footer"><span>{{ (meta_cancela / 1000000) | number:'1.2-2'}}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashed-divider"></div>
+
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px" fxLayoutGap.lt-md="15px">
+      <div fxFlex="25" class="complex-item">
+        <div class="kpi-label">CARTERA VIGENTE</div>
+        <div class="kpi-value compact">{{ (kpi_cart_vig / 1000000) | number:'1.1-3' }}</div>
+        <div class="solid-divider"></div>
+        <div fxLayout="row" fxLayoutAlign="space-between start">
+          <div class="mini-stat">
+            <span>META</span><strong style="font-size: 15px;">{{ (metadiariacarteravigente / 1000000) | number:'1.1-2'  }}</strong>
+          </div>
+          <div class="mini-stat">
+            <span>VAR.</span><strong class="text-red" style="font-size: 15px;">{{ (kpi_var_cart_vig / 1000000) | number:'1.1-2' }}</strong>
+          </div>
+          <div class="mini-stat">
+            <span>DIST.</span><strong class="text-red" style="font-size: 15px;">{{ (distdiariacartvig / 1000000) | number:'1.1-2'  }}</strong>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="25" class="complex-item">
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start baseline">
+          <div>
+            <div class="kpi-label">RODAMIENTO</div>
+            <div class="kpi-value compact">{{ (kpi_rodamiento / 1000) | number:'1.0-1' }} </div>
+          </div>
+          <div class="mini-stat">
+            <span></span><span [ngClass]="tmm_rodamiento >= 0 ? 'text-green' : 'text-red'">TMM {{(tmm_rodamiento / 1000) | number:'1.0-1' }}</span>
+          </div>  
+        </div>
+        <div class="solid-divider"></div>
+        <div fxLayout="row">
+          <div fxFlex="50" class="split-col border-right">
+            <div class="kpi-label-xs">NO VIGENTE</div>
+            <div class="val-medium">{{ (kpi_sal_no_vig / 1000)| number:'1.0-1' }} </div>
+           <div [ngClass]="tmm_TMMHSALNOVIG >= 0 ? 'text-green' : 'text-red'" class="mini-text">TMM {{ (tmm_TMMHSALNOVIG / 1000)| number:'1.0-1'}}</div>  
+          </div>
+          <div fxFlex="50" class="split-col padding-left">
+            <div class="kpi-label-xs">VIGENTE</div>
+            <div class="val-medium">{{ (kpi_sal_vig / 1000)| number:'1.0-0' }} </div>
+          <div [ngClass]="tmm_TMMSALVIGE >= 0 ? 'text-green' : 'text-red'" class="mini-text"> TMM {{ (tmm_TMMSALVIGE / 1000)| number:'1.0-0' }}  </div>  
+          </div>
+        </div>
+      </div>
+      <div fxFlex="25" class="kpi-item"> 
+        <div class="kpi-label">STOCK CLIENTES</div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="kpi-value compact">{{ (kpi_cli_stock / 1000) | number:'1.1-3' }}<span class="unit"></span></span>
+          <div class="mini-stat align-right">
+            <span>VAR.</span><strong>{{ (kpi_tmm_cli_stock) | number:'1.1-2' }}</strong><span class="text-red">{{kpi_perc_cli_stock | number:'1.1-2'}}</span>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-track"><div class="progress-fill" [style.width.%]="kpi_perc_cli_stock"></div></div>
+          <div class="progress-footer"><span>{{ (meta_varstockclie / 1000) | number:'1.1-2' }}</span></div>
+        </div>
+      </div>
+      <div fxFlex="25" class="kpi-item">
+        <div class="kpi-label">CLIENTES NUEVOS</div>
+        <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="6px">
+          <span class="kpi-value compact">{{ (kpi_cli_nuevos) | number:'1.0-0' }}<span class="unit"></span></span>
+          <div class="kpi-subtext">
+            <div>TMM <span [ngClass]="kpi_tmm_cli_nuevos >= 0 ? 'text-green' : 'text-red'">{{ kpi_tmm_cli_nuevos | number:'1.0-0' }}</span></div>
+            <div>%Cumpl. <span    [ngClass]="obtenerClaseColor(kpi_perce_cump_clinuevo)" >{{ kpi_perce_cump_clinuevo | number:'1.0-0' }}%</span></div>  
+          </div>
+        </div>
+          <div class="progress-container">
+            <div >{{ kpi_perc_clinuev  | number:'1.1-2' }}%</div>
+          <div class="progress-track"><div class="progress-fill" [style.width.%]="kpi_perc_clinuev"></div></div>
+          <div class="progress-footer"><span>{{ (meta_clinuevo / 1000) | number:'1.1-2' }}</span></div>
+        </div>
+        </div>
+    </div>
+  </div>
+
+  <ng-container>
+    <div fxFlex="none" fxLayout="column" fxLayoutGap="0px" class="main" *ngIf="tip_cod !== 1" style="min-height: auto; padding-left: 15px;">
+
+      <div fxFlex="none" class="hier" fxLayout="row" fxLayoutAlign="center center">
+        <ng-scrollbar track="all" fxFlex>
+          <div fxFlex class="hier-cont" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+            <ng-container *ngFor="let item of principal.hierBuffer; index as idx">
+              <div (click)="changeHier(item)"><span>{{item.des_rel}}</span></div>
+            </ng-container>
+          </div> 
+          <div class="separacion"></div>
+          <div class="tabs-scroll-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+            <div class="tab-link" [class.active]="activeTab === 'prod'" (click)="setTab('prod')">
+                Saldo Cartera
+            </div>
+            <div class="tab-link" [class.active]="activeTab === 'calidad'" (click)="setTab('calidad')">
+                Clientes
+            </div>
+          </div>
+        </ng-scrollbar>
+      </div>
+        
+      <div fxFlex="none" class="table-container" style="height: 350px;">
+        <stg-table4 *ngIf="activeTab === 'prod'"
+                    [dataSource]="dataSource" 
+                    [headers]="headerDefs" 
+                    [options]="Opts"
+                    [enableSort]="1"
+                    (onClickCell)="ddHier($event)">
+        </stg-table4>
+
+        <stg-table4 *ngIf="activeTab === 'riesgos'"
+                    [dataSource]="dataSource2" 
+                    [headers]="headerDefs2" 
+                    [options]="Opts2"
+                    [enableSort]="1"
+                    (onClickCell)="ddHier($event)">
+        </stg-table4>
+
+        <stg-table4 *ngIf="activeTab === 'calidad'"
+                    [dataSource]="dataSource3" 
+                    [headers]="headerDefs3" 
+                    [options]="Opts"
+                    [enableSort]="1"
+                    (onClickCell)="ddHier($event)">
+        </stg-table4>
+      </div>
+    </div>
+  </ng-container>
+   
+  <div fxFlex="none" *ngIf="isResumenReady" style="margin: 20px 15px 15px 15px; border-bottom: 2px solid #E5E7EB; padding-bottom: 8px;">
+    <h2 style="margin: 0; font-size: 18px; color: #004B8D; font-weight: 600; font-family: 'Roboto', sans-serif;">
+      📊 Análisis Gráfico
+    </h2>
+    <p style="margin: 4px 0 0 0; font-size: 13px; color: #757575;">
+      Visualización de métricas y tendencias del periodo actual.
+    </p>
+  </div>
+
+  <div fxFlex="none" class="chart-block" *ngIf="isResumenReady">
+    
+    <div class="chart-header" *ngIf="selectedRow" style="margin-bottom: 20px;">
+      <button class="back-button" (click)="backToTable()">
+        <span class="back-icon">←</span> Volver a General
+      </button>
+      <h2 class="chart-title">Viendo detalle de: {{nivel}}</h2>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="40px" class="charts-wrapper-column">
+      
+      <div class="chart-section">
+        <h3 class="chart-section-title">Desembolsos Diarios</h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts" 
+            [options]="resumenGeneralOptions"
+            [(update)]="updateFlagResumen">
+          </highcharts-chart>
+        </div>
+      </div>
+      <div class="chart-section" *ngIf="isVariacionReadyT">
+        <h3 class="chart-section-title">Variación Stock Clientes</h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="variacionStockOptionsT"
+            [(update)]="updateFlagVariacionT">
+          </highcharts-chart>
+        </div>
+      </div>
+      <div class="chart-section" *ngIf="isIngresosSalidasReadyt">
+        <h3 class="chart-section-title">Ingresos y Salidas</h3>
+        <div class="chart-wrapper"> 
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="ingresosSalidasOptionst"
+            [(update)]="updateFlagIngresosSalidast">
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <div class="chart-section" *ngIf="isSaldoReady">
+        <h3 class="chart-section-title">Saldo Cartera Vigente</h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="saldoCarteraOptions"
+            [(update)]="updateFlagSaldo">
+          </highcharts-chart>
+        </div>
+      </div>
+      <div fxFlex="none" class="table-container" style="height: 350px;">
+        <h3  style="padding-top: 10px;" class="chart-section-title">Var Saldo Cartera Vigente</h3>
+        <stg-table2  
+                    [dataSource]="dataSource4" 
+                    [headers]="headerDefs4" 
+                    [options]="Opts4"
+                    [enableSort]="1"
+                    (onClickCell)="ddHier($event)">
+        </stg-table2>
+      </div>
+
+
+      <!-- <div class="chart-section" *ngIf="isVariacionReady">
+        <h3 class="chart-section-title">Variación Stock Clientes</h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="variacionStockOptions"
+            [(update)]="updateFlagVariacion">
+          </highcharts-chart>
+        </div>
+      </div> -->
+
+      <div class="chart-section" *ngIf="isVariacionReadyCli">
+        <h3 class="chart-section-title">Variación Cliente Stock</h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="variacionCliStockOptions"
+            [(update)]="updateFlagCliVariacion"
+            style="width: 100%; height: 400px; display: block;"> </highcharts-chart>
+        </div>
+      </div>
+
+      <div class="chart-section" *ngIf="isIngresosSalidasReady">
+        <h3 class="chart-section-title">Ingresos y Salidas</h3>
+        <div class="chart-wrapper">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="ingresosSalidasOptions"
+            [(update)]="updateFlagIngresosSalidas">
+          </highcharts-chart>
+        </div>
+      </div>
+      <div fxFlex="none" class="table-container" style="height: 350px;">
+        <h3  style="padding-top: 10px;" class="chart-section-title">Var Clientes Stock</h3>
+        <stg-table2  
+                    [dataSource]="dataSource5" 
+                    [headers]="headerDefs5" 
+                    [options]="Opts4"
+                    [enableSort]="1"
+                    (onClickCell)="ddHier($event)">
+        </stg-table2>
+      </div>
+
+     
+
+      
+    
+
+    </div>
+  </div>
+
+</div>

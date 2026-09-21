@@ -1,0 +1,26 @@
+
+<mat-card class="mat-elevation-z m-033">
+    <h3 class="title-module" *ngIf="isSectorista">{{profile.nombre}}</h3>
+    <div >
+            <!-- ; else !('isSectorista' || 'isAdministrador') -->
+    <mat-form-field 
+         *ngIf="tipusuario"
+        class="example-full-width" 
+        style="width: 100%;">
+        <input #stateInput type="text" [placeholder]="data?.placeholder" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <button *ngIf="myControl.value!=null && myControl.value!=''" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clear()" type="button">
+            <mat-icon class="clear-icon">clear</mat-icon>
+        </button>
+        <mat-autocomplete #auto="matAutocomplete">
+        <mat-option (onSelectionChange)="stateInput.value !=undefined && onRefresh($event,option)"
+            *ngFor="let option of filtered | async" [value]="option.name">
+            {{option.name}}
+        </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>
+
+
+</mat-card>
+<!--<button (click)='render()'>render</button>-->
+    

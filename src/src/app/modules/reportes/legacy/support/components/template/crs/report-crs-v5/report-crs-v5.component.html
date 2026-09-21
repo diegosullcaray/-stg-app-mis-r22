@@ -1,0 +1,41 @@
+<h2 class="title-module">{{title_module}}</h2>
+<app-auto-complete-sec (refresh)="load($event)"></app-auto-complete-sec>
+<app-select-multiple [config_select_multiple]='config_select_multiple' (refresh)="loadFilter($event)"></app-select-multiple>
+<mat-tab-group>
+    <mat-tab label="Cascada">
+        <!-- <app-table-multiheader *ngFor='let c of configT;let i=index'[config_table]='config_table[i]'></app-table-multiheader> -->
+          <app-table-multiheader  [config_table]='config_table[0]'></app-table-multiheader> 
+          <app-table-multiheader  [config_table]='config_table[1]'></app-table-multiheader>
+       </mat-tab>
+<mat-tab label="Válidos"> <br>
+    <p>
+        (1)Coordenadas distintas por día (se aceptan hasta  4 decimales iguales) <br>
+        (2)Puntos geolocalizados en distintos a domingos y feriados<br>
+        (3)Puntos geolocalizados en  días distintos de vacaciones ó licencias<br>
+        (4)Conversión de puntos a desplazamientos<br>
+        (5)Puntos dentro de la zona de influencia del asesor<br>
+        (6)Desplazamientos diarios  no totalizan como mínimo 400mts
+        
+        <app-table-multiheader  [config_table]='config_table[2]'></app-table-multiheader>
+
+    </p>
+    <!-- <app-table-multiheader  [config_table]='config_table[1]'></app-table-multiheader>
+   <app-table-multiheader  [config_table]='config_table[2]'></app-table-multiheader> 
+    <app-table-multiheader  [config_table]='config_table[3]'></app-table-multiheader> 
+    <app-table-multiheader  [config_table]='config_table[4]'></app-table-multiheader>  -->
+</mat-tab>
+<mat-tab label="Depurados"> <br>
+    <p>
+        (1)Coordenadas distintas por día (se aceptan hasta  4 decimales iguales) <br>
+        (2)Puntos geolocalizados en distintos a domingos y feriados<br>
+        (3)Puntos geolocalizados en  días distintos de vacaciones ó licencias<br>
+        (4)Conversión de puntos a desplazamientos<br>
+        (5)Puntos dentro de la zona de influencia del asesor<br>
+        (6)Desplazamientos diarios  no totalizan como mínimo 400mts
+        
+        <app-table-multiheader  [config_table]='config_table[3]'></app-table-multiheader>
+
+    </p>
+</mat-tab>
+</mat-tab-group>
+<!-- <app-table-multiheader *ngFor='let c of config;let i=index'[config_table]='config_table[i]'></app-table-multiheader> -->

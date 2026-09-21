@@ -1,0 +1,29 @@
+@import "/src/assets/styles/scss/colors";
+
+.punt-comp{
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-color: $blue-base;
+    box-shadow: 0 8px 12px rgb(47 60 74 / 27%), 0 2px 6px rgb(47 60 74 / 27%) !important;
+    margin-right: 0.75rem;
+}
+
+.punt-cab{
+    background-color: #42A5F5;
+    color: white;
+    font-size: 12px;
+    //min-width: 48px;
+    padding: 3px 3px 0px 3px;
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    border-color: $blue-base;
+}
+
+.punt-item{
+    color: $blue-base;
+    font-size: 12px;
+    padding: 3px;
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    border-color: $blue-base;
+}
