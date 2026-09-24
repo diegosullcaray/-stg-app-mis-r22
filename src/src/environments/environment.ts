@@ -23,7 +23,7 @@ export const environment = {
   //devUser: 'flor.garcia@confianza.pe' // asesor
   
   //devUser: 'oscar.sanchez@confianza.pe'
-  devUser: 'pierro.flores@confianza.pe'
+  devUser: 'moises.saire@confianza.pe'
  // devUser: 'hermes.chuquillanqui@confianza.pe'
 };
 

@@ -15,16 +15,17 @@ export const environment = {
    redirectUri:'http://localhost:4200/login',
  //redirectUri:'https://stg.confianza.pe/login',
   
-   requestConfigRootURL:'https://stg.confianza.pe/cores2/ant',
- //requestConfigRootURL:'http://localhost:8080/ant',
+//requestConfigRootURL:'https://stg.confianza.pe/cores2/ant',
+ requestConfigRootURL:'http://localhost:8080/ant',
   
   //devUser:  'nilda.quilla@confianza.pe' // comercial
   //devUser:  'giomara.acevedo@confianza.pe' //operaciones  157
   //devUser: 'flor.garcia@confianza.pe' // asesor
   
-  //devUser: 'oscar.sanchez@confianza.pe'
   devUser: 'pierro.flores@confianza.pe'
+  //devUser: 'roy.caso@confianza.pe'
  // devUser: 'hermes.chuquillanqui@confianza.pe'
+ //**************** */
 };
 
 /*

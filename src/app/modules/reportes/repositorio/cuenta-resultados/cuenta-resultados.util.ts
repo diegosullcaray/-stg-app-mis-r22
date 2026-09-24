@@ -106,7 +106,7 @@ function accountCellStyle(params: any): any {
         'background': row && row.style === 3 ? '#0b5f9d' : row && row.style === 2 ? '#f5f9fc' : '#ffffff',
         'color': row && row.style === 3 ? '#ffffff' : '#40566a',
         'font-weight': row && row.style > 1 ? '800' : '600',
-        'padding-left': row && row.style === 1 ? '28px' : '12px',
+        'padding-left': row && row.style === 1 ? '30px' : row.style === 4 ? '50px' : row.style === 5 ? '90px' : '12px',
         'text-align': 'left'
     };
 }
