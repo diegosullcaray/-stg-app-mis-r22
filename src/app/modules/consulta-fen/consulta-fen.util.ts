@@ -23,7 +23,6 @@ export const FEN_REPORT_CODE = 'CON_AGRO_FEN';
 export const FEN_MATRIX_DATE = '12 set. 2026';
 export const FEN_HIGH_RISK_MESSAGE = 'Zona de Alto Riesgo CENEPRED: Ofrecer Seguro Agrícola / Multirriesgo.';
 
-const riskLevels: RiskLevel[] = ['Muy Alto', 'Alto', 'Medio', 'Bajo', 'Muy Bajo'];
 const riskColors: { [level in RiskLevel]: string } = {
   'Muy Alto': '#dc2626',
   'Alto': '#ea580c',
@@ -148,10 +147,11 @@ export function isFenRiskRow(value: any): value is FenRiskRow {
     && typeof value.des_dep === 'string'
     && typeof value.des_prov === 'string'
     && typeof value.des_dist === 'string'
-    && riskLevels.indexOf(value.exp_mas) !== -1
-    && riskLevels.indexOf(value.exp_inu) !== -1
-    && riskLevels.indexOf(value.exp_seq) !== -1
-    && riskLevels.indexOf(value.exp_pre) !== -1;
+    // Un nivel fuera de la lista (p. ej. 'Nan' de la carga) se muestra tal cual, sin rechazar toda la respuesta.
+    && typeof value.exp_mas === 'string'
+    && typeof value.exp_inu === 'string'
+    && typeof value.exp_seq === 'string'
+    && typeof value.exp_pre === 'string';
 }
 
 export function isHighRisk(value: RiskLevel): boolean {
