@@ -16,6 +16,7 @@ Falta: `git add` y `git commit` de estos dos archivos, y `git push`. Hay otros c
 
 ## 2. Base de datos (lo ejecuta quien tenga permiso)
 
+Backup, carga del CSV nuevo y reemplazo de la tabla: [carga-y-backup.md](./carga-y-backup.md).
 Orden: cada script está en la carpeta `0004` de DICCIONARIO.
 
 - [ ] Confirmar que la fecha de la carga vigente de la matriz es `2026-09-12` (si no, editar el `UPDATE` de `03`).
