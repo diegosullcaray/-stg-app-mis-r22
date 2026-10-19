@@ -6,7 +6,7 @@ import { Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, finalize, switchMap } from 'rxjs/operators';
 import {
   FEN_HIGH_RISK_MESSAGE,
-  FEN_MATRIX_DATE,
+  fenFormatDate,
   FEN_REPORT_CODE,
   FenDisplayRow,
   fenBuildDisplayRow,
@@ -28,7 +28,7 @@ export class ConsultaFenComponent implements OnInit, OnDestroy {
   readonly title = 'Consulta FEN - CENEPRED';
   readonly tableOptions = fenTableOptions;
   tableHeaders: any[] = fenTableHeaders;
-  readonly matrixUpdatedAt = FEN_MATRIX_DATE;
+  matrixUpdatedAt = '';
   readonly highRiskMessage = FEN_HIGH_RISK_MESSAGE;
 
   readonly filterOptions = [
@@ -185,6 +185,7 @@ export class ConsultaFenComponent implements OnInit, OnDestroy {
           this.activeFilterType = column;
           this.rows = data.map(fenBuildDisplayRow);
           if (!this.rows.length) { this.state = 'empty'; return; }
+          this.matrixUpdatedAt = fenFormatDate(data[0].fec_act) || this.matrixUpdatedAt;
           this.state = 'data';
           this.changePage({ page: 1 });
           this.resetPaginator();

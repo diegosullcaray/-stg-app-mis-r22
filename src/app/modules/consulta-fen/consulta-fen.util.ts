@@ -11,6 +11,8 @@ export interface FenRiskRow {
   exp_inu: RiskLevel;
   exp_seq: RiskLevel;
   exp_pre: RiskLevel;
+  /** Fecha de actualización de la matriz (`HFECACT`); ausente hasta activar MOD-0004. */
+  fec_act?: string;
 }
 
 /** Extiende el contrato backend con `obs`, campo derivado de KPIs en frontend. */
@@ -20,7 +22,13 @@ export interface FenDisplayRow extends FenRiskRow {
 }
 
 export const FEN_REPORT_CODE = 'CON_AGRO_FEN';
-export const FEN_MATRIX_DATE = '12 set. 2026';
+const monthAbbr = ['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'set.', 'oct.', 'nov.', 'dic.'];
+
+/** `2026-09-12` (o con hora) → `12 set. 2026`; vacío si el SP aún no entrega `fec_act`. */
+export function fenFormatDate(value: any): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(typeof value === 'string' ? value : '');
+  return m && monthAbbr[+m[2] - 1] ? `${+m[3]} ${monthAbbr[+m[2] - 1]} ${m[1]}` : '';
+}
 export const FEN_HIGH_RISK_MESSAGE = 'Zona de Alto Riesgo CENEPRED: Ofrecer Seguro Agrícola / Multirriesgo.';
 
 const riskColors: { [level in RiskLevel]: string } = {
