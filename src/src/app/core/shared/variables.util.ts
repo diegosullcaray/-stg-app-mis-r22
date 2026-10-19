@@ -1,1 +1,0 @@
-export const COLOR_BACKGROUND_1 = '#015699';

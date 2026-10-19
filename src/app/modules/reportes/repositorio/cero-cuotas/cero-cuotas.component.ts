@@ -524,15 +524,43 @@ export class CeroCuotasComponent implements OnInit {
           if (!jsonString) { resolve(); return; }
           const chartData = typeof jsonString === 'string' ? JSON.parse(jsonString) : jsonString;
 
-          const misCategorias = (chartData.categories && chartData.categories.length > 0) 
+          /*const misCategorias = (chartData.categories && chartData.categories.length > 0) 
+            ? chartData.categories 
+            : [];*/
+          // 1. Extraer categorías originales y validar datos
+          const misCategorias: string[] = (chartData.categories && chartData.categories.length > 0) 
             ? chartData.categories 
             : [];
+          const rawSeries: any[] = chartData.series || [];
+          // 2. Calcular los totales acumulados por cada categoría
+          const categoriaTotales = misCategorias.map((cat, index) => {
+            const total = rawSeries.reduce((sum, serie) => {
+              const val = serie.data && serie.data[index] ? Number(serie.data[index]) : 0;
+              return sum + val;
+            }, 0);
+            return { index, total, category: cat };
+          });
 
-          const procesedSeries = (chartData.series || []).map((s: any) => ({
+          // 3. Ordenar de MAYOR a MENOR por el total
+          categoriaTotales.sort((a, b) => b.total - a.total);
+
+          // Nota: Si Highcharts invierte el orden visual en el eje vertical (el mayor abajo),
+          // utiliza: categoriaTotales.sort((a, b) => a.total - b.total);
+
+          // 4. Reestructurar las categorías y los datos de cada serie con el nuevo orden
+          const categoriasOrdenadas = categoriaTotales.map(item => item.category);
+
+          const procesedSeries = rawSeries.map((s: any) => ({
             ...s,
-            type: 'bar'
+            type: 'bar',
+            data: categoriaTotales.map(item => s.data[item.index])
           }));
 
+          /*const procesedSeries = (chartData.series || []).map((s: any) => ({
+            ...s,
+            type: 'bar'
+          }));*/
+          
           // Guardamos referencia al componente para usar drillDownFromChart dentro de Highcharts
           const self = this;
 
@@ -548,7 +576,8 @@ export class CeroCuotasComponent implements OnInit {
               style: { fontWeight: 'bold', fontSize: '14px', color: '#000000' }
             },
             xAxis: {
-              categories: misCategorias,
+              //categories: misCategorias,
+              categories: categoriasOrdenadas, // <--- Usar las categorías reordenadas
               labels: { style: { fontSize: '11px', color: '#000000', fontWeight: 'bold' } },
               lineWidth: 1,
               lineColor: '#666666'
